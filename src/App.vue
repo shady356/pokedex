@@ -1,17 +1,18 @@
 <template>
   <div id="app" class="grid">
+    <Header class="header-layout"/>
     <transition name="opacity" mode="out-in">
       <router-view class="main-layout"/>
     </transition>
-    <!-- <navigation class="navigation-layout"/> -->
   </div>
 </template>
 
 <script>
+import Header from '@/components/layout/Header.vue'
 export default {
   name: 'App',
   components: {
-
+    Header
   }
 }
 </script>
@@ -22,12 +23,15 @@ export default {
   padding: 0;
 }
 body {
-  background: $blue;
+  background: hsl(286, 40%, 76%); 
+  background-image: linear-gradient(150deg, hsl(300, 40%, 87%) 0%, hsl(286, 40%, 76%) 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100%;
 }
 
 #app {
   font-family: 'Roboto', sans-serif;
-  color: #eee;
 }
 
 .disable-scroll {
@@ -42,20 +46,18 @@ ul li {
 .grid {
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 1fr 8vh;
+  grid-template-rows: $xxxl 1fr;
 }
 
-.main-layout {
+.header-layout {
+  position: sticky;
+  bottom: 0;
   grid-row-start: 1;
   grid-row-end: 1;
 }
-.navigation-layout {
-  position: sticky;
-  bottom: 0;
+.main-layout {
   grid-row-start: 2;
   grid-row-end: 2;
-  align-items: center;
-  align-self: end;
 }
 
 </style>

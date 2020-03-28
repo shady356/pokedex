@@ -1,32 +1,49 @@
+$font-xs:     0.5rem;   // 8px
+$font-s:      0.75rem;  // 12px
+$font-m:      1rem;     // 16px
+$font-l:      1.125rem; // 18px
+$font-xl:     1.25rem;  // 20px
+$font-xxl:    1.5rem;   // 24px
+$font-xxxl:   1.75rem;  // 28px
+$font-xxxxl:  2rem;     // 32px
+
+body {
+  color: #444;
+}
+
 h1 {
-  font-size: 2rem;
+  font-size: $font-xxxxl;
   font-weight: 700;
   line-height: 2.25rem;
 }
 h2 {
-  font-size: 1.75rem;
+  font-size: $font-xxxl;
   font-weight: 700;
   line-height: 2rem;
 }
 h3 {
-  font-size: 1.5rem;
+  font-size: $font-xxl;
   font-weight: 700;
   line-height: 1.75rem;
 }
 h4 {
-  font-size: 1.3rem;
+  font-size: $font-xl;
   font-weight: 700;
   line-height: 1.5rem;
 }
 h5 {
-  font-size: 1.25rem;
-  font-weight: 400;
+  font-size: $font-l;
+  font-weight: 700;
   line-height: 1.3rem;
 }
 h6 {
-  font-size: 1.15rem;
-  font-weight: 400;
+  font-size: $font-m;
+  font-weight: 700;
   line-height: 1.25rem;
+}
+
+.condensed {
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 .letter-spacing {
@@ -34,6 +51,9 @@ h6 {
 }
 .uppercase {
   text-transform: uppercase;
+}
+.capitalize{
+  text-transform: capitalize;
 }
 .small-caps {
   font-variant: small-caps;
@@ -43,13 +63,4 @@ h6 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.light {
-  h1,h2,h3,h4,h5,h6 {
-    color: #222;
-  }
-  p {
-    color: #444;
-  }
 }
