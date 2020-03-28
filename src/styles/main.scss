@@ -1,1 +1,8 @@
-$red: #f00;
+// main.scss
+// load all .scss files
+@import './spacing.scss';
+@import './timing.scss';
+@import './transitions.scss';
+@import './animations.scss';
+@import './colors.scss';
+@import './typography.scss';

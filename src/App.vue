@@ -1,32 +1,61 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div id="app" class="grid">
+    <transition name="opacity" mode="out-in">
+      <router-view class="main-layout"/>
+    </transition>
+    <!-- <navigation class="navigation-layout"/> -->
   </div>
 </template>
 
-<style>
+<script>
+export default {
+  name: 'App',
+  components: {
+
+  }
+}
+</script>
+
+<style lang="scss">
+*{
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: $blue;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  font-family: 'Roboto', sans-serif;
+  color: #eee;
 }
 
-#nav {
-  padding: 30px;
+.disable-scroll {
+  overflow: hidden;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+ul li {
+  list-style: none;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+
+.grid {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr 8vh;
 }
+
+.main-layout {
+  grid-row-start: 1;
+  grid-row-end: 1;
+}
+.navigation-layout {
+  position: sticky;
+  bottom: 0;
+  grid-row-start: 2;
+  grid-row-end: 2;
+  align-items: center;
+  align-self: end;
+}
+
 </style>

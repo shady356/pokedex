@@ -1,0 +1,29 @@
+// Slide Vertically
+.slide-v-enter-active, 
+.slide-v-leave-active {
+  transition: transform $normal;
+}
+.slide-v-enter, 
+.slide-v-leave-to {
+  transform: translateY($xl);
+}
+
+// Slide Horizontally
+.slide-h-enter-active, 
+.slide-h-leave-active {
+  transition: transform $fast;
+}
+.slide-h-enter, 
+.slide-h-leave-to {
+  transform: translateX($m);
+}
+
+// Fade
+.fade-enter-active, 
+.fade-leave-active {
+  transition: opacity $fast;
+}
+.fade-enter, 
+.fade-leave-to {
+  opacity: 0;
+}
