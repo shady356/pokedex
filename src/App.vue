@@ -24,7 +24,7 @@ export default {
 }
 body {
   background: hsl(286, 40%, 76%); 
-  background-image: linear-gradient(180deg, hsl(185, 78%, 66%) 0%, hsl(37, 71%, 77%) 100%);
+  background-image: linear-gradient(180deg, hsl(215, 43%, 85%) 0%, hsl(244, 42%, 67%) 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100%;
