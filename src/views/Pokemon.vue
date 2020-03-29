@@ -1,17 +1,22 @@
 <template>
   <div 
-    v-if="pokemon"
     class="default-page-margin"
   >
-    <h4>{{pokemon.name}}</h4>
-    <img :src="pokemon.sprites.front_default" alt="">
-    <div class="type-container">
-      <!-- Replace with type component -->
-      <div
-        v-for="type in pokemon.types"
-        :key="type.slot"
-      >
-        {{type.type.name}}
+    <div><h6>back</h6></div>
+    <div
+      v-if="pokemon"
+      
+    >
+      <h4>{{pokemon.name}}</h4>
+      <img :src="pokemon.sprites.front_default" alt="">
+      <div class="type-container">
+        <!-- Replace with type component -->
+        <div
+          v-for="type in pokemon.types"
+          :key="type.slot"
+        >
+          {{type.type.name}}
+        </div>
       </div>
     </div>
   </div>
