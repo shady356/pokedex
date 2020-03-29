@@ -3,9 +3,11 @@
     class="default-page-margin"
      v-if="pokemonList.length > 0">
     <ul>
-      <li 
+      <router-link
+        :to="{ name: 'Pokemon', params: { pokemonId: pokemon.id }}"
         v-for="pokemon in pokemonList" 
         :key="pokemon.id"
+        tag="li"
       >
         <div class="header condensed">
           #{{pokemon.id | index}} 
@@ -16,7 +18,7 @@
           class="sprite"
           alt="pokemon sprite"
         >
-      </li>
+      </router-link>
     </ul>
   </div>
 </template>
@@ -24,7 +26,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'Home',
+  name: 'Pokedex',
   components: {
  
   },
@@ -62,7 +64,6 @@ export default {
     getPokemon(pokemonId) {
       axios.get(`${this.BASE_URL}/pokemon-form/${pokemonId}/`)
       .then(response => {
-        console.log(response.data)
         this.pokemonList.push(response.data)
       })
       .catch(error => {
@@ -90,6 +91,7 @@ export default {
       border-radius: $xs;
       background: hsla(0, 0%, 100%, .2);
       box-shadow: 0 0 10px $purple-light;
+      cursor: pointer;
 
       .header {
         padding: $xs;
