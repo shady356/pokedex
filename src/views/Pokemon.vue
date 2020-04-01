@@ -13,9 +13,14 @@
     >
       <!-- Sprite -->
       <div class="pokemon-sprite-container">
-        <img 
+        <!-- <img 
           :src="getPokemonSprite(pokemon.id)"
           class="pokemon-sprite"
+          alt="pokemon sprite"
+        > -->
+        <img 
+          :src="pokemon.sprites.front_default"
+          class="sprite"
           alt="pokemon sprite"
         >
       </div>
