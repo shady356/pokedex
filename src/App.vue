@@ -23,6 +23,8 @@ export default {
   padding: 0;
 }
 body {
+  
+  background: #111;
   background: hsl(286, 40%, 76%); 
   background-image: linear-gradient(180deg, hsl(215, 43%, 85%) 0%, hsl(244, 42%, 67%) 100%);
   background-repeat: no-repeat;

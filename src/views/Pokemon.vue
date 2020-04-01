@@ -13,10 +13,10 @@
     >
       <!-- Sprite -->
       <div class="pokemon-sprite-container">
-        <img
-          class="pokemon-sprite" 
-          :src="pokemon.sprites.front_default" 
-          alt="pokemon-sprite"
+        <img 
+          :src="getPokemonSprite(pokemon.id)"
+          class="pokemon-sprite"
+          alt="pokemon sprite"
         >
       </div>
       
@@ -134,6 +134,18 @@ export default {
     cssStatWidth (width) {
       let value = this.getPercentage(width, 255)
       return { '--width': value + '%'}
+    },
+    getPokemonSprite (id) {
+      return require('@/assets/gen1/' + this.getIndex(id) + '.png')
+    },
+    getIndex (value) {
+      if(value < 10) {
+        return '00' + value
+      } else if (value < 100) {
+        return '0' + value
+      } else {
+        return value
+      }
     }
   }
 }
@@ -154,8 +166,8 @@ export default {
     .pokemon-sprite-container {
 
       .pokemon-sprite {
-        width: $xxxxl;
-        height: $xxxxl;
+        //width: $xxxxl;
+        //height: $xxxxl;
         margin: 0;
         padding: 0;
       }
@@ -183,7 +195,7 @@ export default {
           height: $m;
 
           .stat-bar-fill {
-            @include progress-grow(var(--width), 2s);
+            @include progress-grow(var(--width));
             position: absolute;
             border-radius: $xs 0 0 $xs;
             background: $purple;
