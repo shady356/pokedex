@@ -43,7 +43,6 @@ export default {
   .tag-container {
     display: flex;
     align-items: center;
-    margin: $m;
     background: #333;
     color: #fff;
     border-radius: $xs;

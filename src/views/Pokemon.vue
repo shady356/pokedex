@@ -11,36 +11,37 @@
       v-if="pokemon"
       class="pokemon-container"
     >
-      <!-- Sprite -->
-      <div class="pokemon-sprite-container">
-        <!-- <img 
-          :src="getPokemonSprite(pokemon.id)"
-          class="pokemon-sprite"
-          alt="pokemon sprite"
-        > -->
-        <img 
-          :src="pokemon.sprites.front_default"
-          class="sprite"
-          alt="pokemon sprite"
-        >
-      </div>
-      
-      <!-- Name -->
-      <h4 
-        class="uppercase letter-spacing condensed pokemon-name">
-        {{pokemon.name}}
-      </h4>
+      <section class="pokemon-meta-container">
+        
+        <div class="name-name-type-container">
+          <!-- Name -->
+          <h2
+            class="uppercase letter-spacing condensed pokemon-name">
+            {{pokemon.name}}
+          </h2>
 
-      <!-- Type(s) -->
-      <div class="type-container">
-        <BaseTag
-          v-for="type in pokemon.types"
-          :key="type.slot"
-          :icon="getIcon(type.type.name)"
-          :iconColor="getTypeColor(type.type.name)"
-          :title="type.type.name"
-        />
-      </div>
+          <!-- Type(s) -->
+          <div class="type-container">
+            <BaseTag
+              v-for="type in pokemon.types"
+              :key="type.slot"
+              :icon="getIcon(type.type.name)"
+              :iconColor="getTypeColor(type.type.name)"
+              :title="type.type.name"
+              class="tag-item"
+            />
+          </div>
+        </div>
+
+        <!-- Sprite -->
+        <div class="pokemon-sprite-container">
+          <img 
+            :src="getPokemonSprite(pokemon.id)"
+            class="pokemon-sprite"
+            alt="pokemon sprite"
+          >
+        </div>
+      </section>
 
       <!-- Stats -->
       <div class="stats-container">
@@ -141,7 +142,7 @@ export default {
       return { '--width': value + '%'}
     },
     getPokemonSprite (id) {
-      return require('@/assets/gen1/' + this.getIndex(id) + '.png')
+      return 'https://henriko.no/gen1/' + this.getIndex(id) + '.png'
     },
     getIndex (value) {
       if(value < 10) {
@@ -162,25 +163,38 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
 
-    .pokemon-name {
-      color: #222;
-    }
-
-    .pokemon-sprite-container {
-
-      .pokemon-sprite {
-        //width: $xxxxl;
-        //height: $xxxxl;
-        margin: 0;
-        padding: 0;
-      }
-    }
-
-    .type-container {
+    .pokemon-meta-container {
       display: flex;
-      justify-content: center;
+      justify-content: space-evenly;
+
+      .name-name-type-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .pokemon-name {
+          color: #222;
+        }
+        .type-container {
+          display: flex;
+          margin: $m 0;
+          justify-content: center;
+
+          .tag-item {
+            margin-right: $s;
+          }
+        }
+      }
+      .pokemon-sprite-container {
+        align-self: flex-end;
+
+        .pokemon-sprite {
+          object-fit: contain;
+          width: $xxxxl;
+          height: $xxxxl;
+        }
+      }
     }
 
     .stats-container {
@@ -193,18 +207,18 @@ export default {
         padding: $s;
 
         .stat-bar {
-          background: $purple-dark;
+          background: $purple;
           border-radius: $xs;
           position: relative;
           width: 100%;
-          height: $m;
+          height: $s;
 
           .stat-bar-fill {
             @include progress-grow(var(--width));
             position: absolute;
             border-radius: $xs 0 0 $xs;
-            background: $purple;
-            height: $m;
+            background: $blue-light;
+            height: $s;
             width: var(--width);
           }
         }

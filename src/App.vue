@@ -26,7 +26,7 @@ body {
   
   background: #111;
   background: hsl(286, 40%, 76%); 
-  background-image: linear-gradient(180deg, hsl(215, 43%, 85%) 0%, hsl(244, 42%, 67%) 100%);
+  //background-image: linear-gradient(180deg, hsl(192, 35%, 85%) 0%, hsl(217, 21%, 53%) 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100%;

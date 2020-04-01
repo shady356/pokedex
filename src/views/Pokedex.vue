@@ -1,5 +1,5 @@
 <template>
-  <div
+  <keep-alive
     class="default-page-margin"
      v-if="pokemonList.length > 0">
     <ul>
@@ -20,7 +20,7 @@
         >
       </router-link>
     </ul>
-  </div>
+  </keep-alive>
 </template>
 
 <script>
