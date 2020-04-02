@@ -166,7 +166,7 @@ export default {
 
     .pokemon-meta-container {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
 
       .name-name-type-container {
         display: flex;

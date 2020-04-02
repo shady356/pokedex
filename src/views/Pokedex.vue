@@ -1,7 +1,8 @@
 <template>
   <keep-alive
     class="default-page-margin"
-     v-if="pokemonList.length > 0">
+    v-if="pokemonList.length > 9"
+  >
     <ul>
       <router-link
         :to="{ name: 'Pokemon', params: { pokemonId: pokemon.id }}"
@@ -21,6 +22,12 @@
       </router-link>
     </ul>
   </keep-alive>
+  <div 
+    v-else
+    class="loading"
+  >
+    <img class="loading-icon" src="@/assets/icons/pokeball_white.png" alt="">
+  </div>
 </template>
 
 <script>
@@ -89,21 +96,36 @@ export default {
       margin: 0 1.5% $l;
       width: 30%;
       border-radius: $xs;
-      background: hsla(0, 0%, 100%, .2);
+      background: hsla(0, 0%, 90%, 0.2);
       box-shadow: 0 0 10px $purple-light;
       cursor: pointer;
 
       .header {
         padding: $xs;
         border-radius: $xs $xs 0 0;
-        background: $purple-light;
+        background: hsla(263, 45%, 45%, 0.52);
         font-size: $font-s;
-        text-align: left;
+        text-align: center;
       }
 
       .sprite {
         width: 96px;
       }
+    }
+  }
+
+  .loading {
+    position: fixed;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+
+    .loading-icon {
+      width: 64px;
+      height: 64px;
+      animation: rotate360 1.5s infinite;
     }
   }
 </style>
