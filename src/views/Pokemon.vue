@@ -11,8 +11,7 @@
       v-if="pokemon"
       class="pokemon-container"
     >
-      <section class="pokemon-info-container">
-        
+      <section class="pokemon-info-container"> 
         <div class="name-type-container">
           <!-- Name -->
           <h2
@@ -45,28 +44,55 @@
 
       <!-- Meta container -->
       <section class="meta-container">
-        <div class="stats-container">
-          <div 
-            class="stat"
-            v-for="(stat, index) in pokemon.stats"
-            :key="index"
+        <BaseTab
+          :items="metaItems"
+          @changeTab="changeMetaTab"
+        />
+        <transition
+          key="tab-1"
+          name="fade"
+          mode="in-out"
+        >
+          <div
+            v-show="metaItems[0].active"
+            class="stats-container"
           >
-            <div class="uppercase condensed">
-              {{stat.stat.name | statName}}
-              {{stat.base_stat}}
-            </div>
-            
-            <div class="stat-bar">
-              <div
-                class="stat-bar-fill"
-                :style="cssStatWidth(stat.base_stat)"
-              />
+            <div 
+              class="stat"
+              v-for="(stat, index) in pokemon.stats"
+              :key="index"
+            >
+              <div class="uppercase condensed">
+                {{stat.stat.name | statName}}
+                {{stat.base_stat}}
+              </div>
+              
+              <div class="stat-bar">
+                <div
+                  class="stat-bar-fill"
+                  :style="cssStatWidth(stat.base_stat)"
+                />
+              </div>
             </div>
           </div>
-        </div>
+        </transition>
+        <transition
+          name="fade"
+          key="tab-2"
+          mode="in-out"
+        >
+          <div
+            v-show="metaItems[1].active"
+            class="moves-container"
+          >
+            moves
+          </div>
+        </transition>
       </section>
       <!-- Stats -->
     </div>
+
+    <!-- Pagination -->
     <div class="pagination-container">
       <router-link
         :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber -1 }}"
@@ -94,13 +120,15 @@
 </template>
 
 <script>
-import BaseTag from '@/components/base/BaseTag'
 import BaseButton from '@/components/base/BaseButton'
+import BaseTab from '@/components/base/BaseTab'
+import BaseTag from '@/components/base/BaseTag'
 import axios from 'axios'
 export default {
   name: 'Pokemon',
   components: {
     BaseButton,
+    BaseTab,
     BaseTag
   },
   filters: {
@@ -128,7 +156,17 @@ export default {
       networkBase: 'http://192.168.0.18:8080/',
 
       pokemon: null,
-      NUM_OF_POKEMON: 151
+      NUM_OF_POKEMON: 151,
+      metaItems: [
+        {
+          name: 'base stats',
+          active: true
+        },
+        {
+          name: 'moves',
+          active: false
+        }
+      ]
     }
   },
   computed: {
@@ -211,6 +249,12 @@ export default {
       } else {
         return value
       }
+    },
+    changeMetaTab(index) {
+      this.metaItems.forEach(tab => {
+        tab.active = false
+      });
+      this.metaItems[index].active = true
     }
   }
 }
@@ -258,7 +302,8 @@ export default {
     .meta-container {
       background: #fff;
       border-radius: $s;
-      padding: $xxl $m;
+      padding: $l $m;
+
       .stats-container {
         display: flex;
         flex-direction: column;
@@ -269,7 +314,7 @@ export default {
           padding: $s;
   
           .stat-bar {
-            background: $purple;
+            background: $blue-dark;
             border-radius: $xs;
             position: relative;
             width: 100%;

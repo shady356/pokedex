@@ -97,13 +97,13 @@ export default {
       width: 30%;
       border-radius: $xs;
       background: hsla(0, 0%, 90%, 0.2);
-      box-shadow: 0 0 10px $purple-light;
+      box-shadow: 0 0 10px $blue-light;
       cursor: pointer;
 
       .header {
         padding: $xs;
         border-radius: $xs $xs 0 0;
-        background: hsla(263, 45%, 45%, 0.52);
+        background: $blue;
         font-size: $font-s;
         text-align: center;
       }

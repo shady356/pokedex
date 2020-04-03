@@ -40,9 +40,8 @@ export default {
 }
 body {
   
-  background: #111;
-  background: hsl(286, 40%, 76%); 
-  background-image: linear-gradient(180deg, hsl(234, 41%, 90%) 0%, hsl(293, 56%, 25%) 100%);
+  background: #73bcdd; 
+  background-image: linear-gradient(180deg, #eef5f6 0%, #73bcdd 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100%;
