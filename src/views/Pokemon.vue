@@ -3,7 +3,28 @@
     <div
       @click="$router.go(-1)"
     >
-      <h6>back</h6>
+      <h6>Back</h6>
+    </div>
+    
+    <div class="pagination-container">
+      <router-link
+        :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber -1 }}"
+      >
+        <BaseButton
+          :disabled="isFirstPokemon"
+        >
+          Prev
+        </BaseButton>
+      </router-link>
+      <router-link
+        :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber +1 }}"
+      >
+        <BaseButton
+          :disabled="isLastPokemon"
+        >
+          Next
+        </BaseButton>
+      </router-link>
     </div>
 
     <!-- The Pokemon -->
@@ -69,10 +90,12 @@
 
 <script>
 import BaseTag from '@/components/base/BaseTag'
+import BaseButton from '@/components/base/BaseButton'
 import axios from 'axios'
 export default {
   name: 'Pokemon',
   components: {
+    BaseButton,
     BaseTag
   },
   props: {
@@ -86,12 +109,27 @@ export default {
       localhostBase: 'http://localhost:8080',
       networkBase: 'http://192.168.0.18:8080/',
 
-      pokemon: null
+      pokemon: null,
+      NUM_OF_POKEMON: 151
     }
   },
   computed: {
     BASE_URL () {
       return this.networkBase
+    },
+    pokemonIdNumber () {
+      return parseInt(this.pokemonId)
+    },
+    isFirstPokemon () {
+      return this.pokemonIdNumber === 1
+    },
+    isLastPokemon () {
+      return this.pokemonIdNumber === this.NUM_OF_POKEMON
+    }
+  },
+  watch: {
+    $route() {
+      this.getPokemon(this.pokemonId)
     }
   },
   mounted () {
@@ -158,7 +196,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .pagination-container {
+    display: flex;
+    justify-content: space-between;
+    margin: $xl 0;
+  }
   .pokemon-container {
     display: flex;
     flex-direction: column;

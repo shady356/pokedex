@@ -1,5 +1,6 @@
 <template>
-  <button 
+  <button
+    class="condensed" 
     @click="clicked()"
   >
     <slot />
@@ -19,13 +20,20 @@ export default {
 
 <style lang="scss" scoped>
   button {
-    background: $pl-purple;
+    background: #fff;
     border: none;
-    padding: $m $xl;
-    font-size: 1.25rem;
-    color: #fff;
-    letter-spacing: 1px;
+    padding: $s $m;
+    font-size: $font-m;
+    font-weight: 700;
+    color: #333;
     border-radius: $l;
+    cursor: pointer;
+    outline: none;
+
+    &[disabled] {
+      background: #888;
+      color: #555;
+    }
 
     &.ghost {
       background: none;
