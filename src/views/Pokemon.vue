@@ -45,6 +45,7 @@
       <!-- Meta container -->
       <section class="meta-container">
         <BaseTab
+          class="meta-tabs"
           :items="metaItems"
           @changeTab="changeMetaTab"
         />
@@ -188,6 +189,7 @@ export default {
       let that = this
       setTimeout(function () {
         that.getPokemon(that.pokemonId)
+        that.changeMetaTab(0)
       }, 500)
     }
   },
@@ -303,6 +305,10 @@ export default {
       background: #fff;
       border-radius: $s;
       padding: $l $m;
+
+      .meta-tabs {
+        margin-bottom: $l;
+      }
 
       .stats-container {
         display: flex;

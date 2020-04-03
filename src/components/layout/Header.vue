@@ -22,7 +22,6 @@ export default {
     display: flex;
     align-items: center;
     padding: $m;
-    color: #fff;
     justify-content: space-between;
   }
 </style>
