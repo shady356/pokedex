@@ -52,7 +52,7 @@
             :key="index"
           >
             <div class="uppercase condensed">
-              {{stat.stat.name}}
+              {{stat.stat.name | statName}}
               {{stat.base_stat}}
             </div>
             
@@ -102,6 +102,19 @@ export default {
   components: {
     BaseButton,
     BaseTag
+  },
+  filters: {
+    statName(value) {
+      if (value === 'special-defense') {
+        return 'spc. defense'
+      }
+      else if (value === 'special-attack') {
+        return 'spc. attack'
+      }
+      else {
+        return value
+      }
+    }
   },
   props: {
     pokemonId: {
