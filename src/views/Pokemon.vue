@@ -1,40 +1,19 @@
 <template>
   <div class="default-page-margin">
-    <div
-      @click="$router.go(-1)"
+    <router-link
+      :to="{ name: 'Pokedex'}"
     >
       <h6>Back</h6>
-    </div>
+    </router-link>
     
-    <div class="pagination-container">
-      <router-link
-        :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber -1 }}"
-      >
-        <BaseButton
-          :disabled="isFirstPokemon"
-        >
-          Prev
-        </BaseButton>
-      </router-link>
-      <router-link
-        :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber +1 }}"
-      >
-        <BaseButton
-          :disabled="isLastPokemon"
-        >
-          Next
-        </BaseButton>
-      </router-link>
-    </div>
-
     <!-- The Pokemon -->
     <div
       v-if="pokemon"
       class="pokemon-container"
     >
-      <section class="pokemon-meta-container">
+      <section class="pokemon-info-container">
         
-        <div class="name-name-type-container">
+        <div class="name-type-container">
           <!-- Name -->
           <h2
             class="uppercase letter-spacing condensed pokemon-name">
@@ -64,26 +43,52 @@
         </div>
       </section>
 
-      <!-- Stats -->
-      <div class="stats-container">
-        <div 
-          class="stat"
-          v-for="(stat, index) in pokemon.stats"
-          :key="index"
-        >
-          <div class="uppercase condensed">
-            {{stat.stat.name}}
-            {{stat.base_stat}}
-          </div>
-          
-          <div class="stat-bar">
-            <div
-              class="stat-bar-fill"
-              :style="cssStatWidth(stat.base_stat)"
-            />
+      <!-- Meta container -->
+      <section class="meta-container">
+        <div class="stats-container">
+          <div 
+            class="stat"
+            v-for="(stat, index) in pokemon.stats"
+            :key="index"
+          >
+            <div class="uppercase condensed">
+              {{stat.stat.name}}
+              {{stat.base_stat}}
+            </div>
+            
+            <div class="stat-bar">
+              <div
+                class="stat-bar-fill"
+                :style="cssStatWidth(stat.base_stat)"
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+      <!-- Stats -->
+    </div>
+    <div class="pagination-container">
+      <router-link
+        :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber -1 }}"
+      >
+        <BaseButton
+          :disabled="isFirstPokemon"
+        >
+          Prev
+        </BaseButton>
+      </router-link>
+
+      <h4 class="condensed">#{{getIndex(pokemonId)}}</h4>
+
+      <router-link
+        :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber +1 }}"
+      >
+        <BaseButton
+          :disabled="isLastPokemon"
+        >
+          Next
+        </BaseButton>
+      </router-link>
     </div>
   </div>
 </template>
@@ -129,7 +134,10 @@ export default {
   },
   watch: {
     $route() {
-      this.getPokemon(this.pokemonId)
+      let that = this
+      setTimeout(function () {
+        that.getPokemon(that.pokemonId)
+      }, 500)
     }
   },
   mounted () {
@@ -196,21 +204,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .pagination-container {
-    display: flex;
-    justify-content: space-between;
-    margin: $xl 0;
-  }
+  
   .pokemon-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-    .pokemon-meta-container {
+    .pokemon-info-container {
       display: flex;
       justify-content: space-between;
 
-      .name-name-type-container {
+      .name-type-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -221,7 +225,6 @@ export default {
         .type-container {
           display: flex;
           margin: $m 0;
-          justify-content: center;
 
           .tag-item {
             margin-right: $s;
@@ -239,32 +242,43 @@ export default {
       }
     }
 
-    .stats-container {
-      display: flex;
-      flex-direction: column;
-      color: #000;
-      width: 100%;
-
-      .stat {
-        padding: $s;
-
-        .stat-bar {
-          background: $purple;
-          border-radius: $xs;
-          position: relative;
-          width: 100%;
-          height: $s;
-
-          .stat-bar-fill {
-            @include progress-grow(var(--width));
-            position: absolute;
-            border-radius: $xs 0 0 $xs;
-            background: $blue-light;
+    .meta-container {
+      background: #fff;
+      border-radius: $s;
+      padding: $xxl $m;
+      .stats-container {
+        display: flex;
+        flex-direction: column;
+        color: #000;
+        width: 100%;
+  
+        .stat {
+          padding: $s;
+  
+          .stat-bar {
+            background: $purple;
+            border-radius: $xs;
+            position: relative;
+            width: 100%;
             height: $s;
-            width: var(--width);
+  
+            .stat-bar-fill {
+              @include progress-grow(var(--width));
+              position: absolute;
+              border-radius: $xs 0 0 $xs;
+              background: $blue-light;
+              height: $s;
+              width: var(--width);
+            }
           }
         }
       }
     }
+  }
+  .pagination-container {
+    display: flex;
+    justify-content: space-between;
+    margin: $xl 0;
+    align-items: center;
   }
 </style>
