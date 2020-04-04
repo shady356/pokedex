@@ -35,7 +35,7 @@
         <!-- Sprite -->
         <div class="pokemon-sprite-container">
           <img 
-            :src="getPokemonSprite(pokemon.id)"
+            :src="getPokemonSprite(pokemon)"
             class="pokemon-sprite"
             alt="pokemon sprite"
           >
@@ -86,7 +86,9 @@
             v-show="metaItems[1].active"
             class="moves-container"
           >
-            moves
+            <pre>
+              {{pokemon.moves}}
+            </pre>
           </div>
         </transition>
       </section>
@@ -157,7 +159,7 @@ export default {
       networkBase: 'http://192.168.0.18:8080/',
 
       pokemon: null,
-      NUM_OF_POKEMON: 151,
+      NUM_OF_POKEMON: 250,
       metaItems: [
         {
           name: 'base stats',
@@ -240,8 +242,12 @@ export default {
       let value = this.getPercentage(width, 255)
       return { '--width': value + '%'}
     },
-    getPokemonSprite (id) {
-      return 'https://henriko.no/gen1/' + this.getIndex(id) + '.png'
+    getPokemonSprite (pokemon) {
+      if(pokemon.id <= 151) {
+        return 'https://henriko.no/gen1/' + this.getIndex(pokemon.id) + '.png'
+      } else {
+        return pokemon.sprites.front_default
+      }
     },
     getIndex (value) {
       if(value < 10) {
@@ -329,7 +335,7 @@ export default {
             .stat-bar-fill {
               @include progress-grow(var(--width));
               position: absolute;
-              border-radius: $xs 0 0 $xs;
+              border-radius: $xs;
               background: $blue-light;
               height: $s;
               width: var(--width);
