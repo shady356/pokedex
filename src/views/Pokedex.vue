@@ -1,7 +1,7 @@
 <template>
   <keep-alive
     class="default-page-margin"
-    v-if="pokemonList.length > 150"
+    v-if="pokemonList.length > 9"
   >
     <ul>
       <router-link
@@ -62,7 +62,7 @@ export default {
     }
   },
   mounted () {
-    for(let i=1; i<=250; i++) {
+    for(let i=1; i<=251; i++) {
       this.getPokemon(i)
     }
     this.pokemonList.sort()

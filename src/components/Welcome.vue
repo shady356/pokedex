@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="title condensed">the Pokédex</div>
+    <div class="title">the Pokédex</div>
   </div>
 </template>
 

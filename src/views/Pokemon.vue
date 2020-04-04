@@ -15,7 +15,7 @@
         <div class="name-type-container">
           <!-- Name -->
           <h2
-            class="uppercase letter-spacing condensed pokemon-name">
+            class="uppercase letter-spacing pokemon-name">
             {{pokemon.name}}
           </h2>
 
@@ -64,7 +64,7 @@
               v-for="(stat, index) in pokemon.stats"
               :key="index"
             >
-              <div class="uppercase condensed">
+              <div class="uppercase">
                 {{stat.stat.name | statName}}
                 {{stat.base_stat}}
               </div>
@@ -108,7 +108,7 @@
         </BaseButton>
       </router-link>
 
-      <h4 class="condensed">#{{getIndex(pokemonId)}}</h4>
+      <h4>#{{getIndex(pokemonId)}}</h4>
 
       <router-link
         :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber +1 }}"
@@ -120,23 +120,15 @@
         </BaseButton>
       </router-link>
     </div>
+    <!-- Type page -->
     <BaseModal
       v-if="isTypeModalOpen"
       @closeModal="closeTypeModal"
     >
-      <template #type>
-        <div class="modal-type-container">
-          <img 
-            class="type-icon" 
-            :src="getIcon(currentTypeInModal.name)" 
-            alt="type-icon"
-            :style="'background:' + getTypeColor(currentTypeInModal.name)"
-          >
-          <h3 class="type-title condensed uppercase">{{currentTypeInModal.name}}</h3>
-          <p>
-            Most Flying type Pokémon are based on birds or insects, along with some mythical creatures like dragons. On average they are faster than any other type.
-          </p>
-        </div>
+      <template #content>
+        <Type
+          :type="currentTypeInModal"
+        />
       </template>
     </BaseModal>
   </div>
@@ -147,6 +139,7 @@ import BaseButton from '@/components/base/BaseButton'
 import BaseModal from '@/components/base/BaseModal'
 import BaseTab from '@/components/base/BaseTab'
 import BaseTag from '@/components/base/BaseTag'
+import Type from '@/components/types/Type'
 import axios from 'axios'
 export default {
   name: 'Pokemon',
@@ -154,7 +147,8 @@ export default {
     BaseButton,
     BaseModal,
     BaseTab,
-    BaseTag
+    BaseTag,
+    Type
   },
   filters: {
     statName(value) {
@@ -289,8 +283,7 @@ export default {
       this.metaItems[index].active = true
     },
     openTypeModal (type) {
-      console.log('sdf')
-      this.currentTypeInModal = type
+      this.currentTypeInModal = type.name
       this.isTypeModalOpen = true
     },
     closeTypeModal () {
@@ -382,27 +375,5 @@ export default {
     justify-content: space-between;
     margin: $xl 0;
     align-items: center;
-  }
-  .modal-type-container {
-    display: flex;
-    padding: $l;
-    text-align: center;
-    flex-direction: column;
-    align-items: center;
-
-    .type-title {
-      margin-bottom: $l;
-    }
-    .type-icon {
-      margin: $m 0 $xl 0;
-      border-radius: 50%;
-      padding: $m;
-      background: #333;
-      width: $xxl;
-      height: $xxl;
-    }
-    p {
-      margin-bottom: $s;
-    }
   }
 </style>
