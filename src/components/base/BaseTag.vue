@@ -1,5 +1,8 @@
 <template>
-  <div class="tag-container">
+  <div 
+    class="tag-container" 
+    @click="clicked()"
+  >
     <div
       v-if="icon" 
       class="icon-container"
@@ -36,6 +39,12 @@ export default {
       default: ''
     }
   },
+  methods: {
+    clicked () {
+      this.$emit('click')
+    }
+  }
+  
 }
 </script>
 

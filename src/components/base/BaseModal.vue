@@ -5,7 +5,7 @@
       appear
     >
       <div class="modal-window">
-        <div class="modal-header">
+        <!-- <div class="modal-header">
           <div class="header-title">
             <slot name="header" />
           </div>
@@ -15,10 +15,12 @@
           >
             x
           </div>
-        </div>
+        </div> -->
         <div class="modal-content">
           <slot name="content" />
+          <slot name="type" />
         </div>
+        <button @click="closeModal">exit</button>
       </div>
     </transition>
   </div>
@@ -56,12 +58,14 @@ export default {
       position: fixed;
       overflow-y: auto;
       border-radius: 10px 10px 0 0;
+      background: #fff;
+      color: #333;
       bottom: 0;
       border-radius: 20px 20px 0 0;
       width: 100vw;
       max-height: 90vh;
+      min-height: 80vh;
       padding-bottom: 1rem;
-      background-image: linear-gradient(180deg, hsla(305, 78%, 9%, 0.85), hsla(268, 87%, 3%, 0.85));
 
       .modal-header {
         border-radius: 10px 10px 0 0;

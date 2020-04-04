@@ -28,6 +28,7 @@
               :iconColor="getTypeColor(type.type.name)"
               :title="type.type.name"
               class="tag-item"
+              @click="openTypeModal(type.type)"
             />
           </div>
         </div>
@@ -119,11 +120,31 @@
         </BaseButton>
       </router-link>
     </div>
+    <BaseModal
+      v-if="isTypeModalOpen"
+      @closeModal="closeTypeModal"
+    >
+      <template #type>
+        <div class="modal-type-container">
+          <img 
+            class="type-icon" 
+            :src="getIcon(currentTypeInModal.name)" 
+            alt="type-icon"
+            :style="'background:' + getTypeColor(currentTypeInModal.name)"
+          >
+          <h3 class="type-title condensed uppercase">{{currentTypeInModal.name}}</h3>
+          <p>
+            Most Flying type Pokémon are based on birds or insects, along with some mythical creatures like dragons. On average they are faster than any other type.
+          </p>
+        </div>
+      </template>
+    </BaseModal>
   </div>
 </template>
 
 <script>
 import BaseButton from '@/components/base/BaseButton'
+import BaseModal from '@/components/base/BaseModal'
 import BaseTab from '@/components/base/BaseTab'
 import BaseTag from '@/components/base/BaseTag'
 import axios from 'axios'
@@ -131,6 +152,7 @@ export default {
   name: 'Pokemon',
   components: {
     BaseButton,
+    BaseModal,
     BaseTab,
     BaseTag
   },
@@ -160,6 +182,8 @@ export default {
 
       pokemon: null,
       NUM_OF_POKEMON: 250,
+      isTypeModalOpen: false,
+      currentTypeInModal: null,
       metaItems: [
         {
           name: 'base stats',
@@ -263,6 +287,14 @@ export default {
         tab.active = false
       });
       this.metaItems[index].active = true
+    },
+    openTypeModal (type) {
+      console.log('sdf')
+      this.currentTypeInModal = type
+      this.isTypeModalOpen = true
+    },
+    closeTypeModal () {
+      this.isTypeModalOpen = false
     }
   }
 }
@@ -350,5 +382,27 @@ export default {
     justify-content: space-between;
     margin: $xl 0;
     align-items: center;
+  }
+  .modal-type-container {
+    display: flex;
+    padding: $l;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+
+    .type-title {
+      margin-bottom: $l;
+    }
+    .type-icon {
+      margin: $m 0 $xl 0;
+      border-radius: 50%;
+      padding: $m;
+      background: #333;
+      width: $xxl;
+      height: $xxl;
+    }
+    p {
+      margin-bottom: $s;
+    }
   }
 </style>
