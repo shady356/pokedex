@@ -373,7 +373,12 @@ export default {
   .pagination-container {
     display: flex;
     justify-content: space-between;
+    background: $blue-light;
     margin: $xl 0;
     align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: $m;
+    left: $m;
   }
 </style>
