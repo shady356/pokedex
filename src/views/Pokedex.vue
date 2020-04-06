@@ -1,32 +1,37 @@
 <template>
-  <keep-alive
-    class="default-page-margin"
-    v-if="pokemonList.length > 9"
-  >
-    <ul>
-      <router-link
-        :to="{ name: 'Pokemon', params: { pokemonId: pokemon.id }}"
-        v-for="pokemon in pokemonList" 
-        :key="pokemon.id"
-        tag="li"
-      >
-        <div class="header condensed">
-          #{{pokemon.id | index}} 
-          <span class="capitalize">{{pokemon.name}}</span>
-        </div>
-        <img 
-          :src="pokemon.sprites.front_default"
-          class="sprite"
-          alt="pokemon sprite"
+  <div>
+    <keep-alive
+      class="default-page-margin"
+      v-if="loadedCounter > 0"
+    >
+      <ul>
+        <router-link
+          :to="{ name: 'Pokemon', params: { pokemonId: pokemonList[index].id }}"
+          v-for="(n,index) in batchOffset" 
+          :key="index"
+          tag="li"
         >
-      </router-link>
-    </ul>
-  </keep-alive>
-  <div 
-    v-else
-    class="loading"
-  >
-    <img class="loading-icon" src="@/assets/icons/pokeball_white.png" alt="">
+          <div class="header">
+            #{{pokemonList[index].id | index}} 
+            <span class="capitalize">{{pokemonList[n].name}}</span>
+          </div>
+          <div class="sprite-container">
+            <img 
+              :src="pokemonList[index].sprite"
+              class="sprite"
+            >
+          </div>
+        </router-link>
+      </ul>
+    </keep-alive>
+    <div 
+      v-else
+      class="loading"
+    >
+      <img class="loading-icon" src="@/assets/icons/pokeball_white.png" alt="">
+    </div>
+    <div class="trigger" ref="trigger">
+    </div>
   </div>
 </template>
 
@@ -53,37 +58,85 @@ export default {
       localhostBase: 'http://localhost:8080',
       networkBase: 'http://192.168.0.18:8080/',
 
-      pokemonList: []
+      pokemonList: [],
+      
+      //Batch data:
+      currentBatch: 1,
+      maxPerBatch: 12,
+      totalResults: 700,
+      loadedCounter: 0,
+      showLoader: false
+      
     }
   },
   computed: {
     BASE_URL () {
       return this.networkBase
+    },
+    batchCount () {
+      return Math.ceil(this.totalResults / this.maxPerBatch)
+    },
+    batchOffset () {
+      return this.maxPerBatch * this.currentBatch
     }
   },
   mounted () {
-    for(let i=1; i<=251; i++) {
-      this.getPokemon(i)
+    for (let i = 0; i < 700; i++) {
+      this.pokemonList.push(
+        {
+          id: i+1,
+          name: '',
+          sprite: ''
+        }
+      )
     }
-    this.pokemonList.sort()
+    this.scrollTrigger()
   },
   methods: {
     getPokemon(pokemonId) {
       axios.get(`${this.BASE_URL}/pokemon-form/${pokemonId}/`)
       .then(response => {
-        this.pokemonList.push(response.data)
+        this.refineResponseData(response.data)
+        this.loadedCounter ++
       })
       .catch(error => {
         console.log(error)
         // this.errored = true
       })
+    },
+    refineResponseData(data) {
+      const pokemonData = {
+        id: data.id,
+        name: data.name,
+        sprite: data.sprites.front_default
+      }
+      this.pokemonList[data.id-1] = pokemonData
+    },
+    getBatchOfPokemon () {
+      for(let i= (this.currentBatch*this.maxPerBatch) - this.maxPerBatch +1; i <= this.maxPerBatch * this.currentBatch; i++) {
+        this.getPokemon(i)
+      }
+      this.currentBatch ++
+    },
+    scrollTrigger () {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.intersectionRatio > 0 && this.currentBatch < this.batchCount) {
+            console.log('foobar')
+            this.getBatchOfPokemon()
+          }
+        })
+      })
+      observer.observe(this.$refs.trigger)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
+  .trigger {
+    position: relative;
+  }
   ul {
     color: #fff;
     display: flex;
@@ -107,9 +160,11 @@ export default {
         font-size: $font-s;
         text-align: center;
       }
-
-      .sprite {
-        width: 96px;
+      .sprite-container {
+        height: 96px;
+        .sprite {
+          width: 96px;
+        }
       }
     }
   }
