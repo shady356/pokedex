@@ -13,7 +13,7 @@
         >
           <div class="header">
             #{{pokemonList[index].id | index}} 
-            <span class="capitalize">{{pokemonList[n].name}}</span>
+            <span class="capitalize">{{pokemonList[index].name}}</span>
           </div>
           <div class="sprite-container">
             <img 
@@ -78,6 +78,9 @@ export default {
     },
     batchOffset () {
       return this.maxPerBatch * this.currentBatch
+    },
+    batchStartPosition () {
+      return (this.currentBatch*this.maxPerBatch) - this.maxPerBatch + 1
     }
   },
   mounted () {
@@ -113,7 +116,7 @@ export default {
       this.pokemonList[data.id-1] = pokemonData
     },
     getBatchOfPokemon () {
-      for(let i= (this.currentBatch*this.maxPerBatch) - this.maxPerBatch +1; i <= this.maxPerBatch * this.currentBatch; i++) {
+      for(let i= this.batchStartPosition; i <= this.maxPerBatch * this.currentBatch; i++) {
         this.getPokemon(i)
       }
       this.currentBatch ++

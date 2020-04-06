@@ -12,12 +12,52 @@
       class="pokemon-container"
     >
       <section class="pokemon-info-container"> 
+        <!-- Pagination prev -->
+        <div class="pagination-container">
+          <router-link
+            :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber -1 }}"
+          >
+            <BaseButton
+              :disabled="isFirstPokemon"
+            >
+              Prev
+            </BaseButton>
+          </router-link>
+
+          <!-- Sprite -->
+          <div class="pokemon-sprite-container">
+            <img 
+              :src="getPokemonSprite(pokemon)"
+              class="pokemon-sprite"
+              alt="pokemon sprite"
+            >
+          </div>
+
+          <!-- Pagination next -->
+          <router-link
+            :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber +1 }}"
+          >
+            <BaseButton
+              :disabled="isLastPokemon"
+            >
+              Next
+            </BaseButton>
+          </router-link>
+        </div>
+
+      </section>
+
+      <!-- Meta container -->
+      <section class="meta-container">
+
         <div class="name-type-container">
           <!-- Name -->
           <h2
             class="uppercase letter-spacing pokemon-name">
             {{pokemon.name}}
           </h2>
+
+          <h4>#{{getIndex(pokemonId)}}</h4>
 
           <!-- Type(s) -->
           <div class="type-container">
@@ -33,28 +73,16 @@
           </div>
         </div>
 
-        <!-- Sprite -->
-        <div class="pokemon-sprite-container">
-          <img 
-            :src="getPokemonSprite(pokemon)"
-            class="pokemon-sprite"
-            alt="pokemon sprite"
-          >
-        </div>
-      </section>
-
-      <!-- Meta container -->
-      <section class="meta-container">
         <BaseTab
           class="meta-tabs"
           :items="metaItems"
           @changeTab="changeMetaTab"
         />
+        <!-- Stats -->
         <transition
           key="tab-1"
           name="fade"
-          mode="in-out"
-        >
+          mode="in-out">
           <div
             v-show="metaItems[0].active"
             class="stats-container"
@@ -78,11 +106,11 @@
             </div>
           </div>
         </transition>
+        <!-- Moves -->
         <transition
           name="fade"
           key="tab-2"
-          mode="in-out"
-        >
+          mode="in-out">
           <div
             v-show="metaItems[1].active"
             class="moves-container"
@@ -93,38 +121,12 @@
           </div>
         </transition>
       </section>
-      <!-- Stats -->
     </div>
 
-    <!-- Pagination -->
-    <div class="pagination-container">
-      <router-link
-        :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber -1 }}"
-      >
-        <BaseButton
-          :disabled="isFirstPokemon"
-        >
-          Prev
-        </BaseButton>
-      </router-link>
-
-      <h4>#{{getIndex(pokemonId)}}</h4>
-
-      <router-link
-        :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber +1 }}"
-      >
-        <BaseButton
-          :disabled="isLastPokemon"
-        >
-          Next
-        </BaseButton>
-      </router-link>
-    </div>
-    <!-- Type page -->
+    <!-- Type modal -->
     <BaseModal
       v-if="isTypeModalOpen"
-      @closeModal="closeTypeModal"
-    >
+      @closeModal="closeTypeModal">
       <template #content>
         <Type
           :type="currentTypeInModal"
@@ -300,14 +302,34 @@ export default {
     flex-direction: column;
     justify-content: center;
 
-    .pokemon-info-container {
+    .pagination-container {
       display: flex;
       justify-content: space-between;
+      margin: $xl 0;
+      align-items: center;
+
+      .pokemon-sprite-container {
+        display: flex;
+        justify-content: center;
+
+        .pokemon-sprite {
+          object-fit: contain;
+          width: $xxxxl;
+          height: $xxxxl;
+        }
+      }
+    }
+
+    .meta-container {
+      background: #fff;
+      border-radius: $s;
+      padding: $xxl $m;
 
       .name-type-container {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        align-items: center;
+        margin-bottom: $l;
 
         .pokemon-name {
           color: #222;
@@ -321,21 +343,6 @@ export default {
           }
         }
       }
-      .pokemon-sprite-container {
-        align-self: flex-end;
-
-        .pokemon-sprite {
-          object-fit: contain;
-          width: $xxxxl;
-          height: $xxxxl;
-        }
-      }
-    }
-
-    .meta-container {
-      background: #fff;
-      border-radius: $s;
-      padding: $l $m;
 
       .meta-tabs {
         margin-bottom: $l;
@@ -369,16 +376,5 @@ export default {
         }
       }
     }
-  }
-  .pagination-container {
-    display: flex;
-    justify-content: space-between;
-    background: $blue-light;
-    margin: $xl 0;
-    align-items: center;
-    position: fixed;
-    bottom: 0;
-    right: $m;
-    left: $m;
   }
 </style>
