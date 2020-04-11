@@ -6,16 +6,18 @@
 .slide-v-enter, 
 .slide-v-leave-to {
   transform: translateY($xl);
+  opacity: 0;
 }
 
 // Slide Horizontally
 .slide-h-enter-active, 
 .slide-h-leave-active {
-  transition: transform $fast;
+  transition: all $fast;
+  opacity: 0;
 }
 .slide-h-enter, 
 .slide-h-leave-to {
-  transform: translateX($m);
+  transform: translateX(-$m);
 }
 
 // Fade

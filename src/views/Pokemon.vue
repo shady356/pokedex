@@ -1,61 +1,26 @@
 <template>
-  <div class="default-page-margin">
-    <router-link
-      :to="{ name: 'Pokedex'}"
-    >
-      <h6>Back</h6>
-    </router-link>
+  <div>
     
     <!-- The Pokemon -->
     <div
-      v-if="pokemon"
+      v-if="pokemon && pokemonSpecies"
       class="pokemon-container"
-    >
-      <section class="pokemon-info-container"> 
-        <!-- Pagination prev -->
-        <div class="pagination-container">
-          <router-link
-            :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber -1 }}"
-          >
-            <BaseButton
-              :disabled="isFirstPokemon"
-            >
-              Prev
-            </BaseButton>
-          </router-link>
+      :style="'background: #fff'"
+      >
 
-          <!-- Sprite -->
-          <div class="pokemon-sprite-container">
-            <img 
-              :src="getPokemonSprite(pokemon)"
-              class="pokemon-sprite"
-              alt="pokemon sprite"
-            >
-          </div>
-
-          <!-- Pagination next -->
-          <router-link
-            :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber +1 }}"
-          >
-            <BaseButton
-              :disabled="isLastPokemon"
-            >
-              Next
-            </BaseButton>
-          </router-link>
-        </div>
-
-      </section>
-
-      <!-- Meta container -->
-      <section class="meta-container">
-
+      <section class="pokemon-info-container section-1">
         <div class="name-type-container">
+          <router-link
+            :to="{ name: 'Pokedex'}"
+          >
+            <h6>Back</h6>
+          </router-link>
+
           <!-- Name -->
-          <h2
-            class="uppercase letter-spacing pokemon-name">
+          <h1
+            class="capitalize pokemon-name">
             {{pokemon.name}}
-          </h2>
+          </h1>
 
           <h4>#{{getIndex(pokemonId)}}</h4>
 
@@ -73,18 +38,70 @@
           </div>
         </div>
 
+        <!-- Sprite -->
+        <div class="pokemon-sprite-container">
+          <img 
+            :src="pokemon.sprite"
+            class="pokemon-sprite"
+            alt="pokemon sprite"
+          >
+        </div>
+      </section>
+
+      <!-- Meta container -->
+      <section class="meta-container section-2">
         <BaseTab
           class="meta-tabs"
           :items="metaItems"
           @changeTab="changeMetaTab"
         />
-        <!-- Stats -->
+        <!-- About -->
         <transition
+          name="slide-h"
           key="tab-1"
-          name="fade"
           mode="in-out">
           <div
             v-show="metaItems[0].active"
+            class="moves-container"
+          >
+            <!-- Abilities -->
+            <h4>Abilities</h4>
+            <div 
+              v-for="item in pokemon.abilities"
+              :key="item.ability.name"> 
+              <div class="capitalize">
+               {{item.ability.name}} <span v-if="item.is_hidden"> (Hidden)</span>
+              </div>
+            </div>
+
+            <!-- Weight and height -->
+            <div>
+              Weight {{pokemon.weight}}<br>
+              Height {{pokemon.height}}
+            </div>
+
+            <!-- Egg group -->
+            <h4>Egg group</h4>
+            <div 
+              v-for="item in pokemonSpecies.eggGroups"
+              :key="item.name"> 
+              <div class="capitalize">
+                {{item.name}}
+              </div>
+            </div>
+
+          </div>
+        </transition>
+
+        <!-- Stats -->
+        <transition
+          key="tab-2"
+          name="slide-h"
+          mode="in-out"
+        >
+      
+          <div
+            v-show="metaItems[1].active"
             class="stats-container"
           >
             <div 
@@ -106,20 +123,49 @@
             </div>
           </div>
         </transition>
+
         <!-- Moves -->
         <transition
           name="fade"
-          key="tab-2"
+          key="tab-3"
           mode="in-out">
           <div
-            v-show="metaItems[1].active"
+            v-show="metaItems[2].active"
             class="moves-container"
           >
-            <pre>
-              {{pokemon.moves}}
-            </pre>
+            <!-- <pre>
+              {{pokemon}}
+            </pre> -->
           </div>
         </transition>
+        
+      </section>
+      
+      <section class="section-3">
+          <!-- Pagination -->
+      <div class="pagination-container">
+        <router-link
+          :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber -1 }}"
+        >
+          <BaseButton
+            :disabled="isFirstPokemon"
+            class="ghost"
+          >
+            Prev
+          </BaseButton>
+        </router-link>
+
+        <router-link
+          :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber +1 }}"
+        >
+          <BaseButton
+            :disabled="isLastPokemon"
+            class="ghost"
+          >
+            Next
+          </BaseButton>
+        </router-link>
+      </div>
       </section>
     </div>
 
@@ -177,13 +223,18 @@ export default {
       networkBase: 'http://192.168.0.18:8080/',
 
       pokemon: null,
+      pokemonSpecies: null,
       NUM_OF_POKEMON: 250,
       isTypeModalOpen: false,
       currentTypeInModal: null,
       metaItems: [
         {
-          name: 'base stats',
+          name: 'about',
           active: true
+        },
+        {
+          name: 'base stats',
+          active: false
         },
         {
           name: 'moves',
@@ -210,6 +261,7 @@ export default {
     $route() {
       let that = this
       setTimeout(function () {
+        that.getPokemonSpecies(that.pokemonId)
         that.getPokemon(that.pokemonId)
         that.changeMetaTab(0)
       }, 500)
@@ -217,6 +269,7 @@ export default {
   },
   mounted () {
     this.getPokemon(this.pokemonId)
+    this.getPokemonSpecies(this.pokemonId)
   },
   methods: {
     getIcon(name) {
@@ -250,24 +303,44 @@ export default {
     getPokemon(pokemonId) {
       axios.get(`${this.BASE_URL}/pokemon/${pokemonId}/`)
       .then(response => {
-        console.log(response.data)
-        this.pokemon = response.data
+        this.refineResponseData(response.data)
       })
       .catch(error => {
         console.log(error)
-        // this.errored = true
       })
+    },
+    getPokemonSpecies(pokemonId) {
+      axios.get(`${this.BASE_URL}pokemon-species/${pokemonId}`)
+      .then(response => {
+        console.log(response.data)
+        this.refineSpeciesData(response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    refineResponseData(data) {
+      const pokemonData = {
+        id: data.id,
+        name: data.name,
+        sprite: data.sprites.front_default,
+        abilities: data.abilities,
+        stats: data.stats,
+        types: data.types,
+        weight: data.weight,
+        height: data.height
+      }
+      this.pokemon = pokemonData
+    },
+    refineSpeciesData(data) {
+      const speciesData = {
+        eggGroups: data.egg_groups
+      }
+      this.pokemonSpecies = speciesData
     },
     cssStatWidth (width) {
       let value = this.getPercentage(width, 255)
       return { '--width': value + '%'}
-    },
-    getPokemonSprite (pokemon) {
-      if(pokemon.id <= 151) {
-        return 'https://henriko.no/gen1/' + this.getIndex(pokemon.id) + '.png'
-      } else {
-        return pokemon.sprites.front_default
-      }
     },
     getIndex (value) {
       if(value < 10) {
@@ -278,6 +351,7 @@ export default {
         return value
       }
     },
+    //https://pokeapi.co/api/v2/pokemon-species/6/
     changeMetaTab(index) {
       this.metaItems.forEach(tab => {
         tab.active = false
@@ -298,51 +372,59 @@ export default {
 <style lang="scss" scoped>
   
   .pokemon-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 45vh 50vh auto;
 
-    .pagination-container {
-      display: flex;
-      justify-content: space-between;
-      margin: $xl 0;
-      align-items: center;
-
-      .pokemon-sprite-container {
-        display: flex;
-        justify-content: center;
-
-        .pokemon-sprite {
-          object-fit: contain;
-          width: $xxxxl;
-          height: $xxxxl;
-        }
-      }
+    .section-1 {
+      grid-row-start: 1;
+    }
+    .section-2 {
+      grid-row-start: 2;
+    }
+    .section-3 {
+      grid-row-start: 3;
     }
 
-    .meta-container {
-      background: #fff;
-      border-radius: $s;
-      padding: $xxl $m;
+    // Section 1
+    .pokemon-info-container {
+      padding: $m;
 
       .name-type-container {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        margin-bottom: $l;
+        align-items: flex-start;
 
         .pokemon-name {
-          color: #222;
+          color: #333;
         }
         .type-container {
           display: flex;
-          margin: $m 0;
+          margin-top: $m;
 
           .tag-item {
             margin-right: $s;
           }
         }
       }
+      .pokemon-sprite-container {
+        display: flex;
+        justify-content: center;
+
+        .pokemon-sprite {
+          object-fit: contain;
+          width:  $xxxxl;
+          height: $xxxxl;
+        }
+      }
+    }
+    
+    // Section 2
+    .meta-container {
+      //background: #fff;
+      border-radius: $l $l 0 0;
+      padding: $xl $m;
+      overflow-y: auto;
 
       .meta-tabs {
         margin-bottom: $l;
@@ -358,7 +440,7 @@ export default {
           padding: $s;
   
           .stat-bar {
-            background: $blue-dark;
+            background: #ddd;
             border-radius: $xs;
             position: relative;
             width: 100%;
@@ -376,5 +458,15 @@ export default {
         }
       }
     }
+
+    // Section 3
+    .pagination-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 0;
+      align-items: center;
+      padding: 0 $m;
+    }
   }
+  
 </style>

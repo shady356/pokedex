@@ -1,9 +1,8 @@
 <template>
-  <div id="app" class="grid">
+  <div id="app">
     <transition name="fade" mode="out-in">
       <Welcome v-if="isWelcome"/>
     </transition>
-    <Header class="header-layout"/>
     <transition name="opacity" mode="out-in">
       <router-view class="main-layout"/>
     </transition>
@@ -11,12 +10,10 @@
 </template>
 
 <script>
-import Header from '@/components/layout/Header.vue'
 import Welcome from '@/components/Welcome.vue'
 export default {
   name: 'App',
   components: {
-    Header,
     Welcome
   },
   data () {
@@ -39,8 +36,9 @@ export default {
   padding: 0;
 }
 body {
-  background: #73bcdd; 
-  background-image: linear-gradient(180deg, #eef5f6 0%, #73bcdd 100%);
+  background: #fff;
+  //background: #73bcdd; 
+  //background-image: linear-gradient(180deg, #eef5f6 0%, #73bcdd 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100%;
@@ -52,24 +50,6 @@ body {
 
 ul li {
   list-style: none;
-}
-
-
-.grid {
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: $xxxl 1fr;
-}
-
-.header-layout {
-  position: sticky;
-  bottom: 0;
-  grid-row-start: 1;
-  grid-row-end: 1;
-}
-.main-layout {
-  grid-row-start: 2;
-  grid-row-end: 2;
 }
 
 .fade-enter-active, .fade-leave-active {

@@ -29,6 +29,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+  $active-tab-color: #333;
+
   .tab-container {
     display: flex;
     justify-content: space-evenly;
@@ -38,26 +41,29 @@ export default {
       flex-grow: 1;
       text-align: center;
       border: 1px solid #aaa;
+      border-right-color: transparent;
       cursor: pointer;
 
       .text {
         font-weight: 400;
       }
 
-      &.active {
-        background: $blue-light;
-        border: 1px solid $blue-light;
-        color: #fff;
-
-        .text {
-          font-weight: 700;
-        }
-      }
       &:first-child {
         border-radius: $s 0 0 $s;
       }
       &:last-child {
         border-radius: 0 $s $s 0;
+        border-right-color: #aaa;
+      }
+
+      &.active {
+        background: $active-tab-color;
+        border: 1px solid transparent;
+        color: #fff;
+
+        .text {
+          font-weight: 700;
+        }
       }
     }
   }
