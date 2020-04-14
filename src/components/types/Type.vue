@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="typeRelation"
+    v-if="typeData"
     class="modal-type-container">
     <div 
       class="type-icon-container"
@@ -13,31 +13,39 @@
       >
     </div>
     <h3 class="type-title uppercase">{{type}}</h3>
-    <p>
-      Most Flying type Pokémon are based on birds or insects, along with some mythical creatures like dragons. On average they are faster than any other type.
+    <p class="description">
+      {{typeData.description}}
     </p>
-    <h5>Super effective against</h5>
+
     <div class="type-damage-relation-container">
-      <BaseTag
-        v-for="(typeItem, index) in typeRelation.superEffectiveTo"
-        :key="index"
-        :icon="getIcon(typeItem)"
-        :iconColor="getTypeColor(typeItem)"
-        :title="typeItem"
-        class="tag-item"
-      />
+      <ul>
+        <li>
+          <h6 class="type-relation-title">Super effective against</h6>
+          <div class="tag-types-container">
+            <BaseTag
+              v-for="(typeItem, index) in typeData.superEffectiveTo"
+              :key="index"
+              :icon="getIcon(typeItem)"
+              :iconColor="getTypeColor(typeItem)"
+              class="tag-item"
+            />
+          </div>
+        </li>
+        <li>
+          <h6 class="type-relation-title">Vulnerable to</h6>
+          <div class="tag-types-container">
+            <BaseTag
+              v-for="(typeItem, index) in typeData.vulnerableTo"
+              :key="index"
+              :icon="getIcon(typeItem)"
+              :iconColor="getTypeColor(typeItem)"
+              class="tag-item"
+            />
+          </div>
+        </li>
+      </ul>
     </div>
-    <h5>Watch out for</h5>
-    <div class="type-damage-relation-container">
-      <BaseTag
-        v-for="(typeItem, index) in typeRelation.superEffectiveFrom"
-        :key="index"
-        :icon="getIcon(typeItem)"
-        :iconColor="getTypeColor(typeItem)"
-        :title="typeItem"
-        class="tag-item"
-      />
-    </div>
+
   </div>
 </template>
 
@@ -57,16 +65,15 @@ export default {
   },
   data () {
     return {
-      typeRelation: null
+      typeData: null
     }
   },
   methods: {
     getIcon(name) {
-      console.log(name)
       return require('@/assets/icons/types/' + name + '.svg')
     },
-    getTypeColor (type) {
-      switch(type) {
+    getTypeColor (name) {
+      switch(name) {
           case 'bug':     return '#92BC2C'; 
           case 'dark':    return '#595761'; 
           case 'dragon':  return '#0C69C8'; 
@@ -89,7 +96,7 @@ export default {
     }
   },
   mounted () {
-    this.typeRelation = $types(this.type)
+    this.typeData = $types(this.type)
   }
 }
 </script>
@@ -106,8 +113,8 @@ export default {
       border-radius: 50%;
       margin: $m 0 $l 0;
       padding: $m;
-        width: $xxl;
-        height: $xxl;
+      width: $xxl;
+      height: $xxl;
       
       .type-icon {
         width: $xxl;
@@ -117,15 +124,44 @@ export default {
     .type-title {
       margin-bottom: $l;
     }
-    p {
+    .description {
       margin-bottom: $l;
     }
     .type-damage-relation-container {
       padding: $m;
       width: 100%;
       margin-bottom: $l;
-      display: flex;
-      justify-content: space-evenly;
+
+      ul {
+        display: flex;
+        flex-direction: column;
+
+        li {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: $l;
+
+          .type-relation-title {
+            text-align: left;
+          }
+          .tag-types-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            flex-wrap: wrap;
+
+            .tag-item {
+              margin-left: $s;
+
+              &:first-child {
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
     }
   }
 </style>

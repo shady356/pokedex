@@ -13,7 +13,7 @@
           <router-link
             :to="{ name: 'Pokedex'}"
           >
-            <h6>Back</h6>
+            <img :src="arrowBack" alt="back">
           </router-link>
 
           <!-- Name -->
@@ -227,6 +227,10 @@ export default {
       NUM_OF_POKEMON: 250,
       isTypeModalOpen: false,
       currentTypeInModal: null,
+
+      // icons
+      arrowBack: require('@/assets/icons/arrow_back-24px.svg'),
+
       metaItems: [
         {
           name: 'about',

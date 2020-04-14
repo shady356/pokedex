@@ -1,6 +1,6 @@
 <template>
   <div 
-    class="tag-container" 
+    :class="['tag-container', {'has-title': title}]" 
     @click="clicked()"
   >
     <div
@@ -14,7 +14,9 @@
         class="icon"
       >
     </div>
-    <div class="title uppercase condensed">
+    <div
+      v-if="title" 
+      class="title uppercase condensed">
       {{title}}
     </div>
   </div>
@@ -26,7 +28,8 @@ export default {
   props: {
     title: {
       type: String,
-      required: true
+      required: false,
+      default: ''
     },
     icon: {
       type: String,
@@ -52,23 +55,29 @@ export default {
   .tag-container {
     display: flex;
     align-items: center;
-    background: #333;
+    
     color: #fff;
     border-radius: $xs;
 
     .icon-container {
       padding: $xs $s;
-      background: #08a;
-      border-radius: $xs 0 0 $xs;
+      border-radius: 50%;
 
       .icon {
         width: $font-s;
         height: $font-s;
       }
     }
-    .title {
-      padding: $xs $s;
-      font-size: $font-s;
+    &.has-title {
+      background: #333;
+
+      .icon-container {
+        border-radius: $xs 0 0 $xs;
+      }
+      .title {
+        padding: $xs $s;
+        font-size: $font-s;
+      }
     }
   }
 </style>
