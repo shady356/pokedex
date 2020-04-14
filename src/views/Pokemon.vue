@@ -10,6 +10,8 @@
 
       <section class="pokemon-info-container section-1">
         <div class="name-type-container">
+
+          <!-- Back icon -->
           <router-link
             :to="{ name: 'Pokedex'}"
           >
@@ -22,6 +24,7 @@
             {{pokemon.name}}
           </h1>
 
+          <!-- Index #number -->
           <h4>#{{getIndex(pokemonId)}}</h4>
 
           <!-- Type(s) -->
@@ -378,7 +381,7 @@ export default {
   .pokemon-container {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 45vh 50vh auto;
+    grid-template-rows: 35vh 55vh auto;
 
     .section-1 {
       grid-row-start: 1;
@@ -393,6 +396,9 @@ export default {
     // Section 1
     .pokemon-info-container {
       padding: $m;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
 
       .name-type-container {
         display: flex;
@@ -413,21 +419,18 @@ export default {
       }
       .pokemon-sprite-container {
         display: flex;
-        justify-content: center;
-
+      
         .pokemon-sprite {
           object-fit: contain;
-          width:  $xxxxl;
-          height: $xxxxl;
+          height: $xxxxxl;
         }
       }
     }
     
     // Section 2
     .meta-container {
-      //background: #fff;
       border-radius: $l $l 0 0;
-      padding: $xl $m;
+      padding: $m;
       overflow-y: auto;
 
       .meta-tabs {
