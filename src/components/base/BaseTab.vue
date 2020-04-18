@@ -40,8 +40,7 @@ export default {
       padding: $s;
       flex-grow: 1;
       text-align: center;
-      border: 1px solid #aaa;
-      border-right-color: transparent;
+      //border-bottom: 1px solid #aaa;
       cursor: pointer;
 
       .text {
@@ -49,17 +48,17 @@ export default {
       }
 
       &:first-child {
-        border-radius: $s 0 0 $s;
+        //border-radius: $s 0 0 $s;
       }
       &:last-child {
-        border-radius: 0 $s $s 0;
+        //border-radius: 0 $s $s 0;
         border-right-color: #aaa;
       }
 
       &.active {
-        background: $active-tab-color;
-        border: 1px solid transparent;
-        color: #fff;
+        //background: $active-tab-color;
+        border-bottom: 2px solid #444;
+        color: #444;
 
         .text {
           font-weight: 700;

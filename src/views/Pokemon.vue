@@ -270,7 +270,6 @@ export default {
       setTimeout(function () {
         that.getPokemonSpecies(that.pokemonId)
         that.getPokemon(that.pokemonId)
-        that.changeMetaTab(0)
       }, 500)
     }
   },
@@ -431,7 +430,6 @@ export default {
     .meta-container {
       border-radius: $l $l 0 0;
       padding: $m;
-      overflow-y: auto;
 
       .meta-tabs {
         margin-bottom: $l;

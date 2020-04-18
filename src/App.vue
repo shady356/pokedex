@@ -37,8 +37,8 @@ export default {
 }
 body {
   background: #fff;
-  //background: #73bcdd; 
-  //background-image: linear-gradient(180deg, #eef5f6 0%, #73bcdd 100%);
+  background: #73bcdd; 
+  background-image: linear-gradient(180deg, #eef5f6 0%, #73bcdd 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100%;
