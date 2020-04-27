@@ -42,7 +42,7 @@
 
         <!-- Sprite -->
         <div class="pokemon-sprite-container">
-          <div 
+          <div
             v-if="isLoadingPokemon"
             class="loading-pokemon-sprite"
           />
@@ -57,19 +57,22 @@
 
       <!-- Meta container -->
       <section class="meta-container section-2">
+
         <BaseTab
           class="meta-tabs"
           :items="metaItems"
           @changeTab="changeMetaTab"
         />
-        <!-- About -->
+
         <transition
-          name="slide-h"
-          key="tab-1"
-          mode="in-out">
+          name="fade"
+          mode="out-in"
+        >
+          <!-- About -->
           <div
-            v-show="metaItems[0].active"
-            class="moves-container"
+            v-if="metaItems[0].active"
+            key="tab-about"
+            class="about-container"
           >
             <!-- Abilities -->
             <h4>Abilities</h4>
@@ -82,12 +85,14 @@
             </div>
 
             <!-- Weight and height -->
+            <h4>Weight and height</h4>
             <div>
               Weight {{pokemon.weight}}<br>
               Height {{pokemon.height}}
             </div>
 
             <!-- Egg group -->
+            <img class="egg-icon" src="@/assets/icons/egg-solid.svg" alt="">
             <h4>Egg group</h4>
             <div 
               v-for="item in pokemonSpecies.eggGroups"
@@ -96,19 +101,12 @@
                 {{item.name}}
               </div>
             </div>
-
           </div>
-        </transition>
 
-        <!-- Stats -->
-        <transition
-          key="tab-2"
-          name="slide-h"
-          mode="in-out"
-        >
-      
+          <!-- Stats -->
           <div
-            v-show="metaItems[1].active"
+            v-if="metaItems[1].active"
+            key="tab-stats"
             class="stats-container"
           >
             <div 
@@ -116,9 +114,9 @@
               v-for="(stat, index) in pokemon.stats"
               :key="index"
             >
-              <div class="uppercase">
-                {{stat.stat.name | statName}}
-                {{stat.base_stat}}
+              <div class="uppercase letter-spacing">
+                <h5>{{stat.stat.name | statName}} </h5>{{stat.base_stat}}
+                
               </div>
               
               <div class="stat-bar">
@@ -129,23 +127,20 @@
               </div>
             </div>
           </div>
-        </transition>
 
-        <!-- Moves -->
-        <transition
-          name="fade"
-          key="tab-3"
-          mode="in-out">
+          <!-- Moves -->
           <div
-            v-show="metaItems[2].active"
+            v-if="metaItems[2].active"
+            key="tab-moves"
             class="moves-container"
           >
+            Moves
             <!-- <pre>
               {{pokemon}}
             </pre> -->
           </div>
+
         </transition>
-        
       </section>
     </div>
 
@@ -206,10 +201,10 @@ export default {
   filters: {
     statName(value) {
       if (value === 'special-defense') {
-        return 'spc. defense'
+        return 'spc. def'
       }
       else if (value === 'special-attack') {
-        return 'spc. attack'
+        return 'spc. att'
       }
       else {
         return value
@@ -445,11 +440,21 @@ export default {
         margin-bottom: $l;
       }
 
+      .about-container {
+        .egg-icon {
+          display: inline-flex;
+          width: 24px;
+          
+        }
+
+      }
+
       .stats-container {
         display: flex;
         flex-direction: column;
         color: #000;
         width: 100%;
+        flex-direction: column-reverse;
   
         .stat {
           padding: $s;

@@ -7,6 +7,10 @@
       @click="changeTab(index)"
     >
       <h6 class="text uppercase condensed">{{item.name}}</h6>
+      <div
+        v-if="item.active" 
+        class="active-line" 
+      />
     </div>
   </div>
 </template>
@@ -40,28 +44,25 @@ export default {
       padding: $s;
       flex-grow: 1;
       text-align: center;
-      //border-bottom: 1px solid #aaa;
       cursor: pointer;
 
       .text {
         font-weight: 400;
       }
 
-      &:first-child {
-        //border-radius: $s 0 0 $s;
-      }
-      &:last-child {
-        //border-radius: 0 $s $s 0;
-        border-right-color: #aaa;
-      }
-
       &.active {
-        //background: $active-tab-color;
-        border-bottom: 2px solid #444;
         color: #444;
+        transition: all .4s;
 
         .text {
           font-weight: 700;
+        }
+        .active-line {
+          margin: 0 auto;
+          margin-top: 2px;
+          width: 16px;
+          height: 2px;
+          background: #444;
         }
       }
     }

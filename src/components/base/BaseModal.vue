@@ -5,17 +5,6 @@
       appear
     >
       <div class="modal-window">
-        <!-- <div class="modal-header">
-          <div class="header-title">
-            <slot name="header" />
-          </div>
-          <div
-            @click="closeModal()"
-            class="exit"
-          >
-            x
-          </div>
-        </div> -->
         <div class="modal-content">
           <slot name="content" />
         </div>
@@ -71,31 +60,11 @@ export default {
     color: #333;
     bottom: 0;
     border-radius: $m $m 0 0;
-    width: 100vw;
+    width: 95vw;
     max-height: 86vh;
     min-height: 85vh;
+    border: 12px solid hsla(0,0%,100%,.2);
 
-    .modal-header {
-      border-radius: 10px 10px 0 0;
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      position: sticky;
-      top: 0px;
-
-      .header-title {
-        padding: 20px;
-        font-weight: 300;
-        color: #aaa;
-        text-align: left;
-        font-family: 'Roboto Condensed';
-      }
-
-      .exit {
-        font-size: 20px;
-        padding: 20px 30px;
-      }
-    }
     .modal-close-container {
       display: flex;
       justify-content: center;
