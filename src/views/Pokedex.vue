@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       localhostBase: 'http://localhost:8080',
-      networkBase: 'http://192.168.0.18:8080/',
+      networkBase: 'http://192.168.84.24:8080/',
 
       pokemonList: [],
       

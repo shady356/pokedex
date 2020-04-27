@@ -39,5 +39,20 @@ export default {
       background: none;
       border: 1px solid #333;
     }
+    &.pagination {
+      background: #333;
+      color: #fff;
+      border-radius: 0;
+      
+      &.previous {
+        clip-path: polygon(0 0, 80% 0, 100% 100%, 0% 100%);
+        padding-right: $xl;
+        border-top-right-radius: $m;
+      }
+      &.next {
+        padding-left: $xl;
+        clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+      }
+    }
   }
 </style>

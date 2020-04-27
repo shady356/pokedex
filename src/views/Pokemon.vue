@@ -3,9 +3,8 @@
     
     <!-- The Pokemon -->
     <div
-      v-if="pokemon && pokemonSpecies"
+      v-if="isPokemonLoaded"
       class="pokemon-container"
-      :style="'background: #fff'"
       >
 
       <section class="pokemon-info-container section-1">
@@ -25,7 +24,7 @@
           </h1>
 
           <!-- Index #number -->
-          <h4>#{{getIndex(pokemonId)}}</h4>
+          <h6>#{{getIndex(pokemonId)}}</h6>
 
           <!-- Type(s) -->
           <div class="type-container">
@@ -43,7 +42,12 @@
 
         <!-- Sprite -->
         <div class="pokemon-sprite-container">
-          <img 
+          <div 
+            v-if="isLoadingPokemon"
+            class="loading-pokemon-sprite"
+          />
+          <img
+            v-else 
             :src="pokemon.sprite"
             class="pokemon-sprite"
             alt="pokemon sprite"
@@ -143,33 +147,31 @@
         </transition>
         
       </section>
-      
-      <section class="section-3">
-          <!-- Pagination -->
-      <div class="pagination-container">
-        <router-link
-          :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber -1 }}"
-        >
-          <BaseButton
-            :disabled="isFirstPokemon"
-            class="ghost"
-          >
-            Prev
-          </BaseButton>
-        </router-link>
+    </div>
 
-        <router-link
-          :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber +1 }}"
+    <!-- Pagination | fixed -->
+    <div class="pagination-container">
+      <router-link
+        :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber -1 }}"
+      >
+        <BaseButton
+          :disabled="isFirstPokemon"
+          class="pagination previous"
         >
-          <BaseButton
-            :disabled="isLastPokemon"
-            class="ghost"
-          >
-            Next
-          </BaseButton>
-        </router-link>
-      </div>
-      </section>
+          Prev
+        </BaseButton>
+      </router-link>
+
+      <router-link
+        :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber +1 }}"
+      >
+        <BaseButton
+          :disabled="isLastPokemon"
+          class="pagination next"
+        >
+          Next
+        </BaseButton>
+      </router-link>
     </div>
 
     <!-- Type modal -->
@@ -223,13 +225,14 @@ export default {
   data() {
     return {
       localhostBase: 'http://localhost:8080',
-      networkBase: 'http://192.168.0.18:8080/',
+      networkBase: 'http://192.168.84.24:8080/',
 
       pokemon: null,
       pokemonSpecies: null,
       NUM_OF_POKEMON: 250,
       isTypeModalOpen: false,
       currentTypeInModal: null,
+      isLoadingPokemon: false,
 
       // icons
       arrowBack: require('@/assets/icons/arrow_back-24px.svg'),
@@ -257,6 +260,9 @@ export default {
     pokemonIdNumber () {
       return parseInt(this.pokemonId)
     },
+    isPokemonLoaded () {
+      return this.pokemon && this.pokemonSpecies
+    },
     isFirstPokemon () {
       return this.pokemonIdNumber === 1
     },
@@ -266,6 +272,7 @@ export default {
   },
   watch: {
     $route() {
+      this.isLoadingPokemon = true
       let that = this
       setTimeout(function () {
         that.getPokemonSpecies(that.pokemonId)
@@ -337,6 +344,7 @@ export default {
         height: data.height
       }
       this.pokemon = pokemonData
+      this.isLoadingPokemon = false
     },
     refineSpeciesData(data) {
       const speciesData = {
@@ -380,16 +388,15 @@ export default {
   .pokemon-container {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 35vh 55vh auto;
+    grid-template-rows: 35vh 65vh;
+    overflow: hidden;
 
     .section-1 {
       grid-row-start: 1;
     }
     .section-2 {
       grid-row-start: 2;
-    }
-    .section-3 {
-      grid-row-start: 3;
+      background: #fff;
     }
 
     // Section 1
@@ -397,12 +404,13 @@ export default {
       padding: $m;
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      align-items: center;
 
       .name-type-container {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        flex-basis: 50%;
 
         .pokemon-name {
           color: #333;
@@ -418,10 +426,12 @@ export default {
       }
       .pokemon-sprite-container {
         display: flex;
+        flex-basis: 50%;
+        justify-content: center;
       
         .pokemon-sprite {
           object-fit: contain;
-          height: $xxxxxl;
+          width: 192px;
         }
       }
     }
@@ -463,15 +473,16 @@ export default {
         }
       }
     }
-
-    // Section 3
-    .pagination-container {
-      display: flex;
-      justify-content: space-between;
-      margin: 0;
-      align-items: center;
-      padding: 0 $m;
-    }
+  }
+  // Pagination | fixed
+  .pagination-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
 </style>
