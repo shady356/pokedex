@@ -60,9 +60,9 @@ export default {
         .active-line {
           margin: 0 auto;
           margin-top: 2px;
-          width: 16px;
+          width: 32px;
           height: 2px;
-          background: #444;
+          background: #aaa;
         }
       }
     }

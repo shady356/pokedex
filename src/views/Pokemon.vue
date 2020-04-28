@@ -74,33 +74,10 @@
             key="tab-about"
             class="about-container"
           >
-            <!-- Abilities -->
-            <h4>Abilities</h4>
-            <div 
-              v-for="item in pokemon.abilities"
-              :key="item.ability.name"> 
-              <div class="capitalize">
-               {{item.ability.name}} <span v-if="item.is_hidden"> (Hidden)</span>
-              </div>
-            </div>
-
-            <!-- Weight and height -->
-            <h4>Weight and height</h4>
-            <div>
-              Weight {{pokemon.weight}}<br>
-              Height {{pokemon.height}}
-            </div>
-
-            <!-- Egg group -->
-            <img class="egg-icon" src="@/assets/icons/egg-solid.svg" alt="">
-            <h4>Egg group</h4>
-            <div 
-              v-for="item in pokemonSpecies.eggGroups"
-              :key="item.name"> 
-              <div class="capitalize">
-                {{item.name}}
-              </div>
-            </div>
+            <PokemonAbout
+              :pokemon="pokemon"
+              :pokemonSpecies="pokemonSpecies"
+            />
           </div>
 
           <!-- Stats -->
@@ -109,24 +86,9 @@
             key="tab-stats"
             class="stats-container"
           >
-            <div 
-              class="stat-item"
-              v-for="(stat, index) in pokemon.stats"
-              :key="index"
-            >
-              <div :class="['stat-label', {'highlight': isBestStat(stat)}]">
-                <p class="stat-key uppercase">{{stat.stat.name | statName}}</p>
-                <p class="stat-value">{{stat.base_stat}}</p>
-              </div>
-                
-              <div class="stat-bar">
-                <div 
-                  v-for="index in BASE_STAT_TOTAL"
-                  :key="index"
-                  :class="['stat-bar-fragment', {'is-filled': getStatFillStatus(index, stat.base_stat)}]"
-                />
-              </div>
-            </div>
+            <PokemonBaseStats
+              :pokemon="pokemon"
+            />
           </div>
 
           <!-- Moves -->
@@ -190,6 +152,8 @@ import BaseTab from '@/components/base/BaseTab'
 import BaseTag from '@/components/base/BaseTag'
 import Type from '@/components/types/Type'
 import axios from 'axios'
+import PokemonAbout from '@/components/pokemon/PokemonAbout.vue'
+import PokemonBaseStats from '@/components/pokemon/PokemonBaseStats.vue'
 export default {
   name: 'Pokemon',
   components: {
@@ -197,20 +161,9 @@ export default {
     BaseModal,
     BaseTab,
     BaseTag,
+    PokemonAbout,
+    PokemonBaseStats,
     Type
-  },
-  filters: {
-    statName(value) {
-      if (value === 'special-defense') {
-        return 'spc. def'
-      }
-      else if (value === 'special-attack') {
-        return 'spc. att'
-      }
-      else {
-        return value
-      }
-    }
   },
   props: {
     pokemonId: {
@@ -229,8 +182,6 @@ export default {
       isTypeModalOpen: false,
       currentTypeInModal: null,
       isLoadingPokemon: false,
-      BASE_STAT_TOTAL: 16,
-      bestStat: {},
 
       // icons
       arrowBack: require('@/assets/icons/arrow_back-24px.svg'),
@@ -283,8 +234,14 @@ export default {
     this.getPokemonSpecies(this.pokemonId)
   },
   methods: {
+    setBodyBackground() {
+      document.body.style.background = 'linear-gradient(300deg, ' + this.getTypeColor( this.getType() ) + ' 0%, #fff 100%)';
+    },
     getIcon(name) {
       return require('@/assets/icons/types/' + name + '.svg')
+    },
+    getType () {
+      return this.pokemon.types[0].type.name
     },
     getTypeColor (type) {
       switch(type) {
@@ -330,22 +287,6 @@ export default {
         console.log(error)
       })
     },
-    setBestStat() {
-      let bestStat = { 
-        name: this.pokemon.stats[0].stat.name,
-        value: this.pokemon.stats[0].base_stat
-      }
-      this.pokemon.stats.forEach(stat => {
-        if (stat.base_stat >= bestStat.value) {
-          bestStat.name = stat.stat.name
-          bestStat.value = stat.base_stat
-        }
-      })
-      this.bestStat = bestStat
-    },
-    isBestStat(stat) {
-      return this.bestStat.name === stat.stat.name
-    },
     refineResponseData(data) {
       const pokemonData = {
         id: data.id,
@@ -359,7 +300,8 @@ export default {
       }
       this.pokemon = pokemonData
       this.isLoadingPokemon = false
-      this.setBestStat()
+      this.setBodyBackground()
+      
     },
     refineSpeciesData(data) {
       const speciesData = {
@@ -367,14 +309,10 @@ export default {
       }
       this.pokemonSpecies = speciesData
     },
-    cssStatWidth (width) {
+    /* cssStatWidth (width) {
       let value = this.getPercentage(width, 255)
       return { '--width': value + '%'}
-    },
-    getStatFillStatus(index, value) {
-      const fragment = Math.ceil((value + 1) / this.BASE_STAT_TOTAL)
-      return index <= fragment
-    },
+    }, */
     getIndex (value) {
       if(value < 10) {
         return '00' + value
@@ -384,7 +322,6 @@ export default {
         return value
       }
     },
-    //https://pokeapi.co/api/v2/pokemon-species/6/
     changeMetaTab(index) {
       this.metaItems.forEach(tab => {
         tab.active = false
@@ -437,6 +374,7 @@ export default {
         .type-container {
           display: flex;
           margin-top: $m;
+          flex-direction: row-reverse;
 
           .tag-item {
             margin-right: $s;
@@ -457,7 +395,7 @@ export default {
     
     // Section 2
     .meta-container {
-      border-radius: $l $l 0 0;
+      border-radius: $xl $xl 0 0;
       padding: $m;
 
       .meta-tabs {
@@ -465,67 +403,11 @@ export default {
       }
 
       .about-container {
-        .egg-icon {
-          display: inline-flex;
-          width: 24px;
-          
-        }
-
+        padding: $m $xxl;
       }
 
       .stats-container {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        flex-direction: column-reverse;
-        align-items: center;
-  
-        .stat-item {
-          padding: $s;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-        
-          width: 80%;
-
-          .stat-label {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            flex-basis: 30%;
-            justify-content: space-between;
-
-            &.highlight {
-              font-weight: 700;
-            }
-            .stat-value {
-              padding-right: 10px;
-            }
-          }
-
-          .stat-bar {
-            display: flex;
-            justify-content: flex-end;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            flex-basis: 70%;
-
-            .stat-bar-fragment {
-              width: calc(85% / 16);
-              height: $xs;
-              border-radius: 2px;
-              background: #ddd;
-              margin-right: $xxs;
-              transition: background .4s ease-out;
-
-              &.is-filled {
-                background: $blue-light;
-                transition: background .4s ease-in;
-                animation: scale-x-in .4s ease;
-              }
-            }
-          }
-        }
+        padding: 0 $xl;
       }
     }
   }
