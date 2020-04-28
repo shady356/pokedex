@@ -20,6 +20,14 @@
   }
 }
 
+@keyframes scale-x-in {
+  0% {
+    transform: scaleX(.2);
+  }
+  100% {
+    transform:  scaleX(1);  }
+  }
+
 .loading-pokemon-sprite {
   animation: loading-pokemon-sprite 1s infinite ease-in-out;
   width: $l;

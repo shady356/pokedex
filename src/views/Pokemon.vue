@@ -110,19 +110,20 @@
             class="stats-container"
           >
             <div 
-              class="stat"
+              class="stat-item"
               v-for="(stat, index) in pokemon.stats"
               :key="index"
             >
-              <div class="uppercase letter-spacing">
-                <h5>{{stat.stat.name | statName}} </h5>{{stat.base_stat}}
-                
+              <div :class="['stat-label', {'highlight': isBestStat(stat)}]">
+                <p class="stat-key uppercase">{{stat.stat.name | statName}}</p>
+                <p class="stat-value">{{stat.base_stat}}</p>
               </div>
-              
+                
               <div class="stat-bar">
-                <div
-                  class="stat-bar-fill"
-                  :style="cssStatWidth(stat.base_stat)"
+                <div 
+                  v-for="index in BASE_STAT_TOTAL"
+                  :key="index"
+                  :class="['stat-bar-fragment', {'is-filled': getStatFillStatus(index, stat.base_stat)}]"
                 />
               </div>
             </div>
@@ -228,6 +229,8 @@ export default {
       isTypeModalOpen: false,
       currentTypeInModal: null,
       isLoadingPokemon: false,
+      BASE_STAT_TOTAL: 16,
+      bestStat: {},
 
       // icons
       arrowBack: require('@/assets/icons/arrow_back-24px.svg'),
@@ -327,6 +330,22 @@ export default {
         console.log(error)
       })
     },
+    setBestStat() {
+      let bestStat = { 
+        name: this.pokemon.stats[0].stat.name,
+        value: this.pokemon.stats[0].base_stat
+      }
+      this.pokemon.stats.forEach(stat => {
+        if (stat.base_stat >= bestStat.value) {
+          bestStat.name = stat.stat.name
+          bestStat.value = stat.base_stat
+        }
+      })
+      this.bestStat = bestStat
+    },
+    isBestStat(stat) {
+      return this.bestStat.name === stat.stat.name
+    },
     refineResponseData(data) {
       const pokemonData = {
         id: data.id,
@@ -340,6 +359,7 @@ export default {
       }
       this.pokemon = pokemonData
       this.isLoadingPokemon = false
+      this.setBestStat()
     },
     refineSpeciesData(data) {
       const speciesData = {
@@ -350,6 +370,10 @@ export default {
     cssStatWidth (width) {
       let value = this.getPercentage(width, 255)
       return { '--width': value + '%'}
+    },
+    getStatFillStatus(index, value) {
+      const fragment = Math.ceil((value + 1) / this.BASE_STAT_TOTAL)
+      return index <= fragment
     },
     getIndex (value) {
       if(value < 10) {
@@ -452,27 +476,53 @@ export default {
       .stats-container {
         display: flex;
         flex-direction: column;
-        color: #000;
         width: 100%;
         flex-direction: column-reverse;
+        align-items: center;
   
-        .stat {
+        .stat-item {
           padding: $s;
-  
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        
+          width: 80%;
+
+          .stat-label {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-basis: 30%;
+            justify-content: space-between;
+
+            &.highlight {
+              font-weight: 700;
+            }
+            .stat-value {
+              padding-right: 10px;
+            }
+          }
+
           .stat-bar {
-            background: #ddd;
-            border-radius: $xs;
-            position: relative;
-            width: 100%;
-            height: $s;
-  
-            .stat-bar-fill {
-              @include progress-grow(var(--width));
-              position: absolute;
-              border-radius: $xs;
-              background: $blue-light;
-              height: $s;
-              width: var(--width);
+            display: flex;
+            justify-content: flex-end;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            flex-basis: 70%;
+
+            .stat-bar-fragment {
+              width: calc(85% / 16);
+              height: $xs;
+              border-radius: 2px;
+              background: #ddd;
+              margin-right: $xxs;
+              transition: background .4s ease-out;
+
+              &.is-filled {
+                background: $blue-light;
+                transition: background .4s ease-in;
+                animation: scale-x-in .4s ease;
+              }
             }
           }
         }
