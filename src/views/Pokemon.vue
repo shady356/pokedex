@@ -408,6 +408,7 @@ export default {
 
       .stats-container {
         padding: 0 $xl;
+        overflow-y: auto;
       }
     }
   }

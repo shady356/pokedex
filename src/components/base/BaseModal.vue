@@ -62,7 +62,7 @@ export default {
     border-radius: $m $m 0 0;
     width: 95vw;
     max-height: 86vh;
-    min-height: 85vh;
+    min-height: 30vh;
     border: 12px solid hsla(0,0%,100%,.2);
 
     .modal-close-container {
