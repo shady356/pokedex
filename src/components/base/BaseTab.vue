@@ -42,8 +42,6 @@ export default {
 
     .tab-item {
       padding: $s;
-      flex-grow: 1;
-      text-align: center;
       cursor: pointer;
 
       .text {
@@ -60,8 +58,8 @@ export default {
         .active-line {
           margin: 0 auto;
           margin-top: 2px;
-          width: 32px;
-          height: 2px;
+          width: 16px;
+          height: 1px;
           background: #aaa;
         }
       }

@@ -28,10 +28,9 @@
       v-else
       class="loading"
     >
-      <img class="loading-icon" src="@/assets/icons/pokeball_white.png" alt="">
+      <img class="loading-icon" src="@/assets/icons/pokeball_white.png" alt="loading icon">
     </div>
-    <div class="trigger" ref="trigger">
-    </div>
+    <div class="trigger" ref="trigger"/>
   </div>
 </template>
 

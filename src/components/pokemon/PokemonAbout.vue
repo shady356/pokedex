@@ -17,9 +17,20 @@
       Height {{pokemon.height}}
     </div>
 
+    <!-- Training -->
+    <h4>Training</h4>
+    <div>
+      Growth rate: {{pokemonSpecies.growthRate}} <br>
+      Catch rate: {{pokemonSpecies.captureRate}} <br>
+      Base happiness: {{pokemonSpecies.baseHappiness}} <br>
+    </div>
+
+    <!-- Breeding -->
+    <img class="egg-icon" src="@/assets/icons/egg-solid.svg" alt="egg-icon">
+    <h4>Breeding</h4>
+
     <!-- Egg group -->
-    <img class="egg-icon" src="@/assets/icons/egg-solid.svg" alt="">
-    <h4>Egg group</h4>
+    <div class="micro-label uppercase">egg group</div>
     <div 
       v-for="item in pokemonSpecies.eggGroups"
       :key="item.name"> 
@@ -27,6 +38,10 @@
         {{item.name}}
       </div>
     </div>
+
+    <!-- Hatch counter -->
+    <div class="micro-label uppercase">Hatch counter</div>
+    {{pokemonSpecies.hatchCounter}}
   </div>
 </template>
 

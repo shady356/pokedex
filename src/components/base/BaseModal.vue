@@ -1,7 +1,11 @@
 <template>
+  <transition
+    name="fade"
+    appear
+  >
   <div class="modal-container">
     <transition 
-      name="slide-v" 
+      name="slide-v"
       appear
     >
       <div class="modal-window">
@@ -23,6 +27,7 @@
       </div>
     </transition>
   </div>
+  </transition>
 </template>
 
 <script>

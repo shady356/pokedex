@@ -1,11 +1,11 @@
 <template>
   <div>
-    
     <!-- The Pokemon -->
     <div
       v-if="isPokemonLoaded"
       class="pokemon-container"
-      >
+      :style="'background: linear-gradient(300deg, ' + getTypeColor( firstType ) + ' 0%, #fff 100%)'"
+    >
 
       <section class="pokemon-info-container section-1">
         <div class="name-type-container">
@@ -59,51 +59,52 @@
       <section class="meta-container section-2">
 
         <BaseTab
-          class="meta-tabs"
+          class="tab-header"
           :items="metaItems"
           @changeTab="changeMetaTab"
         />
 
-        <transition
-          name="fade"
-          mode="out-in"
-        >
-          <!-- About -->
-          <div
-            v-if="metaItems[0].active"
-            key="tab-about"
-            class="about-container"
-          >
-            <PokemonAbout
-              :pokemon="pokemon"
-              :pokemonSpecies="pokemonSpecies"
-            />
-          </div>
+        <div class="tab-content">
+          <transition
+            name="fade"
+            mode="out-in">
+            <!-- About -->
+            <div
+              v-if="metaItems[0].active"
+              key="tab-about"
+              class="about-container"
+            >
+              <PokemonAbout
+                :pokemon="pokemon"
+                :pokemonSpecies="pokemonSpecies"
+              />
+            </div>
 
-          <!-- Stats -->
-          <div
-            v-if="metaItems[1].active"
-            key="tab-stats"
-            class="stats-container"
-          >
-            <PokemonBaseStats
-              :pokemon="pokemon"
-            />
-          </div>
+            <!-- Stats -->
+            <div
+              v-if="metaItems[1].active"
+              key="tab-stats"
+              class="stats-container"
+            >
+              <PokemonBaseStats
+                :pokemon="pokemon"
+              />
+            </div>
 
-          <!-- Moves -->
-          <div
-            v-if="metaItems[2].active"
-            key="tab-moves"
-            class="moves-container"
-          >
-            Moves
-            <!-- <pre>
-              {{pokemon}}
-            </pre> -->
-          </div>
+            <!-- Moves -->
+            <div
+              v-if="metaItems[2].active"
+              key="tab-moves"
+              class="moves-container"
+            >
+              Moves
+              <!-- <pre>
+                {{pokemon}}
+              </pre> -->
+            </div>
 
-        </transition>
+          </transition>
+        </div>
       </section>
     </div>
 
@@ -217,7 +218,11 @@ export default {
     },
     isLastPokemon () {
       return this.pokemonIdNumber === this.NUM_OF_POKEMON
-    }
+    },
+    firstType () {
+      const type = this.pokemon.types.find(type => type.slot === 1)
+      return type.type.name
+    },
   },
   watch: {
     $route() {
@@ -234,14 +239,8 @@ export default {
     this.getPokemonSpecies(this.pokemonId)
   },
   methods: {
-    setBodyBackground() {
-      document.body.style.background = 'linear-gradient(300deg, ' + this.getTypeColor( this.getType() ) + ' 0%, #fff 100%)';
-    },
     getIcon(name) {
       return require('@/assets/icons/types/' + name + '.svg')
-    },
-    getType () {
-      return this.pokemon.types[0].type.name
     },
     getTypeColor (type) {
       switch(type) {
@@ -300,12 +299,14 @@ export default {
       }
       this.pokemon = pokemonData
       this.isLoadingPokemon = false
-      this.setBodyBackground()
-      
     },
     refineSpeciesData(data) {
       const speciesData = {
-        eggGroups: data.egg_groups
+        eggGroups: data.egg_groups,
+        captureRate: data.capture_rate,
+        baseHappiness: data.base_happiness,
+        growthRate: data.growth_rate.name,
+        hatchCounter: data.hatch_counter
       }
       this.pokemonSpecies = speciesData
     },
@@ -397,18 +398,18 @@ export default {
     .meta-container {
       border-radius: $xl $xl 0 0;
       padding: $m;
+      display: flex;
+      flex-direction: column;
 
-      .meta-tabs {
+      .tab-header {
         margin-bottom: $l;
       }
 
-      .about-container {
-        padding: $m $xxl;
-      }
-
-      .stats-container {
-        padding: 0 $xl;
+      .tab-content { 
         overflow-y: auto;
+        overflow-x: hidden;
+        height: 80%;
+        padding: 0 $xl;
       }
     }
   }
