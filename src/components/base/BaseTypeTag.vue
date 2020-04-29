@@ -56,11 +56,12 @@ export default {
     display: inline-flex;
     align-items: center;
     color: #fff;
-    border-radius: $xs;
+    border-radius: $xxs;
 
     .icon-container {
-      padding: $xs $s;
+      padding: $xxs $xs;
       border-radius: 50%;
+      box-shadow: 0 $s #ffffff22 inset;
 
       .icon {
         width: $font-s;
@@ -69,12 +70,13 @@ export default {
     }
     &.has-title {
       background: #333;
+      box-shadow: 0 $s #ffffff22 inset;
 
       .icon-container {
-        border-radius: $xs 0 0 $xs;
+        border-radius: $xxs 0 0 $xxs;
       }
       .title {
-        padding: $xs $s;
+        padding: $xxs $xs;
         font-size: $font-s;
       }
     }

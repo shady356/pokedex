@@ -65,10 +65,9 @@ export default {
     color: #333;
     bottom: 0;
     border-radius: $m $m 0 0;
-    width: 95vw;
+    width: 100vw;
     max-height: 86vh;
     min-height: 30vh;
-    border: 12px solid hsla(0,0%,100%,.2);
 
     .modal-close-container {
       display: flex;
@@ -81,18 +80,14 @@ export default {
       .modal-close {
         display: flex;
         justify-content: center;
-        width: $xl;
-        height: $xl;
-        padding: $xxs;
-        color: #fff;
+        border: 1px solid #aaa;
         border-radius: 50%;
-        color: $blue;
-        border: 2px solid #999;
+        padding: $xxxs;
 
         .close-icon {
           background: #555;
-          width: $l;
-          height: $l;
+          width: $m;
+          height: $m;
           padding: $xs;
           border-radius: 50%;
         }

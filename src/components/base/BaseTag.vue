@@ -27,7 +27,7 @@ export default {
     font-size: $font-s;
     background: #fff;
     border: 1px solid #ccc;
-    padding: $xs $m;
+    padding: $xxs $s;
     border-radius: $l;
 
   }

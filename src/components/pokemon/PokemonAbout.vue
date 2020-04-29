@@ -1,12 +1,25 @@
 <template>
   <div>
+    <!-- Weight and height -->
+    <section>
+      <div class="physique-container">
+        <div class="weight">
+          <fa-icon class="icon" icon="weight-hanging"/>
+          {{pokemon.weight}} lbs
+        </div>
+        <div class="height">
+          <fa-icon class="icon" icon="ruler-vertical"/>
+          {{pokemon.height}}"
+        </div>
+      </div>
+    </section>
+
     <!-- Abilities -->
     <section>
       <div class="title">
-        <fa-icon icon="star" class="icon"/>
         <h6 class="text">Abilities</h6>
       </div>
-      <div class="abilities">
+      <div class="abilities-container">
         <BaseTag
           v-for="item in pokemon.abilities"
           :key="item.ability.name"
@@ -22,13 +35,6 @@
       </div>
     </section>
 
-    <!-- Weight and height -->
-    <section>
-      <div>
-        <fa-icon icon="weight-hanging"/> Weight {{pokemon.weight}}<br>
-        <fa-icon icon="ruler-vertical"/> Height {{pokemon.height}}
-      </div>
-    </section>
 
     <!-- Training -->
     <section>
@@ -104,11 +110,38 @@ export default {
       }
     }
 
-    .abilities {
+    .abilities-container {
       display: flex;
 
       .ability {
         margin-right: 10px;
+      }
+    }
+
+    .physique-container {
+      display: flex;
+      justify-content: space-evenly;
+
+      .weight {
+        display: flex;
+        align-items: center;
+
+        .icon {
+          color: #777;
+          height: $s;
+          margin-right: $xxs;
+        }
+      }
+      .height {
+        display: flex;
+        align-items: center;
+
+        .icon {
+          height: $s;
+          color: #777;
+          margin-right: $xxs;
+          transform: scale(-1);
+        }
       }
     }
   }

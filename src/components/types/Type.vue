@@ -142,7 +142,7 @@ export default {
     }
   }
   .type-title {
-    margin-bottom: $l;
+    margin-bottom: $m;
   }
   .description {
     margin-bottom: $l;
@@ -150,7 +150,7 @@ export default {
   .type-damage-relation-container {
     padding: $m;
     width: 100%;
-    margin-bottom: $l;
+    margin-bottom: $m;
 
     ul {
       display: flex;
@@ -161,7 +161,7 @@ export default {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: $l;
+        margin-bottom: $m;
 
         .type-relation-title {
           text-align: left;
@@ -173,7 +173,7 @@ export default {
           flex-wrap: wrap;
 
           .tag-item {
-            margin-left: $s;
+            margin-left: $xxs;
 
             &:first-child {
               margin: 0;
