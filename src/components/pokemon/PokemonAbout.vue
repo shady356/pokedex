@@ -1,34 +1,56 @@
 <template>
   <div>
     <!-- Abilities -->
-    <h4>Abilities</h4>
-    <div 
-      v-for="item in pokemon.abilities"
-      :key="item.ability.name"> 
-      <div class="capitalize">
-        {{item.ability.name}} <span v-if="item.is_hidden"> (Hidden)</span>
+    <section>
+      <div class="title">
+        <fa-icon icon="star" class="icon"/>
+        <h6 class="text">Abilities</h6>
       </div>
-    </div>
+      <div class="abilities">
+        <BaseTag
+          v-for="item in pokemon.abilities"
+          :key="item.ability.name"
+          class="ability"
+        >
+          {{item.ability.name}}
+          <fa-icon
+            v-if="item.is_hidden"
+            icon="star"
+            class="icon"
+          />
+        </BaseTag>
+      </div>
+    </section>
 
     <!-- Weight and height -->
-    <h4>Weight and height</h4>
-    <div>
-      Weight {{pokemon.weight}}<br>
-      Height {{pokemon.height}}
-    </div>
+    <section>
+      <div>
+        <fa-icon icon="weight-hanging"/> Weight {{pokemon.weight}}<br>
+        <fa-icon icon="ruler-vertical"/> Height {{pokemon.height}}
+      </div>
+    </section>
 
     <!-- Training -->
-    <h4>Training</h4>
-    <div>
-      Growth rate: {{pokemonSpecies.growthRate}} <br>
-      Catch rate: {{pokemonSpecies.captureRate}} <br>
-      Base happiness: {{pokemonSpecies.baseHappiness}} <br>
-    </div>
+    <section>
+      <div class="title">
+        <fa-icon icon="star" class="icon"/>
+        <h6 class="text">Training</h6>
+      </div>
+      <div>
+        Growth rate: {{pokemonSpecies.growthRate}} <br>
+        Catch rate: {{pokemonSpecies.captureRate}} <br>
+        Base happiness: {{pokemonSpecies.baseHappiness}} <br>
+      </div>
+    </section>
 
     <!-- Breeding -->
-    <img class="egg-icon" src="@/assets/icons/egg-solid.svg" alt="egg-icon">
-    <h4>Breeding</h4>
-
+    <section>
+      <div class="title">
+        <fa-icon icon="egg" class="icon"/>
+        <h6 class="text">Breeding</h6>
+      </div>
+    </section>
+    
     <!-- Egg group -->
     <div class="micro-label uppercase">egg group</div>
     <div 
@@ -46,8 +68,12 @@
 </template>
 
 <script>
+import BaseTag from '@/components/base/BaseTag.vue'
 export default {
   name: 'PokemonAbout',
+  components: {
+    BaseTag
+  },
   props: {
     pokemon: {
       type: Object,
@@ -62,8 +88,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .egg-icon {
-    display: inline-flex;
-    width: 24px;
+  section {
+    margin-bottom: $l;
+
+    .title {
+      margin-bottom: $s;
+      display: flex;
+      align-items: center;
+
+      .icon {
+        width: 12px;
+      }
+      .text {
+        margin-left: $xs;
+      }
+    }
+
+    .abilities {
+      display: flex;
+
+      .ability {
+        margin-right: 10px;
+      }
+    }
   }
 </style>

@@ -4,7 +4,14 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-// plugins
+// Font awesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faEgg, faStar, faRulerVertical, faWeightHanging } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faEgg, faStar, faRulerVertical, faWeightHanging)
+Vue.component('fa-icon', FontAwesomeIcon)
+
+// Vue lazy load
 import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload)
 

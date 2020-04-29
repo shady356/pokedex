@@ -28,7 +28,7 @@
 
           <!-- Type(s) -->
           <div class="type-container">
-            <BaseTag
+            <BaseTypeTag
               v-for="type in pokemon.types"
               :key="type.slot"
               :icon="getIcon(type.type.name)"
@@ -150,7 +150,7 @@
 import BaseButton from '@/components/base/BaseButton'
 import BaseModal from '@/components/base/BaseModal'
 import BaseTab from '@/components/base/BaseTab'
-import BaseTag from '@/components/base/BaseTag'
+import BaseTypeTag from '@/components/base/BaseTypeTag'
 import Type from '@/components/types/Type'
 import axios from 'axios'
 import PokemonAbout from '@/components/pokemon/PokemonAbout.vue'
@@ -161,7 +161,7 @@ export default {
     BaseButton,
     BaseModal,
     BaseTab,
-    BaseTag,
+    BaseTypeTag,
     PokemonAbout,
     PokemonBaseStats,
     Type
