@@ -54,8 +54,6 @@ export default {
   },
   data() {
     return {
-      localhostBase: 'http://localhost:8080',
-      networkBase: 'http://192.168.84.24:8080/',
 
       pokemonList: [],
       
@@ -70,7 +68,7 @@ export default {
   },
   computed: {
     BASE_URL () {
-      return this.networkBase
+      return process.env.VUE_APP_ROOT_URL
     },
     batchCount () {
       return Math.ceil(this.totalResults / this.maxPerBatch)
@@ -124,7 +122,6 @@ export default {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if(entry.intersectionRatio > 0 && this.currentBatch < this.batchCount) {
-            console.log('foobar')
             this.getBatchOfPokemon()
           }
         })

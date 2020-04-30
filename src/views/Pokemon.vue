@@ -4,8 +4,7 @@
     <div
       v-if="isPokemonLoaded"
       class="pokemon-container"
-      :style="'background: linear-gradient(300deg, ' + getTypeColor( firstType ) + ' 0%, #fff 100%)'"
-    >
+      :style="'background: linear-gradient(300deg, ' + getTypeColor( firstType ) + ' 0%, #fff 100%)'">
       <!-- Swipe pagination -->
 
       <section
@@ -178,9 +177,6 @@ export default {
   },
   data() {
     return {
-      localhostBase: 'http://localhost:8080',
-      networkBase: 'http://192.168.84.24:8080/',
-
       pokemon: null,
       pokemonSpecies: null,
       NUM_OF_POKEMON: 250,
@@ -209,7 +205,7 @@ export default {
   },
   computed: {
     BASE_URL () {
-      return this.networkBase
+      return process.env.VUE_APP_ROOT_URL
     },
     pokemonIdNumber () {
       return parseInt(this.pokemonId)
@@ -281,9 +277,8 @@ export default {
       })
     },
     getPokemonSpecies(pokemonId) {
-      axios.get(`${this.BASE_URL}pokemon-species/${pokemonId}`)
+      axios.get(`${this.BASE_URL}/pokemon-species/${pokemonId}`)
       .then(response => {
-        console.log(response.data)
         this.refineSpeciesData(response.data)
       })
       .catch(error => {

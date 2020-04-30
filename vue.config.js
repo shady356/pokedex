@@ -1,7 +1,7 @@
 module.exports = {
-  devServer: {
+  /* devServer: {
     proxy: 'https://pokeapi.co/api/v2'
-  },
+  }, */
   css: {
     loaderOptions: {
       sass: {
