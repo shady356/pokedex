@@ -6,8 +6,12 @@
       class="pokemon-container"
       :style="'background: linear-gradient(300deg, ' + getTypeColor( firstType ) + ' 0%, #fff 100%)'"
     >
+      <!-- Swipe pagination -->
 
-      <section class="pokemon-info-container section-1">
+      <section
+        v-touch:swipe="swipe"
+        class="pokemon-info-container section-1"
+      >
         <div class="name-type-container">
 
           <!-- Back icon -->
@@ -109,7 +113,7 @@
     </div>
 
     <!-- Pagination | fixed -->
-    <div class="pagination-container">
+    <!-- <div class="pagination-container">
       <router-link
         :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber -1 }}"
       >
@@ -131,7 +135,7 @@
           Next
         </BaseButton>
       </router-link>
-    </div>
+    </div> -->
 
     <!-- Type modal -->
     <BaseModal
@@ -147,7 +151,7 @@
 </template>
 
 <script>
-import BaseButton from '@/components/base/BaseButton'
+//import BaseButton from '@/components/base/BaseButton'
 import BaseModal from '@/components/base/BaseModal'
 import BaseTab from '@/components/base/BaseTab'
 import BaseTypeTag from '@/components/base/BaseTypeTag'
@@ -158,7 +162,7 @@ import PokemonBaseStats from '@/components/pokemon/PokemonBaseStats.vue'
 export default {
   name: 'Pokemon',
   components: {
-    BaseButton,
+    //BaseButton,
     BaseModal,
     BaseTab,
     BaseTypeTag,
@@ -335,6 +339,19 @@ export default {
     },
     closeTypeModal () {
       this.isTypeModalOpen = false
+    },
+    swipe(direction) {
+      if(direction === 'swiperight') {
+        this.$router.push({
+          name: 'Pokemon', params: { pokemonId: this.pokemonIdNumber -1 }
+        })
+      }
+      if(direction === 'swipeleft') {
+        this.$router.push({
+          name: 'Pokemon', params: { pokemonId: this.pokemonIdNumber +1 }
+        })
+      }
+      
     }
   }
 }

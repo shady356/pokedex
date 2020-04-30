@@ -47,6 +47,14 @@ body {
   overflow: hidden;
 }
 
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
 ul li {
   list-style: none;
 }

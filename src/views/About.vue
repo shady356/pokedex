@@ -1,6 +1,21 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+  <div v-touch:swipe="swipe"><h1>Swipe me!</h1></div>
   </div>
 </template>
+
+<script>
+
+export default {
+  name: 'About',
+  methods: {
+    swipe(swipe) {
+      console.log(swipe)
+    },
+    bar() {
+      console.log('click')
+    }
+  }
+}
+</script>
 
