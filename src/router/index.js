@@ -6,11 +6,16 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'Home',
+    component: () => import(/* webpackChunkName: "pokedex" */ '../views/Home.vue')
+  },
+  {
+    path: '/pokedex',
     name: 'Pokedex',
     component: () => import(/* webpackChunkName: "pokedex" */ '../views/Pokedex.vue')
   },
   {
-    path: '/pokemon/:pokemonId',
+    path: '/pokedex/:pokemonId',
     props: true,
     name: 'Pokemon',
     component: () => import(/* webpackChunkName: "pokemon" */ '../views/Pokemon.vue')
