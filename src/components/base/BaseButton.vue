@@ -22,8 +22,8 @@ export default {
   button {
     background: #fff;
     border: 1px solid transparent;
-    padding: $s $m;
-    font-size: $font-m;
+    padding: $xs $s;
+    font-size: $font-s;
     font-weight: 700;
     color: #333;
     border-radius: $l;

@@ -29,6 +29,13 @@ export default {
     border: 1px solid #ccc;
     padding: $xxs $s;
     border-radius: $l;
+    transition: background-color $fast ease-out;
 
+    &.purple {
+      background: $purple;
+      color: #fff;
+      border-color: transparent;
+      transition: background-color $fast ease-in;
+    }
   }
 </style>

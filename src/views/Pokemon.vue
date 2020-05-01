@@ -51,7 +51,7 @@
           />
           <img
             v-else 
-            :src="pokemon.sprite"
+            :src="getSprite(pokemon.id)"
             class="pokemon-sprite"
             alt="pokemon sprite"
           >
@@ -264,6 +264,9 @@ export default {
           case 'water'    :return '#539DDF'; 
       }
     },
+    getSprite(id) {
+      return 'https://pokeres.bastionbot.org/images/pokemon/' + id + '.png'
+    },
     getPercentage (part, whole) {
       return (part / whole) * 100
     },
@@ -389,7 +392,7 @@ export default {
           margin-top: $m;
           flex-direction: row-reverse;
 
-          .tag-item {
+          .tag-item:last-child {
             margin-right: $s;
           }
         }
@@ -401,7 +404,7 @@ export default {
       
         .pokemon-sprite {
           object-fit: contain;
-          width: 192px;
+          height: 128px;
         }
       }
     }

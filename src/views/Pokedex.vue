@@ -38,6 +38,7 @@
     <!-- Filter -->
     <BaseModal
       v-if="isFilterOpen"
+      @closeModal="closeFilter"
     >
       <template #content>
         <FilterPokemon />
@@ -150,8 +151,14 @@ export default {
     openFilter () {
       this.isFilterOpen = true
     },
+    closeFilter() {
+      this.isFilterOpen = false
+    },
     openSearch () {
       this.isSearchOpen = true
+    },
+    closeSearch () {
+      this.isSearchOpen = false
     }
   }
 }
