@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="home-navigation-container">
+      <img class="pokemon-logo" :src="pokemonLogo" alt="pokemon logo">
       <ul class="navigations">
         <router-link
           class="item"
@@ -21,14 +22,19 @@ export default {
   name: 'Home',
   data() {
     return {
+      pokemonLogo: require('@/assets/icons/pokemon-logo.png'),
       navigations: [
         {
           name: 'Pokedex',
-          route: 'Pokedex',
+          route: 'Pokedex'
         },
         {
           name: 'Types',
-          route: 'Pokedex',
+          route: 'About'
+        },
+        {
+          name: 'About',
+          route: 'About'
         }
       ]
     }
@@ -40,29 +46,30 @@ export default {
   .home-navigation-container {
     padding: $l;
 
+    .pokemon-logo {
+      width: 100%;
+    }
+
     .navigations {
       display: flex;
+      flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
 
       .item {
         text-align: center;
         background: hsla(0, 0%, 100%, .5);
-        height: $xxxxxl;
-        width: $xxxxxl;
-        line-height: $xxxxxl;
-        border-radius: 50%;
-        box-shadow: 0 -20px 50px rgb(144, 221, 204) inset;
-        color: #286;
+        width: 100%;
+        padding: $l 0;
+        border-radius: $l;
+        box-shadow: 0 -30px 50px rgb(82, 195, 230) inset, 0 6px 10px #66cceeaa;
+        border-top: 1px solid #fff;
+        border-bottom: 2px solid #6ae;
+        color: #26a;
         font-size: $font-xl;
         font-weight: 700;
+        margin-bottom: $l;
         transition: all .4s;
-
-        &:hover {
-          box-shadow: 0 10px 40px rgb(130, 204, 188) inset;
-          font-size: $font-l;
-          transition: all .4s;
-        }
       }
     }
   }
