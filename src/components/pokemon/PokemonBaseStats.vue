@@ -103,7 +103,7 @@ export default {
     align-items: center;
 
     .stat-item {
-      padding: $s;
+      padding: 0 $xs $s;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -113,15 +113,17 @@ export default {
         display: flex;
         flex-direction: row;
         align-items: center;
-        flex-basis: 40%;
-        justify-content: space-between;
+        flex-basis: 30%;
+        font-size: $font-s;
+        text-align: right;
+        justify-content: flex-end;
 
         &.highlight {
           font-weight: 700;
-
         }
+
         .stat-value {
-          padding-right: 10px;
+          padding: 0 10px;
         }
       }
 
@@ -130,7 +132,7 @@ export default {
         justify-content: flex-end;
         flex-direction: row;
         flex-wrap: nowrap;
-        flex-basis: 60%;
+        flex-basis: 70%;
 
         .stat-bar-fragment {
           width: calc(100% / 16);
@@ -141,7 +143,7 @@ export default {
           transition: background .4s ease-out;
 
           &.is-filled {
-            background: $blue-light;
+            background: $blue;
             transition: background .4s ease-in;
             animation: scale-x-in .4s ease;
           }

@@ -41,7 +41,6 @@ export default {
     justify-content: space-evenly;
 
     .tab-item {
-      padding: $s;
       cursor: pointer;
 
       .text {
@@ -57,7 +56,6 @@ export default {
         }
         .active-line {
           margin: 0 auto;
-          margin-top: 2px;
           width: 16px;
           height: 1px;
           background: #aaa;

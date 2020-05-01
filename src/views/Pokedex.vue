@@ -1,9 +1,12 @@
 <template>
   <div>
+    <Header 
+      @filter="openFilter()"
+      @search="openSearch()"
+    />
     <keep-alive
       class="default-page-margin"
-      v-if="loadedCounter > 0"
-    >
+      v-if="loadedCounter > 0">
       <ul>
         <router-link
           :to="{ name: 'Pokemon', params: { pokemonId: pokemonList[index].id }}"
@@ -31,15 +34,29 @@
       <img class="loading-icon" src="@/assets/icons/pokeball_white.png" alt="loading icon">
     </div>
     <div class="trigger" ref="trigger"/>
+    
+    <!-- Filter -->
+    <BaseModal
+      v-if="isFilterOpen"
+    >
+      <template #content>
+        <FilterPokemon />
+      </template>
+    </BaseModal>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Header from '@/components/layout/Header.vue'
+import BaseModal from '@/components/base/BaseModal.vue'
+import FilterPokemon from '@/components/FilterPokemon.vue'
 export default {
   name: 'Pokedex',
   components: {
- 
+    Header,
+    BaseModal,
+    FilterPokemon
   },
   filters: {
     index (value) {
@@ -54,8 +71,11 @@ export default {
   },
   data() {
     return {
-
       pokemonList: [],
+
+      // Filter and search:
+      isFilterOpen: false,
+      isSearchOpen: false,
       
       //Batch data:
       currentBatch: 1,
@@ -63,7 +83,6 @@ export default {
       totalResults: 700,
       loadedCounter: 0,
       showLoader: false
-      
     }
   },
   computed: {
@@ -127,6 +146,12 @@ export default {
         })
       })
       observer.observe(this.$refs.trigger)
+    },
+    openFilter () {
+      this.isFilterOpen = true
+    },
+    openSearch () {
+      this.isSearchOpen = true
     }
   }
 }
@@ -147,14 +172,14 @@ export default {
       text-align: center;
       margin: 0 1.5% $l;
       width: 30%;
-      border-radius: $xs;
+      border-radius: $xxs;
       background: hsla(0, 0%, 90%, 0.2);
       box-shadow: 0 0 10px $blue-light;
       cursor: pointer;
 
       .header {
-        padding: $xs;
-        border-radius: $xs $xs 0 0;
+        padding: $xxs;
+        border-radius: $xxs $xxs 0 0;
         background: $blue;
         font-size: $font-s;
         text-align: center;

@@ -414,14 +414,13 @@ export default {
       flex-direction: column;
 
       .tab-header {
-        margin-bottom: $l;
+        margin-bottom: $m;
       }
 
       .tab-content { 
         overflow-y: auto;
         overflow-x: hidden;
-        height: 80%;
-        padding: 0 $xl;
+        padding: 0 $m;
       }
     }
   }

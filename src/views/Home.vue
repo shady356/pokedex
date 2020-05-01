@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="home-navigation-container">
-      <img class="pokemon-logo" :src="pokemonLogo" alt="pokemon logo">
+      <h1 class="pokemon-logo">
+        Pokédex
+      </h1>
       <ul class="navigations">
         <router-link
           class="item"
@@ -45,9 +47,14 @@ export default {
 <style lang="scss" scoped>
   .home-navigation-container {
     padding: $l;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
 
     .pokemon-logo {
-      width: 100%;
+      color: #fff;
+      text-shadow: 0 2px 10px #6ae;
     }
 
     .navigations {
@@ -55,6 +62,7 @@ export default {
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
+      width: 80%;
 
       .item {
         text-align: center;
