@@ -26,7 +26,7 @@ export default {
     font-size: $font-s;
     font-weight: 700;
     color: #333;
-    border-radius: $l;
+    border-radius: $xs;
     cursor: pointer;
     outline: none;
 
@@ -39,6 +39,16 @@ export default {
       background: none;
       border: 1px solid #333;
     }
+    &.ghost-white {
+      background: none;
+      border: 1px solid #fff;
+      color: #fff;
+    }
+    &.purple {
+      background: $purple;
+      color: #fff;
+    }
+
     &.pagination {
       background: #333;
       color: #fff;

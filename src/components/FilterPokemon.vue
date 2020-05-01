@@ -3,7 +3,11 @@
 
     <div class="header">
       <h5>Filter Pokémon</h5>
-      <h6>Reset</h6>
+      <BaseButton
+        class="ghost-white"
+      >
+        Reset
+      </BaseButton>
     </div>
 
     <div class="filter-container">
@@ -15,7 +19,7 @@
           :key="filter.name"
           @click="openFilter(index)"
         >
-          <div :class="['text', {'open': filter.open} ]">
+          <div :class="['text capitalize', {'open': filter.open} ]">
             {{filter.name}}
           </div>
 
@@ -35,7 +39,12 @@
         </li>
       </ul>
 
-      <BaseButton class="ghost">Apply filters</BaseButton>
+      <BaseButton 
+        @click="applyFilters()"
+        class="purple"
+      >
+        Apply filters
+      </BaseButton>
     </div>
   </div>
 </template>
@@ -54,7 +63,7 @@ export default {
     return {
       filters: [
         {
-          name: 'Generation',
+          name: 'generations',
           open: false,
           children: [
             {
@@ -80,7 +89,7 @@ export default {
           ]
         },
         {
-          name: 'Types',
+          name: 'types',
           open: false,
           children: [
             {
@@ -157,7 +166,7 @@ export default {
             },
           ]
         },
-      ]
+      ],
     }
   },
   methods: {
@@ -169,6 +178,23 @@ export default {
     },
     setFilter(child) {
       child.active = !child.active
+    },
+    getActiveFilters () {
+      let activeFilters = {}
+
+      this.filters.forEach(filter => {
+        activeFilters[filter.name] = []
+        filter.children.filter(child => {
+          if (child.active) {
+            activeFilters[filter.name].push(child.name)
+          } 
+        })
+      })
+      return activeFilters
+    },
+    applyFilters() {
+      const filters = this.getActiveFilters()
+      this.$emit('applyFilters', filters)
     }
   }
 }
@@ -181,8 +207,8 @@ export default {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #ddd;
-    padding: $m $l;
-    background: #000;
+    padding: $s $l;
+    background: $purple;
     color: #fff;
   }
 

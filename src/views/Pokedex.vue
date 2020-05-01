@@ -39,9 +39,12 @@
     <BaseModal
       v-if="isFilterOpen"
       @closeModal="closeFilter"
+      :showCloseButton="false"
     >
       <template #content>
-        <FilterPokemon />
+        <FilterPokemon 
+          @applyFilters="setFilters"
+        />
       </template>
     </BaseModal>
   </div>
@@ -121,7 +124,6 @@ export default {
       })
       .catch(error => {
         console.log(error)
-        // this.errored = true
       })
     },
     refineResponseData(data) {
@@ -159,6 +161,10 @@ export default {
     },
     closeSearch () {
       this.isSearchOpen = false
+    },
+    setFilters(filters) {
+      console.log(filters)
+      this.closeFilter()
     }
   }
 }

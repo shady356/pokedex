@@ -9,12 +9,15 @@
       appear
     >
       <div class="modal-window">
+
         <div class="modal-content">
           <slot name="content" />
         </div>
+
         <div 
           class="modal-close-container"
           @click="closeModal"
+          v-if="showCloseButton"
         >
           <div class="modal-close">
             <img
@@ -24,6 +27,7 @@
             >
           </div>
         </div>
+
       </div>
     </transition>
   </div>
@@ -33,6 +37,13 @@
 <script>
 export default {
   name: 'BaseModal',
+  props: {
+    showCloseButton: {
+      type: Boolean,
+      required: false,
+      default: true
+    }
+  },
   mounted () {
     document.body.classList.add('disable-scroll')
   },

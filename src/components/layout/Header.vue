@@ -49,13 +49,7 @@ export default {
 
       .filter-item {
         padding: 0 $xs;
-
-        &.filter {
-          color: $purple;
-        }
-        &.search {
-          color: $green;
-        }
+        color: #333;
       }
     }
   }
