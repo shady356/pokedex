@@ -4,7 +4,7 @@
       @filter="openFilter()"
       @search="openSearch()"
     />
-    <keep-alive
+    <div
       class="default-page-margin"
       v-if="loadedCounter > 0"
     >
@@ -17,7 +17,7 @@
         >
           <div class="header">
             #{{pokemonList[index].id | index}} 
-            <span class="capitalize">{{pokemonList[index].name}}</span>
+            <!-- <span class="capitalize">{{pokemonList[index].name}}</span> -->
           </div>
           <div class="sprite-container">
             <img 
@@ -27,7 +27,7 @@
           </div>
         </router-link>
       </ul>
-    </keep-alive>
+    </div>
     <div 
       v-else
       class="loading"
@@ -85,9 +85,14 @@ export default {
       
       //Batch data:
       currentBatch: 1,
-      maxPerBatch: 9,
+      maxPerBatch: 20,
       loadedCounter: 0,
-      showLoader: false
+      showLoader: false,
+
+      filters: {
+        generations: [],
+        types: []
+      }
     }
   },
   computed: {
@@ -112,7 +117,7 @@ export default {
     }
   },
   mounted () {
-    this.setPokedexMap(true)
+    this.setPokedexMap(this.filters)
   
   },
   methods: {
@@ -193,24 +198,24 @@ export default {
 
     li {
       text-align: center;
-      margin: 0 1.5% $l;
-      width: 30%;
+      margin: 0 1% $l;
+      width: 20%;
       border-radius: $xxs;
       background: hsla(0, 0%, 90%, 0.2);
-      box-shadow: 0 0 10px $blue-light;
+      box-shadow: 0 0 8px $blue-light;
       cursor: pointer;
 
       .header {
-        padding: $xxs;
+        padding: $xxxs;
         border-radius: $xxs $xxs 0 0;
         background: $blue;
-        font-size: $font-s;
+        font-size: $font-xs;
         text-align: center;
       }
       .sprite-container {
-        height: 96px;
+        height: 56px;
         .sprite {
-          width: 96px;
+          width: 56px;
         }
       }
     }

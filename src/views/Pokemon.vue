@@ -4,7 +4,8 @@
     <div
       v-if="isPokemonLoaded"
       class="pokemon-container"
-      :style="'background: linear-gradient(300deg, ' + getTypeColor( firstType ) + ' 0%, #fff 100%)'">
+      :style="'background: linear-gradient(300deg, ' + getTypeColor( firstType ) + ' 0%, #fff 100%)'"
+    >
       <!-- Swipe pagination -->
 
       <section
@@ -108,6 +109,25 @@
 
           </transition>
         </div>
+      </section>
+    </div>
+
+    <!-- Skeleton loading -->
+    <div v-else class="pokemon-container">
+      <section class="pokemon-info-container section-1">
+        
+        <div class="name-type-container">
+          <h3>Name</h3>
+        </div>
+        <!-- Sprite -->
+        <div class="pokemon-sprite-container">
+          <div
+            class="loading-pokemon-sprite"
+          />
+        </div>
+      </section>
+      <section class="meta-container section-2">
+        
       </section>
     </div>
 
