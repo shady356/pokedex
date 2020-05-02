@@ -10,7 +10,7 @@
       <ul>
         <router-link
           :to="{ name: 'Pokemon', params: { pokemonId: pokemonList[index].id }}"
-          v-for="(n,index) in batchOffset" 
+          v-for="(n,index) in batchEndPosition"
           :key="index"
           tag="li"
         >
@@ -43,7 +43,7 @@
     >
       <template #content>
         <FilterPokemon 
-          @applyFilters="setFilters"
+          @applyFilters="updateFilters"
         />
       </template>
     </BaseModal>
@@ -55,6 +55,7 @@ import axios from 'axios'
 import Header from '@/components/layout/Header.vue'
 import BaseModal from '@/components/base/BaseModal.vue'
 import FilterPokemon from '@/components/FilterPokemon.vue'
+import { $filterData } from '@/helpers/pokedexFilters.js'
 export default {
   name: 'Pokedex',
   components: {
@@ -83,8 +84,7 @@ export default {
       
       //Batch data:
       currentBatch: 1,
-      maxPerBatch: 12,
-      totalResults: 700,
+      maxPerBatch: 9,
       loadedCounter: 0,
       showLoader: false
     }
@@ -96,47 +96,48 @@ export default {
     batchCount () {
       return Math.ceil(this.totalResults / this.maxPerBatch)
     },
-    batchOffset () {
-      return this.maxPerBatch * this.currentBatch
+    batchEndPosition () {
+      const endPosition = this.maxPerBatch * this.currentBatch
+      if(endPosition <= this.totalResults) {
+        return endPosition
+      } else {
+        
+        let remainer = this.totalResults - endPosition
+        return this.batchStartPosition + 9 + remainer
+      }
     },
     batchStartPosition () {
-      return (this.currentBatch*this.maxPerBatch) - this.maxPerBatch + 1
+      return (this.maxPerBatch * this.currentBatch) - this.maxPerBatch
+    },
+    totalResults () {
+      return this.pokemonList.length
     }
   },
   mounted () {
-    for (let i = 0; i < 700; i++) {
-      this.pokemonList.push(
-        {
-          id: i+1,
-          name: '',
-          sprite: ''
-        }
-      )
-    }
-    this.scrollTrigger()
+    this.setPokedexMap(false)
   },
   methods: {
-    getPokemon(pokemonId) {
+    getPokemon(pokemonId, arrayIndex) {
       axios.get(`${this.BASE_URL}/pokemon-form/${pokemonId}/`)
       .then(response => {
-        this.refineResponseData(response.data)
+        this.refineResponseData(response.data, arrayIndex)
         this.loadedCounter ++
       })
       .catch(error => {
         console.log(error)
       })
     },
-    refineResponseData(data) {
+    refineResponseData(data, arrayIndex) {
       const pokemonData = {
         id: data.id,
         name: data.name,
         sprite: data.sprites.front_default
       }
-      this.pokemonList[data.id-1] = pokemonData
+      this.pokemonList[arrayIndex] = pokemonData
     },
     getBatchOfPokemon () {
-      for(let i= this.batchStartPosition; i <= this.maxPerBatch * this.currentBatch; i++) {
-        this.getPokemon(i)
+      for(let i= this.batchStartPosition; i < this.batchEndPosition; i++) {
+        this.getPokemon(this.pokemonList[i].id+1, i)
       }
       this.currentBatch ++
     },
@@ -162,9 +163,19 @@ export default {
     closeSearch () {
       this.isSearchOpen = false
     },
-    setFilters(filters) {
-      console.log(filters)
+    updateFilters(filters) {
+      this.setPokedexMap(filters)
       this.closeFilter()
+    },
+    setPokedexMap (filters) {
+      this.resetPokedexMap()
+      this.pokemonList = $filterData(filters)
+      this.scrollTrigger()
+    },
+    resetPokedexMap () {
+      this.pokemonList = []
+      this.loadedCounter = 0
+      this.currentBatch = 1
     }
   }
 }
