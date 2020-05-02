@@ -6,8 +6,9 @@
     />
     <keep-alive
       class="default-page-margin"
-      v-if="loadedCounter > 0">
-      <ul>
+      v-if="loadedCounter > 0"
+    >
+      <ul >
         <router-link
           :to="{ name: 'Pokemon', params: { pokemonId: pokemonList[index].id }}"
           v-for="(n,index) in batchEndPosition"
@@ -93,9 +94,6 @@ export default {
     BASE_URL () {
       return process.env.VUE_APP_ROOT_URL
     },
-    batchCount () {
-      return Math.ceil(this.totalResults / this.maxPerBatch)
-    },
     batchEndPosition () {
       const endPosition = this.maxPerBatch * this.currentBatch
       if(endPosition <= this.totalResults) {
@@ -103,7 +101,7 @@ export default {
       } else {
         
         let remainer = this.totalResults - endPosition
-        return this.batchStartPosition + 9 + remainer
+        return this.batchStartPosition + this.maxPerBatch + remainer
       }
     },
     batchStartPosition () {
@@ -114,7 +112,8 @@ export default {
     }
   },
   mounted () {
-    this.setPokedexMap(false)
+    this.setPokedexMap(true)
+  
   },
   methods: {
     getPokemon(pokemonId, arrayIndex) {
@@ -144,7 +143,7 @@ export default {
     scrollTrigger () {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if(entry.intersectionRatio > 0 && this.currentBatch < this.batchCount) {
+          if(entry.isIntersecting) {
             this.getBatchOfPokemon()
           }
         })
