@@ -12,13 +12,17 @@ const routes = [
   {
     path: '/pokedex',
     name: 'Pokedex',
+    children: [{
+      name: 'Pokemon',
+      path: ':pokemonId',
+      props: true,
+      component: () => import('../views/Pokemon.vue'),
+    
+      meta: {
+        showModal: true
+      }
+    }],
     component: () => import(/* webpackChunkName: "pokedex" */ '../views/Pokedex.vue')
-  },
-  {
-    path: '/pokedex/:pokemonId',
-    props: true,
-    name: 'Pokemon',
-    component: () => import(/* webpackChunkName: "pokemon" */ '../views/Pokemon.vue')
   },
   {
     path: '/about',
@@ -27,16 +31,19 @@ const routes = [
   }
 ]
 
-const router = new VueRouter({
-  routes,
-  mode: 'history',
-  scrollBehavior (to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { x: 0, y: 0 }
-    }
+const scrollBehavior = (to, from, savedPosition) => {
+  if (savedPosition) {
+    console.log(savedPosition)
+    return savedPosition
+  } else {
+    return { x: 0, y: 0 }
   }
+}
+
+const router = new VueRouter({
+  scrollBehavior,
+  routes,
+  mode: 'history'
 })
 
 export default router

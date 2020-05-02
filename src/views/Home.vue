@@ -46,15 +46,16 @@ export default {
 
 <style lang="scss" scoped>
   .home-navigation-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: $l;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
 
     .pokemon-logo {
       color: #fff;
       text-shadow: 0 2px 10px #6ae;
+      margin-bottom: $l;
     }
 
     .navigations {
@@ -65,19 +66,19 @@ export default {
       width: 80%;
 
       .item {
-        text-align: center;
         background: hsla(0, 0%, 100%, .5);
-        width: 100%;
-        padding: $l 0;
-        border-radius: $l;
-        box-shadow: 0 -30px 50px rgb(82, 195, 230) inset, 0 6px 10px #66cceeaa;
-        border-top: 1px solid #fff;
         border-bottom: 2px solid #6ae;
-        color: #26a;
+        border-radius: $l;
+        border-top: 1px solid #c7efff;
+        box-shadow: 0 -30px 50px #52c3e6 inset, 0 6px 10px #66cceeaa;
+        color: #3c7c99;
         font-size: $font-xl;
         font-weight: 700;
         margin-bottom: $l;
+        padding: $s 0;
+        text-align: center;
         transition: all .4s;
+        width: 100%;
       }
     }
   }

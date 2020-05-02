@@ -3,34 +3,29 @@
     name="fade"
     appear
   >
-  <div class="modal-container">
-    <transition 
-      name="slide-v"
-      appear
-    >
-      <div class="modal-window">
-
-        <div class="modal-content">
-          <slot name="content" />
-        </div>
-
-        <div 
-          class="modal-close-container"
-          @click="closeModal"
-          v-if="showCloseButton"
-        >
-          <div class="modal-close">
-            <img
-              class="close-icon"
-              src="@/assets/icons/clear-24px.svg"
-              alt="clear icon"
-            >
+    <div class="modal-container">
+      <transition 
+        name="slide-v"
+        appear
+      >
+        <div :class="['modal-window', {'has-border-radius': borderRadius}]">
+          <slot/>
+          <div 
+            class="modal-close-container"
+            @click="closeModal"
+            v-if="showCloseButton"
+          >
+            <div class="modal-close">
+              <img
+                class="close-icon"
+                src="@/assets/icons/clear-24px.svg"
+                alt="clear icon"
+              >
+            </div>
           </div>
         </div>
-
-      </div>
-    </transition>
-  </div>
+      </transition>
+    </div>
   </transition>
 </template>
 
@@ -39,6 +34,11 @@ export default {
   name: 'BaseModal',
   props: {
     showCloseButton: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    borderRadius: {
       type: Boolean,
       required: false,
       default: true
@@ -75,10 +75,13 @@ export default {
     background: #fff;
     color: #333;
     bottom: 0;
-    border-radius: $m $m 0 0;
     width: 100vw;
-    max-height: 86vh;
+    max-height: 100vh;
     min-height: 30vh;
+
+    &.has-border-radius {
+      border-radius: $m $m 0 0;
+    }
 
     .modal-close-container {
       display: flex;
@@ -106,5 +109,4 @@ export default {
     }
   }
 }
-
 </style>

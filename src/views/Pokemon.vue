@@ -14,13 +14,6 @@
       >
         <div class="name-type-container">
 
-          <!-- Back icon -->
-          <router-link
-            :to="{ name: 'Pokedex'}"
-          >
-            <img :src="arrowBack" alt="back">
-          </router-link>
-
           <!-- Name -->
           <h1
             class="capitalize pokemon-name">
@@ -160,11 +153,9 @@
     <BaseModal
       v-if="isTypeModalOpen"
       @closeModal="closeTypeModal">
-      <template #content>
         <Type
           :type="currentTypeInModal"
         />
-      </template>
     </BaseModal>
   </div>
 </template>

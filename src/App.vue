@@ -3,9 +3,9 @@
     <transition name="fade" mode="out-in">
       <Welcome v-if="isWelcome"/>
     </transition>
-    <transition name="opacity" mode="out-in">
+    <!-- <transition name="opacity" mode="out-in"> -->
       <router-view class="main-layout"/>
-    </transition>
+    <!-- </transition> -->
   </div>
 </template>
 
