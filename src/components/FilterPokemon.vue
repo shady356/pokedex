@@ -3,11 +3,11 @@
 
     <div class="header">
       <h5>Filter Pokémon</h5>
-      <BaseButton
+      <!-- <BaseButton
         class="ghost-white"
       >
         Reset
-      </BaseButton>
+      </BaseButton> -->
     </div>
 
     <div class="filter-container">
@@ -64,7 +64,7 @@ export default {
       filters: [
         {
           name: 'generations',
-          open: false,
+          open: true,
           children: [
             {
               name: 'kanto',
@@ -78,17 +78,17 @@ export default {
               name: 'hoenn',
               active: false
             },
-            {
+            /* {
               name: 'sinnoh',
               active: false
             },
             {
               name: 'kalos',
               active: false
-            }
+            } */
           ]
-        },
-        {
+        }
+        /* {
           name: 'types',
           open: false,
           children: [
@@ -165,7 +165,7 @@ export default {
               active: false
             },
           ]
-        },
+        }, */
       ],
     }
   },

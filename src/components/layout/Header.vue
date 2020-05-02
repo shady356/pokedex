@@ -9,11 +9,11 @@
         @click="filter()"
       />
       
-      <fa-icon 
+     <!--  <fa-icon 
         class="filter-item search" 
         icon="search"
         @click="search()"
-      />
+      /> -->
     </div>
   </header>
 </template>
