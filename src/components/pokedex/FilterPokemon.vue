@@ -59,7 +59,7 @@ export default {
     BaseTag,
     BaseButton
   },
-   data() {
+  data() {
     return {
       filters: [
         {

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <transition name="fade" mode="out-in">
+    <!-- <transition name="fade" mode="out-in">
       <Welcome v-if="isWelcome"/>
-    </transition>
+    </transition> -->
     <!-- <transition name="opacity" mode="out-in"> -->
       <router-view class="main-layout"/>
     <!-- </transition> -->
@@ -10,23 +10,23 @@
 </template>
 
 <script>
-import Welcome from '@/components/Welcome.vue'
+//import Welcome from '@/components/Welcome.vue'
 export default {
   name: 'App',
   components: {
-    Welcome
+    //Welcome
   },
   data () {
     return {
       isWelcome: true
     }
   },
-  created() {
+  /* created() {
     let self = this
     setTimeout (function() {
       self.isWelcome = false
     }, 3000)
-  }
+  } */
 }
 </script>
 
@@ -37,10 +37,17 @@ export default {
 }
 body {
   //background: #73bcdd; 
-  background: linear-gradient(180deg, #eef5f6 0%, #73bcdd 100%);
+  background: linear-gradient(180deg, $blue-white 0%, $blue-light 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100%;
+
+  &.bodyFilter {
+    background: linear-gradient(180deg, $purple-white 0%, $purple-light 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100%;
+  }
 }
 
 .disable-scroll {

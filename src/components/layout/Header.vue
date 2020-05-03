@@ -4,7 +4,7 @@
     <div class="filter-container">
 
       <fa-icon 
-        class="filter-item filter" 
+        :class="['filter-item filter',{'active': isFilter}]" 
         icon="filter"
         @click="filter()"
       />
@@ -21,6 +21,13 @@
 <script>
 export default {
   name: 'Header',
+  props: {
+    isFilter: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
   methods: {
     filter() {
       this.$emit('filter')
@@ -49,7 +56,11 @@ export default {
 
       .filter-item {
         padding: 0 $xs;
-        color: #333;
+        color: #444;
+        
+        &.active {
+          color: $purple-light;
+        }
       }
     }
   }

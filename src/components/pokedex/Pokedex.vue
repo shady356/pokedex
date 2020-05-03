@@ -3,6 +3,7 @@
     <Header 
       @filter="openFilter()"
       @search="openSearch()" 
+      :isFilter="isFilter"
     />
     <div 
       class="default-page-margin" 
@@ -52,6 +53,7 @@
     >
       <FilterPokemon 
         @applyFilters="updateFilters"
+        :isFilter="isFilter"
       />
     </BaseModal>
 
@@ -104,7 +106,8 @@ export default {
       filters: {
         generations: [],
         types: []
-      }
+      },
+      isFilter: false
     }
   },
   computed: {
@@ -207,7 +210,15 @@ export default {
     closeSearch() {
       this.isSearchOpen = false
     },
+    filterHasData (filters) {
+      return Object.keys(filters).some(filter => {
+        return filters[filter].length > 0
+      });
+    },
     updateFilters(filters) {
+      this.isFilter = this.filterHasData(filters)
+
+      this.setBodyColor()
       this.setPokedexMap(filters)
       this.closeFilter()
     },
@@ -224,6 +235,13 @@ export default {
       this.pokemonList = []
       this.loadedCounter = 0
       this.currentBatch = 1
+    },
+    setBodyColor() {
+      if(this.isFilter) {
+        document.body.classList.add('bodyFilter')
+      } else {
+        document.body.classList.remove('bodyFilter')
+      }
     }
   }
 }
