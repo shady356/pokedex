@@ -13,7 +13,13 @@
           v-for="(n,index) in batchEndPosition" 
           :key="index" 
           tag="li"
-          :to="{ name: 'Pokemon', params: { pokemonId: pokemonList[index].id, prevId: getPokemonPaginationIndex(index, 'previous'), nextId: getPokemonPaginationIndex(index, 'next')}}"
+          :to="{ 
+            name: 'Pokemon',
+            params: { 
+              pokemonId: pokemonList[index].id,
+              pokemonIndex: index
+            }
+          }"
         >
           <div class="header">
             #{{pokemonList[index].id | index}}
@@ -70,6 +76,7 @@ import Header from "@/components/layout/Header.vue"
 import BaseModal from "@/components/base/BaseModal.vue"
 import FilterPokemon from "@/components/FilterPokemon.vue"
 import { $filterData } from "@/helpers/pokedexFilters.js"
+import { mapActions} from 'vuex'
 
 export default {
   name: "Pokedex",
@@ -142,7 +149,7 @@ export default {
             this.scrollPosition = window.scrollY
           }
         }
-        this.isPokemonModal = newVal.meta && newVal.meta.showModal
+        this.isPokemonModal = (newVal) ? newVal.meta.showModal : false
       }
     }
   },
@@ -150,6 +157,9 @@ export default {
     this.setPokedexMap(this.filters);
   },
   methods: {
+    ...mapActions([
+      'commitPokedexIds'
+    ]),
     getPokemon(pokemonId, arrayIndex) {
       axios
         .get(`${this.BASE_URL}/pokemon-form/${pokemonId}/`)
@@ -218,27 +228,15 @@ export default {
       this.resetPokedexMap()
       this.pokemonList = $filterData(filters)
       this.scrollTrigger()
+      const pokedexIds =  this.pokemonList.map(pokemon => {
+        return pokemon.id
+      });
+      this.commitPokedexIds(pokedexIds)
     },
     resetPokedexMap() {
       this.pokemonList = []
       this.loadedCounter = 0
       this.currentBatch = 1
-    },
-    getPokemonPaginationIndex(index, direction) {
-      if(direction === 'previous') {
-        if (index > 0) {
-          return this.pokemonList[index-1].id
-        } else {
-          return null
-        }
-      }
-      else {
-        if (index < this.pokemonList.length) {
-          return this.pokemonList[index+1].id
-        } else {
-          return null
-        }
-      }
     }
   }
 }

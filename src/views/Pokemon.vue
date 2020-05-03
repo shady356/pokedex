@@ -182,15 +182,10 @@ export default {
       type: [Number, String],
       required: true
     },
-    nextId: {
-      type: [Number, String],
+    pokemonIndex: {
+      type: Number,
       required: false,
-      default: null
-    },
-    prevId: {
-      type: [Number, String],
-      required: false,
-      default: null
+      default: 0,
     }
   },
   data() {
@@ -238,6 +233,9 @@ export default {
       const type = this.pokemon.types.find(type => type.slot === 1)
       return type.type.name
     },
+    pokedexIds () {
+      return this.$store.state.pokedexIds
+    }
   },
   watch: {
     $route() {
@@ -355,16 +353,33 @@ export default {
     },
     swipe(direction) {
       if(direction === 'swiperight') {
-        this.$router.push({
-          name: 'Pokemon', params: { pokemonId: this.prevId }
-        })
+        console.log('swipe right')
       }
       if(direction === 'swipeleft') {
-        this.$router.push({
-          name: 'Pokemon', params: { pokemonId: this.nextId }
-        })
+        /* this.$router.push({
+          name: 'Pokemon', 
+          params: { 
+            pokemonId: this.getPokemonPaginationIndex(this.pokemonIndex, 'next')
+          }
+        }) */
       }
       
+    },
+    getPokemonPaginationIndex(index, direction) {
+      if(direction === 'previous') {
+        if (index > 0) {
+          return this.pokemonList[index-1].id
+        } else {
+          return null
+        }
+      }
+      else {
+        if (index < this.pokemonList.length) {
+          return this.pokemonList[index+1].id
+        } else {
+          return null
+        }
+      }
     }
   }
 }
