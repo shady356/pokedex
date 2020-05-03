@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="about-container">
     <!-- Weight and height -->
     <section>
       <div class="physique-container">
@@ -94,53 +94,57 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  section {
-    margin-bottom: $l;
+  .about-container {
+    padding-bottom: $xxl;
 
-    .title {
-      margin-bottom: $s;
-      display: flex;
-      align-items: center;
+    section {
+      margin-bottom: $l;
 
-      .icon {
-        width: 12px;
-      }
-      .text {
-        margin-left: $xs;
-      }
-    }
-
-    .abilities-container {
-      display: flex;
-
-      .ability {
-        margin-right: 10px;
-      }
-    }
-
-    .physique-container {
-      display: flex;
-      justify-content: space-evenly;
-
-      .weight {
+      .title {
+        margin-bottom: $s;
         display: flex;
         align-items: center;
 
         .icon {
-          color: #777;
-          height: $s;
-          margin-right: $xxs;
+          width: 12px;
+        }
+        .text {
+          margin-left: $xs;
         }
       }
-      .height {
-        display: flex;
-        align-items: center;
 
-        .icon {
-          height: $s;
-          color: #777;
-          margin-right: $xxs;
-          transform: scale(-1);
+      .abilities-container {
+        display: flex;
+
+        .ability {
+          margin-right: 10px;
+        }
+      }
+
+      .physique-container {
+        display: flex;
+        justify-content: space-evenly;
+
+        .weight {
+          display: flex;
+          align-items: center;
+
+          .icon {
+            color: #777;
+            height: $s;
+            margin-right: $xxs;
+          }
+        }
+        .height {
+          display: flex;
+          align-items: center;
+
+          .icon {
+            height: $s;
+            color: #777;
+            margin-right: $xxs;
+            transform: scale(-1);
+          }
         }
       }
     }

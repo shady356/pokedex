@@ -5,11 +5,9 @@
       v-if="isPokemonLoaded"
       class="pokemon-container"
       :style="'background: linear-gradient(300deg, ' + getTypeColor( firstType ) + ' 0%, #fff 100%)'"
-    >
-      <!-- Swipe pagination -->
-
+    > 
       <section
-        v-touch:swipe="swipe"
+        v-touch:swipe="swipePokemon"
         class="pokemon-info-container section-1"
       >
         <div class="name-type-container">
@@ -159,13 +157,13 @@
 
 <script>
 //import BaseButton from '@/components/base/BaseButton'
+import axios from 'axios'
 import BaseModal from '@/components/base/BaseModal'
 import BaseTab from '@/components/base/BaseTab'
 import BaseTypeTag from '@/components/base/BaseTypeTag'
-import Type from '@/components/types/Type'
-import axios from 'axios'
 import PokemonAbout from '@/components/pokemon/PokemonAbout.vue'
 import PokemonBaseStats from '@/components/pokemon/PokemonBaseStats.vue'
+import Type from '@/components/types/Type'
 export default {
   name: 'Pokemon',
   components: {
@@ -280,9 +278,6 @@ export default {
     getSprite(id) {
       return 'https://pokeres.bastionbot.org/images/pokemon/' + id + '.png'
     },
-    getPercentage (part, whole) {
-      return (part / whole) * 100
-    },
     getPokemon(pokemonId) {
       axios.get(`${this.BASE_URL}/pokemon/${pokemonId}/`)
       .then(response => {
@@ -351,7 +346,7 @@ export default {
     closeTypeModal () {
       this.isTypeModalOpen = false
     },
-    swipe(direction) {
+    swipePokemon(direction) {
       if(direction === 'swiperight' && !this.isFirstPokemon) {
         this.$router.push({
           name: 'Pokemon',

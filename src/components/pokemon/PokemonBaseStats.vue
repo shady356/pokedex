@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="base-stat-container">
     <div class="stat-wrapper">
       <div
         class="stat-item"
@@ -95,6 +95,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.base-stat-container {
+  padding-bottom: $xxl;
+
   .stat-wrapper {
     display: flex;
     flex-direction: column;
@@ -168,4 +171,5 @@ export default {
       padding: 0 $l;
     }
   }
+}
 </style>
