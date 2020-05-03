@@ -89,16 +89,13 @@
             </div>
 
             <!-- Moves -->
-            <div
+            <!-- <div
               v-if="metaItems[2].active"
               key="tab-moves"
               class="moves-container"
             >
               Moves
-              <!-- <pre>
-                {{pokemon}}
-              </pre> -->
-            </div>
+            </div> -->
 
           </transition>
         </div>
@@ -185,6 +182,16 @@ export default {
       type: [Number, String],
       required: true
     },
+    nextId: {
+      type: [Number, String],
+      required: false,
+      default: null
+    },
+    prevId: {
+      type: [Number, String],
+      required: false,
+      default: null
+    }
   },
   data() {
     return {
@@ -195,9 +202,6 @@ export default {
       currentTypeInModal: null,
       isLoadingPokemon: false,
 
-      // icons
-      arrowBack: require('@/assets/icons/arrow_back-24px.svg'),
-
       metaItems: [
         {
           name: 'about',
@@ -206,11 +210,11 @@ export default {
         {
           name: 'base stats',
           active: false
-        },
+        }/* ,
         {
           name: 'moves',
           active: false
-        }
+        } */
       ]
     }
   },
@@ -352,12 +356,12 @@ export default {
     swipe(direction) {
       if(direction === 'swiperight') {
         this.$router.push({
-          name: 'Pokemon', params: { pokemonId: this.pokemonIdNumber -1 }
+          name: 'Pokemon', params: { pokemonId: this.prevId }
         })
       }
       if(direction === 'swipeleft') {
         this.$router.push({
-          name: 'Pokemon', params: { pokemonId: this.pokemonIdNumber +1 }
+          name: 'Pokemon', params: { pokemonId: this.nextId }
         })
       }
       

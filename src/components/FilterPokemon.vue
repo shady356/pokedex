@@ -87,8 +87,8 @@ export default {
               active: false
             } */
           ]
-        }
-        /* {
+        },
+        {
           name: 'types',
           open: false,
           children: [
@@ -163,9 +163,9 @@ export default {
             {
               name: 'water',
               active: false
-            },
+            }
           ]
-        }, */
+        }
       ],
     }
   },

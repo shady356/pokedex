@@ -13,7 +13,7 @@
           v-for="(n,index) in batchEndPosition" 
           :key="index" 
           tag="li"
-          :to="{ name: 'Pokemon', params: { pokemonId: pokemonList[index].id }}"
+          :to="{ name: 'Pokemon', params: { pokemonId: pokemonList[index].id, prevId: getPokemonPaginationIndex(index, 'previous'), nextId: getPokemonPaginationIndex(index, 'next')}}"
         >
           <div class="header">
             #{{pokemonList[index].id | index}}
@@ -223,6 +223,22 @@ export default {
       this.pokemonList = []
       this.loadedCounter = 0
       this.currentBatch = 1
+    },
+    getPokemonPaginationIndex(index, direction) {
+      if(direction === 'previous') {
+        if (index > 0) {
+          return this.pokemonList[index-1].id
+        } else {
+          return null
+        }
+      }
+      else {
+        if (index < this.pokemonList.length) {
+          return this.pokemonList[index+1].id
+        } else {
+          return null
+        }
+      }
     }
   }
 }

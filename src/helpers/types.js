@@ -69,7 +69,7 @@ export const $types = (type) => {
     name: 'ground',
     description: 'foobar',
     superEffectiveTo: ['fire', 'rock', 'steel', 'electric', 'poison'],
-    vulnerableTo: ['water','grass', 'ice']
+    vulnerableTo: ['water', 'grass', 'ice']
   }
   const ice = {
     name: 'ice',
@@ -132,5 +132,70 @@ export const $types = (type) => {
     case 'rock': return rock
     case 'steel': return steel
     case 'water': return water
+  }
+}
+export const $typesPokemonList = (type) => {
+  const fire = [
+    4,5,6,37,38,58,59,77,78,126,136,146,155,156,157,218,219,228,229,240,244,250,255,
+    256,257,
+    322,
+    323,
+    324,
+    390,
+    391,
+    392,
+    467,
+    485,
+    494,
+    498,
+    499,
+    500,
+    513,
+    514,
+    554,
+    555,
+    607,
+    608,
+    609,
+    631,
+    636,
+    637,
+    643,
+    653,
+    654,
+    655,
+    662,
+    663,
+    667,
+    668,
+    721,
+    725,
+    726,
+    727,
+    741,
+    757,
+    758,
+    776,
+    806
+  ]
+  switch (type) {
+/*     case 'bug': return bug
+    case 'dark': return dark
+    case 'dragon': return dragon
+    case 'electric': return electric
+    case 'fairy': return fairy
+    case 'fighting': return fighting */
+    case 'fire': return fire
+/*     case 'flying': return flying
+    case 'ghost': return ghost
+    case 'grass': return grass
+    case 'ground': return ground
+    case 'ice': return ice
+    case 'normal': return normal
+    case 'poison': return poison
+    case 'psychic': return psychic
+    case 'rock': return rock
+    case 'steel': return steel
+    case 'water': return water */
   }
 }
