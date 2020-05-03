@@ -25,6 +25,8 @@ Vue.use(Vue2Touch)
 
 // Vue lazy load
 import VueLazyload from 'vue-lazyload'
+
+import './registerServiceWorker'
 Vue.use(VueLazyload)
 
 Vue.config.productionTip = false
