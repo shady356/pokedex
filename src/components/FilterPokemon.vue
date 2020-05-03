@@ -92,7 +92,7 @@ export default {
           name: 'types',
           open: false,
           children: [
-            {
+            /* {
               name: 'bug',
               active: false
             },
@@ -115,12 +115,12 @@ export default {
             {
               name: 'fighting',
               active: false
-            },
+            }, */
             {
               name: 'fire',
               active: false
             },
-            {
+            /* {
               name: 'flying',
               active: false
             },
@@ -159,7 +159,7 @@ export default {
             {
               name: 'steel',
               active: false
-            },
+            }, */
             {
               name: 'water',
               active: false

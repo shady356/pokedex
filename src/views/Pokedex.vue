@@ -21,16 +21,11 @@
             }
           }"
         >
-          <div class="header">
-            #{{pokemonList[index].id | index}}
-            <!-- <span class="capitalize">{{pokemonList[index].name}}</span> -->
-          </div>
-          <div class="sprite-container">
-            <img 
-              :src="pokemonList[index].sprite" 
-              class="sprite"
-            />
-          </div>
+          <PokedexItem
+            :id="pokemonList[index].id"
+            :name="pokemonList[index].name"
+            :sprite="pokemonList[index].sprite"
+          />
         </router-link>
       </ul>
     </div>
@@ -60,6 +55,7 @@
       />
     </BaseModal>
 
+    <!-- Pokemon -->
     <BaseModal 
       v-if="isPokemonModal"
       :borderRadius="false"
@@ -77,24 +73,15 @@ import BaseModal from "@/components/base/BaseModal.vue"
 import FilterPokemon from "@/components/FilterPokemon.vue"
 import { $filterData } from "@/helpers/pokedexFilters.js"
 import { mapActions} from 'vuex'
+import PokedexItem from '@/components/pokedex/PokedexItem'
 
 export default {
   name: "Pokedex",
   components: {
     Header,
     BaseModal,
-    FilterPokemon
-  },
-  filters: {
-    index(value) {
-      if (value < 10) {
-        return "00" + value
-      } else if (value < 100) {
-        return "0" + value
-      } else {
-        return value
-      }
-    }
+    FilterPokemon,
+    PokedexItem
   },
   data() {
     return {
@@ -106,7 +93,7 @@ export default {
 
       //Batch data:
       currentBatch: 1,
-      maxPerBatch: 20,
+      maxPerBatch: 32,
       loadedCounter: 0,
       showLoader: false,
 
@@ -250,31 +237,15 @@ ul {
   color: #fff;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   width: 100%;
 
   li {
     text-align: center;
     margin: 0 1% $l;
-    width: 20%;
-    border-radius: $xxs;
-    background: hsla(0, 0%, 90%, 0.2);
-    box-shadow: 0 0 8px $blue-light;
+    width: 18%;
+    
     cursor: pointer;
-
-    .header {
-      padding: $xxxs;
-      border-radius: $xxs $xxs 0 0;
-      background: $blue;
-      font-size: $font-xs;
-      text-align: center;
-    }
-    .sprite-container {
-      height: 56px;
-      .sprite {
-        width: 56px;
-      }
-    }
   }
 }
 

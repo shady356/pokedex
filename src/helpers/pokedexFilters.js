@@ -40,9 +40,9 @@ export const $filterData = (filters) => {
     }
     return list
   }
-  else if(filters.types.includes('fire')) {
+  else if(filters.types.length > 0) {
     let list = []
-    let typeList = $typesPokemonList('fire')
+    let typeList = $typesPokemonList(filters.types[0])
     
     for (let i = 0; i < typeList.length; i++) {
       list.push(
@@ -58,7 +58,7 @@ export const $filterData = (filters) => {
   // All pokemon:
   else {
     let list = []
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < 151; i++) {
       list.push(
         {
           id: i+1,
