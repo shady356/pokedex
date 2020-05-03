@@ -353,29 +353,36 @@ export default {
     },
     swipe(direction) {
       if(direction === 'swiperight') {
-        console.log('swipe right')
-      }
-      if(direction === 'swipeleft') {
-        /* this.$router.push({
+        this.$router.push({
           name: 'Pokemon', 
           params: { 
-            pokemonId: this.getPokemonPaginationIndex(this.pokemonIndex, 'next')
+            pokemonId: this.getPokemonPaginationId(this.pokemonIndex, 'previous'),
+            pokemonIndex: this.pokemonIndex -1
           }
-        }) */
+        })
+      }
+      if(direction === 'swipeleft') {
+        this.$router.push({
+          name: 'Pokemon', 
+          params: { 
+            pokemonId: this.getPokemonPaginationId(this.pokemonIndex, 'next'),
+            pokemonIndex: this.pokemonIndex +1
+          }
+        })
       }
       
     },
-    getPokemonPaginationIndex(index, direction) {
+    getPokemonPaginationId(index, direction) {
       if(direction === 'previous') {
         if (index > 0) {
-          return this.pokemonList[index-1].id
+          return this.pokedexIds[index-1]
         } else {
           return null
         }
       }
       else {
-        if (index < this.pokemonList.length) {
-          return this.pokemonList[index+1].id
+        if (index < this.pokedexIds.length) {
+          return this.pokedexIds[index+1]
         } else {
           return null
         }
