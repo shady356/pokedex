@@ -16,13 +16,13 @@ const routes = [
       name: 'Pokemon',
       path: ':pokemonId',
       props: true,
-      component: () => import('../views/Pokemon.vue'),
+      component: () => import('../components/pokemon/Pokemon.vue'),
     
       meta: {
         showModal: true
       }
     }],
-    component: () => import(/* webpackChunkName: "pokedex" */ '../views/Pokedex.vue')
+    component: () => import(/* webpackChunkName: "pokedex" */ '../components/pokedex/Pokedex.vue')
   },
   {
     path: '/about',

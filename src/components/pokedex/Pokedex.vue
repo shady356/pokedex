@@ -67,12 +67,12 @@
 </template>
 
 <script>
-import axios from "axios"
-import Header from "@/components/layout/Header.vue"
-import BaseModal from "@/components/base/BaseModal.vue"
-import FilterPokemon from "@/components/FilterPokemon.vue"
 import { $filterData } from "@/helpers/pokedexFilters.js"
 import { mapActions} from 'vuex'
+import axios from "axios"
+import BaseModal from "@/components/base/BaseModal.vue"
+import FilterPokemon from "@/components/pokedex/FilterPokemon.vue"
+import Header from "@/components/layout/Header.vue"
 import PokedexItem from '@/components/pokedex/PokedexItem'
 
 export default {
