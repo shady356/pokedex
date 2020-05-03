@@ -223,18 +223,18 @@ export default {
     isPokemonLoaded () {
       return this.pokemon && this.pokemonSpecies
     },
-    isFirstPokemon () {
-      return this.pokemonIdNumber === 1
-    },
-    isLastPokemon () {
-      return this.pokemonIdNumber === this.NUM_OF_POKEMON
-    },
     firstType () {
       const type = this.pokemon.types.find(type => type.slot === 1)
       return type.type.name
     },
     pokedexIds () {
       return this.$store.state.pokedexIds
+    },
+    isFirstPokemon () {
+      return this.pokemonIndex === 0
+    },
+    isLastPokemon () {
+      return this.pokemonIndex === this.pokedexIds.length-1
     }
   },
   watch: {
@@ -352,19 +352,20 @@ export default {
       this.isTypeModalOpen = false
     },
     swipe(direction) {
-      if(direction === 'swiperight') {
+      if(direction === 'swiperight' && !this.isFirstPokemon) {
         this.$router.push({
-          name: 'Pokemon', 
-          params: { 
+          name: 'Pokemon',
+          params: {
             pokemonId: this.getPokemonPaginationId(this.pokemonIndex, 'previous'),
             pokemonIndex: this.pokemonIndex -1
           }
         })
+
       }
-      if(direction === 'swipeleft') {
+      if(direction === 'swipeleft' && !this.isLastPokemon) {
         this.$router.push({
-          name: 'Pokemon', 
-          params: { 
+          name: 'Pokemon',
+          params: {
             pokemonId: this.getPokemonPaginationId(this.pokemonIndex, 'next'),
             pokemonIndex: this.pokemonIndex +1
           }
@@ -374,18 +375,10 @@ export default {
     },
     getPokemonPaginationId(index, direction) {
       if(direction === 'previous') {
-        if (index > 0) {
-          return this.pokedexIds[index-1]
-        } else {
-          return null
-        }
+        return this.pokedexIds[index-1]
       }
       else {
-        if (index < this.pokedexIds.length) {
-          return this.pokedexIds[index+1]
-        } else {
-          return null
-        }
+        return this.pokedexIds[index+1]
       }
     }
   }
