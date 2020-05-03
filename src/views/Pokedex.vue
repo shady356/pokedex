@@ -194,7 +194,7 @@ export default {
     },
     getBatchOfPokemon() {
       for (let i = this.batchStartPosition; i < this.batchEndPosition; i++) {
-        this.getPokemon(this.pokemonList[i].id + 1, i)
+        this.getPokemon(this.pokemonList[i].id, i)
       }
       this.currentBatch++
     },

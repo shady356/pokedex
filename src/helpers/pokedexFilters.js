@@ -6,7 +6,7 @@ export const $filterData = (filters) => {
     for (let i = 0; i < 151; i++) {
       list.push(
         {
-          id: i,
+          id: i+1,
           name: '',
           sprite: ''
         }
@@ -19,7 +19,7 @@ export const $filterData = (filters) => {
     for (let i = (152-1); i < 251; i++) {
       list.push(
         {
-          id: i,
+          id: i+1,
           name: '',
           sprite: ''
         }
@@ -32,7 +32,7 @@ export const $filterData = (filters) => {
     for (let i = (252-1); i < 385; i++) {
       list.push(
         {
-          id: i,
+          id: i+1,
           name: '',
           sprite: ''
         }
@@ -44,7 +44,7 @@ export const $filterData = (filters) => {
     let list = []
     let typeList = $typesPokemonList('fire')
     
-    for (let i = 1; i < typeList.length; i++) {
+    for (let i = 0; i < typeList.length; i++) {
       list.push(
         {
           id: typeList[i],
@@ -61,7 +61,7 @@ export const $filterData = (filters) => {
     for (let i = 0; i < 16; i++) {
       list.push(
         {
-          id: i,
+          id: i+1,
           name: '',
           sprite: ''
         }
