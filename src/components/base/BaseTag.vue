@@ -21,15 +21,16 @@ export default {
 
 <style lang="scss" scoped>
   .tag-container {
-    display: inline-flex;
     align-items: center;
-    color: #222;
-    font-size: $font-s;
     background: #fff;
-    border: 1px solid #ccc;
-    padding: $xxs $s;
     border-radius: $l;
+    border: 1px solid #ccc;
+    color: #222;
+    display: inline-flex;
+    font-size: $font-s;
+    padding: $xxs $s;
     transition: background-color $fast ease-out;
+    white-space: nowrap;
 
     &.purple {
       background: $purple;
