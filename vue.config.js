@@ -2,7 +2,7 @@ module.exports = {
   devServer: {
     proxy: 'https://pokeapi.co/api/v2'
   },
-  publicPath: '/pokedex',
+  //publicPath: '/pokedex',
   css: {
     loaderOptions: {
       sass: {

@@ -5,11 +5,11 @@
       <div class="physique-container">
         <div class="weight">
           <fa-icon class="icon" icon="weight-hanging"/>
-          {{pokemon.weight}} lbs
+          {{pokemon.weight | toKilogram }}
         </div>
         <div class="height">
           <fa-icon class="icon" icon="ruler-vertical"/>
-          {{pokemon.height}}"
+          {{pokemon.height | toMeter}}
         </div>
       </div>
     </section>
@@ -79,6 +79,28 @@ export default {
   name: 'PokemonAbout',
   components: {
     BaseTag
+  },
+  filters: {
+    toMeter (value) {
+       value /= 10
+      return new Intl.NumberFormat('en-UK', {
+        style: 'unit',
+        unit: 'meter',
+        unitDisplay: 'short',
+        minimumSignificantDigits: 2,
+        maximumSignificantDigits: 2
+      }).format(value)
+    },
+    toKilogram (value) {
+       value /= 10
+      return new Intl.NumberFormat('en-UK', {
+        style: 'unit',
+        unit: 'kilogram',
+        unitDisplay: 'short',
+        minimumSignificantDigits: 2,
+        maximumSignificantDigits: 2
+      }).format(value)
+    }
   },
   props: {
     pokemon: {
