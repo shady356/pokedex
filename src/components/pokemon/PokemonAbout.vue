@@ -3,22 +3,24 @@
     <!-- Weight and height -->
     <section>
       <div class="physique-container">
+
         <div class="weight">
           <fa-icon class="icon" icon="weight-hanging"/>
           {{pokemon.weight | toKilogram }}
         </div>
+
         <div class="height">
           <fa-icon class="icon" icon="ruler-vertical"/>
           {{pokemon.height | toMeter}}
         </div>
+
       </div>
     </section>
 
     <!-- Abilities -->
     <section>
-      <div class="title">
-        <h6 class="text">Abilities</h6>
-      </div>
+      <h6 class="title">Abilities</h6>
+ 
       <div class="abilities-container">
         <BaseTag
           v-for="item in pokemon.abilities"
@@ -33,43 +35,67 @@
           />
         </BaseTag>
       </div>
+      
     </section>
 
 
     <!-- Training -->
     <section>
-      <div class="title">
-        <fa-icon icon="star" class="icon"/>
-        <h6 class="text">Training</h6>
+      <h6 class="title">Training</h6>
+
+      <div class="data-row">
+        <div class="label">
+          Growth rate
+        </div>
+        <div class="value capitalize">
+          {{pokemonSpecies.growthRate}}
+        </div>
       </div>
-      <div>
-        Growth rate: {{pokemonSpecies.growthRate}} <br>
-        Catch rate: {{pokemonSpecies.captureRate}} <br>
-        Base happiness: {{pokemonSpecies.baseHappiness}} <br>
+
+      <div class="data-row">
+        <div class="label">
+          Catch rate
+        </div>
+        <div class="value">
+          {{pokemonSpecies.captureRate}}
+        </div>
+      </div>
+
+      <div class="data-row">
+        <div class="label">
+          Base happiness
+        </div>
+        <div class="value">
+          {{pokemonSpecies.baseHappiness}}
+        </div>
       </div>
     </section>
 
     <!-- Breeding -->
     <section>
-      <div class="title">
-        <fa-icon icon="egg" class="icon"/>
-        <h6 class="text">Breeding</h6>
+      <h6 class="title">Breeding</h6>
+
+      <!-- Egg group -->
+      <div class="data-row">
+        <div class="label">
+          Egg Group
+        </div>
+        <div class="value capitalize">
+          {{pokemonSpecies.eggGroups | eggGroups}}
+        </div>
+      </div>
+
+      <!-- Hatch counter -->
+      <div class="data-row">
+        <div class="label">
+          Hatch Counter
+        </div>
+        <div class="value"> 
+          {{pokemonSpecies.hatchCounter}}
+        </div>
       </div>
     </section>
-    
-    <!-- Egg group -->
-    <div class="micro-label uppercase">egg group</div>
-    <div 
-      v-for="item in pokemonSpecies.eggGroups"
-      :key="item.name"> 
-      <div class="capitalize">
-        {{item.name}}
-      </div>
-    </div>
 
-    <!-- Hatch counter -->
-    <div class="micro-label uppercase">Hatch counter</div>
-    {{pokemonSpecies.hatchCounter}}
   </div>
 </template>
 
@@ -100,6 +126,18 @@ export default {
         minimumSignificantDigits: 2,
         maximumSignificantDigits: 2
       }).format(value)
+    },
+    eggGroups (value) {
+      let eggs = ''
+      console.log(value)
+      value.forEach((item, index) =>{
+        if (index === value.length - 1){ 
+           eggs += item.name
+        } else {
+          eggs += item.name + ', '
+        }
+      })
+      return eggs
     }
   },
   props: {
@@ -116,59 +154,79 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .about-container {
-    padding-bottom: $xxl;
+.about-container {
+  padding-bottom: $xxl;
 
-    section {
-      margin-bottom: $l;
+  section {
+    margin-bottom: $l;
 
-      .title {
-        margin-bottom: $s;
+    .title {
+      margin-bottom: $xs;
+      display: flex;
+      align-items: center;
+
+      .icon {
+        width: 12px;
+      }
+    }
+
+    .data-row {
+      display: flex;
+      padding: 4px 0;
+      font-size: $font-s;
+      width: 100%;
+
+      .label {
+        flex-basis: 30%;
+        padding-right: 10px;
+        color: #777;
+      }
+      .value {
+        flex-basis: 70%;
+        color: #111;
+      }
+    }
+
+    .abilities-container {
+      display: flex;
+
+      .ability {
+        margin-right: 10px;
+
+        .icon {
+          margin-left: 4px;
+          height: 8px;
+          color: #777;
+        }
+      }
+    }
+
+    .physique-container {
+      display: flex;
+      justify-content: space-evenly;
+
+      .weight {
         display: flex;
         align-items: center;
 
         .icon {
-          width: 12px;
-        }
-        .text {
-          margin-left: $xs;
-        }
-      }
-
-      .abilities-container {
-        display: flex;
-
-        .ability {
-          margin-right: 10px;
+          color: #777;
+          height: $s;
+          margin-right: $xxs;
         }
       }
-
-      .physique-container {
+      .height {
         display: flex;
-        justify-content: space-evenly;
+        align-items: center;
 
-        .weight {
-          display: flex;
-          align-items: center;
-
-          .icon {
-            color: #777;
-            height: $s;
-            margin-right: $xxs;
-          }
-        }
-        .height {
-          display: flex;
-          align-items: center;
-
-          .icon {
-            height: $s;
-            color: #777;
-            margin-right: $xxs;
-            transform: scale(-1);
-          }
+        .icon {
+          height: $s;
+          color: #777;
+          margin-right: $xxs;
+          transform: scale(-1);
         }
       }
     }
   }
+}
 </style>
