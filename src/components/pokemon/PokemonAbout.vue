@@ -1,21 +1,6 @@
 <template>
   <div class="about-container">
-    <!-- Weight and height -->
-    <section>
-      <div class="physique-container">
-
-        <div class="weight">
-          <fa-icon class="icon" icon="weight-hanging"/>
-          {{pokemon.weight | toKilogram }}
-        </div>
-
-        <div class="height">
-          <fa-icon class="icon" icon="ruler-vertical"/>
-          {{pokemon.height | toMeter}}
-        </div>
-
-      </div>
-    </section>
+    
 
     <!-- Abilities -->
     <section>
@@ -93,6 +78,23 @@
         <div class="value"> 
           {{pokemonSpecies.hatchCounter}}
         </div>
+      </div>
+    </section>
+
+    <!-- Weight and height -->
+    <section>
+      <div class="physique-container">
+
+        <div class="weight">
+          <fa-icon class="icon" icon="weight-hanging"/>
+          {{pokemon.weight | toKilogram }}
+        </div>
+
+        <div class="height">
+          <fa-icon class="icon" icon="ruler-vertical"/>
+          {{pokemon.height | toMeter}}
+        </div>
+
       </div>
     </section>
 

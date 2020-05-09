@@ -8,14 +8,31 @@
   transform: translateY($xl);
 }
 
-// Slide Horizontally
-.slide-h-enter-active, 
-.slide-h-leave-active {
+// Slide Horizontally Left
+.slide-h-l-enter-active, 
+.slide-h-l-leave-active {
   transition: all $fast;
 }
-.slide-h-enter, 
-.slide-h-leave-to {
-  transform: translateX(-$xl);
+.slide-h-l-enter {
+  transform: translateX(-50%);
+  opacity: 0;
+}
+.slide-h-l-leave-to {
+  transform: translateX(50%);
+  opacity: 0;
+}
+
+// Slide Horizontally Right
+.slide-h-r-enter-active, 
+.slide-h-r-leave-active {
+  transition: all $fast;
+}
+.slide-h-r-enter {
+  transform: translateX(50%);
+  opacity: 0;
+}
+.slide-h-r-leave-to {
+  transform: translateX(-50%);
   opacity: 0;
 }
 

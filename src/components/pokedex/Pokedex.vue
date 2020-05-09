@@ -60,7 +60,7 @@
     <!-- Pokemon -->
     <BaseModal 
       v-if="isPokemonModal"
-      :borderRadius="false"
+      isPokemonCard
       @closeModal="closePokemon()"
     >
       <router-view />

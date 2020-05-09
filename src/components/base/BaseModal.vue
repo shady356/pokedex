@@ -8,7 +8,7 @@
         name="slide-v"
         appear
       >
-        <div :class="['modal-window', {'has-border-radius': borderRadius}]">
+        <div :class="['modal-window', {'is-pokemon-card': isPokemonCard}]">
           <slot/>
           <div 
             class="modal-close-container"
@@ -38,10 +38,10 @@ export default {
       required: false,
       default: true
     },
-    borderRadius: {
+    isPokemonCard: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
     }
   },
   mounted () {
@@ -78,18 +78,28 @@ export default {
     width: 100vw;
     max-height: 100vh;
     min-height: 30vh;
+    border-radius: $m $m 0 0;
 
-    &.has-border-radius {
-      border-radius: $m $m 0 0;
+    &.is-pokemon-card {
+      width: 94vw;
+      bottom: 2vh;
+      left: 3vw;
+      height: 96vh;
+      border-radius: $m;
+
+      .modal-close-container {
+        bottom: 3vh;
+      }
     }
 
     .modal-close-container {
       display: flex;
       justify-content: center;
-      position:fixed;
+      position: fixed;
       bottom: 2vh;
       left: 0;
       right: 0;
+      z-index: 10;
       
       .modal-close {
         display: flex;

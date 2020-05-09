@@ -13,9 +13,22 @@ import {
   faWeightHanging,
   faFilter,
   faSearch,
+  faChevronLeft,
+  faChevronRight,
+  faHeart,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(faEgg, faStar, faRulerVertical, faWeightHanging, faFilter, faSearch)
+library.add(
+  faEgg, 
+  faStar, 
+  faRulerVertical, 
+  faWeightHanging, 
+  faFilter, 
+  faSearch, 
+  faChevronRight, 
+  faChevronLeft,
+  faHeart
+)
 Vue.component('fa-icon', FontAwesomeIcon)
 
 // Vue2 Touch

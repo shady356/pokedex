@@ -4,108 +4,132 @@
     <div
       v-if="isPokemonLoaded"
       class="pokemon-container"
-      :style="'background: linear-gradient(300deg, ' + getTypeColor( firstType ) + ' 0%, #fff 100%)'"
-    > 
+      :style="getModalBackground"
+      v-touch:swipe="swipePokemon"
+    >
       <section
-        v-touch:swipe="swipePokemon"
-        class="pokemon-info-container section-1"
+        class="pokemon-cover section-1"
       >
-        <div class="name-type-container">
+        <div class="white-bar">
+          <div class="name-type-container">
 
-          <!-- Name -->
-          <h1
-            class="capitalize pokemon-name">
-            {{pokemon.name}}
-          </h1>
+            <!-- Name -->
+            <h3 class="capitalize pokemon-name">
+              {{pokemon.name}}
+            </h3>
+
+            <!-- Type(s) -->
+            <div class="type-container">
+              <BaseTypeTag
+                v-for="type in pokemon.types"
+                :key="type.slot"
+                :icon="getIcon(type.type.name)"
+                :iconColor="getTypeColor(type.type.name)"
+              
+                class="tag-item"
+                @click="openTypeModal(type.type)"
+              />
+            </div>
+          </div>
 
           <!-- Index #number -->
-          <h6>#{{getIndex(pokemonId)}}</h6>
-
-          <!-- Type(s) -->
-          <div class="type-container">
-            <BaseTypeTag
-              v-for="type in pokemon.types"
-              :key="type.slot"
-              :icon="getIcon(type.type.name)"
-              :iconColor="getTypeColor(type.type.name)"
-              :title="type.type.name"
-              class="tag-item"
-              @click="openTypeModal(type.type)"
-            />
-          </div>
-        </div>
-
-        <!-- Sprite -->
-        <div class="pokemon-sprite-container">
-          <div
-            v-if="isLoadingPokemon"
-            class="loading-pokemon-sprite"
-          />
-          <img
-            v-else 
-            :src="getSprite(pokemon.id)"
-            class="pokemon-sprite"
-            alt="pokemon sprite"
-          >
-        </div>
-      </section>
-
-      <!-- Meta container -->
-      <section class="meta-container section-2">
-
-        <BaseTab
-          class="tab-header"
-          :items="metaItems"
-          @changeTab="changeMetaTab"
-        />
-
-        <div class="tab-content">
           <transition
             name="fade"
             mode="out-in">
-            <!-- About -->
-            <div
-              v-if="metaItems[0].active"
-              key="tab-about"
-              class="about-container"
+            <div 
+              class="index-number"
+              :key="pokemon.id"
             >
-              <PokemonAbout
-                :pokemon="pokemon"
-                :pokemonSpecies="pokemonSpecies"
-              />
+              <h5>#{{ getIndex(pokemon.id) }}</h5>
             </div>
-
-            <!-- Stats -->
-            <div
-              v-if="metaItems[1].active"
-              key="tab-stats"
-              class="stats-container"
-            >
-              <PokemonBaseStats
-                :pokemon="pokemon"
-              />
-            </div>
-
-            <!-- Moves -->
-            <!-- <div
-              v-if="metaItems[2].active"
-              key="tab-moves"
-              class="moves-container"
-            >
-              Moves
-            </div> -->
-
           </transition>
         </div>
+      
+        <!-- Sprite -->
+        <transition
+          :name="slideDirection"
+          mode="out-in"
+        >
+          <div 
+            class="pokemon-sprite-container"
+            :key="pokemon.id"
+          >
+            <div
+              v-if="isLoadingPokemon"
+              class="loading-pokemon-sprite"
+            /> 
+            <img
+              v-else
+              :src="getSprite(pokemon.id)"
+              class="pokemon-sprite"
+              alt="pokemon sprite"
+            >
+          </div>
+        </transition>
       </section>
+
+      <!-- Meta container -->
+      <transition
+        name="slide-v"
+        mode="out-in">
+        <section 
+          class="meta-container section-2" 
+        >
+
+          <BaseTab
+            class="tab-header"
+            :items="metaItems"
+            @changeTab="changeMetaTab"
+          />
+
+          <div class="tab-content">
+            <transition
+              name="fade"
+              mode="out-in">
+              <!-- About -->
+              <div
+                v-if="metaItems[0].active"
+                key="tab-about"
+                class="about-container"
+              >
+                <PokemonAbout
+                  :pokemon="pokemon"
+                  :pokemonSpecies="pokemonSpecies"
+                />
+              </div>
+
+              <!-- Stats -->
+              <div
+                v-if="metaItems[1].active"
+                key="tab-stats"
+                class="stats-container"
+              >
+                <PokemonBaseStats
+                  :pokemon="pokemon"
+                />
+              </div>
+
+              <!-- Moves -->
+              <!-- <div
+                v-if="metaItems[2].active"
+                key="tab-moves"
+                class="moves-container"
+              >
+                Moves
+              </div> -->
+
+            </transition>
+          </div>
+        </section>
+      </transition>
     </div>
 
     <!-- Skeleton loading -->
-    <div v-else class="pokemon-container">
+    <div v-else class="pokemon-container" style="background: #08a">
       <section class="pokemon-info-container section-1">
         
         <div class="name-type-container">
-          <h3>Name</h3>
+          <div class="skeleton-block-line"/>
         </div>
         <!-- Sprite -->
         <div class="pokemon-sprite-container">
@@ -118,31 +142,6 @@
         
       </section>
     </div>
-
-    <!-- Pagination | fixed -->
-    <!-- <div class="pagination-container">
-      <router-link
-        :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber -1 }}"
-      >
-        <BaseButton
-          :disabled="isFirstPokemon"
-          class="pagination previous"
-        >
-          Prev
-        </BaseButton>
-      </router-link>
-
-      <router-link
-        :to="{ name: 'Pokemon', params: { pokemonId: pokemonIdNumber +1 }}"
-      >
-        <BaseButton
-          :disabled="isLastPokemon"
-          class="pagination next"
-        >
-          Next
-        </BaseButton>
-      </router-link>
-    </div> -->
 
     <!-- Type modal -->
     <BaseModal
@@ -194,6 +193,10 @@ export default {
       isTypeModalOpen: false,
       currentTypeInModal: null,
       isLoadingPokemon: false,
+      slideDirection: 'left',
+
+      // Texture
+      texture: require('@/assets/textures/grid-texture.png'),
 
       metaItems: [
         {
@@ -219,7 +222,7 @@ export default {
       return parseInt(this.pokemonId)
     },
     isPokemonLoaded () {
-      return this.pokemon && this.pokemonSpecies
+      return (this.pokemon && this.pokemonSpecies)
     },
     firstType () {
       const type = this.pokemon.types.find(type => type.slot === 1)
@@ -233,7 +236,15 @@ export default {
     },
     isLastPokemon () {
       return this.pokemonIndex === this.pokedexIds.length-1
+    },
+    getModalBackground() {
+      return {
+        background: 'url(' + this.texture + ')',
+        backgroundColor: this.getTypeColor(this.firstType),
+        backgroundBlendMode: 'screen'
+      }
     }
+
   },
   watch: {
     $route() {
@@ -250,34 +261,7 @@ export default {
     this.getPokemonSpecies(this.pokemonId)
   },
   methods: {
-    getIcon(name) {
-      return require('@/assets/icons/types/' + name + '.svg')
-    },
-    getTypeColor (type) {
-      switch(type) {
-          case 'bug':     return '#92BC2C'; 
-          case 'dark':    return '#595761'; 
-          case 'dragon':  return '#0C69C8'; 
-          case 'electric':return '#F2D94E'; 
-          case 'fire':    return '#FBA54C'; 
-          case 'fairy'    :return '#EE90E6'; 
-          case 'fighting' :return '#D3425F'; 
-          case 'flying'   :return '#A1BBEC'; 
-          case 'ghost'    :return '#5F6DBC'; 
-          case 'grass'    :return '#5FBD58'; 
-          case 'ground'   :return '#DA7C4D'; 
-          case 'ice'      :return '#75D0C1'; 
-          case 'normal'   :return '#A0A29F'; 
-          case 'poison'   :return '#B763CF'; 
-          case 'psychic'  :return '#FA8581'; 
-          case 'rock'     :return '#C9BB8A'; 
-          case 'steel'    :return '#5695A3'; 
-          case 'water'    :return '#539DDF'; 
-      }
-    },
-    getSprite(id) {
-      return 'https://pokeres.bastionbot.org/images/pokemon/' + id + '.png'
-    },
+    
     getPokemon(pokemonId) {
       axios.get(`${this.BASE_URL}/pokemon/${pokemonId}/`)
       .then(response => {
@@ -324,6 +308,34 @@ export default {
       let value = this.getPercentage(width, 255)
       return { '--width': value + '%'}
     }, */
+    getTypeColor (type) {
+      switch(type) {
+          case 'bug':     return '#92BC2C'; 
+          case 'dark':    return '#595761'; 
+          case 'dragon':  return '#0C69C8'; 
+          case 'electric':return '#F2D94E'; 
+          case 'fire':    return '#FBA54C'; 
+          case 'fairy'    :return '#EE90E6'; 
+          case 'fighting' :return '#D3425F'; 
+          case 'flying'   :return '#A1BBEC'; 
+          case 'ghost'    :return '#5F6DBC'; 
+          case 'grass'    :return '#5FBD58'; 
+          case 'ground'   :return '#DA7C4D'; 
+          case 'ice'      :return '#75D0C1'; 
+          case 'normal'   :return '#A0A29F'; 
+          case 'poison'   :return '#B763CF'; 
+          case 'psychic'  :return '#FA8581'; 
+          case 'rock'     :return '#C9BB8A'; 
+          case 'steel'    :return '#5695A3'; 
+          case 'water'    :return '#539DDF'; 
+      }
+    },
+    getIcon(name) {
+      return require('@/assets/icons/types/' + name + '.svg')
+    },
+    getSprite(id) {
+      return 'https://pokeres.bastionbot.org/images/pokemon/' + id + '.png'
+    },
     getIndex (value) {
       if(value < 10) {
         return '00' + value
@@ -348,6 +360,7 @@ export default {
     },
     swipePokemon(direction) {
       if(direction === 'swiperight' && !this.isFirstPokemon) {
+        this.slideDirection = 'slide-h-l'
         this.$router.push({
           name: 'Pokemon',
           params: {
@@ -355,9 +368,9 @@ export default {
             pokemonIndex: this.pokemonIndex -1
           }
         })
-
       }
       if(direction === 'swipeleft' && !this.isLastPokemon) {
+        this.slideDirection = 'slide-h-r'
         this.$router.push({
           name: 'Pokemon',
           params: {
@@ -366,7 +379,6 @@ export default {
           }
         })
       }
-      
     },
     getPokemonPaginationId(index, direction) {
       if(direction === 'previous') {
@@ -384,60 +396,86 @@ export default {
   
   .pokemon-container {
     display: grid;
+    height: 96vh;
     grid-template-columns: 100%;
-    grid-template-rows: 35vh 65vh;
+    grid-template-rows: 35% 65%;
     overflow: hidden;
+    transition: background-color 1000ms linear;
 
     .section-1 {
       grid-row-start: 1;
+      z-index: 1;
     }
     .section-2 {
       grid-row-start: 2;
       background: #fff;
+      z-index: 1;
     }
-
+    
     // Section 1
-    .pokemon-info-container {
-      padding: $m;
+    .pokemon-cover {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
 
-      .name-type-container {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        flex-basis: 50%;
+      .white-bar {
+        position: relative;
+        border-radius: $m $m 0 0;
+        background: #fff;
+        width: 100%;
+        height: 20%;
+        clip-path: polygon(100% 0, 100% 60%, 75% 60%, 60% 100%, 0 100%, 0 0);
 
-        .pokemon-name {
-          color: #333;
-        }
-        .type-container {
+        .name-type-container {
           display: flex;
-          margin-top: $m;
-          flex-direction: row-reverse;
+          flex-direction: row;
+          align-items: center;
+          padding: $m;
 
-          .tag-item:last-child {
+          .pokemon-name {
+            color: #333;
             margin-right: $s;
           }
+          .type-container {
+            display: flex;
+            flex-direction: row-reverse;
+      
+            .tag-item:last-child {
+              margin-right: $xs;
+            }
+          }
+          .skeleton-block-line {
+            background: #ddd;
+            border-radius: $xxs;
+            width: $xxxxl;
+            height: $m;
+          }
         }
+
+        .index-number {
+          position: absolute;
+          top: 15%;
+          right: 5%;
+        }
+
       }
       .pokemon-sprite-container {
         display: flex;
-        flex-basis: 50%;
         justify-content: center;
+        align-items: center;
+        height: 75%;
       
         .pokemon-sprite {
-          object-fit: contain;
-          height: 128px;
+          height: 164px;
         }
       }
     }
     
     // Section 2
     .meta-container {
-      border-radius: $xl $xl 0 0;
+      border-radius: $m $m 0 0;
       padding: $m;
+      margin: 0 10px;
       display: flex;
       flex-direction: column;
 
