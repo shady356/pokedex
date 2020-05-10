@@ -169,11 +169,11 @@ export default {
           border-radius: 2px;
           background: #ddd;
           margin-right: $xxs;
-          transition: background .4s ease-out;
+          transition: background-color .4s ease-out;
 
           &.is-filled {
             background: $blue;
-            transition: background .4s ease-in;
+            transition: background-color .4s ease-in;
             animation: scale-x-in .4s ease;
           }
         }
