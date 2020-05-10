@@ -30,16 +30,10 @@
           </div>
 
           <!-- Index #number -->
-          <transition
-            name="fade"
-            mode="out-in">
-            <div 
-              class="index-number"
-              :key="pokemon.id"
-            >
-              <h6>#{{ getIndex(pokemon.id) }}</h6>
+
+            <div class="index-number">
+              <h6>#{{ getIndex(animatedIndex) }}</h6>
             </div>
-          </transition>
         </div>
       
         <!-- Sprite -->
@@ -130,9 +124,7 @@
         </div>
         <!-- Sprite -->
         <div class="pokemon-sprite-container">
-          <div
-            class="loading-pokemon-sprite"
-          />
+          <div class="loading-pokemon-sprite" />
         </div>
       </section>
       <section class="meta-container section-2">
@@ -160,6 +152,7 @@ import BaseTypeTag from '@/components/base/BaseTypeTag'
 import PokemonAbout from '@/components/pokemon/PokemonAbout.vue'
 import PokemonBaseStats from '@/components/pokemon/PokemonBaseStats.vue'
 import Type from '@/components/types/Type'
+import { gsap } from 'gsap'
 export default {
   name: 'Pokemon',
   components: {
@@ -191,6 +184,7 @@ export default {
       currentTypeInModal: null,
       isLoadingPokemon: false,
       slideDirection: 'left',
+      tweenedNumber: this.pokemonId,
 
       // Texture
       texture: require('@/assets/textures/grid-texture.png'),
@@ -215,9 +209,6 @@ export default {
     BASE_URL () {
       return process.env.VUE_APP_ROOT_URL
     },
-    pokemonIdNumber () {
-      return parseInt(this.pokemonId)
-    },
     isPokemonLoaded () {
       return (this.pokemon && this.pokemonSpecies)
     },
@@ -240,8 +231,10 @@ export default {
         backgroundColor: this.getTypeColor(this.firstType),
         backgroundBlendMode: 'screen'
       }
-    }
-
+    },
+    animatedIndex () {
+      return this.tweenedNumber.toFixed(0)
+    },
   },
   watch: {
     $route() {
@@ -251,14 +244,17 @@ export default {
         that.getPokemonSpecies(that.pokemonId)
         that.getPokemon(that.pokemonId)
       }, 500)
+    },
+    pokemonId (newVal) {
+      gsap.to(this.$data, { duration: 0.5, tweenedNumber: newVal })
     }
   },
   mounted () {
     this.getPokemon(this.pokemonId)
     this.getPokemonSpecies(this.pokemonId)
+    console.log(gsap)
   },
   methods: {
-    
     getPokemon(pokemonId) {
       axios.get(`${this.BASE_URL}/pokemon/${pokemonId}/`)
       .then(response => {

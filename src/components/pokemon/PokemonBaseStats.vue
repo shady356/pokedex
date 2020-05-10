@@ -7,8 +7,12 @@
         :key="index"
       >
         <div :class="['stat-label', {'highlight': isBestStat(stat)}]">
-          <p class="stat-key uppercase">{{stat.stat.name | statName}}</p>
-          <p class="stat-value">{{stat.base_stat}}</p>
+          <div class="stat-key uppercase">
+            {{stat.stat.name | statName}}
+          </div>
+          <div class="stat-value">
+            {{stat.base_stat}}
+          </div>
         </div>
           
         <div class="stat-bar">
@@ -22,18 +26,28 @@
     </div>
     <div class="key-data">
       <div class="total-base-stats">
-        <div class="uppercase letter-spacing micro-label">total</div>
-        <h3>{{totalBaseStat}}</h3>
+        <div class="uppercase letter-spacing micro-label">
+          total
+        </div>
+        <h3>
+          {{totalBaseStatAnimated}}
+        </h3>
       </div>
       <div class="did-you-know">
-        <div class="uppercase letter-spacing micro-label">Did you know</div>
-        <p><span class="capitalize">{{pokemon.name}}</span> has the 3rd highest Attack -stat among grass types</p>
+        <div class="uppercase letter-spacing micro-label">
+          Did you know
+        </div>
+        <p class="content">
+          <span class="capitalize">{{pokemon.name}}</span> 
+          has the 3rd highest Attack -stat among grass types
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { gsap } from 'gsap'
 export default {
   name: 'PokemonAbout',
   filters: {
@@ -57,7 +71,8 @@ export default {
   },
   data () {
     return {
-      BASE_STAT_TOTAL: 16
+      BASE_STAT_TOTAL: 16,
+      tweenedNumber: 0
     }
   },
   computed: {
@@ -67,6 +82,9 @@ export default {
         total += stat.base_stat
       });
       return total
+    },
+    totalBaseStatAnimated () {
+      return this.tweenedNumber.toFixed(0)
     },
     bestStat() {
       let bestStat = { 
@@ -81,6 +99,14 @@ export default {
       })
       return bestStat
     },
+  },
+  watch: {
+    totalBaseStat (newVal) {
+      gsap.to(this.$data, { duration: .4, tweenedNumber: newVal })
+    }
+  },
+  mounted () {
+    this.tweenedNumber = this.totalBaseStat
   },
   methods: {
     isBestStat(stat) {
@@ -106,7 +132,7 @@ export default {
     align-items: center;
 
     .stat-item {
-      padding: 0 $xs $s;
+      padding: 0 $xs $m;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -158,7 +184,7 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: $xxl;
+    margin-top: $l;
 
     .total-base-stats {
       text-align: right;
@@ -169,6 +195,10 @@ export default {
     .did-you-know {
       flex-basis: 65%;
       padding: 0 $l;
+
+      .content {
+        font-size: $font-m;
+      }
     }
   }
 }

@@ -33,15 +33,13 @@ Vue.component('fa-icon', FontAwesomeIcon)
 
 // Vue2 Touch
 import Vue2Touch from 'vue2-touch'
-
 Vue.use(Vue2Touch)
 
 // Vue lazy load
 import VueLazyload from 'vue-lazyload'
-
-import './registerServiceWorker'
 Vue.use(VueLazyload)
 
+import './registerServiceWorker'
 Vue.config.productionTip = false
 
 new Vue({
