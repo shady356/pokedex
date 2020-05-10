@@ -51,9 +51,7 @@ export default {
 
 <style lang="scss" scoped>
 
-  $active-tab-color: #333;
   .tab-container {
-
     .tab-list {
       display: flex;
       padding-bottom: 6px;

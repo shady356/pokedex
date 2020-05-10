@@ -3,13 +3,11 @@
     <!-- The Pokemon -->
     <div
       v-if="isPokemonLoaded"
+      v-touch:swipe="swipePokemon"
       class="pokemon-container"
       :style="getModalBackground"
-      v-touch:swipe="swipePokemon"
     >
-      <section
-        class="pokemon-cover section-1"
-      >
+      <section class="pokemon-cover section-1">
         <div class="white-bar">
           <div class="name-type-container">
 
@@ -25,7 +23,6 @@
                 :key="type.slot"
                 :icon="getIcon(type.type.name)"
                 :iconColor="getTypeColor(type.type.name)"
-              
                 class="tag-item"
                 @click="openTypeModal(type.type)"
               />
@@ -398,18 +395,16 @@ export default {
     display: grid;
     height: 96vh;
     grid-template-columns: 100%;
-    grid-template-rows: 35% 65%;
+    grid-template-rows: 40% 60%;
     overflow: hidden;
     transition: background-color 1000ms linear;
 
     .section-1 {
       grid-row-start: 1;
-      z-index: 1;
     }
     .section-2 {
       grid-row-start: 2;
       background: #fff;
-      z-index: 1;
     }
     
     // Section 1
@@ -479,14 +474,10 @@ export default {
       display: flex;
       flex-direction: column;
 
-      .tab-header {
-        margin-bottom: $m;
-      }
-
       .tab-content { 
         overflow-y: auto;
         overflow-x: hidden;
-        padding: 0 $m;
+        padding: $m $m;
       }
     }
   }
