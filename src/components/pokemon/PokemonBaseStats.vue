@@ -116,7 +116,7 @@ export default {
         display: flex;
         flex-direction: row;
         align-items: center;
-        flex-basis: 30%;
+        flex-basis: 35%;
         font-size: $font-s;
         text-align: right;
         justify-content: flex-end;

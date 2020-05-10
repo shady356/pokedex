@@ -40,7 +40,7 @@
               class="index-number"
               :key="pokemon.id"
             >
-              <h5>#{{ getIndex(pokemon.id) }}</h5>
+              <h6>#{{ getIndex(pokemon.id) }}</h6>
             </div>
           </transition>
         </div>
@@ -423,14 +423,14 @@ export default {
         border-radius: $m $m 0 0;
         background: #fff;
         width: 100%;
-        height: 20%;
+        height: $xxl;
         clip-path: polygon(100% 0, 100% 60%, 75% 60%, 60% 100%, 0 100%, 0 0);
 
         .name-type-container {
           display: flex;
           flex-direction: row;
           align-items: center;
-          padding: $m;
+          padding: $s $m;
 
           .pokemon-name {
             color: #333;
@@ -466,7 +466,7 @@ export default {
         height: 75%;
       
         .pokemon-sprite {
-          height: 164px;
+          height: 128px;
         }
       }
     }
