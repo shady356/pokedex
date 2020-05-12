@@ -23,7 +23,9 @@
     <div class="type-damage-relation-container">
       <ul>
         <li>
-          <h6 class="type-relation-title">Super effective against</h6>
+          <h6 class="type-relation-title">
+            Super effective against
+          </h6>
           <div class="tag-types-container">
             <BaseTypeTag
               v-for="(typeItem, index) in typeData.superEffectiveTo"
@@ -35,7 +37,9 @@
           </div>
         </li>
         <li>
-          <h6 class="type-relation-title">Vulnerable to</h6>
+          <h6 class="type-relation-title">
+            Vulnerable to
+          </h6>
           <div class="tag-types-container">
             <BaseTypeTag
               v-for="(typeItem, index) in typeData.vulnerableTo"

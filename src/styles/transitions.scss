@@ -1,4 +1,20 @@
-// Slide Vertically
+/* 
+  In usage with Vue's <transition> component
+  use attr 'name'
+  --- 
+
+  Example using transition "Slide vertically":
+    
+    <transition name="slide-v">
+      ...
+    </transition>
+*/
+
+
+/* 
+  Slide Vertically 
+  [name="slide-v"]
+*/
 .slide-v-enter-active, 
 .slide-v-leave-active {
   transition: all $normal ease-in-out;
@@ -8,7 +24,10 @@
   transform: translateY($xl);
 }
 
-// Slide Horizontally Left
+/* 
+  Slide Horizontally Left 
+  [name="slide-h-l"]
+*/
 .slide-h-l-enter-active, 
 .slide-h-l-leave-active {
   transition: all $fast;
@@ -22,7 +41,10 @@
   opacity: 0;
 }
 
-// Slide Horizontally Right
+/* 
+  Slide Horizontally Right  
+  [name="slide-h-r"] 
+*/
 .slide-h-r-enter-active, 
 .slide-h-r-leave-active {
   transition: all $fast;
@@ -36,7 +58,10 @@
   opacity: 0;
 }
 
-// Fade
+/* 
+  Fade 
+  [name="fade"]
+*/
 .fade-enter-active, 
 .fade-leave-active {
   transition: opacity $fast;
