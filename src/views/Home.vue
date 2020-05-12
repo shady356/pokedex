@@ -24,7 +24,6 @@ export default {
   name: 'Home',
   data() {
     return {
-      pokemonLogo: require('@/assets/icons/pokemon-logo.png'),
       navigations: [
         {
           name: 'Pokedex',
