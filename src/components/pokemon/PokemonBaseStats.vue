@@ -113,7 +113,7 @@ export default {
       return this.bestStat.name === stat.stat.name
     },
     getStatFillStatus(index, value) {
-      const fragment = Math.round((value + 1) / this.BASE_STAT_TOTAL)
+      const fragment = Math.round((value) / this.BASE_STAT_TOTAL)
       return index <= fragment
     }
   }
@@ -121,6 +121,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+$total-base-stat-fragments: 8;
+
 .base-stat-container {
   padding-bottom: $xxl;
 
@@ -161,10 +164,10 @@ export default {
         justify-content: flex-end;
         flex-direction: row;
         flex-wrap: nowrap;
-        flex-basis: 70%;
+        flex-basis: 65%;
 
         .stat-bar-fragment {
-          width: calc(100% / 16);
+          width: 100%;
           height: $xs;
           border-radius: 2px;
           background: #ddd;

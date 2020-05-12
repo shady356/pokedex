@@ -1,7 +1,6 @@
 <template>
   <div class="about-container">
     
-
     <!-- Abilities -->
     <section>
       <h6 class="title">Abilities</h6>
@@ -131,7 +130,6 @@ export default {
     },
     eggGroups (value) {
       let eggs = ''
-      console.log(value)
       value.forEach((item, index) =>{
         if (index === value.length - 1){ 
            eggs += item.name
