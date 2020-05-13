@@ -1,20 +1,19 @@
 // Spacing
 // Examples are set where 16px = 1rem
 
-
-$xxxs:    0.125rem;   // 2px
-$xxs:     0.25rem;    // 4px
-$xs:      0.5rem;     // 8px
-$s:       0.75rem;    // 12px
-$m:       1rem;       // 16px
-$l:       1.5rem;     // 24px
-$xl:      2rem;       // 32px
-$xxl:     3rem;       // 48px
-$xxxl:    4rem;       // 64px
-$xxxxl:   6rem;       // 92px  
-$xxxxxl:  8rem;       // 128px
-$xxxxxxl: 16rem;      // 256px
+$xxxs: 0.125rem; // 2px
+$xxs: 0.25rem; // 4px
+$xs: 0.5rem; // 8px
+$s: 0.75rem; // 12px
+$m: 1rem; // 16px
+$l: 1.5rem; // 24px
+$xl: 2rem; // 32px
+$xxl: 3rem; // 48px
+$xxxl: 4rem; // 64px
+$xxxxl: 6rem; // 92px
+$xxxxxl: 8rem; // 128px
+$xxxxxxl: 16rem; // 256px
 
 .default-page-margin {
-  margin: $l $m; 
+  margin: $l $m;
 }

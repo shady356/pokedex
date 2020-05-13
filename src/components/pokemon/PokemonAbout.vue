@@ -1,17 +1,18 @@
 <template>
   <div class="about-container">
-    
     <!-- Abilities -->
     <section>
-      <h6 class="title">Abilities</h6>
- 
+      <h6 class="title">
+        Abilities
+      </h6>
+
       <div class="abilities-container">
         <BaseTag
           v-for="item in pokemon.abilities"
           :key="item.ability.name"
           class="ability"
         >
-          {{item.ability.name}}
+          {{ item.ability.name }}
           <fa-icon
             v-if="item.is_hidden"
             icon="star"
@@ -19,20 +20,20 @@
           />
         </BaseTag>
       </div>
-      
     </section>
-
 
     <!-- Training -->
     <section>
-      <h6 class="title">Training</h6>
+      <h6 class="title">
+        Training
+      </h6>
 
       <div class="data-row">
         <div class="label">
           Growth rate
         </div>
         <div class="value capitalize">
-          {{pokemonSpecies.growthRate}}
+          {{ pokemonSpecies.growthRate }}
         </div>
       </div>
 
@@ -41,7 +42,7 @@
           Catch rate
         </div>
         <div class="value">
-          {{pokemonSpecies.captureRate}}
+          {{ pokemonSpecies.captureRate }}
         </div>
       </div>
 
@@ -50,14 +51,16 @@
           Base happiness
         </div>
         <div class="value">
-          {{pokemonSpecies.baseHappiness}}
+          {{ pokemonSpecies.baseHappiness }}
         </div>
       </div>
     </section>
 
     <!-- Breeding -->
     <section>
-      <h6 class="title">Breeding</h6>
+      <h6 class="title">
+        Breeding
+      </h6>
 
       <!-- Egg group -->
       <div class="data-row">
@@ -65,7 +68,7 @@
           Egg Group
         </div>
         <div class="value capitalize">
-          {{pokemonSpecies.eggGroups | eggGroups}}
+          {{ pokemonSpecies.eggGroups | eggGroups }}
         </div>
       </div>
 
@@ -74,8 +77,8 @@
         <div class="label">
           Hatch Counter
         </div>
-        <div class="value"> 
-          {{pokemonSpecies.hatchCounter}}
+        <div class="value">
+          {{ pokemonSpecies.hatchCounter }}
         </div>
       </div>
     </section>
@@ -83,61 +86,64 @@
     <!-- Weight and height -->
     <section>
       <div class="physique-container">
-
         <div class="weight">
-          <fa-icon class="icon" icon="weight-hanging"/>
-          {{pokemon.weight | toKilogram }}
+          <fa-icon
+            class="icon"
+            icon="weight-hanging"
+          />
+          {{ pokemon.weight | toKilogram }}
         </div>
 
         <div class="height">
-          <fa-icon class="icon" icon="ruler-vertical"/>
-          {{pokemon.height | toMeter}}
+          <fa-icon
+            class="icon"
+            icon="ruler-vertical"
+          />
+          {{ pokemon.height | toMeter }}
         </div>
-
       </div>
     </section>
-
   </div>
 </template>
 
 <script>
-import BaseTag from '@/components/base/BaseTag.vue'
+import BaseTag from "@/components/base/BaseTag.vue";
 export default {
-  name: 'PokemonAbout',
+  name: "PokemonAbout",
   components: {
     BaseTag
   },
   filters: {
-    toMeter (value) {
-       value /= 10
-      return new Intl.NumberFormat('en-UK', {
-        style: 'unit',
-        unit: 'meter',
-        unitDisplay: 'short',
+    toMeter(value) {
+      value /= 10;
+      return new Intl.NumberFormat("en-UK", {
+        style: "unit",
+        unit: "meter",
+        unitDisplay: "short",
         minimumSignificantDigits: 2,
         maximumSignificantDigits: 2
-      }).format(value)
+      }).format(value);
     },
-    toKilogram (value) {
-       value /= 10
-      return new Intl.NumberFormat('en-UK', {
-        style: 'unit',
-        unit: 'kilogram',
-        unitDisplay: 'short',
+    toKilogram(value) {
+      value /= 10;
+      return new Intl.NumberFormat("en-UK", {
+        style: "unit",
+        unit: "kilogram",
+        unitDisplay: "short",
         minimumSignificantDigits: 2,
         maximumSignificantDigits: 2
-      }).format(value)
+      }).format(value);
     },
-    eggGroups (value) {
-      let eggs = ''
-      value.forEach((item, index) =>{
-        if (index === value.length - 1){ 
-           eggs += item.name
+    eggGroups(value) {
+      let eggs = "";
+      value.forEach((item, index) => {
+        if (index === value.length - 1) {
+          eggs += item.name;
         } else {
-          eggs += item.name + ', '
+          eggs += item.name + ", ";
         }
-      })
-      return eggs
+      });
+      return eggs;
     }
   },
   props: {
@@ -150,7 +156,7 @@ export default {
       required: true
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

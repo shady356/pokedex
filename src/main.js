@@ -6,10 +6,10 @@ import store from './store'
 
 // Font Awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { 
-  faEgg, 
-  faStar, 
-  faRulerVertical, 
+import {
+  faEgg,
+  faStar,
+  faRulerVertical,
   faWeightHanging,
   faFilter,
   faSearch,
@@ -19,13 +19,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(
-  faEgg, 
-  faStar, 
-  faRulerVertical, 
-  faWeightHanging, 
-  faFilter, 
-  faSearch, 
-  faChevronRight, 
+  faEgg,
+  faStar,
+  faRulerVertical,
+  faWeightHanging,
+  faFilter,
+  faSearch,
+  faChevronRight,
   faChevronLeft,
   faHeart
 )
@@ -45,5 +45,5 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount('#app')

@@ -10,16 +10,15 @@
     </transition>
 */
 
-
 /* 
   Slide Vertically 
   [name="slide-v"]
 */
-.slide-v-enter-active, 
+.slide-v-enter-active,
 .slide-v-leave-active {
   transition: all $normal ease-in-out;
 }
-.slide-v-enter, 
+.slide-v-enter,
 .slide-v-leave-to {
   transform: translateY($xl);
 }
@@ -28,7 +27,7 @@
   Slide Horizontally Left 
   [name="slide-h-l"]
 */
-.slide-h-l-enter-active, 
+.slide-h-l-enter-active,
 .slide-h-l-leave-active {
   transition: all $fast;
 }
@@ -45,7 +44,7 @@
   Slide Horizontally Right  
   [name="slide-h-r"] 
 */
-.slide-h-r-enter-active, 
+.slide-h-r-enter-active,
 .slide-h-r-leave-active {
   transition: all $fast;
 }
@@ -62,11 +61,11 @@
   Fade 
   [name="fade"]
 */
-.fade-enter-active, 
+.fade-enter-active,
 .fade-leave-active {
   transition: opacity $fast;
 }
-.fade-enter, 
+.fade-enter,
 .fade-leave-to {
   opacity: 0;
 }

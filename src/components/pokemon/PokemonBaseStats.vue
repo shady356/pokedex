@@ -6,20 +6,23 @@
         v-for="(stat, index) in pokemon.stats"
         :key="index"
       >
-        <div :class="['stat-label', {'highlight': isBestStat(stat)}]">
+        <div :class="['stat-label', { highlight: isBestStat(stat) }]">
           <div class="stat-key uppercase">
-            {{stat.stat.name | statName}}
+            {{ stat.stat.name | statName }}
           </div>
           <div class="stat-value">
-            {{stat.base_stat}}
+            {{ stat.base_stat }}
           </div>
         </div>
-          
+
         <div class="stat-bar">
-          <div 
-            v-for="index in BASE_STAT_TOTAL"
-            :key="index"
-            :class="['stat-bar-fragment', {'is-filled': getStatFillStatus(index, stat.base_stat)}]"
+          <div
+            v-for="fragment in BASE_STAT_TOTAL"
+            :key="fragment"
+            :class="[
+              'stat-bar-fragment',
+              { 'is-filled': getStatFillStatus(fragment, stat.base_stat) }
+            ]"
           />
         </div>
       </div>
@@ -30,7 +33,7 @@
           total
         </div>
         <h3>
-          {{totalBaseStatAnimated}}
+          {{ totalBaseStatAnimated }}
         </h3>
       </div>
       <div class="did-you-know">
@@ -38,7 +41,7 @@
           Did you know
         </div>
         <p class="content">
-          <span class="capitalize">{{pokemon.name}}</span> 
+          <span class="capitalize">{{ pokemon.name }}</span>
           has the 3rd highest Attack -stat among grass types
         </p>
       </div>
@@ -47,19 +50,17 @@
 </template>
 
 <script>
-import { gsap } from 'gsap'
+import { gsap } from "gsap";
 export default {
-  name: 'PokemonAbout',
+  name: "PokemonAbout",
   filters: {
     statName(value) {
-      if (value === 'special-defense') {
-        return 'spc. def'
-      }
-      else if (value === 'special-attack') {
-        return 'spc. att'
-      }
-      else {
-        return value
+      if (value === "special-defense") {
+        return "spc. def";
+      } else if (value === "special-attack") {
+        return "spc. att";
+      } else {
+        return value;
       }
     }
   },
@@ -69,59 +70,58 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       BASE_STAT_TOTAL: 16,
       tweenedNumber: 0
-    }
+    };
   },
   computed: {
-    totalBaseStat () {
-      let total = 0
+    totalBaseStat() {
+      let total = 0;
       this.pokemon.stats.forEach(stat => {
-        total += stat.base_stat
+        total += stat.base_stat;
       });
-      return total
+      return total;
     },
-    totalBaseStatAnimated () {
-      return this.tweenedNumber.toFixed(0)
+    totalBaseStatAnimated() {
+      return this.tweenedNumber.toFixed(0);
     },
     bestStat() {
-      let bestStat = { 
+      let bestStat = {
         name: this.pokemon.stats[0].stat.name,
         value: this.pokemon.stats[0].base_stat
-      }
+      };
       this.pokemon.stats.forEach(stat => {
         if (stat.base_stat >= bestStat.value) {
-          bestStat.name = stat.stat.name
-          bestStat.value = stat.base_stat
+          bestStat.name = stat.stat.name;
+          bestStat.value = stat.base_stat;
         }
-      })
-      return bestStat
-    },
-  },
-  watch: {
-    totalBaseStat (newVal) {
-      gsap.to(this.$data, { duration: .4, tweenedNumber: newVal })
+      });
+      return bestStat;
     }
   },
-  mounted () {
-    this.tweenedNumber = this.totalBaseStat
+  watch: {
+    totalBaseStat(newVal) {
+      gsap.to(this.$data, { duration: 0.4, tweenedNumber: newVal });
+    }
+  },
+  mounted() {
+    this.tweenedNumber = this.totalBaseStat;
   },
   methods: {
     isBestStat(stat) {
-      return this.bestStat.name === stat.stat.name
+      return this.bestStat.name === stat.stat.name;
     },
     getStatFillStatus(index, value) {
-      const fragment = Math.round((value) / this.BASE_STAT_TOTAL)
-      return index <= fragment
+      const fragment = Math.round(value / this.BASE_STAT_TOTAL);
+      return index <= fragment;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-
 $total-base-stat-fragments: 8;
 
 .base-stat-container {
@@ -172,12 +172,12 @@ $total-base-stat-fragments: 8;
           border-radius: 2px;
           background: #ddd;
           margin-right: $xxs;
-          transition: background-color .4s ease-out;
+          transition: background-color 0.4s ease-out;
 
           &.is-filled {
             background: $blue;
-            transition: background-color .4s ease-in;
-            animation: scale-x-in .4s ease;
+            transition: background-color 0.4s ease-in;
+            animation: scale-x-in 0.4s ease;
           }
         }
       }

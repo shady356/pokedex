@@ -9,10 +9,10 @@
           class="item"
           v-for="item in navigations"
           :key="item.name"
-          :to="{ name: item.route}"
+          :to="{ name: item.route }"
           tag="li"
         >
-          {{item.name}}
+          {{ item.name }}
         </router-link>
       </ul>
     </div>
@@ -21,64 +21,64 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: "Home",
   data() {
     return {
       navigations: [
         {
-          name: 'Pokedex',
-          route: 'Pokedex'
+          name: "Pokedex",
+          route: "Pokedex"
         },
         {
-          name: 'Types',
-          route: 'About'
+          name: "Types",
+          route: "About"
         },
         {
-          name: 'About',
-          route: 'About'
+          name: "About",
+          route: "About"
         }
       ]
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  .home-navigation-container {
-    align-items: center;
+.home-navigation-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: $l;
+
+  .pokemon-logo {
+    color: #fff;
+    text-shadow: 0 2px 10px #6ae;
+    margin-bottom: $l;
+  }
+
+  .navigations {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: $l;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 80%;
 
-    .pokemon-logo {
-      color: #fff;
-      text-shadow: 0 2px 10px #6ae;
+    .item {
+      background: hsla(0, 0%, 100%, 0.5);
+      border-bottom: 2px solid #6ae;
+      border-radius: $l;
+      border-top: 1px solid #c7efff;
+      box-shadow: 0 -30px 50px #52c3e6 inset, 0 6px 10px #66cceeaa;
+      color: #3c7c99;
+      font-size: $font-xl;
+      font-weight: 700;
       margin-bottom: $l;
-    }
-
-    .navigations {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
-      width: 80%;
-
-      .item {
-        background: hsla(0, 0%, 100%, .5);
-        border-bottom: 2px solid #6ae;
-        border-radius: $l;
-        border-top: 1px solid #c7efff;
-        box-shadow: 0 -30px 50px #52c3e6 inset, 0 6px 10px #66cceeaa;
-        color: #3c7c99;
-        font-size: $font-xl;
-        font-weight: 700;
-        margin-bottom: $l;
-        padding: $s 0;
-        text-align: center;
-        transition: all .4s;
-        width: 100%;
-      }
+      padding: $s 0;
+      text-align: center;
+      transition: all 0.4s;
+      width: 100%;
     }
   }
+}
 </style>

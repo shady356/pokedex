@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class="header">
       <h5>Filter Pokémon</h5>
       <!-- <BaseButton
@@ -11,7 +10,6 @@
     </div>
 
     <div class="filter-container">
-    
       <ul class="filter-list">
         <li
           class="filter"
@@ -19,27 +17,27 @@
           :key="filter.name"
           @click="openFilter(index)"
         >
-          <div :class="['text capitalize', {'open': filter.open} ]">
-            {{filter.name}}
+          <div :class="['text capitalize', { open: filter.open }]">
+            {{ filter.name }}
           </div>
 
           <div
             v-if="filter.children.length > 0 && filter.open"
-            class="children-list"  
+            class="children-list"
           >
             <BaseTag
-              v-for="(child, childIndex) in filter.children" 
+              v-for="(child, childIndex) in filter.children"
               :key="childIndex"
-              :class="['child', {'purple': child.active} ]"
+              :class="['child', { purple: child.active }]"
               @click="setFilter(child)"
             >
-              {{child.name}}
+              {{ child.name }}
             </BaseTag>
           </div>
         </li>
       </ul>
 
-      <BaseButton 
+      <BaseButton
         @click="applyFilters()"
         class="purple"
       >
@@ -50,11 +48,11 @@
 </template>
 
 <script>
-import BaseTag from '@/components/base/BaseTag.vue'
-import BaseButton from '@/components/base/BaseButton.vue'
+import BaseTag from "@/components/base/BaseTag.vue";
+import BaseButton from "@/components/base/BaseButton.vue";
 
 export default {
-  name: 'FilterPokemon',
+  name: "FilterPokemon",
   components: {
     BaseTag,
     BaseButton
@@ -63,21 +61,21 @@ export default {
     return {
       filters: [
         {
-          name: 'generations',
+          name: "generations",
           open: true,
           children: [
             {
-              name: 'kanto',
+              name: "kanto",
               active: false
             },
             {
-              name: 'johto',
+              name: "johto",
               active: false
             },
             {
-              name: 'hoenn',
+              name: "hoenn",
               active: false
-            },
+            }
             /* {
               name: 'sinnoh',
               active: false
@@ -89,7 +87,7 @@ export default {
           ]
         },
         {
-          name: 'types',
+          name: "types",
           open: false,
           children: [
             /* {
@@ -117,7 +115,7 @@ export default {
               active: false
             }, */
             {
-              name: 'fire',
+              name: "fire",
               active: false
             },
             /* {
@@ -161,85 +159,82 @@ export default {
               active: false
             }, */
             {
-              name: 'water',
+              name: "water",
               active: false
             }
           ]
         }
-      ],
-    }
+      ]
+    };
   },
   methods: {
     openFilter(index) {
       this.filters.forEach(filter => {
-        filter.open = false
-      })
-      this.filters[index].open = true
+        filter.open = false;
+      });
+      this.filters[index].open = true;
     },
     setFilter(child) {
-      child.active = !child.active
+      child.active = !child.active;
     },
-    getActiveFilters () {
-      let activeFilters = {}
+    getActiveFilters() {
+      let activeFilters = {};
 
       this.filters.forEach(filter => {
-        activeFilters[filter.name] = []
+        activeFilters[filter.name] = [];
         filter.children.filter(child => {
           if (child.active) {
-            activeFilters[filter.name].push(child.name)
-          } 
-        })
-      })
-      return activeFilters
+            activeFilters[filter.name].push(child.name);
+          }
+        });
+      });
+      return activeFilters;
     },
     applyFilters() {
-      const filters = this.getActiveFilters()
-      this.$emit('applyFilters', filters)
+      const filters = this.getActiveFilters();
+      this.$emit("applyFilters", filters);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding: $s $l;
-    background: $purple;
-    color: #fff;
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: $s $l;
+  background: $purple;
+  color: #fff;
+}
 
-  .filter-container {
-    padding: $l;
+.filter-container {
+  padding: $l;
 
-    .filter-list {
-      margin-bottom: $xl;
+  .filter-list {
+    margin-bottom: $xl;
 
-      .filter {
-        border-bottom: 1px solid #eee;
-        padding: $s 0;
+    .filter {
+      border-bottom: 1px solid #eee;
+      padding: $s 0;
 
-        .text {
-
-          &.open {
-            font-weight: 700;
-          }
+      .text {
+        &.open {
+          font-weight: 700;
         }
-        
-        .children-list {
-          padding: $xs;
-          display: flex;
-          flex-wrap: wrap;
+      }
 
-          .child {
-            margin: $xs $xxs;
-          }
+      .children-list {
+        padding: $xs;
+        display: flex;
+        flex-wrap: wrap;
+
+        .child {
+          margin: $xs $xxs;
         }
       }
     }
-
   }
+}
 </style>

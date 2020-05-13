@@ -1,5 +1,4 @@
-@mixin progress-grow ($max, $time: 1s, $easing: ease-in-out){
-
+@mixin progress-grow($max, $time: 1s, $easing: ease-in-out) {
   @keyframes grow {
     0% {
       width: 0%;
@@ -22,11 +21,12 @@
 
 @keyframes scale-x-in {
   0% {
-    transform: scaleX(.2);
+    transform: scaleX(0.2);
   }
   100% {
-    transform:  scaleX(1);  }
+    transform: scaleX(1);
   }
+}
 
 .loading-pokemon-sprite {
   animation: loading-pokemon-sprite 2s infinite ease-in-out;

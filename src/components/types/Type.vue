@@ -1,23 +1,23 @@
 <template>
-  <div 
-    v-if="typeData" 
+  <div
+    v-if="typeData"
     class="modal-type-container"
   >
-    <div 
-      class="type-icon-container" 
+    <div
+      class="type-icon-container"
       :style="'background:' + getTypeColor(type)"
     >
-      <img 
-        class="type-icon" 
-        :src="getIcon(type)" 
-        alt="type-icon" 
-      />
+      <img
+        class="type-icon"
+        :src="getIcon(type)"
+        alt="type-icon"
+      >
     </div>
     <h3 class="type-title uppercase">
-      {{type}}
+      {{ type }}
     </h3>
     <p class="description">
-      {{typeData.description}}
+      {{ typeData.description }}
     </p>
 
     <div class="type-damage-relation-container">
@@ -31,7 +31,7 @@
               v-for="(typeItem, index) in typeData.superEffectiveTo"
               :key="index"
               :icon="getIcon(typeItem)"
-              :iconColor="getTypeColor(typeItem)"
+              :icon-color="getTypeColor(typeItem)"
               class="tag-item"
             />
           </div>
@@ -45,7 +45,7 @@
               v-for="(typeItem, index) in typeData.vulnerableTo"
               :key="index"
               :icon="getIcon(typeItem)"
-              :iconColor="getTypeColor(typeItem)"
+              :icon-color="getTypeColor(typeItem)"
               class="tag-item"
             />
           </div>

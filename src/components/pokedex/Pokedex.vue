@@ -1,22 +1,22 @@
 <template>
   <div>
-    <Header 
+    <Header
       @filter="openFilter()"
-      @search="openSearch()" 
-      :isFilter="isFilter"
+      @search="openSearch()"
+      :is-filter="isFilter"
     />
-    <div 
-      class="default-page-margin" 
+    <div
+      class="default-page-margin"
       v-if="loadedCounter > 0"
     >
       <ul>
-        <router-link 
-          v-for="(n,index) in batchEndPosition" 
-          :key="index" 
+        <router-link
+          v-for="(n, index) in batchEndPosition"
+          :key="index"
           tag="li"
-          :to="{ 
+          :to="{
             name: 'Pokemon',
-            params: { 
+            params: {
               pokemonId: pokemonList[index].id,
               pokemonIndex: index
             }
@@ -31,36 +31,36 @@
       </ul>
     </div>
     <div
-      v-else 
+      v-else
       class="loading"
     >
-      <img 
-        class="loading-icon" 
-        src="@/assets/icons/pokeball_white.png" 
+      <img
+        class="loading-icon"
+        src="@/assets/icons/pokeball_white.png"
         alt="loading icon"
-      />
+      >
     </div>
-    <div 
-      class="trigger" 
+    <div
+      class="trigger"
       ref="trigger"
     />
 
     <!-- Filter -->
-    <BaseModal 
-      v-if="isFilterOpen" 
-      @closeModal="closeFilter" 
-      :showCloseButton="false"
+    <BaseModal
+      v-if="isFilterOpen"
+      @closeModal="closeFilter"
+      :show-close-button="false"
     >
-      <FilterPokemon 
+      <FilterPokemon
         @applyFilters="updateFilters"
-        :isFilter="isFilter"
+        :is-filter="isFilter"
       />
     </BaseModal>
 
     <!-- Pokemon -->
-    <BaseModal 
+    <BaseModal
       v-if="isPokemonModal"
-      isPokemonCard
+      is-pokemon-card
       @closeModal="closePokemon()"
     >
       <router-view />
@@ -69,13 +69,13 @@
 </template>
 
 <script>
-import { $filterData } from "@/helpers/pokedexFilters.js"
-import { mapActions} from 'vuex'
-import axios from "axios"
-import BaseModal from "@/components/base/BaseModal.vue"
-import FilterPokemon from "@/components/pokedex/FilterPokemon.vue"
-import Header from "@/components/layout/Header.vue"
-import PokedexItem from '@/components/pokedex/PokedexItem'
+import { $filterData } from "@/helpers/pokedexFilters.js";
+import { mapActions } from "vuex";
+import axios from "axios";
+import BaseModal from "@/components/base/BaseModal.vue";
+import FilterPokemon from "@/components/pokedex/FilterPokemon.vue";
+import Header from "@/components/layout/Header.vue";
+import PokedexItem from "@/components/pokedex/PokedexItem";
 
 export default {
   name: "Pokedex",
@@ -108,38 +108,38 @@ export default {
         types: []
       },
       isFilter: false
-    }
+    };
   },
   computed: {
     BASE_URL() {
-      return process.env.VUE_APP_ROOT_URL
+      return process.env.VUE_APP_ROOT_URL;
     },
     batchEndPosition() {
-      const endPosition = this.maxPerBatch * this.currentBatch
+      const endPosition = this.maxPerBatch * this.currentBatch;
       if (endPosition <= this.totalResults) {
-        return endPosition
+        return endPosition;
       } else {
-        let remainer = this.totalResults - endPosition
-        return this.batchStartPosition + this.maxPerBatch + remainer
+        let remainer = this.totalResults - endPosition;
+        return this.batchStartPosition + this.maxPerBatch + remainer;
       }
     },
     batchStartPosition() {
-      return this.maxPerBatch * this.currentBatch - this.maxPerBatch
+      return this.maxPerBatch * this.currentBatch - this.maxPerBatch;
     },
     totalResults() {
-      return this.pokemonList.length
+      return this.pokemonList.length;
     }
   },
   watch: {
     $route: {
       immediate: true,
-      handler (newVal, oldVal) {
-        if(oldVal) {
-          if(oldVal.name === 'Pokedex') {
-            this.scrollPosition = window.scrollY
+      handler(newVal, oldVal) {
+        if (oldVal) {
+          if (oldVal.name === "Pokedex") {
+            this.scrollPosition = window.scrollY;
           }
         }
-        this.isPokemonModal = (newVal) ? newVal.meta.showModal : false
+        this.isPokemonModal = newVal ? newVal.meta.showModal : false;
       }
     }
   },
@@ -147,104 +147,102 @@ export default {
     this.setPokedexMap(this.filters);
   },
   methods: {
-    ...mapActions([
-      'commitPokedexIds'
-    ]),
+    ...mapActions(["commitPokedexIds"]),
     getPokemon(pokemonId, arrayIndex) {
       axios
         .get(`${this.BASE_URL}/pokemon-form/${pokemonId}/`)
         .then(response => {
-          this.refineResponseData(response.data, arrayIndex)
-          this.loadedCounter++
+          this.refineResponseData(response.data, arrayIndex);
+          this.loadedCounter++;
         })
         .catch(error => {
-          console.log(error)
-        })
+          console.log(error);
+        });
     },
     refineResponseData(data, arrayIndex) {
       const pokemonData = {
         id: data.id,
         name: data.name,
         sprite: data.sprites.front_default
-      }
-      this.pokemonList[arrayIndex] = pokemonData
+      };
+      this.pokemonList[arrayIndex] = pokemonData;
     },
     closePokemon() {
-      this.isPokemonModal = false
+      this.isPokemonModal = false;
 
       // Reset router view:
       this.$router.push({
         name: "Pokedex"
-      })
+      });
 
-      let scrollY = this.scrollPosition
+      let scrollY = this.scrollPosition;
       setTimeout(() => {
-        window.scroll(0, scrollY)
+        window.scroll(0, scrollY);
       }, 10);
     },
     getBatchOfPokemon() {
       for (let i = this.batchStartPosition; i < this.batchEndPosition; i++) {
-        this.getPokemon(this.pokemonList[i].id, i)
+        this.getPokemon(this.pokemonList[i].id, i);
       }
-      this.currentBatch++
+      this.currentBatch++;
     },
     scrollTrigger() {
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            this.getBatchOfPokemon()
+            this.getBatchOfPokemon();
           }
         });
       });
-      observer.observe(this.$refs.trigger)
+      observer.observe(this.$refs.trigger);
     },
     openFilter() {
-      this.isFilterOpen = true
+      this.isFilterOpen = true;
     },
     closeFilter() {
-      this.isFilterOpen = false
+      this.isFilterOpen = false;
     },
     openSearch() {
-      this.isSearchOpen = true
+      this.isSearchOpen = true;
     },
     closeSearch() {
-      this.isSearchOpen = false
+      this.isSearchOpen = false;
     },
-    filterHasData (filters) {
+    filterHasData(filters) {
       return Object.keys(filters).some(filter => {
-        return filters[filter].length > 0
+        return filters[filter].length > 0;
       });
     },
     updateFilters(filters) {
-      this.isFilter = this.filterHasData(filters)
+      this.isFilter = this.filterHasData(filters);
 
-      this.setBodyColor()
-      this.setPokedexMap(filters)
-      this.closeFilter()
+      this.setBodyColor();
+      this.setPokedexMap(filters);
+      this.closeFilter();
     },
     setPokedexMap(filters) {
-      this.resetPokedexMap()
-      this.pokemonList = $filterData(filters)
-      this.scrollTrigger()
-      const pokedexIds =  this.pokemonList.map(pokemon => {
-        return pokemon.id
+      this.resetPokedexMap();
+      this.pokemonList = $filterData(filters);
+      this.scrollTrigger();
+      const pokedexIds = this.pokemonList.map(pokemon => {
+        return pokemon.id;
       });
-      this.commitPokedexIds(pokedexIds)
+      this.commitPokedexIds(pokedexIds);
     },
     resetPokedexMap() {
-      this.pokemonList = []
-      this.loadedCounter = 0
-      this.currentBatch = 1
+      this.pokemonList = [];
+      this.loadedCounter = 0;
+      this.currentBatch = 1;
     },
     setBodyColor() {
-      if(this.isFilter) {
-        document.body.classList.add('bodyFilter')
+      if (this.isFilter) {
+        document.body.classList.add("bodyFilter");
       } else {
-        document.body.classList.remove('bodyFilter')
+        document.body.classList.remove("bodyFilter");
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -262,7 +260,7 @@ ul {
     text-align: center;
     margin: 0 1% $l;
     width: 18%;
-    
+
     cursor: pointer;
   }
 }

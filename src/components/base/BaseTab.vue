@@ -1,20 +1,26 @@
 <template>
   <div class="tab-container">
     <div class="tab-list">
-      <div 
+      <div
         v-for="(item, index) in items"
-        :class="['tab-item', {'active': item.active }]"
+        :class="['tab-item', { active: item.active }]"
         :key="index"
         @click="changeTab(index)"
       >
-        <h6 class="text uppercase condensed">{{item.name}}</h6>
+        <h6 class="text uppercase condensed">
+          {{ item.name }}
+        </h6>
       </div>
     </div>
     <div class="border-line">
       <div
         :style="
-          'width: calc(100% /' + numberOfItems + ' ); left:' + activeIndex * 100 / numberOfItems + '%'
-        " 
+          'width: calc(100% /' +
+            numberOfItems +
+            ' ); left:' +
+            (activeIndex * 100) / numberOfItems +
+            '%'
+        "
         class="indicator"
       />
     </div>
@@ -23,70 +29,69 @@
 
 <script>
 export default {
-  name: 'Base-Tab',
+  name: "BaseTab",
   props: {
     items: {
       type: Array,
       required: true
     }
   },
-  data () {
+  data() {
     return {
       activeIndex: 0
-    }
+    };
   },
   computed: {
-    numberOfItems () {
-      return this.items.length
+    numberOfItems() {
+      return this.items.length;
     }
   },
   methods: {
     changeTab(index) {
-      this.activeIndex = index
-      this.$emit('changeTab', index)
+      this.activeIndex = index;
+      this.$emit("changeTab", index);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
+.tab-container {
+  .tab-list {
+    display: flex;
+    padding-bottom: 6px;
 
-  .tab-container {
-    .tab-list {
-      display: flex;
-      padding-bottom: 6px;
+    .tab-item {
+      cursor: pointer;
+      width: 50%;
+      text-align: center;
 
-      .tab-item {
-        cursor: pointer;
-        width: 50%;
-        text-align: center;
+      .text {
+        font-weight: 400;
+      }
+
+      &.active {
+        color: #444;
+        transition: all 0.4s;
 
         .text {
-          font-weight: 400;
+          font-weight: 700;
         }
-
-        &.active {
-          color: #444;
-          transition: all .4s;
-
-          .text {
-            font-weight: 700;
-          }
-        }
-      }
-    }
-    .border-line {
-      background: #eee;
-      height: 1px;
-      position: relative;
-      width: 100%;
-
-      .indicator {
-        background: $blue;
-        height: 1px;
-        position: absolute;
-        transition: left .2s ease-in-out;
       }
     }
   }
+  .border-line {
+    background: #eee;
+    height: 1px;
+    position: relative;
+    width: 100%;
+
+    .indicator {
+      background: $blue;
+      height: 1px;
+      position: absolute;
+      transition: left 0.2s ease-in-out;
+    }
+  }
+}
 </style>

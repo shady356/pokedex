@@ -4,13 +4,13 @@
     appear
   >
     <div class="modal-container">
-      <transition 
+      <transition
         name="slide-v"
         appear
       >
-        <div :class="['modal-window', {'is-pokemon-card': isPokemonCard}]">
-          <slot/>
-          <div 
+        <div :class="['modal-window', { 'is-pokemon-card': isPokemonCard }]">
+          <slot />
+          <div
             class="modal-close-container"
             @click="closeModal"
             v-if="showCloseButton"
@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: 'BaseModal',
+  name: "BaseModal",
   props: {
     showCloseButton: {
       type: Boolean,
@@ -44,24 +44,23 @@ export default {
       default: false
     }
   },
-  mounted () {
-    document.body.classList.add('disable-scroll')
+  mounted() {
+    document.body.classList.add("disable-scroll");
   },
-  destroyed () {
-    document.body.classList.remove('disable-scroll')
+  destroyed() {
+    document.body.classList.remove("disable-scroll");
   },
   methods: {
     closeModal() {
-      this.$emit('closeModal')
+      this.$emit("closeModal");
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-
 .modal-container {
-  background: hsla(0,0%,0%,.75);
+  background: hsla(0, 0%, 0%, 0.75);
   position: fixed;
   top: 0;
   left: 0;
@@ -100,7 +99,7 @@ export default {
       left: 0;
       right: 0;
       z-index: 10;
-      
+
       .modal-close {
         display: flex;
         justify-content: center;

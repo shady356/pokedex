@@ -1,11 +1,11 @@
-$font-xs:     0.5rem;   // 8px
-$font-s:      0.75rem;  // 12px
-$font-m:      1rem;     // 16px
-$font-l:      1.125rem; // 18px
-$font-xl:     1.25rem;  // 20px
-$font-xxl:    1.5rem;   // 24px
-$font-xxxl:   1.75rem;  // 28px
-$font-xxxxl:  2rem;     // 32px
+$font-xs: 0.5rem; // 8px
+$font-s: 0.75rem; // 12px
+$font-m: 1rem; // 16px
+$font-l: 1.125rem; // 18px
+$font-xl: 1.25rem; // 20px
+$font-xxl: 1.5rem; // 24px
+$font-xxxl: 1.75rem; // 28px
+$font-xxxxl: 2rem; // 32px
 
 body {
   color: #1a1a1a;
@@ -60,7 +60,7 @@ h6 {
 .uppercase {
   text-transform: uppercase;
 }
-.capitalize{
+.capitalize {
   text-transform: capitalize;
 }
 .small-caps {

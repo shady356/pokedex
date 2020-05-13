@@ -5,18 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    pokedexIds: 0
+    pokedexIds: 0,
   },
   mutations: {
-    setPokedexIds (state, payload) {
+    setPokedexIds(state, payload) {
       state.pokedexIds = payload
-    }
+    },
   },
   actions: {
     commitPokedexIds(state, payload) {
       state.commit('setPokedexIds', payload)
-    }
+    },
   },
-  modules: {
-  }
+  modules: {},
 })

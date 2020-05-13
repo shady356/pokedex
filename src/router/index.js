@@ -7,28 +7,35 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "pokedex" */ '../views/Home.vue')
+    component: () =>
+      import(/* webpackChunkName: "pokedex" */ '../views/Home.vue'),
   },
   {
     path: '/pokedex',
     name: 'Pokedex',
-    children: [{
-      name: 'Pokemon',
-      path: ':pokemonId',
-      props: true,
-      component: () => import('../components/pokemon/Pokemon.vue'),
-    
-      meta: {
-        showModal: true
-      }
-    }],
-    component: () => import(/* webpackChunkName: "pokedex" */ '../components/pokedex/Pokedex.vue')
+    children: [
+      {
+        name: 'Pokemon',
+        path: ':pokemonId',
+        props: true,
+        component: () => import('../components/pokemon/Pokemon.vue'),
+
+        meta: {
+          showModal: true,
+        },
+      },
+    ],
+    component: () =>
+      import(
+        /* webpackChunkName: "pokedex" */ '../components/pokedex/Pokedex.vue'
+      ),
   },
   {
     path: '/about',
     name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/About.vue'),
+  },
 ]
 
 const scrollBehavior = (to, from, savedPosition) => {
@@ -42,7 +49,7 @@ const scrollBehavior = (to, from, savedPosition) => {
 const router = new VueRouter({
   scrollBehavior,
   routes,
-  mode: 'history'
+  mode: 'history',
 })
 
 export default router
