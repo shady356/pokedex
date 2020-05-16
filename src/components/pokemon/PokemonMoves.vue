@@ -8,10 +8,11 @@
       />
       <BaseMoveTable
         v-if="generations[selectedGeneration].levelUp.length > 0"
-        :headers="tableLevelUpHeaders"
+        :headers="tableHeaders"
         :items="generations[selectedGeneration].levelUp"
         category="levelUp"
         title="level up"
+        :types="types"
       />
       <BaseMoveTable
         v-if="generations[selectedGeneration].egg.length > 0"
@@ -19,6 +20,7 @@
         :items="generations[selectedGeneration].egg"
         category="egg"
         title="egg moves"
+        :types="types"
       />
       <BaseMoveTable
         v-if="generations[selectedGeneration].machine.length > 0"
@@ -26,6 +28,7 @@
         :items="generations[selectedGeneration].machine"
         category="tm-hm"
         title="TM / HM"
+        :types="types"
       />
       <BaseMoveTable
         v-if="generations[selectedGeneration].tutor.length > 0"
@@ -33,6 +36,7 @@
         :items="generations[selectedGeneration].tutor"
         category="tutor"
         title="learned by tutoring"
+        :types="types"
       />
     </div>
     <div v-else>
@@ -45,6 +49,7 @@
 import axios from "axios";
 import BaseMoveTable from "@/components/base/BaseMoveTable";
 import BaseTab from "@/components/base/BaseTab";
+
 export default {
   name: "PokemonMoves",
   components: {
@@ -54,6 +59,10 @@ export default {
   props: {
     pokemonId: {
       type: [Number, String],
+      required: true
+    },
+    types: {
+      type: Array,
       required: true
     }
   },
@@ -93,8 +102,7 @@ export default {
           active: true
         }
       ],
-      tableHeaders: ["move", "type", "effect", "power", "acc."],
-      tableLevelUpHeaders: ["move", "type", "effect", "level", "power", "acc."]
+      tableHeaders: ["move", "type", "effect", "power", "acc."]
     };
   },
   computed: {

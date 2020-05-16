@@ -104,6 +104,7 @@
                 <PokemonMoves
                   v-if="pokemonId <= 151"
                   :pokemon-id="pokemonId"
+                  :types="pokemonTypes"
                 />
                 <div 
                   v-else
@@ -219,6 +220,13 @@ export default {
     firstType() {
       const type = this.pokemon.types.find(type => type.slot === 1);
       return type.type.name;
+    },
+    pokemonTypes() {
+      let types = []
+      this.pokemon.types.forEach(type => {
+        types.push(type.type.name)
+      });
+      return types
     },
     pokedexIds() {
       return this.$store.state.pokedexIds;
