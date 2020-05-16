@@ -4,27 +4,31 @@
       <BaseTab
         class="tab-header"
         :items="tabs"
-        @changeTab="changeMetaTab"
+        @changeTab="changeTab"
       />
       <BaseMoveTable
+        v-if="generations[selectedGeneration].levelUp.length > 0"
         :headers="tableLevelUpHeaders"
         :items="generations[selectedGeneration].levelUp"
         category="levelUp"
         title="level up"
       />
       <BaseMoveTable
+      v-if="generations[selectedGeneration].egg.length > 0"
         :headers="tableHeaders"
         :items="generations[selectedGeneration].egg"
         category="egg"
         title="egg moves"
       />
       <BaseMoveTable
+        v-if="generations[selectedGeneration].machine.length > 0"
         :headers="tableHeaders"
         :items="generations[selectedGeneration].machine"
         category="tm-hm"
         title="TM / HM"
       />
       <BaseMoveTable
+        v-if="generations[selectedGeneration].tutor.length > 0"
         :headers="tableHeaders"
         :items="generations[selectedGeneration].tutor"
         category="tutor"
@@ -109,6 +113,7 @@ export default {
         .then(response => {
           this.moves = response.data;
           this.categorizeMovesToGenerations(response.data)
+          this.sortTables()
         })
         .catch(error => {
           console.log(error);
@@ -133,6 +138,20 @@ export default {
       const generationIndex = parseInt(generation.generation) - 1
       this.generations[generationIndex][generation.method].push(data)
     },
+    sortTables () {
+      const _sortBy = require('lodash.sortby');
+      this.generations.forEach((generation, index) => {
+        const keys = Object.keys(generation)
+        keys.forEach(category => {
+          console.log(category)
+          if(category === 'levelUp') {
+            this.generations[index][category] = _sortBy(this.generations[index][category], 'level')
+          } else {
+            this.generations[index][category] = _sortBy(this.generations[index][category], 'name')
+          }
+        })  
+      });
+    },
     setupGenerationsDataSet() {
       for(let i = 0; i < this.totalGenerations; i++) {
         const data = {
@@ -145,7 +164,7 @@ export default {
         this.generations.push(data)
       }
     },
-    changeMetaTab(index) {
+    changeTab(index) {
       this.tabs.forEach(tab => {
         tab.active = false;
       });
