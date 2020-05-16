@@ -29,7 +29,6 @@
           </div>
 
           <!-- Index #number -->
-
           <div class="index-number">
             <h6>#{{ getIndex(animatedIndex) }}</h6>
           </div>
@@ -102,9 +101,17 @@
                 key="tab-moves"
                 class="moves-container"
               >
-                <PokemonMoves 
+                <PokemonMoves
+                  v-if="pokemonId <= 151"
                   :pokemon-id="pokemonId"
                 />
+                <div 
+                  v-else
+                  style="color: #888; text-align: center; padding: 60px 0;"
+                >
+                  <h5>Whups, comming soon</h5>
+                  <h6>Only available for Kanto pokémon</h6>
+                </div>
               </div>
             </transition>
           </div>

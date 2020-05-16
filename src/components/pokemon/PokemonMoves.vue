@@ -14,7 +14,7 @@
         title="level up"
       />
       <BaseMoveTable
-      v-if="generations[selectedGeneration].egg.length > 0"
+        v-if="generations[selectedGeneration].egg.length > 0"
         :headers="tableHeaders"
         :items="generations[selectedGeneration].egg"
         category="egg"
@@ -73,7 +73,7 @@ export default {
           active: false
         },
         {
-          name: '3',
+          name: "3",
           active: false
         },
         {
@@ -85,16 +85,16 @@ export default {
           active: false
         },
         {
-          name: '6',
+          name: "6",
           active: false
         },
         {
-          name: '7',
+          name: "7",
           active: true
         }
       ],
-      tableHeaders: ['move', 'type', 'effect', 'power', 'acc.'],
-      tableLevelUpHeaders: ['move', 'type', 'effect', 'level', 'power', 'acc.']
+      tableHeaders: ["move", "type", "effect", "power", "acc."],
+      tableLevelUpHeaders: ["move", "type", "effect", "level", "power", "acc."]
     };
   },
   computed: {
@@ -103,7 +103,7 @@ export default {
     }
   },
   mounted() {
-    this.setupGenerationsDataSet()
+    this.setupGenerationsDataSet();
     this.getMoves(this.pokemonId);
   },
   methods: {
@@ -112,8 +112,8 @@ export default {
         .get(`${this.HENRIKO_API}/moves/${pokemonId}.json`)
         .then(response => {
           this.moves = response.data;
-          this.categorizeMovesToGenerations(response.data)
-          this.sortTables()
+          this.categorizeMovesToGenerations(response.data);
+          this.sortTables();
         })
         .catch(error => {
           console.log(error);
@@ -122,8 +122,8 @@ export default {
     categorizeMovesToGenerations(moves) {
       moves.forEach(move => {
         move.generations.forEach(generation => {
-          this.categorizeMoveToLearnMethod(move, generation)
-        })
+          this.categorizeMoveToLearnMethod(move, generation);
+        });
       });
     },
     categorizeMoveToLearnMethod(move, generation) {
@@ -133,35 +133,40 @@ export default {
         category: move.details.category,
         power: move.details.power,
         type: move.details.type,
-        level: generation.level,
-      }
-      const generationIndex = parseInt(generation.generation) - 1
-      this.generations[generationIndex][generation.method].push(data)
+        level: generation.level
+      };
+      const generationIndex = parseInt(generation.generation) - 1;
+      this.generations[generationIndex][generation.method].push(data);
     },
-    sortTables () {
-      const _sortBy = require('lodash.sortby');
+    sortTables() {
+      const _sortBy = require("lodash.sortby");
       this.generations.forEach((generation, index) => {
-        const keys = Object.keys(generation)
+        const keys = Object.keys(generation);
         keys.forEach(category => {
-          console.log(category)
-          if(category === 'levelUp') {
-            this.generations[index][category] = _sortBy(this.generations[index][category], 'level')
+          if (category === "levelUp") {
+            this.generations[index][category] = _sortBy(
+              this.generations[index][category],
+              "level"
+            );
           } else {
-            this.generations[index][category] = _sortBy(this.generations[index][category], 'name')
+            this.generations[index][category] = _sortBy(
+              this.generations[index][category],
+              "name"
+            );
           }
-        })  
+        });
       });
     },
     setupGenerationsDataSet() {
-      for(let i = 0; i < this.totalGenerations; i++) {
+      for (let i = 0; i < this.totalGenerations; i++) {
         const data = {
-          name: 'gen' + (i+1),
+          name: "gen" + (i + 1),
           levelUp: [],
           egg: [],
           machine: [],
           tutor: []
-        }
-        this.generations.push(data)
+        };
+        this.generations.push(data);
       }
     },
     changeTab(index) {
@@ -169,8 +174,8 @@ export default {
         tab.active = false;
       });
       this.tabs[index].active = true;
-      this.selectedGeneration = index
-    },
+      this.selectedGeneration = index;
+    }
   }
 };
 </script>
