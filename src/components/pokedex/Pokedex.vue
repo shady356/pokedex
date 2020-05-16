@@ -112,7 +112,7 @@ export default {
   },
   computed: {
     BASE_URL() {
-      return process.env.VUE_APP_ROOT_URL;
+      return process.env.VUE_APP_POKE_API_URL;
     },
     batchEndPosition() {
       const endPosition = this.maxPerBatch * this.currentBatch;
@@ -150,7 +150,7 @@ export default {
     ...mapActions(["commitPokedexIds"]),
     getPokemon(pokemonId, arrayIndex) {
       axios
-        .get(`${this.BASE_URL}/pokemon-form/${pokemonId}/`)
+        .get(`${this.BASE_URL}/api/v2/pokemon-form/${pokemonId}/`)
         .then(response => {
           this.refineResponseData(response.data, arrayIndex);
           this.loadedCounter++;

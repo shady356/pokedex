@@ -1,6 +1,13 @@
 module.exports = {
   devServer: {
-    proxy: 'https://pokeapi.co/api/v2'
+    proxy: {
+      '/api/v2': {
+        target: 'https://pokeapi.co', 
+      },
+      '/moves':{
+        target: 'https://henriko.no'
+      } 
+    }
   },
   publicPath: '/pokedex',
   css: {

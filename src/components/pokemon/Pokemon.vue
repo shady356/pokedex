@@ -97,13 +97,15 @@
               </div>
 
               <!-- Moves -->
-              <!-- <div
+              <div
                 v-if="metaItems[2].active"
                 key="tab-moves"
                 class="moves-container"
               >
-                Moves
-              </div>-->
+                <PokemonMoves 
+                  :pokemon-id="pokemonId"
+                />
+              </div>
             </transition>
           </div>
         </section>
@@ -145,6 +147,7 @@ import BaseTab from "@/components/base/BaseTab";
 import BaseTypeTag from "@/components/base/BaseTypeTag";
 import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
+import PokemonMoves from "@/components/pokemon/PokemonMoves.vue";
 import Type from "@/components/types/Type";
 import { gsap } from "gsap";
 export default {
@@ -155,6 +158,7 @@ export default {
     BaseTypeTag,
     PokemonAbout,
     PokemonBaseStats,
+    PokemonMoves,
     Type
   },
   props: {
@@ -190,17 +194,17 @@ export default {
         {
           name: "base stats",
           active: false
-        } /* ,
+        },
         {
           name: 'moves',
           active: false
-        } */
+        }
       ]
     };
   },
   computed: {
     BASE_URL() {
-      return process.env.VUE_APP_ROOT_URL;
+      return process.env.VUE_APP_POKE_API_URL;
     },
     isPokemonLoaded() {
       return this.pokemon && this.pokemonSpecies;
@@ -249,7 +253,7 @@ export default {
   methods: {
     getPokemon(pokemonId) {
       axios
-        .get(`${this.BASE_URL}/pokemon/${pokemonId}/`)
+        .get(`${this.BASE_URL}/api/v2/pokemon/${pokemonId}/`)
         .then(response => {
           this.refineResponseData(response.data);
         })
@@ -259,7 +263,7 @@ export default {
     },
     getPokemonSpecies(pokemonId) {
       axios
-        .get(`${this.BASE_URL}/pokemon-species/${pokemonId}`)
+        .get(`${this.BASE_URL}/api/v2/pokemon-species/${pokemonId}`)
         .then(response => {
           this.refineSpeciesData(response.data);
         })
