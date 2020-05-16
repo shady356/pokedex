@@ -6,29 +6,30 @@
         :items="tabs"
         @changeTab="changeMetaTab"
       />
-      <table>
-        <thead>
-          <th>Move</th>
-          <th>Type</th>
-          <th>Effect</th>
-          <th>Level</th>
-          <th>Power</th>
-          <th>Acc.</th>
-        </thead>
-        <tbody>
-          <tr
-            v-for="move in generations[selectedGeneration].levelUp"
-            :key="move.name"
-          >
-            <td>{{ move.name }}</td>
-            <td>{{ move.type }}</td>
-            <td>{{ move.category }}</td>
-            <td>{{ move.level }}</td>
-            <td>{{ move.power }}</td>
-            <td>{{ move.accuracy }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <BaseMoveTable
+        :headers="tableLevelUpHeaders"
+        :items="generations[selectedGeneration].levelUp"
+        category="levelUp"
+        title="level up"
+      />
+      <BaseMoveTable
+        :headers="tableHeaders"
+        :items="generations[selectedGeneration].egg"
+        category="egg"
+        title="egg moves"
+      />
+      <BaseMoveTable
+        :headers="tableHeaders"
+        :items="generations[selectedGeneration].machine"
+        category="tm-hm"
+        title="TM / HM"
+      />
+      <BaseMoveTable
+        :headers="tableHeaders"
+        :items="generations[selectedGeneration].tutor"
+        category="tutor"
+        title="learned by tutoring"
+      />
     </div>
     <div v-else>
       Loading moves
@@ -38,12 +39,12 @@
 
 <script>
 import axios from "axios";
-//import BaseTypeTag from "@/components/base/BaseTypeTag";
+import BaseMoveTable from "@/components/base/BaseMoveTable";
 import BaseTab from "@/components/base/BaseTab";
 export default {
   name: "PokemonMoves",
   components: {
-    //BaseTypeTag,
+    BaseMoveTable,
     BaseTab
   },
   props: {
@@ -87,7 +88,9 @@ export default {
           name: '7',
           active: true
         }
-      ]
+      ],
+      tableHeaders: ['move', 'type', 'effect', 'power', 'acc.'],
+      tableLevelUpHeaders: ['move', 'type', 'effect', 'level', 'power', 'acc.']
     };
   },
   computed: {
@@ -128,7 +131,6 @@ export default {
         level: generation.level,
       }
       const generationIndex = parseInt(generation.generation) - 1
-      console.log(generation.method)
       this.generations[generationIndex][generation.method].push(data)
     },
     setupGenerationsDataSet() {
