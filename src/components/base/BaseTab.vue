@@ -14,13 +14,7 @@
     </div>
     <div class="border-line">
       <div
-        :style="
-          'width: calc(100% /' +
-            numberOfItems +
-            ' ); left:' +
-            (activeIndex * 100) / numberOfItems +
-            '%'
-        "
+        :style="'width: calc(100% /' + numberOfItems + '); left:' + (activeIndex * 100) / numberOfItems + '%'"
         class="indicator"
       />
     </div>
@@ -45,6 +39,13 @@ export default {
     numberOfItems() {
       return this.items.length;
     }
+  },
+  mounted () {
+    this.items.forEach((item, index) => {
+      if(item.active) {
+        this.activeIndex = index
+      }  
+    });
   },
   methods: {
     changeTab(index) {
