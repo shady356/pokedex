@@ -102,7 +102,7 @@
                 class="moves-container"
               >
                 <PokemonMoves
-                  v-if="pokemonId <= 151"
+                  v-if="pokemonId <= 251"
                   :pokemon-id="pokemonId"
                   :types="pokemonTypes"
                 />
@@ -111,7 +111,7 @@
                   style="color: #888; text-align: center; padding: 60px 0;"
                 >
                   <h5>Whups, comming soon</h5>
-                  <h6>Only available for Kanto pokémon</h6>
+                  <h6>Only available for Kanto and Johto pokémon</h6>
                 </div>
               </div>
             </transition>
