@@ -28,5 +28,5 @@ jobs:
         ftp-server: ftp.domeneshop.no
         ftp-username: henriko
         ftp-password: ${{ secrets.FTP_PASSWORD }}
-        path: www/pokedex
+        path: /www
         local-dir: dist # This folder is NOT going to upload by default unless you add it to .git-ftp-include
