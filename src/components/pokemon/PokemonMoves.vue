@@ -1,18 +1,18 @@
 <template>
   <div>
     <div v-if="moves">
-      <BaseTab
-        class="tab-header"
-        :items="tabs"
-        @changeTab="changeTab"
+      <BaseTab 
+        class="tab-header" 
+        :items="tabs" 
+        @changeTab="changeTab" 
       />
       <BaseMoveTable
         v-if="generations[selectedGeneration].levelUp.length > 0"
         :headers="tableHeaders"
         :items="generations[selectedGeneration].levelUp"
+        :types="types"
         category="levelUp"
         title="level up"
-        :types="types"
       />
       <BaseMoveTable
         v-if="generations[selectedGeneration].egg.length > 0"
@@ -144,7 +144,7 @@ export default {
         level: generation.level
       };
       const generationIndex = parseInt(generation.generation) - 1;
-      if( !this.isEdgeCaseLearnMethod(generation.method) ) {
+      if (!this.isEdgeCaseLearnMethod(generation.method)) {
         this.generations[generationIndex][generation.method].push(data);
       }
     },
@@ -186,10 +186,12 @@ export default {
       this.tabs[index].active = true;
       this.selectedGeneration = index;
     },
-    isEdgeCaseLearnMethod (learnMethod) {
-      switch(learnMethod) {
-        case 'stadium-surfing-pikachu': return true
-        default: return false
+    isEdgeCaseLearnMethod(learnMethod) {
+      switch (learnMethod) {
+        case "stadium-surfing-pikachu":
+          return true;
+        default:
+          return false;
       }
     }
   }

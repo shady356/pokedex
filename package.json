@@ -52,7 +52,18 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "vue/attributes-order": "warning",
+      "vue/no-confusing-v-for-v-if": "error",
+      "vue/order-in-components": "warning",
+      "vue/this-in-template": "error",
+      "vue/array-bracket-spacing": "warning",
+      "vue/arrow-spacing": "warning",
+      "vue/eqeqeq": "error",
+      "vue/object-curly-spacing": "warning",
+      "vue/padding-line-between-blocks": "warning",
+      "vue/require-name-property": "warning"
+    }
   },
   "browserslist": [
     "> 1%",
