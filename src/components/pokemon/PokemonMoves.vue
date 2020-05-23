@@ -144,7 +144,9 @@ export default {
         level: generation.level
       };
       const generationIndex = parseInt(generation.generation) - 1;
-      this.generations[generationIndex][generation.method].push(data);
+      if( !this.isEdgeCaseLearnMethod(generation.method) ) {
+        this.generations[generationIndex][generation.method].push(data);
+      }
     },
     sortTables() {
       const _sortBy = require("lodash.sortby");
@@ -183,6 +185,12 @@ export default {
       });
       this.tabs[index].active = true;
       this.selectedGeneration = index;
+    },
+    isEdgeCaseLearnMethod (learnMethod) {
+      switch(learnMethod) {
+        case 'stadium-surfing-pikachu': return true
+        default: return false
+      }
     }
   }
 };
