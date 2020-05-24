@@ -79,6 +79,14 @@ export default {
     min-height: 30vh;
     border-radius: $m $m 0 0;
 
+    @media (min-width: 1024px) {
+      width: 50vw;
+      height: 50vh;
+      top: 25vh;
+      left: 25vw;
+      border-radius: $m;
+    }
+
     &.is-pokemon-card {
       width: 94vw;
       bottom: 2vh;
@@ -88,6 +96,13 @@ export default {
 
       .modal-close-container {
         bottom: 3vh;
+      }
+
+      @media (min-width: 1024px) {
+        height: 96vh;
+        width: 30vw;
+        left: 35vw;
+        top: 2vh;
       }
     }
 
