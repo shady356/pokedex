@@ -31,8 +31,7 @@
           </td>
           <td class="type">
             <BaseTypeTag
-              :icon-color="getTypeColor(item.type)"
-              :icon="getIcon(item.type)"
+              :type="item.type"
               class="tag-item"
             />
           </td>

@@ -30,8 +30,7 @@
             <BaseTypeTag
               v-for="(typeItem, index) in typeData.superEffectiveTo"
               :key="index"
-              :icon="getIcon(typeItem)"
-              :icon-color="getTypeColor(typeItem)"
+              :type="typeItem"
               class="tag-item"
             />
           </div>
@@ -44,8 +43,7 @@
             <BaseTypeTag
               v-for="(typeItem, index) in typeData.vulnerableTo"
               :key="index"
-              :icon="getIcon(typeItem)"
-              :icon-color="getTypeColor(typeItem)"
+              :type="typeItem"
               class="tag-item"
             />
           </div>

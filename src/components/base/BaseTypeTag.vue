@@ -1,11 +1,11 @@
 <template>
   <div
     class="type-tag-container"
-    :style="'backgroundColor:' + iconColor"
+    :style="'backgroundColor:' + getTypeColor()"
     @click="clicked()"
   >
     <img
-      :src="icon"
+      :src="getTypeIcon()"
       alt="icon"
       class="icon"
     >
@@ -13,43 +13,44 @@
 </template>
 
 <script>
+import { $getTypeColor } from "@/helpers/types.js";
 export default {
   name: "BaseTypeTag",
   props: {
-    icon: {
+    type: {
       type: String,
-      required: false,
-      default: ""
-    },
-    iconColor: {
-      type: String,
-      required: false,
-      default: ""
+      required: true
     }
   },
   methods: {
     clicked() {
       this.$emit("click");
-    }
+    },
+    getTypeColor () {
+      return $getTypeColor(this.type)
+    },
+    getTypeIcon() {
+      console.log(this.type)
+      return require("@/assets/icons/types/" + this.type + ".svg");
+    },
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.type-tag-container {
-  display: inline-flex;
-  width: $m;
-  height: $m;
-  padding: $xxs;
-  border-radius: 50%;
-  box-shadow: 0 $s #ffffff22 inset;
-  align-items: center;
-  justify-content: center;
+  .type-tag-container {
+    display: inline-flex;
+    width: $m;
+    height: $m;
+    padding: $xxs;
+    border-radius: 50%;
+    box-shadow: 0 $s #ffffff22 inset;
+    align-items: center;
+    justify-content: center;
 
-  .icon {
-    width: $s;
-    height: $s;
+    .icon {
+      width: $s;
+      height: $s;
+    }
   }
-
-}
 </style>

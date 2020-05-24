@@ -20,8 +20,7 @@
               <BaseTypeTag
                 v-for="type in pokemon.types"
                 :key="type.slot"
-                :icon="getIcon(type.type.name)"
-                :icon-color="getTypeColor(type.type.name)"
+                :type="type.type.name"
                 class="tag-item"
                 @click="openTypeModal(type.type)"
               />
@@ -157,6 +156,7 @@ import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
 import PokemonMoves from "@/components/pokemon/PokemonMoves.vue";
 import Type from "@/components/types/Type";
+import { $getTypeColor } from "@/helpers/types.js";
 import { gsap } from "gsap";
 export default {
   name: "Pokemon",
@@ -240,7 +240,7 @@ export default {
     getModalBackground() {
       return {
         background: "url(" + this.texture + ")",
-        backgroundColor: this.getTypeColor(this.firstType),
+        backgroundColor: $getTypeColor(this.firstType),
         backgroundBlendMode: "screen"
       };
     },
@@ -314,49 +314,6 @@ export default {
       let value = this.getPercentage(width, 255)
       return { '--width': value + '%'}
     }, */
-    getTypeColor(type) {
-      switch (type) {
-        case "bug":
-          return "#92BC2C";
-        case "dark":
-          return "#595761";
-        case "dragon":
-          return "#0C69C8";
-        case "electric":
-          return "#F2D94E";
-        case "fire":
-          return "#FBA54C";
-        case "fairy":
-          return "#EE90E6";
-        case "fighting":
-          return "#D3425F";
-        case "flying":
-          return "#A1BBEC";
-        case "ghost":
-          return "#5F6DBC";
-        case "grass":
-          return "#5FBD58";
-        case "ground":
-          return "#DA7C4D";
-        case "ice":
-          return "#75D0C1";
-        case "normal":
-          return "#A0A29F";
-        case "poison":
-          return "#B763CF";
-        case "psychic":
-          return "#FA8581";
-        case "rock":
-          return "#C9BB8A";
-        case "steel":
-          return "#5695A3";
-        case "water":
-          return "#539DDF";
-      }
-    },
-    getIcon(name) {
-      return require("@/assets/icons/types/" + name + ".svg");
-    },
     getSprite(id) {
       return "https://pokeres.bastionbot.org/images/pokemon/" + id + ".png";
     },
