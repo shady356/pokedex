@@ -1,5 +1,5 @@
 module.exports = {
-  /* devServer: {
+  devServer: {
     proxy: {
       '/api/v2': {
         target: 'https://pokeapi.co', 
@@ -8,7 +8,7 @@ module.exports = {
         target: 'https://henriko.no'
       } 
     }
-  }, */
+  },
 
   publicPath: '/pokedex',
 

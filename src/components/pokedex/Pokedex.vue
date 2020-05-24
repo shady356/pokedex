@@ -6,7 +6,7 @@
       :is-filter="isFilter"
     />
     <div
-      class="default-page-margin"
+      class="default-page-margin pokedex-container"
       v-if="loadedCounter > 0"
     >
       <ul>
@@ -249,19 +249,32 @@ export default {
 .trigger {
   position: relative;
 }
-ul {
-  color: #fff;
+
+.pokedex-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  width: 100%;
+  justify-content: center;
+  
+  ul {
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
 
-  li {
-    text-align: center;
-    margin: 0 1% $l;
-    width: 18%;
+    li {
+      text-align: center;
+      margin: 0 1% $l;
+      width: 18%;
+      cursor: pointer;
+    }
 
-    cursor: pointer;
+    @media (min-width: 1024px) {
+      width: 50%;
+      
+      li {
+        width: 18%;
+      }
+    }
   }
 }
 

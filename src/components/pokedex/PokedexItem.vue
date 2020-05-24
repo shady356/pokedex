@@ -66,6 +66,13 @@ export default {
     box-shadow: 0 0 18px hsla(200, 50%, 100%, 0.5) inset;
     background-position: center;
     background-size: contain;
+    background-repeat: no-repeat;
+
+    @media (min-width: 1024px) {
+      width: $xxxxxl;
+      height: $xxxxxl;  
+    }
   }
+
 }
 </style>
