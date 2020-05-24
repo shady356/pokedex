@@ -485,10 +485,14 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 75%;
+      height: 100%;
 
       .pokemon-sprite {
         height: 128px;
+
+        @media (min-width: 1024px) {
+          height: 192px;
+        }
       }
     }
   }
