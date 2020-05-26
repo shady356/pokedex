@@ -41,15 +41,12 @@
           <div
             class="pokemon-sprite-container"
             :key="pokemon.id"
+            @click="toggleZoom()"
           >
-            <div
-              v-if="isLoadingPokemon"
-              class="loading-pokemon-sprite"
-            />
             <img
-              v-else
               :src="getSprite(pokemon.id)"
               class="pokemon-sprite"
+              :class="{'zoom': isPokemonZoom}"
               alt="pokemon sprite"
             >
           </div>
@@ -190,6 +187,7 @@ export default {
       pokemonSpecies: null,
       slideDirection: "",
       tweenedNumber: this.pokemonId,
+      isPokemonZoom: false,
 
       // Texture
       texture: require("@/assets/textures/grid-texture.png"),
@@ -247,12 +245,9 @@ export default {
   },
   watch: {
     $route() {
-      this.isLoadingPokemon = true;
-      let that = this;
-      setTimeout(function() {
-        that.getPokemonSpecies(that.pokemonId);
-        that.getPokemon(that.pokemonId);
-      }, 500);
+      
+        this.getPokemonSpecies(this.pokemonId);
+        this.getPokemon(this.pokemonId);
     },
     pokemonId(newVal) {
       gsap.to(this.$data, { duration: 0.5, tweenedNumber: newVal });
@@ -364,6 +359,9 @@ export default {
       } else {
         return this.pokedexIds[index + 1];
       }
+    },
+    toggleZoom () {
+      this.isPokemonZoom = !this.isPokemonZoom
     }
   }
 };
@@ -375,7 +373,7 @@ export default {
   display: grid;
   height: 96vh;
   grid-template-columns: 100%;
-  grid-template-rows: 40% 60%;
+  grid-template-rows: 50% 50%;
   overflow: hidden;
   transition: background-color 1000ms linear;
 
@@ -440,7 +438,15 @@ export default {
       height: 100%;
 
       .pokemon-sprite {
-        height: 128px;
+        position: relative;
+        height: 164px;
+        transition: height .2s ease-in;
+        z-index: 10;
+
+        &.zoom {
+          height: 216px;
+          transition: height .4s ease-in;
+        }
 
         @media (min-width: 1024px) {
           height: 192px;

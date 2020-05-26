@@ -96,7 +96,7 @@ export default {
 
       //Batch data:
       currentBatch: 1,
-      maxPerBatch: 64,
+      maxPerBatch: 16,
       loadedCounter: 0,
       showLoader: false,
 
@@ -244,8 +244,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+$pokemon-per-row-mobile: 3;
+$pokemon-gap-mobile: 2%;
+
 .trigger {
   position: relative;
+  height: 20vh;
+  width: 100%;
+  //background: #00000022;
 }
 
 .pokedex-container {
@@ -261,9 +268,10 @@ export default {
 
     li {
       text-align: center;
-      margin: 0 1% $l;
-      width: 18%;
+      padding: $pokemon-gap-mobile;
+      width: calc( 100% / #{$pokemon-per-row-mobile} );
       cursor: pointer;
+      box-sizing: border-box;
     }
 
     @media (min-width: 1024px) {
