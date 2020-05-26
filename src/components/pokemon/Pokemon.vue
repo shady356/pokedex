@@ -149,6 +149,7 @@
 
 <script>
 import axios from "axios";
+import PokeApi from '@/service/pokeApi.js'
 import BaseModal from "@/components/base/BaseModal";
 import BaseTab from "@/components/base/BaseTab";
 import BaseTypeTag from "@/components/base/BaseTypeTag";
@@ -262,6 +263,7 @@ export default {
     }
   },
   mounted() {
+    this.getPokemonTest(1001)
     this.getPokemon(this.pokemonId);
     this.getPokemonSpecies(this.pokemonId);
   },
@@ -369,6 +371,14 @@ export default {
         return this.pokedexIds[index - 1];
       } else {
         return this.pokedexIds[index + 1];
+      }
+    },
+    async getPokemonTest (id) {
+      try {
+        let response = await PokeApi.getPokemon(id)
+        console.log(response)
+      } catch (error) {
+        console.log(error)
       }
     }
   }
