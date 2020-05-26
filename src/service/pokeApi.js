@@ -28,9 +28,25 @@ const errorHandler = (error) => {
 export default {
   axiosInstance: createAxiosInstance(),
 
-  async getPokemon (id) {
+  async getPokemonById (id) {
+    try {
+      let response = await this.axiosInstance.get(`/api/v2/pokemon/${id}`)
+      return responseHandler(response)
+    } catch (error) {
+      return errorHandler(error)
+    }
+  },
+  async getPokemonFormById (id) {
     try {
       let response = await this.axiosInstance.get(`/api/v2/pokemon-form/${id}`)
+      return responseHandler(response)
+    } catch (error) {
+      return errorHandler(error)
+    }
+  },
+  async getPokemonSpeciesById (id) {
+    try {
+      let response = await this.axiosInstance.get(`/api/v2/pokemon-species/${id}`)
       return responseHandler(response)
     } catch (error) {
       return errorHandler(error)

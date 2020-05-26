@@ -148,17 +148,17 @@
 </template>
 
 <script>
-import axios from "axios";
-import PokeApi from '@/service/pokeApi.js'
+import { $getTypeColor } from "@/helpers/types.js";
+import { gsap } from "gsap";
 import BaseModal from "@/components/base/BaseModal";
 import BaseTab from "@/components/base/BaseTab";
 import BaseTypeTag from "@/components/base/BaseTypeTag";
+import PokeApi from '@/service/pokeApi.js'
 import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
 import PokemonMoves from "@/components/pokemon/PokemonMoves.vue";
 import Type from "@/components/types/Type";
-import { $getTypeColor } from "@/helpers/types.js";
-import { gsap } from "gsap";
+
 export default {
   name: "Pokemon",
   components: {
@@ -183,13 +183,12 @@ export default {
   },
   data() {
     return {
-      pokemon: null,
-      pokemonSpecies: null,
-      NUM_OF_POKEMON: 250,
-      isTypeModalOpen: false,
       currentTypeInModal: null,
       isLoadingPokemon: false,
-      slideDirection: "left",
+      isTypeModalOpen: false,
+      pokemon: null,
+      pokemonSpecies: null,
+      slideDirection: "",
       tweenedNumber: this.pokemonId,
 
       // Texture
@@ -212,9 +211,6 @@ export default {
     };
   },
   computed: {
-    BASE_URL() {
-      return process.env.VUE_APP_POKE_API_URL;
-    },
     isPokemonLoaded() {
       return this.pokemon && this.pokemonSpecies;
     },
@@ -263,32 +259,28 @@ export default {
     }
   },
   mounted() {
-    this.getPokemonTest(this.pokemonId)
     this.getPokemon(this.pokemonId);
     this.getPokemonSpecies(this.pokemonId);
   },
   methods: {
-    getPokemon(pokemonId) {
-      axios
-        .get(`${this.BASE_URL}/api/v2/pokemon/${pokemonId}/`)
-        .then(response => {
-          this.refineResponseData(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    // API
+    async getPokemon (id) {
+      let response = await PokeApi.getPokemonById(id)
+      this.refinePokemonData(response.data);
+      
+      if (response.error) {
+        console.log('error') // TODO: replace with toast
+      }
     },
-    getPokemonSpecies(pokemonId) {
-      axios
-        .get(`${this.BASE_URL}/api/v2/pokemon-species/${pokemonId}`)
-        .then(response => {
-          this.refineSpeciesData(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    async getPokemonSpecies (id) {
+      let response = await PokeApi.getPokemonSpeciesById(id)
+      this.refineSpeciesData(response.data);
+      
+      if (response.error) {
+        console.log('error') // TODO: replace with toast
+      }
     },
-    refineResponseData(data) {
+    refinePokemonData(data) {
       const pokemonData = {
         id: data.id,
         name: data.name,
@@ -371,14 +363,6 @@ export default {
         return this.pokedexIds[index - 1];
       } else {
         return this.pokedexIds[index + 1];
-      }
-    },
-    async getPokemonTest (id) {
-      let response = await PokeApi.getPokemon(id)
-      if(response.error) {
-        console.log('error')
-      }else {
-        console.log('success')
       }
     }
   }
