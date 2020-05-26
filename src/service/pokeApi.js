@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const createAxiosInstance = () => {
   let config = axios.create({
-    BASE_URL: process.env.VUE_APP_POKE_API_URL
+    baseURL: process.env.VUE_APP_POKE_API_URL
   })
 
   return config
