@@ -6,6 +6,7 @@
         :items="tabs" 
         @changeTab="changeTab" 
       />
+      <!-- TODO: Use a v-for on tables -->
       <BaseMoveTable
         v-if="generations[selectedGeneration].levelUp.length > 0"
         :headers="tableHeaders"
@@ -18,25 +19,25 @@
         v-if="generations[selectedGeneration].egg.length > 0"
         :headers="tableHeaders"
         :items="generations[selectedGeneration].egg"
+        :types="types"
         category="egg"
         title="egg moves"
-        :types="types"
       />
       <BaseMoveTable
         v-if="generations[selectedGeneration].machine.length > 0"
         :headers="tableHeaders"
         :items="generations[selectedGeneration].machine"
+        :types="types"
         category="tm-hm"
         title="TM / HM"
-        :types="types"
       />
       <BaseMoveTable
         v-if="generations[selectedGeneration].tutor.length > 0"
         :headers="tableHeaders"
         :items="generations[selectedGeneration].tutor"
+        :types="types"
         category="tutor"
         title="learned by tutoring"
-        :types="types"
       />
     </div>
     <div v-else>
@@ -46,7 +47,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import HenrikoApi from '@/service/henrikoApi.js'
 import BaseMoveTable from "@/components/base/BaseMoveTable";
 import BaseTab from "@/components/base/BaseTab";
 
@@ -112,20 +113,20 @@ export default {
   },
   mounted() {
     this.setupGenerationsDataSet();
-    this.getMoves(this.pokemonId);
+    this.getMovesByPokemonId(this.pokemonId);
   },
   methods: {
-    getMoves(pokemonId) {
-      axios
-        .get(`${this.HENRIKO_API}/moves/${pokemonId}.json`)
-        .then(response => {
-          this.moves = response.data;
-          this.categorizeMovesToGenerations(response.data);
-          this.sortTables();
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    // Api
+    async getMovesByPokemonId (id) {
+      const response = await HenrikoApi.getPokemonMovesByPokemonId(id)
+
+      this.moves = response.data;
+      this.categorizeMovesToGenerations(response.data);
+      this.sortTables();
+      
+      if (response.error) {
+        console.log('error') // TODO: replace with toast
+      }
     },
     categorizeMovesToGenerations(moves) {
       moves.forEach(move => {

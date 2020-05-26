@@ -1,8 +1,5 @@
 <template>
-  <button
-    class="condensed"
-    @click="clicked()"
-  >
+  <button @click="clicked()">
     <slot />
   </button>
 </template>
@@ -19,16 +16,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 button {
   background: #fff;
+  border-radius: $xs;
   border: 1px solid transparent;
-  padding: $xs $s;
+  color: #333;
+  cursor: pointer;
   font-size: $font-s;
   font-weight: 700;
-  color: #333;
-  border-radius: $xs;
-  cursor: pointer;
   outline: none;
+  padding: $xs $s;
 
   &[disabled] {
     background: #888;
@@ -47,22 +45,6 @@ button {
   &.purple {
     background: $purple;
     color: #fff;
-  }
-
-  &.pagination {
-    background: #333;
-    color: #fff;
-    border-radius: 0;
-
-    &.previous {
-      clip-path: polygon(0 0, 80% 0, 100% 100%, 0% 100%);
-      padding-right: $xl;
-      border-top-right-radius: $m;
-    }
-    &.next {
-      padding-left: $xl;
-      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
-    }
   }
 }
 </style>
