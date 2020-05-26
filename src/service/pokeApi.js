@@ -1,10 +1,13 @@
 import axios from 'axios'
 
-const initConnection = () => {
-  return axios.create({
+const createAxiosInstance = () => {
+  let config = axios.create({
     BASE_URL: process.env.VUE_APP_POKE_API_URL
   })
+
+  return config
 }
+
 const responseHandler = (response) => {
   return {
     error: false,
@@ -23,11 +26,11 @@ const errorHandler = (error) => {
 }
 
 export default {
-  connection: initConnection(),
+  axiosInstance: createAxiosInstance(),
 
   async getPokemon (id) {
     try {
-      let response = await this.connection.get(`/api/v2/pokemon-form/${id}`)
+      let response = await this.axiosInstance.get(`/api/v2/pokemon-form/${id}`)
       return responseHandler(response)
     } catch (error) {
       return errorHandler(error)

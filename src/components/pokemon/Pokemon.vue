@@ -263,7 +263,7 @@ export default {
     }
   },
   mounted() {
-    this.getPokemonTest(1001)
+    this.getPokemonTest(this.pokemonId)
     this.getPokemon(this.pokemonId);
     this.getPokemonSpecies(this.pokemonId);
   },
@@ -374,14 +374,11 @@ export default {
       }
     },
     async getPokemonTest (id) {
-      try {
-        let response = await PokeApi.getPokemon(id)
-        console.log(response)
-        if (response.error) {
-          console.log(response.error)
-        }
-      } catch (error) {
-        console.log(error.response)
+      let response = await PokeApi.getPokemon(id)
+      if(response.error) {
+        console.log('error')
+      }else {
+        console.log('success')
       }
     }
   }
@@ -389,6 +386,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .pokemon-container {
   display: grid;
   height: 96vh;
