@@ -71,11 +71,12 @@
 <script>
 import { $filterData } from "@/helpers/pokedexFilters.js";
 import { mapActions } from "vuex";
-import axios from "axios";
 import BaseModal from "@/components/base/BaseModal.vue";
 import FilterPokemon from "@/components/pokedex/FilterPokemon.vue";
 import Header from "@/components/layout/Header.vue";
 import PokedexItem from "@/components/pokedex/PokedexItem";
+import PokeApi from '@/service/pokeApi.js'
+
 
 export default {
   name: "Pokedex",
@@ -95,7 +96,7 @@ export default {
 
       //Batch data:
       currentBatch: 1,
-      maxPerBatch: 32,
+      maxPerBatch: 64,
       loadedCounter: 0,
       showLoader: false,
 
@@ -111,9 +112,6 @@ export default {
     };
   },
   computed: {
-    BASE_URL() {
-      return process.env.VUE_APP_POKE_API_URL;
-    },
     batchEndPosition() {
       const endPosition = this.maxPerBatch * this.currentBatch;
       if (endPosition <= this.totalResults) {
@@ -148,16 +146,16 @@ export default {
   },
   methods: {
     ...mapActions(["commitPokedexIds"]),
-    getPokemon(pokemonId, arrayIndex) {
-      axios
-        .get(`${this.BASE_URL}/api/v2/pokemon-form/${pokemonId}/`)
-        .then(response => {
-          this.refineResponseData(response.data, arrayIndex);
-          this.loadedCounter++;
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    
+    // Api
+    async getPokemonForm (id, arrayIndex) {
+      const response = await PokeApi.getPokemonFormById(id)
+      this.refineResponseData(response.data, arrayIndex);
+      this.loadedCounter++;
+      
+      if (response.error) {
+        console.log('error') // TODO: replace with toast
+      }
     },
     refineResponseData(data, arrayIndex) {
       const pokemonData = {
@@ -182,7 +180,7 @@ export default {
     },
     getBatchOfPokemon() {
       for (let i = this.batchStartPosition; i < this.batchEndPosition; i++) {
-        this.getPokemon(this.pokemonList[i].id, i);
+        this.getPokemonForm(this.pokemonList[i].id, i);
       }
       this.currentBatch++;
     },
