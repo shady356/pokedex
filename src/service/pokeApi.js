@@ -6,13 +6,12 @@ const initConnection = () => {
   })
 }
 const responseHandler = (response) => {
-  const responseData = {
+  return {
     error: false,
     status: response.status,
     statusText: response.statusText,
     data: response.data
   }
-  return responseData
 }
 const errorHandler = (error) => {
   return {
@@ -23,10 +22,9 @@ const errorHandler = (error) => {
   }
 }
 
-
 export default {
   connection: initConnection(),
-  
+
   async getPokemon (id) {
     try {
       let response = await this.connection.get(`/api/v2/pokemon-form/${id}`)
