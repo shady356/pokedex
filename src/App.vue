@@ -1,16 +1,16 @@
 <template>
   <div id="app">
+    <BaseToast />
     <router-view class="main-layout" />
   </div>
 </template>
 
 <script>
+import BaseToast from '@/components/base/BaseToast.vue'
 export default {
   name: "App",
-  data() {
-    return {
-      isWelcome: true
-    };
+  components: {
+    BaseToast
   }
 };
 </script>

@@ -30,7 +30,6 @@ export default {
       return $getTypeColor(this.type)
     },
     getTypeIcon() {
-      console.log(this.type)
       return require("@/assets/icons/types/" + this.type + ".svg");
     },
   }

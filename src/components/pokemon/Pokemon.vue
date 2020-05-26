@@ -246,7 +246,7 @@ export default {
       };
     },
     animatedIndex() {
-      return this.tweenedNumber.toFixed(0);
+      return parseInt(this.tweenedNumber).toFixed(0);
     }
   },
   watch: {
@@ -377,8 +377,11 @@ export default {
       try {
         let response = await PokeApi.getPokemon(id)
         console.log(response)
+        if (response.error) {
+          console.log(response.error)
+        }
       } catch (error) {
-        console.log(error)
+        console.log(error.response)
       }
     }
   }
