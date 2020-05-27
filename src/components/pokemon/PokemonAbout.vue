@@ -1,5 +1,19 @@
 <template>
   <div class="about-container">
+    <!-- Description -->
+    <section>
+      <h6 class="title">
+        Description
+      </h6>
+
+      <p class="data-row">
+        {{ pokemonSpecies.description.flavor_text }}
+      </p>
+      <div class="quote capitalize">
+        – {{ pokemonSpecies.description.version.name }}
+      </div>
+    </section>
+
     <!-- Training -->
     <section>
       <h6 class="title">
@@ -172,6 +186,13 @@ export default {
       align-items: center;
     }
 
+    .quote {
+      font-size: $font-xs;
+      text-align: right;
+      margin-top: $xxs;
+      color: #777;
+    }
+
     .data-row {
       display: flex;
       padding: 4px 0;
@@ -179,14 +200,15 @@ export default {
       width: 100%;
 
       .label {
-        flex-basis: 30%;
+        flex-basis: 35%;
         padding-right: 10px;
         color: #777;
       }
       .value {
-        flex-basis: 70%;
+        flex-basis: 65%;
         color: #111;
       }
+      
     }
 
     .abilities-container {

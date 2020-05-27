@@ -290,8 +290,15 @@ export default {
       this.isLoadingPokemon = false;
     },
     refineSpeciesData(data) {
+      console.log(data)
+
+      const description = data.flavor_text_entries.find(item => {
+        return item.language.name === 'en' 
+      })
+
       const speciesData = {
         eggGroups: data.egg_groups,
+        description: description,
         captureRate: data.capture_rate,
         baseHappiness: data.base_happiness,
         growthRate: data.growth_rate.name,
