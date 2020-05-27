@@ -1,27 +1,5 @@
 <template>
   <div class="about-container">
-    <!-- Abilities -->
-    <section>
-      <h6 class="title">
-        Abilities
-      </h6>
-
-      <div class="abilities-container">
-        <BaseTag
-          v-for="item in pokemon.abilities"
-          :key="item.ability.name"
-          class="ability"
-        >
-          {{ item.ability.name }}
-          <fa-icon
-            v-if="item.is_hidden"
-            icon="star"
-            class="icon"
-          />
-        </BaseTag>
-      </div>
-    </section>
-
     <!-- Training -->
     <section>
       <h6 class="title">
@@ -80,6 +58,28 @@
         <div class="value">
           {{ pokemonSpecies.hatchCounter }}
         </div>
+      </div>
+    </section>
+
+    <!-- Abilities -->
+    <section>
+      <h6 class="title">
+        Abilities
+      </h6>
+
+      <div class="abilities-container">
+        <BaseTag
+          v-for="item in pokemon.abilities"
+          :key="item.ability.name"
+          class="ability"
+        >
+          {{ item.ability.name }}
+          <fa-icon
+            v-if="item.is_hidden"
+            icon="star"
+            class="icon"
+          />
+        </BaseTag>
       </div>
     </section>
 
@@ -167,13 +167,9 @@ export default {
     margin-bottom: $l;
 
     .title {
-      margin-bottom: $xs;
+      margin-bottom: $xxs;
       display: flex;
       align-items: center;
-
-      .icon {
-        width: 12px;
-      }
     }
 
     .data-row {

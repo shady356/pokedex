@@ -272,7 +272,7 @@ export default {
       this.refineSpeciesData(response.data);
       
       if (response.error) {
-        console.log('error') // TODO: replace with toast
+        alert('error') // TODO: replace with toast
       }
     },
     refinePokemonData(data) {
@@ -334,10 +334,7 @@ export default {
         this.$router.push({
           name: "Pokemon",
           params: {
-            pokemonId: this.getPokemonPaginationId(
-              this.pokemonIndex,
-              "previous"
-            ),
+            pokemonId: this.getPokemonPaginationId(this.pokemonIndex, "previous"),
             pokemonIndex: this.pokemonIndex - 1
           }
         });

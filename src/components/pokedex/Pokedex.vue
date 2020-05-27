@@ -154,7 +154,7 @@ export default {
       this.loadedCounter++;
       
       if (response.error) {
-        console.log('error') // TODO: replace with toast
+        alert('error') // TODO: replace with toast
       }
     },
     refineResponseData(data, arrayIndex) {
