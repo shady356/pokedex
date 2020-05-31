@@ -170,14 +170,14 @@ export default {
       return index <= fragment;
     },
     setChartData () {
-      const labels = []
-      const datasets = [0,0,0,0,0,0]
-      let label = null
-      let data = null
+      //const labels = []
+      //const datasets = [0,0,0,0,0,0]
+      //let label = null
+      //let data = null
       this.pokemon.stats.forEach(stat => {
         console.log(stat)
-        label = stat.stat.name
-        data = stat.base_stat
+        //label = stat.stat.name
+        //data = stat.base_stat
 
         this.chartData.labels.push()
       });
