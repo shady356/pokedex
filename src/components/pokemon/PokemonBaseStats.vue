@@ -1,7 +1,7 @@
 <template>
   <div class="base-stat-container">
     <div class="stat-wrapper">
-      <div
+      <!-- <div
         class="stat-item"
         v-for="(stat, index) in pokemon.stats"
         :key="index"
@@ -25,7 +25,12 @@
             ]"
           />
         </div>
-      </div>
+      </div> -->
+      <PokemonBaseStatChart 
+        :chartdata="chartData" 
+        :options="options"
+        :styles="chartStyles"
+      />
     </div>
     <div class="key-data">
       <div class="total-base-stats">
@@ -51,8 +56,12 @@
 
 <script>
 import { gsap } from "gsap";
+import PokemonBaseStatChart from '@/components/pokemon/PokemonBaseStatChart.vue'
 export default {
   name: "PokemonAbout",
+  components: {
+    PokemonBaseStatChart
+  },
   filters: {
     statName(value) {
       if (value === "special-defense") {
@@ -73,10 +82,52 @@ export default {
   data() {
     return {
       BASE_STAT_TOTAL: 16,
-      tweenedNumber: 0
+      tweenedNumber: 0,
+
+      chartData: {
+        labels: [['HP','40'], ['DEFENSE','150'], 'SPC.DEF', 'SPEED', 'SPC.ATK', 'ATTACK'],
+        datasets: [
+          {
+            backgroundColor: '#00aadd44',
+            data: [150, 255, 60, 50, 40, 40]
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        legend: {
+          display: false
+        },
+        scale: {
+          ticks: {
+            suggestedMin: 0,
+            max: 255,
+            display: false,
+            stepSize: 255,
+            backdropColor: '#08a'
+          },
+          pointLabels: {
+            fontSize: 14,
+            fontColor: '#999',
+            fontStyle: 'bold',
+            fontAlign: 'center',
+            fontFamily: 'Roboto condensed',
+            lineHeight: '1.2',
+            wordWrap: 'break-word'
+          }
+        },
+        
+      }
     };
   },
   computed: {
+    chartStyles () {
+      return {
+        width: '70%',
+        position: 'relative'
+      }
+    },
     totalBaseStat() {
       let total = 0;
       this.pokemon.stats.forEach(stat => {
@@ -108,6 +159,7 @@ export default {
   },
   mounted() {
     this.tweenedNumber = this.totalBaseStat;
+    this.setChartData()
   },
   methods: {
     isBestStat(stat) {
@@ -116,6 +168,29 @@ export default {
     getStatFillStatus(index, value) {
       const fragment = Math.round(value / this.BASE_STAT_TOTAL);
       return index <= fragment;
+    },
+    setChartData () {
+      const labels = []
+      const datasets = [0,0,0,0,0,0]
+      let label = null
+      let data = null
+      this.pokemon.stats.forEach(stat => {
+        console.log(stat)
+        label = stat.stat.name
+        data = stat.base_stat
+
+        this.chartData.labels.push()
+      });
+
+      /* chartData: {
+        labels: [['HP','40'], ['DEFENSE','150'], 'SPC.DEF', 'SPEED', 'SPC.ATK', 'ATTACK'],
+        datasets: [
+          {
+            backgroundColor: '#00aadd44',
+            data: [150, 255, 60, 50, 40, 40]
+          }
+        ]
+      }, */
     }
   }
 };
