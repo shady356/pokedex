@@ -1,10 +1,5 @@
 <template>
   <header class="header">
-    <router-link
-      :to="{name: 'Home'}"
-    >
-      &lt;
-    </router-link>
     <h3>Pokedex</h3>
     <div class="filter-container">
       <fa-icon
