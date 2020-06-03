@@ -290,8 +290,6 @@ export default {
       this.isLoadingPokemon = false;
     },
     refineSpeciesData(data) {
-      console.log(data)
-
       const description = data.flavor_text_entries.find(item => {
         return item.language.name === 'en' 
       })

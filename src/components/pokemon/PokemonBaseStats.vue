@@ -1,35 +1,15 @@
 <template>
   <div class="base-stat-container">
-    <div class="stat-wrapper">
-      <!-- <div
-        class="stat-item"
-        v-for="(stat, index) in pokemon.stats"
-        :key="index"
-      >
-        <div :class="['stat-label', { highlight: isBestStat(stat) }]">
-          <div class="stat-key uppercase">
-            {{ stat.stat.name | statName }}
-          </div>
-          <div class="stat-value">
-            {{ stat.base_stat }}
-          </div>
-        </div>
-
-        <div class="stat-bar">
-          <div
-            v-for="fragment in BASE_STAT_TOTAL"
-            :key="fragment"
-            :class="[
-              'stat-bar-fragment',
-              { 'is-filled': getStatFillStatus(fragment, stat.base_stat) }
-            ]"
-          />
-        </div>
-      </div> -->
-      <PokemonBaseStatChart 
-        :chartdata="chartData" 
-        :options="options"
+    <div
+       
+      class="stat-wrapper"
+    >
+      <PokemonBaseStatChart
+        v-if="isChartGenerated"
+        :chart-data="baseStatChartData" 
+        :options="baseStatChartOptions"
         :styles="chartStyles"
+        ref="baseStatsChart"
       />
     </div>
     <div class="key-data">
@@ -62,17 +42,6 @@ export default {
   components: {
     PokemonBaseStatChart
   },
-  filters: {
-    statName(value) {
-      if (value === "special-defense") {
-        return "spc. def";
-      } else if (value === "special-attack") {
-        return "spc. att";
-      } else {
-        return value;
-      }
-    }
-  },
   props: {
     pokemon: {
       type: Object,
@@ -83,17 +52,18 @@ export default {
     return {
       BASE_STAT_TOTAL: 16,
       tweenedNumber: 0,
+      isChartGenerated: false,
 
-      chartData: {
-        labels: [['HP','40'], ['DEFENSE','150'], 'SPC.DEF', 'SPEED', 'SPC.ATK', 'ATTACK'],
+      baseStatChartData: {
+        labels: [],
         datasets: [
           {
             backgroundColor: '#00aadd44',
-            data: [150, 255, 60, 50, 40, 40]
+            data: []
           }
         ]
       },
-      options: {
+      baseStatChartOptions: {
         responsive: true,
         maintainAspectRatio: true,
         legend: {
@@ -124,7 +94,7 @@ export default {
   computed: {
     chartStyles () {
       return {
-        width: '70%',
+        width: '100%',
         position: 'relative'
       }
     },
@@ -150,11 +120,19 @@ export default {
         }
       });
       return bestStat;
+    },
+    stats() {
+      return this.pokemon.stats
     }
   },
   watch: {
     totalBaseStat(newVal) {
       gsap.to(this.$data, { duration: 0.4, tweenedNumber: newVal });
+    },
+    pokemon() {
+      this.isChartGenerated = false
+      this.setChartData()
+      this.$refs.baseStatsChart.update()
     }
   },
   mounted() {
@@ -170,27 +148,49 @@ export default {
       return index <= fragment;
     },
     setChartData () {
-      //const labels = []
-      //const datasets = [0,0,0,0,0,0]
-      //let label = null
-      //let data = null
-      this.pokemon.stats.forEach(stat => {
-        console.log(stat)
-        //label = stat.stat.name
-        //data = stat.base_stat
+      const labels = []
+      const datasets = []
+      let positionIndex = 0
 
-        this.chartData.labels.push()
+      this.baseStatChartData.labels = []
+      this.baseStatChartData.datasets[0].data = []
+
+      this.pokemon.stats.forEach(stat => {
+        let name = stat.stat.name
+
+        switch(name) {
+          case 'hp': 
+            positionIndex = 0; 
+            break;
+          case 'defense':
+            positionIndex = 1; 
+            break;
+          case 'special-defense':
+            positionIndex = 2;
+            name = 'spc.def'
+            break;
+          case 'speed': 
+            positionIndex = 3; 
+            break;
+          case 'special-attack': 
+            positionIndex = 4; 
+            name = 'spc.atk'
+            break;
+          case 'attack': 
+            positionIndex = 5; 
+            break;
+        }
+
+        name = name.toUpperCase()
+
+        labels[positionIndex] = [name, stat.base_stat]
+        datasets[positionIndex] = stat.base_stat
       });
 
-      /* chartData: {
-        labels: [['HP','40'], ['DEFENSE','150'], 'SPC.DEF', 'SPEED', 'SPC.ATK', 'ATTACK'],
-        datasets: [
-          {
-            backgroundColor: '#00aadd44',
-            data: [150, 255, 60, 50, 40, 40]
-          }
-        ]
-      }, */
+      this.baseStatChartData.labels = labels
+      this.baseStatChartData.datasets[0].data = datasets
+      this.isChartGenerated = true
+      
     }
   }
 };

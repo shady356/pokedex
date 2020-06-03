@@ -4,7 +4,7 @@ export default {
   extends: Radar,
   name: 'PokemonBaseStatChart',
   props: {
-    chartdata: {
+    chartData: {
       type: Object,
       required: true
     },
@@ -14,11 +14,12 @@ export default {
     }
   },
   mounted () {
-    this.renderChart(this.chartdata, this.options)
+    this.renderChart(this.chartData, this.options)
+  },
+  methods: {
+    update() {
+      this.$data._chart.update()
+    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
