@@ -8,7 +8,7 @@ const routes = [
     path: '/pokeview',
     name: 'Home',
     component: () =>
-      import(/* webpackChunkName: "pokedex" */ '../views/Home.vue'),
+      import('../views/Home.vue'),
   },
   {
     path: '/pokeview/pokedex',
@@ -26,15 +26,13 @@ const routes = [
       },
     ],
     component: () =>
-      import(
-        /* webpackChunkName: "pokedex" */ '../components/pokedex/Pokedex.vue'
-      ),
+      import('../components/pokedex/Pokedex.vue'),
   },
   {
     path: 'pokeview/about',
     name: 'About',
     component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue'),
+      import('../views/About.vue'),
   },
 ]
 
