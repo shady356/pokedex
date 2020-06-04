@@ -2,7 +2,7 @@
   <div>
     <div class="home-navigation-container">
       <h1 class="pokemon-logo">
-        Pokédex
+        PokéView
       </h1>
       <ul class="navigations">
         <router-link
@@ -12,7 +12,9 @@
           :to="{ name: item.route }"
           tag="li"
         >
-          {{ item.name }}
+          <div class="text">
+            {{ item.name }}
+          </div>
         </router-link>
       </ul>
     </div>
@@ -29,10 +31,10 @@ export default {
           name: "Pokedex",
           route: "Pokedex"
         },
-        {
+/*         {
           name: "Types",
           route: "About"
-        },
+        }, */
         {
           name: "About",
           route: "About"
@@ -52,32 +54,48 @@ export default {
   padding: $l;
 
   .pokemon-logo {
-    color: #fff;
-    text-shadow: 0 2px 10px #6ae;
+    color: #79a;
     margin-bottom: $l;
   }
 
   .navigations {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    width: 80%;
+    width: 100%;
+
+    @media screen and (min-width: 1024px) {
+      width: 50%;
+    }
 
     .item {
-      background: hsla(0, 0%, 100%, 0.5);
-      border-bottom: 2px solid #6ae;
-      border-radius: $l;
+      display: flex;
+      background-color: hsla(193, 58%, 87%, 0.5);
+      background-image: url('../assets/icons/pokeball_white.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 50%;
+      border-bottom: 4px solid #6ae;
+      border-radius: $s;
       border-top: 1px solid #c7efff;
       box-shadow: 0 -30px 50px #52c3e6 inset, 0 6px 10px #66cceeaa;
-      color: #3c7c99;
-      font-size: $font-xl;
-      font-weight: 700;
-      margin-bottom: $l;
-      padding: $s 0;
-      text-align: center;
+      height: 12vh;
+      margin: $m;
+      justify-content: center;
+      align-items: flex-end;
+      padding: $xs;
       transition: all 0.4s;
-      width: 100%;
+      width: 50%;
+
+      .text {
+        color: #3c7c99;
+        left: $l;
+        bottom: 10px;
+        font-size: $font-xl;
+        font-weight: 700;
+        text-align: center;
+      }
     }
   }
 }
