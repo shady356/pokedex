@@ -12,6 +12,13 @@
           :to="{ name: item.route }"
           tag="li"
         >
+          <div class="icon-container">
+            <img 
+              class="icon-image"
+              src="../assets/home-icons/pokedex_icon.png" 
+              alt="item"
+            >
+          </div>
           <div class="text">
             {{ item.name }}
           </div>
@@ -28,7 +35,7 @@ export default {
     return {
       navigations: [
         {
-          name: "Pokedex",
+          name: "Pokédex",
           route: "Pokedex"
         },
 /*         {
@@ -54,8 +61,11 @@ export default {
   padding: $l;
 
   .pokemon-logo {
-    color: #79a;
-    margin-bottom: $l;
+    color: #2d4b68;
+    margin-bottom: $xxl;
+    font-weight: 100;
+    font-size: 48px;
+    text-shadow: 0px 4px 10px #81a1be;
   }
 
   .navigations {
@@ -71,25 +81,31 @@ export default {
 
     .item {
       display: flex;
-      background-color: hsla(193, 58%, 87%, 0.5);
-      background-image: url('../assets/icons/pokeball_white.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 50%;
-      border-bottom: 4px solid #6ae;
-      border-radius: $s;
-      border-top: 1px solid #c7efff;
-      box-shadow: 0 -30px 50px #52c3e6 inset, 0 6px 10px #66cceeaa;
-      height: 12vh;
-      margin: $m;
+      flex-direction: column;
       justify-content: center;
-      align-items: flex-end;
-      padding: $xs;
+      margin: $m;
       transition: all 0.4s;
-      width: 50%;
+      cursor: pointer;
+
+      .icon-container {
+        width: 8vh;
+        height: 8vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background: #51989b;
+        box-shadow: 0 -30px 50px hsl(160, 59%, 51%) inset, 0 6px 20px $blue;
+
+        .icon-image {
+          width: 50%;
+          height: 50%;
+        }
+      }
 
       .text {
-        color: #3c7c99;
+        margin-top: $s;
+        color: $blue-dark;
         left: $l;
         bottom: 10px;
         font-size: $font-xl;
