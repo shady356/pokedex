@@ -15,8 +15,8 @@
           <div class="icon-container">
             <img 
               class="icon-image"
-              src="../assets/home-icons/pokedex_icon.png" 
-              alt="item"
+              :src="item.icon" 
+              alt="item icon"
             >
           </div>
           <div class="text">
@@ -36,7 +36,8 @@ export default {
       navigations: [
         {
           name: "Pokédex",
-          route: "Pokedex"
+          route: "Pokedex",
+          icon: require('../assets/home-icons/pokedex_icon.png')
         },
 /*         {
           name: "Types",
@@ -44,7 +45,8 @@ export default {
         }, */
         {
           name: "About",
-          route: "About"
+          route: "About",
+          icon: require('../assets/home-icons/about.png')
         }
       ]
     };
