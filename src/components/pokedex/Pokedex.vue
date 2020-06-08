@@ -1,10 +1,18 @@
 <template>
   <div>
-    <Header
-      @filter="openFilter()"
-      @search="openSearch()"
-      :is-filter="isFilter"
-    />
+    <Header>
+      <template #title>
+        <h3>Pokédex</h3>
+      </template>
+      
+      <template #options>
+        <fa-icon
+          :class="['filter-item ',{ 'active': isFilter }]"
+          icon="filter"
+          @click="openFilter"
+        />
+      </template> 
+    </Header>
     <div
       class="default-page-margin pokedex-container"
       v-if="loadedCounter > 0"
@@ -90,9 +98,8 @@ export default {
     return {
       pokemonList: [],
 
-      // Filter and search:
+      // Filter:
       isFilterOpen: false,
-      isSearchOpen: false,
 
       //Batch data:
       currentBatch: 1,
@@ -200,12 +207,6 @@ export default {
     closeFilter() {
       this.isFilterOpen = false;
     },
-    openSearch() {
-      this.isSearchOpen = true;
-    },
-    closeSearch() {
-      this.isSearchOpen = false;
-    },
     filterHasData(filters) {
       return Object.keys(filters).some(filter => {
         return filters[filter].length > 0;
@@ -281,6 +282,12 @@ $pokemon-gap-mobile: 2%;
         width: 18%;
       }
     }
+  }
+}
+
+.filter-item {
+  &.active {
+    color: $purple;
   }
 }
 

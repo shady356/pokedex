@@ -1,19 +1,12 @@
 <template>
   <header class="header">
-    <h3>Pokedex</h3>
-    <div class="filter-container">
-      <fa-icon
-        :class="['filter-item filter', { active: isFilter }]"
-        icon="filter"
-        @click="filter()"
-      />
-
-      <!--  <fa-icon 
-        class="filter-item search" 
-        icon="search"
-        @click="search()"
-      /> -->
-    </div>
+    <router-link
+      :to="{ name: routerBack }"
+    >
+      <fa-icon icon="chevron-left" />
+    </router-link>
+    <slot name="title" />
+    <slot name="options" />
   </header>
 </template>
 
@@ -21,18 +14,10 @@
 export default {
   name: "Header",
   props: {
-    isFilter: {
-      type: Boolean,
+    routerBack: {
+      type: String,
       required: false,
-      default: false
-    }
-  },
-  methods: {
-    filter() {
-      this.$emit("filter");
-    },
-    search() {
-      this.$emit("search");
+      default: 'Home'
     }
   }
 };
@@ -40,27 +25,13 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  background: hsla(0, 0%, 100%, 0.9);
-  display: flex;
   align-items: center;
-  padding: $s;
-  justify-content: space-between;
-  position: sticky;
+  background: hsla(0, 0%, 100%, 0.9);
   border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  padding: $s;
+  position: sticky;
   top: 0;
-
-  .filter-container {
-    display: flex;
-    justify-content: flex-end;
-
-    .filter-item {
-      padding: 0 $xs;
-      color: #444;
-
-      &.active {
-        color: $purple-light;
-      }
-    }
-  }
 }
 </style>
