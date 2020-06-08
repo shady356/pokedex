@@ -19,7 +19,7 @@
               alt="item icon"
             >
           </div>
-          <div class="text">
+          <div class="text uppercase letter-spacing">
             {{ item.name }}
           </div>
         </router-link>
@@ -39,9 +39,10 @@ export default {
           route: "Pokedex",
           icon: require('../assets/home-icons/pokedex_icon.png')
         },
-/*         {
+        /* {
           name: "Types",
-          route: "About"
+          route: "About",
+          icon: require('../assets/home-icons/types.png')
         }, */
         {
           name: "About",
@@ -63,18 +64,17 @@ export default {
   padding: $l;
 
   .pokemon-logo {
-    color: #2d4b68;
-    margin-bottom: $xxl;
-    font-weight: 100;
+    color: $blue-dark;
     font-size: 48px;
-    text-shadow: 0px 4px 10px #81a1be;
+    font-weight: 100;
+    margin-bottom: $xxl;
   }
 
   .navigations {
+    align-items: center;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    align-items: center;
     width: 100%;
 
     @media screen and (min-width: 1024px) {
@@ -82,36 +82,33 @@ export default {
     }
 
     .item {
+      cursor: pointer;
       display: flex;
       flex-direction: column;
       justify-content: center;
       margin: $m;
       transition: all 0.4s;
-      cursor: pointer;
 
       .icon-container {
-        width: 8vh;
-        height: 8vh;
-        display: flex;
-        justify-content: center;
         align-items: center;
+        background: $blue-light;
         border-radius: 50%;
-        background: #51989b;
-        box-shadow: 0 -30px 50px hsl(160, 59%, 51%) inset, 0 6px 20px $blue;
+        display: flex;
+        height: $xxxl;
+        justify-content: center;
+        width: $xxxl;
 
         .icon-image {
-          width: 50%;
-          height: 50%;
+          width: $xl;
+          height: $xl;
         }
       }
 
       .text {
-        margin-top: $s;
         color: $blue-dark;
-        left: $l;
-        bottom: 10px;
-        font-size: $font-xl;
+        font-size: $font-s;
         font-weight: 700;
+        margin-top: $s;
         text-align: center;
       }
     }
