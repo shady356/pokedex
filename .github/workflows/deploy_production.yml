@@ -25,7 +25,7 @@ jobs:
     - name: FTP-Deploy-Action
       uses: SamKirkland/FTP-Deploy-Action@3.1.1
       with:
-        ftp-server: ftp://ftp.domeneshop.no/www/pokedex
+        ftp-server: ftp://ftp.domeneshop.no/www/pokeview
         ftp-username: henriko
         ftp-password: ${{ secrets.FTP_PASSWORD }}
         local-dir: dist # This folder is NOT going to upload by default unless you add it to .git-ftp-include

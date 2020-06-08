@@ -10,7 +10,7 @@ module.exports = {
     }
   },
 
-  publicPath: '/pokedex',
+  publicPath: '/pokeview',
 
   css: {
     loaderOptions: {
@@ -21,7 +21,7 @@ module.exports = {
   },
 
   pwa: {
-    name: 'Pokédex',
+    name: 'PokéView',
     themeColor: '#93EDE4',
     msTileColor: '#93EDE4',
     manifestOptions: {

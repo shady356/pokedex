@@ -2,7 +2,7 @@
   <div>
     <div class="home-navigation-container">
       <h1 class="pokemon-logo">
-        Pokédex
+        PokéView
       </h1>
       <ul class="navigations">
         <router-link
@@ -12,7 +12,16 @@
           :to="{ name: item.route }"
           tag="li"
         >
-          {{ item.name }}
+          <div class="icon-container">
+            <img 
+              class="icon-image"
+              :src="item.icon" 
+              alt="item icon"
+            >
+          </div>
+          <div class="text uppercase letter-spacing">
+            {{ item.name }}
+          </div>
         </router-link>
       </ul>
     </div>
@@ -26,16 +35,19 @@ export default {
     return {
       navigations: [
         {
-          name: "Pokedex",
-          route: "Pokedex"
+          name: "Pokédex",
+          route: "Pokedex",
+          icon: require('../assets/home-icons/pokedex_icon.png')
         },
-        {
+        /* {
           name: "Types",
-          route: "About"
-        },
+          route: "About",
+          icon: require('../assets/home-icons/types.png')
+        }, */
         {
           name: "About",
-          route: "About"
+          route: "About",
+          icon: require('../assets/home-icons/about.png')
         }
       ]
     };
@@ -52,32 +64,53 @@ export default {
   padding: $l;
 
   .pokemon-logo {
-    color: #fff;
-    text-shadow: 0 2px 10px #6ae;
-    margin-bottom: $l;
+    color: $blue-dark;
+    font-size: 48px;
+    font-weight: 100;
+    margin-bottom: $xxl;
   }
 
   .navigations {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
-    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+
+    @media screen and (min-width: 1024px) {
+      width: 50%;
+    }
 
     .item {
-      background: hsla(0, 0%, 100%, 0.5);
-      border-bottom: 2px solid #6ae;
-      border-radius: $l;
-      border-top: 1px solid #c7efff;
-      box-shadow: 0 -30px 50px #52c3e6 inset, 0 6px 10px #66cceeaa;
-      color: #3c7c99;
-      font-size: $font-xl;
-      font-weight: 700;
-      margin-bottom: $l;
-      padding: $s 0;
-      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: $m;
       transition: all 0.4s;
-      width: 100%;
+
+      .icon-container {
+        align-items: center;
+        background: $blue-light;
+        border-radius: 50%;
+        display: flex;
+        height: $xxxl;
+        justify-content: center;
+        width: $xxxl;
+
+        .icon-image {
+          width: $xl;
+          height: $xl;
+        }
+      }
+
+      .text {
+        color: $blue-dark;
+        font-size: $font-s;
+        font-weight: 700;
+        margin-top: $s;
+        text-align: center;
+      }
     }
   }
 }

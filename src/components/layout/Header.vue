@@ -1,18 +1,16 @@
 <template>
   <header class="header">
-    <h3>Pokedex</h3>
-    <div class="filter-container">
-      <fa-icon
-        :class="['filter-item filter', { active: isFilter }]"
-        icon="filter"
-        @click="filter()"
-      />
-
-      <!--  <fa-icon 
-        class="filter-item search" 
-        icon="search"
-        @click="search()"
-      /> -->
+    <router-link
+      class="column"
+      :to="{ name: routerBack }"
+    >
+      <fa-icon icon="chevron-left" />
+    </router-link>
+    <div class="column">
+      <slot name="title" />
+    </div>
+    <div class="column">
+      <slot name="options" />
     </div>
   </header>
 </template>
@@ -21,18 +19,10 @@
 export default {
   name: "Header",
   props: {
-    isFilter: {
-      type: Boolean,
+    routerBack: {
+      type: String,
       required: false,
-      default: false
-    }
-  },
-  methods: {
-    filter() {
-      this.$emit("filter");
-    },
-    search() {
-      this.$emit("search");
+      default: 'Home'
     }
   }
 };
@@ -40,26 +30,25 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  background: hsla(0, 0%, 100%, 0.9);
-  display: flex;
   align-items: center;
-  padding: $s;
-  justify-content: space-between;
-  position: sticky;
+  background: hsla(0, 0%, 100%, 0.9);
   border-bottom: 1px solid #ddd;
+  display: flex;
+  padding: $s;
+  position: sticky;
   top: 0;
 
-  .filter-container {
-    display: flex;
-    justify-content: flex-end;
+  .column {
+    text-align: center;
 
-    .filter-item {
-      padding: 0 $xs;
-      color: #444;
-
-      &.active {
-        color: $purple-light;
-      }
+    &:nth-child(1) {
+      flex-grow: 1;
+    }
+    &:nth-child(2) {
+      flex-grow: 12;
+    }
+    &:nth-child(3) {
+      flex-grow: 1;
     }
   }
 }

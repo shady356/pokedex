@@ -5,13 +5,13 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/pokeview',
     name: 'Home',
     component: () =>
-      import(/* webpackChunkName: "pokedex" */ '../views/Home.vue'),
+      import('../views/Home.vue'),
   },
   {
-    path: '/pokedex',
+    path: '/pokeview/pokedex',
     name: 'Pokedex',
     children: [
       {
@@ -26,15 +26,13 @@ const routes = [
       },
     ],
     component: () =>
-      import(
-        /* webpackChunkName: "pokedex" */ '../components/pokedex/Pokedex.vue'
-      ),
+      import('../components/pokedex/Pokedex.vue'),
   },
   {
-    path: '/about',
+    path: 'pokeview/about',
     name: 'About',
     component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue'),
+      import('../views/About.vue'),
   },
 ]
 
