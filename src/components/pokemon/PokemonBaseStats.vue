@@ -1,18 +1,14 @@
 <template>
   <div class="base-stat-container">
-    <div
-       
-      class="stat-wrapper"
-    >
+    <div class="stat-wrapper">
       <PokemonBaseStatChart
         v-if="isChartGenerated"
         :chart-data="baseStatChartData" 
         :options="baseStatChartOptions"
         :styles="chartStyles"
+        class="stat-chart-container"
         ref="baseStatsChart"
       />
-    </div>
-    <div class="key-data">
       <div class="total-base-stats">
         <div class="uppercase letter-spacing micro-label">
           total
@@ -21,6 +17,8 @@
           {{ totalBaseStatAnimated }}
         </h3>
       </div>
+    </div>
+    <div class="key-data">
       <div class="did-you-know">
         <div class="uppercase letter-spacing micro-label">
           Did you know
@@ -50,7 +48,6 @@ export default {
   },
   data() {
     return {
-      BASE_STAT_TOTAL: 16,
       tweenedNumber: 0,
       isChartGenerated: false,
 
@@ -58,7 +55,9 @@ export default {
         labels: [],
         datasets: [
           {
-            backgroundColor: '#00aadd44',
+            backgroundColor: '#00aaddcc',
+            pointRadius: 0,
+            //borderWidth: 0,
             data: []
           }
         ]
@@ -79,12 +78,12 @@ export default {
           },
           pointLabels: {
             fontSize: 14,
-            fontColor: '#999',
-            fontStyle: 'bold',
+            fontColor: '#555',
             fontAlign: 'center',
             fontFamily: 'Roboto condensed',
             lineHeight: '1.2',
-            wordWrap: 'break-word'
+            wordWrap: 'break-word',
+            pointBackgroundColor: '#ffffff'
           }
         },
         
@@ -94,7 +93,7 @@ export default {
   computed: {
     chartStyles () {
       return {
-        width: '100%',
+        width: '50%',
         position: 'relative'
       }
     },
@@ -143,10 +142,6 @@ export default {
     isBestStat(stat) {
       return this.bestStat.name === stat.stat.name;
     },
-    getStatFillStatus(index, value) {
-      const fragment = Math.round(value / this.BASE_STAT_TOTAL);
-      return index <= fragment;
-    },
     setChartData () {
       const labels = []
       const datasets = []
@@ -162,28 +157,33 @@ export default {
           case 'hp': 
             positionIndex = 0; 
             break;
-          case 'defense':
+          case 'attack': 
             positionIndex = 1; 
             break;
-          case 'special-defense':
+          case 'defense':
             positionIndex = 2;
-            name = 'spc.def'
             break;
           case 'speed': 
             positionIndex = 3; 
             break;
-          case 'special-attack': 
-            positionIndex = 4; 
-            name = 'spc.atk'
+          case 'special-defense':
+            positionIndex = 4;
+            name = 'sp. def'
             break;
-          case 'attack': 
+          case 'special-attack': 
             positionIndex = 5; 
+            name = 'sp. atk'
             break;
         }
 
         name = name.toUpperCase()
+        
+        if(positionIndex >= 2 && positionIndex <= 4 ) {
+          labels[positionIndex] = [stat.base_stat, name]
+        } else {
+          labels[positionIndex] = [name, stat.base_stat]
+        }
 
-        labels[positionIndex] = [name, stat.base_stat]
         datasets[positionIndex] = stat.base_stat
       });
 
@@ -197,81 +197,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$total-base-stat-fragments: 8;
 
 .base-stat-container {
-  padding-bottom: $xxl;
+  padding: $l 0 $xxl;
 
   .stat-wrapper {
     display: flex;
-    flex-direction: column;
     width: 100%;
-    flex-direction: column-reverse;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-around;
 
-    .stat-item {
-      padding: 0 $xs $m;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      width: 100%;
+    .stat-chart-container {
+      
+    }
 
-      .stat-label {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        flex-basis: 35%;
-        font-size: $font-s;
-        text-align: right;
-        justify-content: flex-end;
-
-        &.highlight {
-          font-weight: 700;
-        }
-
-        .stat-value {
-          padding: 0 10px;
-        }
-      }
-
-      .stat-bar {
-        display: flex;
-        justify-content: flex-end;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        flex-basis: 65%;
-
-        .stat-bar-fragment {
-          width: 100%;
-          height: $xs;
-          border-radius: 2px;
-          background: #ddd;
-          margin-right: $xxs;
-          transition: background-color 0.4s ease-out;
-
-          &.is-filled {
-            background: $blue;
-            transition: background-color 0.4s ease-in;
-            animation: scale-x-in 0.4s ease;
-          }
-        }
-      }
+    .total-base-stats {
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      padding: $m;
+      text-align: center;
     }
   }
+
   .key-data {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-top: $l;
 
-    .total-base-stats {
-      text-align: right;
-      padding-right: $l;
-      border-right: 1px solid #ddd;
-      flex-basis: 35%;
-    }
     .did-you-know {
-      flex-basis: 65%;
       padding: 0 $l;
 
       .content {
