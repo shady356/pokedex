@@ -13,9 +13,9 @@
         <div class="uppercase letter-spacing micro-label">
           total
         </div>
-        <h3>
+        <h4>
           {{ totalBaseStatAnimated }}
-        </h3>
+        </h4>
       </div>
     </div>
     <div class="key-data">
@@ -93,7 +93,7 @@ export default {
   computed: {
     chartStyles () {
       return {
-        width: '50%',
+        width: '65%',
         position: 'relative'
       }
     },
@@ -207,15 +207,15 @@ export default {
     align-items: flex-start;
     justify-content: space-around;
 
-    .stat-chart-container {
-      
-    }
-
     .total-base-stats {
       border: 1px solid #ddd;
       border-radius: 50%;
-      padding: $m;
+      padding: $s;
       text-align: center;
+
+      .micro-label {
+        font-size: $font-xs;
+      }
     }
   }
 
