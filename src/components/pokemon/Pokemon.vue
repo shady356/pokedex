@@ -41,7 +41,6 @@
           <div
             class="pokemon-sprite-container"
             :key="pokemon.id"
-            @click="toggleZoom()"
           >
             <img
               :src="getSprite(pokemon.id)"
@@ -51,6 +50,13 @@
             >
           </div>
         </transition>
+
+        <div
+          class="zoom-pokemon-container"
+          @click="toggleZoom()"
+        >
+          <fa-icon :icon="isPokemonZoom ? 'search-minus' : 'search-plus'" />
+        </div>
       </section>
 
       <!-- Meta container -->
@@ -304,10 +310,6 @@ export default {
       };
       this.pokemonSpecies = speciesData;
     },
-    /* cssStatWidth (width) {
-      let value = this.getPercentage(width, 255)
-      return { '--width': value + '%'}
-    }, */
     getSprite(id) {
       return "https://pokeres.bastionbot.org/images/pokemon/" + id + ".png";
     },
@@ -454,6 +456,16 @@ export default {
           height: 192px;
         }
       }
+    }
+    .zoom-pokemon-container {
+      position: absolute;
+      top: 42%;
+      right: $s;
+      color: #ffffffdd;
+      font-size: $font-xs;
+      border: 1px solid #ffffffaa;
+      padding: $xxs $s;
+      border-radius: $s;
     }
   }
 
