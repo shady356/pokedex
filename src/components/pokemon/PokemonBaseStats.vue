@@ -13,9 +13,9 @@
         <div class="uppercase letter-spacing micro-label">
           total
         </div>
-        <h4>
+        <h6>
           {{ totalBaseStatAnimated }}
-        </h4>
+        </h6>
       </div>
     </div>
     <div class="key-data">
@@ -56,8 +56,9 @@ export default {
         datasets: [
           {
             backgroundColor: '#00aaddcc',
+            borderColor: '#00aaddcc',
             pointRadius: 0,
-            //borderWidth: 0,
+            borderWidth: 0,
             data: []
           }
         ]
@@ -68,22 +69,24 @@ export default {
         legend: {
           display: false
         },
+       
         scale: {
+          gridLines: {
+            color: '#6dc',
+            lineWidth: 3
+          },
           ticks: {
             suggestedMin: 0,
             max: 255,
             display: false,
-            stepSize: 255,
-            backdropColor: '#08a'
+            stepSize: 255
           },
           pointLabels: {
-            fontSize: 14,
+            fontSize: 12,
             fontColor: '#555',
             fontAlign: 'center',
             fontFamily: 'Roboto condensed',
-            lineHeight: '1.2',
-            wordWrap: 'break-word',
-            pointBackgroundColor: '#ffffff'
+            lineHeight: 1.3
           }
         },
         
@@ -155,33 +158,35 @@ export default {
 
         switch(name) {
           case 'hp': 
-            positionIndex = 0; 
+            positionIndex = 0;
+            name = 'HP'
             break;
           case 'attack': 
-            positionIndex = 1; 
+            positionIndex = 1;
+            name = 'Attack'
             break;
           case 'defense':
             positionIndex = 2;
+            name = 'Defense'
             break;
-          case 'speed': 
-            positionIndex = 3; 
+          case 'speed':
+            positionIndex = 3;
+            name = 'Speed'
             break;
           case 'special-defense':
             positionIndex = 4;
-            name = 'sp. def'
+            name = 'Sp. Def'
             break;
           case 'special-attack': 
             positionIndex = 5; 
-            name = 'sp. atk'
+            name = 'Sp. Atk'
             break;
         }
-
-        name = name.toUpperCase()
         
         if(positionIndex >= 2 && positionIndex <= 4 ) {
-          labels[positionIndex] = [stat.base_stat, name]
-        } else {
           labels[positionIndex] = [name, stat.base_stat]
+        } else {
+          labels[positionIndex] = [stat.base_stat, name]
         }
 
         datasets[positionIndex] = stat.base_stat
@@ -199,7 +204,7 @@ export default {
 <style lang="scss" scoped>
 
 .base-stat-container {
-  padding: $l 0 $xxl;
+  padding: $s 0 $xxl;
 
   .stat-wrapper {
     display: flex;
@@ -208,13 +213,18 @@ export default {
     justify-content: space-around;
 
     .total-base-stats {
-      border: 1px solid #ddd;
+      border: 1px solid #6dc;
       border-radius: 50%;
       padding: $s;
+      width: $l;
+      height: $l;
       text-align: center;
 
       .micro-label {
-        font-size: $font-xs;
+        font-size: $font-xxs;
+      }
+      h6 {
+        color: #0ad;
       }
     }
   }
