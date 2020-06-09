@@ -444,9 +444,8 @@ export default {
         }
         .type-container {
           display: flex;
-          flex-direction: row-reverse;
 
-          .tag-item:last-child {
+          .tag-item:first-child {
             margin-right: $xs;
           }
         }
