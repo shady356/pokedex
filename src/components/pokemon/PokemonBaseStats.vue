@@ -13,7 +13,7 @@
         <div class="uppercase letter-spacing micro-label">
           total
         </div>
-        <h6>
+        <h6 class="total-base-stat-number">
           {{ totalBaseStatAnimated }}
         </h6>
       </div>
@@ -50,6 +50,7 @@ export default {
     return {
       tweenedNumber: 0,
       isChartGenerated: false,
+      bestStatIndex: null,
 
       baseStatChartData: {
         labels: [],
@@ -71,9 +72,12 @@ export default {
         },
        
         scale: {
+          angleLines: {
+            color: '#66ddcc66'
+          },
           gridLines: {
             color: '#6dc',
-            lineWidth: 3
+            lineWidth: 2
           },
           ticks: {
             suggestedMin: 0,
@@ -83,10 +87,10 @@ export default {
           },
           pointLabels: {
             fontSize: 12,
-            fontColor: '#555',
             fontAlign: 'center',
             fontFamily: 'Roboto condensed',
-            lineHeight: 1.3
+            lineHeight: 1.3,
+            fontColor: ['#777', '#777', '#777', '#777', '#777', '#777']
           }
         },
         
@@ -223,8 +227,8 @@ export default {
       .micro-label {
         font-size: $font-xxs;
       }
-      h6 {
-        color: #0ad;
+      .total-base-stat-number {
+        color: #555;
       }
     }
   }
