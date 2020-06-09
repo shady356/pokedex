@@ -20,7 +20,8 @@
 }
 .slide-v-enter,
 .slide-v-leave-to {
-  transform: translateY($xl);
+  transform: translateY(50%);
+  opacity: 0;
 }
 
 /* 

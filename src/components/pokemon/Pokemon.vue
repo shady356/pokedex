@@ -7,7 +7,7 @@
       class="pokemon-container"
       :style="getModalBackground"
     >
-      <section class="pokemon-cover section-1">
+      <section :class="['pokemon-cover section-1', {'isZoom': isPokemonZoom}]">
         <div class="white-bar">
           <div class="name-type-container">
             <!-- Name -->
@@ -81,7 +81,10 @@
         name="slide-v"
         mode="out-in"
       >
-        <section class="meta-container section-2">
+        <section 
+          v-if="!isPokemonZoom"
+          class="meta-container section-2"
+        >
           <BaseTab
             class="tab-header"
             :items="metaItems"
@@ -316,7 +319,6 @@ export default {
       const description = data.flavor_text_entries.find(item => {
         return item.language.name === 'en' 
       })
-
       const speciesData = {
         eggGroups: data.egg_groups,
         description: description,
@@ -404,7 +406,7 @@ export default {
   display: grid;
   height: 96vh;
   grid-template-columns: 100%;
-  grid-template-rows: 50% 50%;
+  grid-template-rows: 45% 55%;
   overflow: hidden;
   transition: background-color 1000ms linear;
 
@@ -462,7 +464,6 @@ export default {
         right: 5%;
       }
     }
-
     .pagination-buttons {
       position: absolute;
       top: 25%;
@@ -488,7 +489,6 @@ export default {
         right: 0%;
       }
     }
-
     .pokemon-sprite-container {
       display: flex;
       justify-content: center;
@@ -513,8 +513,8 @@ export default {
     }
     .zoom-pokemon-container {
       position: absolute;
-      top: 42%;
-      right: $s;
+      top: 39%;
+      right: $xs;
       color: #ffffffdd;
       font-size: $font-xs;
       border: 1px solid #ffffffaa;
@@ -537,15 +537,5 @@ export default {
       padding: $m $m;
     }
   }
-}
-// Pagination | fixed
-.pagination-container {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  margin: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 </style>
