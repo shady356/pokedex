@@ -33,6 +33,23 @@
           </div>
         </div>
 
+        <div class="pagination-buttons">
+          <div
+            v-if="!isFirstPokemon"
+            class="left-button"
+            @click="paginatePreviousPokemon()"
+          >
+            <fa-icon icon="chevron-left" />
+          </div>
+          <div
+            v-if="!isLastPokemon"
+            class="right-button"
+            @click="paginateNextPokemon()"
+          >
+            <fa-icon icon="chevron-right" />
+          </div>
+        </div>
+
         <!-- Sprite -->
         <transition
           :name="slideDirection"
@@ -336,7 +353,15 @@ export default {
       this.isTypeModalOpen = false;
     },
     swipePokemon(direction) {
-      if (direction === "swiperight" && !this.isFirstPokemon) {
+      if (direction === "swiperight") {
+        this.paginatePreviousPokemon()
+      }
+      if (direction === "swipeleft") {
+        this.paginateNextPokemon()
+      }
+    },
+    paginatePreviousPokemon () {
+      if(!this.isFirstPokemon) {
         this.slideDirection = "slide-h-l";
         this.$router.push({
           name: "Pokemon",
@@ -346,7 +371,9 @@ export default {
           }
         });
       }
-      if (direction === "swipeleft" && !this.isLastPokemon) {
+    },
+    paginateNextPokemon () {
+      if(!this.isLastPokemon) {
         this.slideDirection = "slide-h-r";
         this.$router.push({
           name: "Pokemon",
@@ -435,6 +462,33 @@ export default {
         right: 5%;
       }
     }
+
+    .pagination-buttons {
+      position: absolute;
+      top: 25%;
+      width: 100%;
+
+      .left-button, 
+      .right-button {
+        position: absolute;
+        color: #ffffffaa;
+        cursor: pointer;
+        font-size: $font-xs;
+        border: 1px solid #ffffff88;
+        border-radius: $s;
+        padding: $s 6px;
+        text-align: center;
+        margin: 0 $xs;
+      }
+
+      .left-button {
+        left: 0%;
+      }
+      .right-button {
+        right: 0%;
+      }
+    }
+
     .pokemon-sprite-container {
       display: flex;
       justify-content: center;
