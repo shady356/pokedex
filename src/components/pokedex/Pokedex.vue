@@ -42,11 +42,9 @@
       v-else
       class="loading"
     >
-      <img
-        class="loading-icon"
-        src="@/assets/icons/pokeball_white.png"
-        alt="loading icon"
-      >
+      <BaseProgressSpinner
+        size="large"
+      />
     </div>
     <div
       class="trigger"
@@ -80,6 +78,7 @@
 import { $filterData } from "@/helpers/pokedexFilters.js";
 import { mapActions } from "vuex";
 import BaseModal from "@/components/base/BaseModal.vue";
+import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
 import FilterPokemon from "@/components/pokedex/FilterPokemon.vue";
 import Header from "@/components/layout/Header.vue";
 import PokedexItem from "@/components/pokedex/PokedexItem";
@@ -91,6 +90,7 @@ export default {
   components: {
     Header,
     BaseModal,
+    BaseProgressSpinner,
     FilterPokemon,
     PokedexItem
   },
@@ -298,11 +298,5 @@ $pokemon-gap-mobile: 2%;
   height: 100vh;
   align-items: center;
   justify-content: center;
-
-  .loading-icon {
-    width: 64px;
-    height: 64px;
-    animation: rotate360 1.5s infinite;
-  }
 }
 </style>

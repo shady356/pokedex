@@ -148,13 +148,15 @@
       class="pokemon-container"
       style="background: #08a"
     >
-      <section class="pokemon-info-container section-1">
+      <section class="pokemon-cover section-1">
         <div class="name-type-container">
           <div class="skeleton-block-line" />
         </div>
         <!-- Sprite -->
         <div class="pokemon-sprite-container">
-          <div class="loading-pokemon-sprite" />
+          <transition name="fade">
+            <BaseProgressSpinner />
+          </transition>
         </div>
       </section>
       <section class="meta-container section-2" />
@@ -176,6 +178,7 @@ import { gsap } from "gsap";
 import BaseModal from "@/components/base/BaseModal";
 import BaseTab from "@/components/base/BaseTab";
 import BaseTypeTag from "@/components/base/BaseTypeTag";
+import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
 import PokeApi from '@/service/pokeApi.js'
 import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
@@ -187,6 +190,7 @@ export default {
   components: {
     BaseModal,
     BaseTab,
+    BaseProgressSpinner,
     BaseTypeTag,
     PokemonAbout,
     PokemonBaseStats,
