@@ -69,7 +69,7 @@
         </transition>
 
         <div
-          class="zoom-pokemon-container"
+          class="zoom-pokemon-button"
           @click="toggleZoom()"
         >
           <fa-icon :icon="isPokemonZoom ? 'search-minus' : 'search-plus'" />
@@ -152,11 +152,9 @@
         <div class="name-type-container">
           <div class="skeleton-block-line" />
         </div>
-        <!-- Sprite -->
-        <div class="pokemon-sprite-container">
-          <transition name="fade">
-            <BaseProgressSpinner />
-          </transition>
+       
+        <div class="loading">
+          <BaseProgressSpinner />
         </div>
       </section>
       <section class="meta-container section-2" />
@@ -427,7 +425,10 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    
+    .loading {
+      margin-top: 20vh;
+    }
     .white-bar {
       position: relative;
       border-radius: $m $m 0 0;
@@ -514,7 +515,7 @@ export default {
         }
       }
     }
-    .zoom-pokemon-container {
+    .zoom-pokemon-button {
       position: absolute;
       top: 39%;
       right: $xs;
