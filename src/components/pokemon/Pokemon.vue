@@ -170,9 +170,9 @@
 <script>
 import { $getTypeColor } from "@/helpers/types.js";
 import BaseModal from "@/components/base/BaseModal";
+import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
 import BaseTab from "@/components/base/BaseTab";
 import BaseTypeTag from "@/components/base/BaseTypeTag";
-import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
 import PokeApi from '@/service/pokeApi.js'
 import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
@@ -183,8 +183,8 @@ export default {
   name: "Pokemon",
   components: {
     BaseModal,
-    BaseTab,
     BaseProgressSpinner,
+    BaseTab,
     BaseTypeTag,
     PokemonAbout,
     PokemonBaseStats,
@@ -200,6 +200,14 @@ export default {
       type: Number,
       required: false,
       default: 0
+    },
+    isFirstPokemon: {
+      type: Boolean,
+      required: true
+    },
+    isLastPokemon: {
+      type: Boolean,
+      required: true
     }
   },
   data() {
@@ -247,21 +255,12 @@ export default {
       });
       return types
     },
-    isFirstPokemon() {
-      return this.pokemonIndex === 0;
-    },
-    isLastPokemon() {
-      return this.pokemonIndex === this.pokedexIds.length - 1;
-    },
     getModalBackground() {
       return {
         background: "url(" + this.texture + ")",
         backgroundColor: $getTypeColor(this.firstType),
         backgroundBlendMode: "screen"
       };
-    },
-    pokedexIds() {
-      return this.$store.state.pokedexIds;
     }
   },
   

@@ -13,6 +13,8 @@
         <Pokemon
           :pokemon-id="pokemonId"
           :pokemon-index="pokemonIndex"
+          :is-first-pokemon="isFirstPokemon"
+          :is-last-pokemon="isLastPokemon"
           @paginate-pokemon="paginatePokemon"          
         />
       </BaseModal>
