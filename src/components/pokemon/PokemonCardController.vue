@@ -1,13 +1,14 @@
 <template>
   <div>
+    <div class="dark-background" />
     <transition
       :name="slideDirection"
       mode="out-in"
     >
       <!-- Pokemon -->
       <BaseModal
-        is-pokemon-card
         :key="pokemonId"
+        is-pokemon-card
         @closeModal="closePokemonCardController()"
       >
         <Pokemon
@@ -105,3 +106,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .dark-background {
+    background: hsla(0, 0%, 0%, 0.75);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+  }
+</style>

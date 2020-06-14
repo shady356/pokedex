@@ -5,7 +5,7 @@
   >
     <div class="modal-container">
       <transition
-        name="slide-v"
+        :name="isPokemonCard ? '' : 'slide-v'"
         appear
       >
         <div :class="['modal-window', { 'is-pokemon-card': isPokemonCard }]">

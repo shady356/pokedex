@@ -30,14 +30,14 @@
 */
 .slide-h-l-enter-active,
 .slide-h-l-leave-active {
-  transition: all $fast;
+  transition: all $fast ease-in-out;
 }
 .slide-h-l-enter {
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(0.9) rotate(-10deg);
   opacity: 0;
 }
 .slide-h-l-leave-to {
-  transform: translateX(50%);
+  transform: translateX(50%) scale(0.9) rotate(10deg);
   opacity: 0;
 }
 
@@ -47,14 +47,14 @@
 */
 .slide-h-r-enter-active,
 .slide-h-r-leave-active {
-  transition: all $fast;
+  transition: all $fast ease-in-out;
 }
 .slide-h-r-enter {
-  transform: translateX(50%);
+  transform: translateX(50%) scale(0.5) rotate(10deg);
   opacity: 0;
 }
 .slide-h-r-leave-to {
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(0.5) rotate(-10deg);
   opacity: 0;
 }
 
