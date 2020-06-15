@@ -63,9 +63,11 @@
               <img
                 v-if="!offloadSprite"
                 :src="getSprite(pokemon.id)"
+                :style="pokemonSpriteHeight"
                 :class="['pokemon-sprite', {'zoom': isPokemonZoom}]"
                 alt="pokemon sprite"
               >
+              <!-- Loading pokemon sprite -->
               <transition
                 v-else 
                 name="fade"
@@ -259,6 +261,15 @@ export default {
     isPokemonLoaded() {
       return this.pokemon && this.pokemonSpecies;
     },
+    pokemonSpriteHeight() {
+      const height = this.pokemon.height / 10
+      
+      return {
+        'min-height': '50%',
+        'height': 0.7 * (height * 100) + '%',
+        'max-height': '90%'
+      }
+    },
     firstType() {
       const type = this.pokemon.types.find(type => type.slot === 1);
       return type.type.name;
@@ -383,9 +394,9 @@ export default {
 
 .pokemon-container {
   display: grid;
-  height: 96vh;
+  height: 98vh;
   grid-template-columns: 100%;
-  grid-template-rows: 45% 55%;
+  grid-template-rows: 42% 58%;
   overflow: hidden;
   transition: background-color 1000ms linear;
 
@@ -407,7 +418,7 @@ export default {
       margin-top: 20vh;
     }
     .white-bar {
-      position: relative;
+      //position: relative;
       border-radius: $m $m 0 0;
       background: #fff;
       width: 100%;
@@ -473,18 +484,22 @@ export default {
     .pokemon-sprite-container {
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100%;
+      align-items: flex-end;
+      height: calc(100% - #{$xxl});
+      padding: $l 0;
+      box-sizing: border-box;
 
       .pokemon-sprite {
         position: relative;
-        height: 164px;
-        transition: height .2s ease-in;
+        top: 0;
+        transition: height .4s ease-out, top .4s ease-out;
         z-index: 10;
 
         &.zoom {
-          height: 216px;
-          transition: height .4s ease-in;
+          top: 100%;
+          height: 125% !important;
+          max-height: 125% !important;
+          transition: height .4s ease-in, top .4s ease-in;
         }
 
         @media (min-width: 1024px) {

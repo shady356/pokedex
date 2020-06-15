@@ -88,10 +88,10 @@ export default {
     }
 
     &.is-pokemon-card {
-      width: 94vw;
-      bottom: 2vh;
-      left: 3vw;
-      height: 96vh;
+      width: 98vw;
+      bottom: 1vh;
+      left: 1vw;
+      height: 98vh;
       border-radius: $m;
 
       .modal-close-container {
