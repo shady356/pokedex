@@ -63,9 +63,7 @@
       />
     </BaseModal>
 
-    <div
-      v-if="isPokemonModal"
-    >
+    <div v-if="isPokemonModal">
       <router-view />
     </div>
   </div>
