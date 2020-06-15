@@ -21,7 +21,7 @@ export default {
 
 <style lang="scss" scoped>
   .progress-spinner {
-    animation: rotate360 1.5s infinite;
+    animation: progressSpinner 2s infinite;
 
     &.medium {
       width: 36px;

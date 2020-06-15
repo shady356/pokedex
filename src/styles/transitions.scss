@@ -18,9 +18,9 @@
 .slide-v-leave-active {
   transition: all $normal ease-in-out;
 }
-.slide-v-enter,
+.slide-v-enter, 
 .slide-v-leave-to {
-  transform: translateY(50%);
+  transform: translateY(50%) translateZ(0);
   opacity: 0;
 }
 
@@ -33,11 +33,11 @@
   transition: all $fast ease-in-out;
 }
 .slide-h-l-enter {
-  transform: translateX(-50%) scale(0.9) rotate(-10deg);
+  transform: translateX(-50%) translateZ(0);
   opacity: 0;
 }
 .slide-h-l-leave-to {
-  transform: translateX(50%) scale(0.9) rotate(10deg);
+  transform: translateX(50%) translateZ(0);
   opacity: 0;
 }
 
@@ -50,11 +50,11 @@
   transition: all $fast ease-in-out;
 }
 .slide-h-r-enter {
-  transform: translateX(50%) scale(0.5) rotate(10deg);
+  transform: translateX(50%) translateZ(0);
   opacity: 0;
 }
 .slide-h-r-leave-to {
-  transform: translateX(-50%) scale(0.5) rotate(-10deg);
+  transform: translateX(-50%) translateZ(0);
   opacity: 0;
 }
 
@@ -64,9 +64,10 @@
 */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity $fast;
+  transition: opacity $fast ease-in-out;
 }
 .fade-enter,
 .fade-leave-to {
+  transform: translateZ(0);
   opacity: 0;
 }

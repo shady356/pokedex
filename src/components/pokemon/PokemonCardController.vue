@@ -1,36 +1,29 @@
 <template>
   <div>
-    <div class="dark-background" />
-    <transition
-      :name="slideDirection"
-      mode="out-in"
+    <!-- Pokemon -->
+    <BaseModal
+      is-pokemon-card
+      @closeModal="closePokemonCardController()"
     >
-      <!-- Pokemon -->
-      <BaseModal
-        :key="pokemonId"
-        is-pokemon-card
-        @closeModal="closePokemonCardController()"
-      >
-        <Pokemon
-          :pokemon-id="pokemonId"
-          :pokemon-index="pokemonIndex"
-          :is-first-pokemon="isFirstPokemon"
-          :is-last-pokemon="isLastPokemon"
-          @paginate-pokemon="paginatePokemon"          
-        />
-      </BaseModal>
-    </transition>
+      <PokemonCard
+        :pokemon-id="pokemonId"
+        :pokemon-index="pokemonIndex"
+        :is-first-pokemon="isFirstPokemon"
+        :is-last-pokemon="isLastPokemon"
+        @paginate-pokemon="paginatePokemon"          
+      />
+    </BaseModal>
   </div>
 </template>
 
 <script>
 import BaseModal from "@/components/base/BaseModal.vue";
-import Pokemon from "@/components/pokemon/Pokemon.vue";
+import PokemonCard from "@/components/pokemon/PokemonCard.vue";
 export default {
   name: 'PokemonCardController',
   components: {
     BaseModal,
-    Pokemon
+    PokemonCard
   },
   props: {
     pokemonId: {
@@ -41,11 +34,6 @@ export default {
       type: Number,
       required: false,
       default: 0
-    }
-  },
-  data() {
-    return {
-      slideDirection: ""
     }
   },
   computed: {
@@ -74,7 +62,6 @@ export default {
     },
     paginatePreviousPokemon () {
       if(!this.isFirstPokemon) {
-        this.slideDirection = "slide-h-l";
         this.$router.push({
           name: "PokemonCardController",
           params: {
@@ -86,7 +73,6 @@ export default {
     },
     paginateNextPokemon () {
       if(!this.isLastPokemon) {
-        this.slideDirection = "slide-h-r";
         this.$router.push({
           name: "PokemonCardController",
           params: {
@@ -106,15 +92,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  .dark-background {
-    background: hsla(0, 0%, 0%, 0.75);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 10;
-  }
-</style>

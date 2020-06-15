@@ -52,17 +52,31 @@
           </div>
 
           <!-- Sprite -->
-          <div
-            class="pokemon-sprite-container"
-            :key="pokemon.id"
+          <transition
+            :name="slideDirection"
+            mode="out-in"
           >
-            <img
-              :src="getSprite(pokemon.id)"
-              class="pokemon-sprite"
-              :class="{'zoom': isPokemonZoom}"
-              alt="pokemon sprite"
+            <div
+              class="pokemon-sprite-container"
+              :key="pokemonId"
             >
-          </div>
+              <img
+                v-if="!offloadSprite"
+                :src="getSprite(pokemon.id)"
+                :class="['pokemon-sprite', {'zoom': isPokemonZoom}]"
+                alt="pokemon sprite"
+              >
+              <transition
+                v-else 
+                name="fade"
+                mode="in-out"
+              >
+                <div class="loading">
+                  <BaseProgressSpinner />
+                </div>
+              </transition>
+            </div>
+          </transition>
 
           <!-- Zoom on sprite button -->
           <div
@@ -148,7 +162,6 @@
           <div class="name-type-container">
             <div class="skeleton-block-line" />
           </div>
-          
           <div class="loading">
             <BaseProgressSpinner />
           </div>
@@ -180,7 +193,7 @@ import PokemonMoves from "@/components/pokemon/PokemonMoves.vue";
 import Type from "@/components/types/Type";
 
 export default {
-  name: "Pokemon",
+  name: "PokemonCard",
   components: {
     BaseModal,
     BaseProgressSpinner,
@@ -215,6 +228,8 @@ export default {
       isPokemonZoom: false,
       pokemon: null,
       pokemonSpecies: null,
+      offloadSprite: false,
+      slideDirection: "",
 
       // Texture
       texture: require("@/assets/textures/grid-texture.png"),
@@ -263,7 +278,13 @@ export default {
       };
     }
   },
-  
+  watch: {
+    pokemonId () {
+      this.offloadSprite = true
+      this.getPokemon(this.pokemonId);
+      this.getPokemonSpecies(this.pokemonId);  
+    }
+  },
   mounted() {
     this.getPokemon(this.pokemonId);
     this.getPokemonSpecies(this.pokemonId);
@@ -298,6 +319,7 @@ export default {
         height: data.height
       };
       this.pokemon = pokemonData;
+      this.offloadSprite = false
     },
     refineSpeciesData(data) {
       const description = data.flavor_text_entries.find(item => {
@@ -347,6 +369,7 @@ export default {
       }
     },
     paginatePokemon (direction) {
+      this.slideDirection = (direction === 'next') ? 'slide-h-r' : 'slide-h-l'
       this.$emit('paginate-pokemon', direction)
     },
     toggleZoom () {
