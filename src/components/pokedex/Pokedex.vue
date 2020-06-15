@@ -23,7 +23,7 @@
           :key="index"
           tag="li"
           :to="{
-            name: 'Pokemon',
+            name: 'PokemonCardController',
             params: {
               pokemonId: pokemonList[index].id,
               pokemonIndex: index
@@ -63,14 +63,9 @@
       />
     </BaseModal>
 
-    <!-- Pokemon -->
-    <BaseModal
-      v-if="isPokemonModal"
-      is-pokemon-card
-      @closeModal="closePokemon()"
-    >
+    <div v-if="isPokemonModal">
       <router-view />
-    </BaseModal>
+    </div>
   </div>
 </template>
 
@@ -83,7 +78,6 @@ import FilterPokemon from "@/components/pokedex/FilterPokemon.vue";
 import Header from "@/components/layout/Header.vue";
 import PokedexItem from "@/components/pokedex/PokedexItem";
 import PokeApi from '@/service/pokeApi.js'
-
 
 export default {
   name: "Pokedex",
@@ -142,6 +136,11 @@ export default {
         if (oldVal) {
           if (oldVal.name === "Pokedex") {
             this.scrollPosition = window.scrollY;
+          } else {
+            let scrollY = this.scrollPosition;
+            setTimeout(() => {
+              window.scroll(0, scrollY);
+            }, 10);
           }
         }
         this.isPokemonModal = newVal ? newVal.meta.showModal : false;
@@ -171,19 +170,6 @@ export default {
         sprite: data.sprites.front_default
       };
       this.pokemonList[arrayIndex] = pokemonData;
-    },
-    closePokemon() {
-      this.isPokemonModal = false;
-
-      // Reset router view:
-      this.$router.push({
-        name: "Pokedex"
-      });
-
-      let scrollY = this.scrollPosition;
-      setTimeout(() => {
-        window.scroll(0, scrollY);
-      }, 10);
     },
     getBatchOfPokemon() {
       for (let i = this.batchStartPosition; i < this.batchEndPosition; i++) {

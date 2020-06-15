@@ -15,10 +15,10 @@ const routes = [
     name: 'Pokedex',
     children: [
       {
-        name: 'Pokemon',
+        name: 'PokemonCardController',
         path: ':pokemonId',
         props: true,
-        component: () => import('../components/pokemon/Pokemon.vue'),
+        component: () => import('../components/pokemon/PokemonCardController.vue'),
 
         meta: {
           showModal: true,
