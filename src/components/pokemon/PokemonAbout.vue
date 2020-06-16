@@ -1,7 +1,7 @@
 <template>
   <div class="about-container">
     <!-- Description -->
-    <section>
+    <section class="description-container">
       <h6 class="title">
         Description
       </h6>
@@ -10,7 +10,7 @@
         {{ pokemonSpecies.description.flavor_text }}
       </p>
       <div class="quote capitalize">
-        – {{ pokemonSpecies.description.version.name }}
+        – Pokémon {{ pokemonSpecies.description.version.name }}
       </div>
     </section>
 
@@ -98,23 +98,21 @@
     </section>
 
     <!-- Weight and height -->
-    <section>
-      <div class="physique-container">
-        <div class="weight">
-          <fa-icon
-            class="icon"
-            icon="weight-hanging"
-          />
-          {{ pokemon.weight | toKilogram }}
-        </div>
+    <section class="physique-container">
+      <div class="weight">
+        <fa-icon
+          class="icon"
+          icon="weight-hanging"
+        />
+        {{ pokemon.weight | toKilogram }}
+      </div>
 
-        <div class="height">
-          <fa-icon
-            class="icon"
-            icon="ruler-vertical"
-          />
-          {{ pokemon.height | toMeter }}
-        </div>
+      <div class="height">
+        <fa-icon
+          class="icon"
+          icon="ruler-vertical"
+        />
+        {{ pokemon.height | toMeter }}
       </div>
     </section>
   </div>
@@ -178,7 +176,7 @@ export default {
   padding-bottom: $xxl;
 
   section {
-    margin-bottom: $l;
+    padding: $m;
 
     .title {
       margin-bottom: $xxs;
@@ -211,21 +209,13 @@ export default {
       
     }
 
-    .abilities-container {
-      display: flex;
-
-      .ability {
-        margin-right: 10px;
-
-        .icon {
-          margin-left: 4px;
-          height: 8px;
-          color: #777;
-        }
-      }
+    &.description-container {
+      //border: 1px dashed #ddd;
+      background: #fff;
+      filter: drop-shadow(0 2px 2px #00000022);
+      border-radius: $s;
     }
-
-    .physique-container {
+    &.physique-container {
       display: flex;
       justify-content: space-evenly;
 
@@ -251,6 +241,22 @@ export default {
         }
       }
     }
+    .abilities-container {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x:auto;
+
+      .ability {
+        margin-right: 12px;
+
+        .icon {
+          margin-left: 4px;
+          height: 8px;
+          color: #777;
+        }
+      }
+    }
+
   }
 }
 </style>

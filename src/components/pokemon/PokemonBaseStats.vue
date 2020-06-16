@@ -10,15 +10,17 @@
         ref="baseStatsChart"
       />
       <div class="total-base-stats">
-        <div class="uppercase letter-spacing micro-label">
-          total
+        <div class="hexagon-shape">
+          <div class="uppercase letter-spacing micro-label">
+            total
+          </div>
+          <h6 class="total-base-stat-number">
+            {{ totalBaseStatAnimated }}
+          </h6>
         </div>
-        <h6 class="total-base-stat-number">
-          {{ totalBaseStatAnimated }}
-        </h6>
       </div>
     </div>
-    <div class="key-data">
+    <!-- <div class="key-data">
       <div class="did-you-know">
         <div class="uppercase letter-spacing micro-label">
           Did you know
@@ -28,7 +30,7 @@
           has the 3rd highest Attack -stat among grass types
         </p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -100,7 +102,7 @@ export default {
   computed: {
     chartStyles () {
       return {
-        width: '65%',
+        width: '50%',
         position: 'relative'
       }
     },
@@ -208,27 +210,38 @@ export default {
 <style lang="scss" scoped>
 
 .base-stat-container {
-  padding: $s 0 $xxl;
+  padding: $s 0 $xl;
 
   .stat-wrapper {
     display: flex;
     width: 100%;
     align-items: flex-start;
-    justify-content: space-around;
+    justify-content: space-evenly;
 
     .total-base-stats {
-      border: 1px solid #6dc;
-      border-radius: 50%;
-      padding: $s;
-      width: $l;
-      height: $l;
+      //padding: $s;
+      width: $xxl;
+      height: $xxl;
       text-align: center;
-
-      .micro-label {
-        font-size: $font-xxs;
-      }
-      .total-base-stat-number {
-        color: #555;
+      filter: drop-shadow(0px 1px #6dc) 
+              drop-shadow(1px 0px #6dc)
+              drop-shadow(0px -1px #6dc)
+              drop-shadow(-1px 0px #6dc);
+      
+      .hexagon-shape {
+        width: $xxl;
+        height: $xxl;
+        clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+        background: #fff;
+        
+        .micro-label {
+          padding-top: 12px;
+          font-size: $font-xxs;
+        }
+        .total-base-stat-number {
+          color: #555;
+          line-height: $font-m;
+        }
       }
     }
   }

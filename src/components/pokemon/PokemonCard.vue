@@ -115,24 +115,16 @@
                   key="tab-about"
                   class="about-container"
                 >
+                  <PokemonBaseStats :pokemon="pokemon" />
                   <PokemonAbout
                     :pokemon="pokemon"
                     :pokemon-species="pokemonSpecies"
                   />
                 </div>
 
-                <!-- Stats -->
-                <div
-                  v-if="metaItems[1].active"
-                  key="tab-stats"
-                  class="stats-container"
-                >
-                  <PokemonBaseStats :pokemon="pokemon" />
-                </div>
-
                 <!-- Moves -->
                 <div
-                  v-if="metaItems[2].active"
+                  v-if="metaItems[1].active"
                   key="tab-moves"
                   class="moves-container"
                 >
@@ -245,10 +237,6 @@ export default {
         {
           name: "about",
           active: true
-        },
-        {
-          name: "base stats",
-          active: false
         },
         {
           name: 'moves',
@@ -418,7 +406,7 @@ export default {
       margin-top: 20vh;
     }
     .white-bar {
-      //position: relative;
+      position: relative;
       border-radius: $m $m 0 0;
       background: #fff;
       width: 100%;
@@ -509,7 +497,7 @@ export default {
     }
     .zoom-pokemon-button {
       position: absolute;
-      top: 39%;
+      top: 37%;
       right: $xs;
       color: #ffffffdd;
       font-size: $font-xs;
@@ -521,16 +509,16 @@ export default {
 
   // Section 2
   .meta-container {
-    border-radius: $m $m 0 0;
+    border-radius: $s $s 0 0;
     padding: $m;
-    margin: 0 10px;
+    margin: 0 $xs;
     display: flex;
     flex-direction: column;
 
     .tab-content {
+      padding: $m $xxs;
       overflow-y: auto;
       overflow-x: hidden;
-      padding: $m $m;
     }
   }
 }
