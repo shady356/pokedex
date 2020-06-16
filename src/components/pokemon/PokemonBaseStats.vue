@@ -223,10 +223,10 @@ export default {
       width: $xxl;
       height: $xxl;
       text-align: center;
-      filter: drop-shadow(0px 1px #6dc) 
-              drop-shadow(1px 0px #6dc)
-              drop-shadow(0px -1px #6dc)
-              drop-shadow(-1px 0px #6dc);
+      filter: drop-shadow(0px 1px #66ddcc66) 
+              drop-shadow(1px 0px #66ddcc)
+              drop-shadow(0px -1px #66ddcc66)
+              drop-shadow(-1px 0px #66ddcc);
       
       .hexagon-shape {
         width: $xxl;

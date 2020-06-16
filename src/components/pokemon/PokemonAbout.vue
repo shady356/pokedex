@@ -14,6 +14,28 @@
       </div>
     </section>
 
+    <!-- Abilities -->
+    <section>
+      <h6 class="title">
+        Abilities
+      </h6>
+
+      <div class="abilities-container">
+        <BaseTag
+          v-for="item in pokemon.abilities"
+          :key="item.ability.name"
+          class="ability"
+        >
+          {{ item.ability.name }}
+          <fa-icon
+            v-if="item.is_hidden"
+            icon="star"
+            class="icon"
+          />
+        </BaseTag>
+      </div>
+    </section>
+
     <!-- Training -->
     <section>
       <h6 class="title">
@@ -72,28 +94,6 @@
         <div class="value">
           {{ pokemonSpecies.hatchCounter }}
         </div>
-      </div>
-    </section>
-
-    <!-- Abilities -->
-    <section>
-      <h6 class="title">
-        Abilities
-      </h6>
-
-      <div class="abilities-container">
-        <BaseTag
-          v-for="item in pokemon.abilities"
-          :key="item.ability.name"
-          class="ability"
-        >
-          {{ item.ability.name }}
-          <fa-icon
-            v-if="item.is_hidden"
-            icon="star"
-            class="icon"
-          />
-        </BaseTag>
       </div>
     </section>
 
@@ -172,91 +172,91 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.about-container {
-  padding-bottom: $xxl;
+  .about-container {
+    padding-bottom: $xxl;
 
-  section {
-    padding: $m;
+    section {
+      padding: $m;
 
-    .title {
-      margin-bottom: $xxs;
-      display: flex;
-      align-items: center;
-    }
+      .title {
+        margin-bottom: $xxs;
+        display: flex;
+        align-items: center;
+      }
 
-    .quote {
-      font-size: $font-xs;
-      text-align: right;
-      margin-top: $xxs;
-      color: #777;
-    }
-
-    .data-row {
-      display: flex;
-      padding: 4px 0;
-      font-size: $font-s;
-      width: 100%;
-
-      .label {
-        flex-basis: 35%;
-        padding-right: 10px;
+      .quote {
+        font-size: $font-xs;
+        text-align: right;
+        margin-top: $xxs;
         color: #777;
       }
-      .value {
-        flex-basis: 65%;
-        color: #111;
-      }
-      
-    }
 
-    &.description-container {
-      //border: 1px dashed #ddd;
-      background: #fff;
-      filter: drop-shadow(0 2px 2px #00000022);
-      border-radius: $s;
-    }
-    &.physique-container {
-      display: flex;
-      justify-content: space-evenly;
-
-      .weight {
+      .data-row {
         display: flex;
-        align-items: center;
+        padding: 4px 0;
+        font-size: $font-s;
+        width: 100%;
 
-        .icon {
+        .label {
+          flex-basis: 35%;
+          padding-right: 10px;
           color: #777;
-          height: $s;
-          margin-right: $xxs;
+        }
+        .value {
+          flex-basis: 65%;
+          color: #111;
         }
       }
-      .height {
+
+      &.description-container {
+        //border: 1px dashed #ddd;
+        background: #fff;
+        filter: drop-shadow(0 2px 2px #00000022);
+        border-radius: $s;
+      }
+
+      .abilities-container {
         display: flex;
-        align-items: center;
+        flex-wrap: nowrap;
+        overflow-x:auto;
 
-        .icon {
-          height: $s;
-          color: #777;
-          margin-right: $xxs;
-          transform: scale(-1);
+        .ability {
+          margin-right: 12px;
+
+          .icon {
+            margin-left: 4px;
+            height: 8px;
+            color: #6dc;
+          }
+        }
+      }
+
+      &.physique-container {
+        display: flex;
+        justify-content: space-evenly;
+
+        .weight {
+          display: flex;
+          align-items: center;
+
+          .icon {
+            color: #6dc;
+            height: $s;
+            margin-right: $xxs;
+          }
+        }
+        .height {
+          display: flex;
+          align-items: center;
+
+          .icon {
+            height: $s;
+            color: #6dc;
+            margin-right: $xxs;
+            transform: scale(-1);
+          }
         }
       }
     }
-    .abilities-container {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x:auto;
-
-      .ability {
-        margin-right: 12px;
-
-        .icon {
-          margin-left: 4px;
-          height: 8px;
-          color: #777;
-        }
-      }
-    }
-
   }
-}
 </style>
