@@ -184,22 +184,15 @@ export default {
         align-items: center;
       }
 
-      .quote {
-        font-size: $font-xs;
-        text-align: right;
-        margin-top: $xxs;
-        color: #777;
-      }
-
       .data-row {
         display: flex;
-        padding: 4px 0;
+        padding: $xxs 0;
         font-size: $font-s;
         width: 100%;
 
         .label {
           flex-basis: 35%;
-          padding-right: 10px;
+          padding-right: $s;
           color: #777;
         }
         .value {
@@ -209,23 +202,31 @@ export default {
       }
 
       &.description-container {
-        //border: 1px dashed #ddd;
         background: #fff;
-        filter: drop-shadow(0 2px 2px #00000022);
         border-radius: $s;
+        margin-bottom: $s;
+        filter: drop-shadow(0 2px 2px #00000022);
+
+        .quote {
+          color: #777;
+          font-size: $font-xs;
+          margin-top: $xxs;
+          text-align: right;
+        }
       }
 
       .abilities-container {
         display: flex;
         flex-wrap: nowrap;
-        overflow-x:auto;
+        overflow-x: auto;
+        padding-bottom: $xs;
 
         .ability {
-          margin-right: 12px;
+          margin-right: $xs;
 
           .icon {
-            margin-left: 4px;
-            height: 8px;
+            margin-left: $xxxs;
+            height: $xs;
             color: #6dc;
           }
         }

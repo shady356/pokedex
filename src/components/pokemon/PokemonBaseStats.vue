@@ -1,5 +1,8 @@
 <template>
   <div class="base-stat-container">
+    <h6 class="section-title">
+      Base stats
+    </h6>
     <div class="stat-wrapper">
       <PokemonBaseStatChart
         v-if="isChartGenerated"
@@ -9,14 +12,29 @@
         class="stat-chart-container"
         ref="baseStatsChart"
       />
-      <div class="total-base-stats">
-        <div class="hexagon-shape">
-          <div class="uppercase letter-spacing micro-label">
-            total
+      <div class="base-stat-addon-info">
+        <div class="base-stats-total">
+          <div class="hexagon-shape">
+            <div class="uppercase letter-spacing micro-label">
+              total
+            </div>
+            <h6 class="total-base-stat-number">
+              {{ totalBaseStatAnimated }}
+            </h6>
           </div>
-          <h6 class="total-base-stat-number">
-            {{ totalBaseStatAnimated }}
-          </h6>
+        </div>
+        <div class="base-stat-ranking">
+          <div class="uppercase letter-spacing micro-label">
+            Ranking
+          </div>
+          <div class="stars">
+            <fa-icon
+              v-for="index in 5"
+              :key="index"
+              :class="['icon', {'filled': index <= rankStars}]"
+              icon="star"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -38,7 +56,7 @@
 import { gsap } from "gsap";
 import PokemonBaseStatChart from '@/components/pokemon/PokemonBaseStatChart.vue'
 export default {
-  name: "PokemonAbout",
+  name: "PokemonBaseStats",
   components: {
     PokemonBaseStatChart
   },
@@ -51,6 +69,7 @@ export default {
   data() {
     return {
       tweenedNumber: 0,
+      rankStars: 0,
       isChartGenerated: false,
       bestStatIndex: null,
 
@@ -131,7 +150,7 @@ export default {
     },
     stats() {
       return this.pokemon.stats
-    }
+    },
   },
   watch: {
     totalBaseStat(newVal) {
@@ -140,11 +159,13 @@ export default {
     pokemon() {
       this.isChartGenerated = false
       this.setChartData()
+      this.rankStars = this.getStarRankBasedOnTotalBaseStats()
       this.$refs.baseStatsChart.update()
     }
   },
   mounted() {
     this.tweenedNumber = this.totalBaseStat;
+    this.rankStars = this.getStarRankBasedOnTotalBaseStats()
     this.setChartData()
   },
   methods: {
@@ -202,6 +223,20 @@ export default {
       this.baseStatChartData.datasets[0].data = datasets
       this.isChartGenerated = true
       
+    },
+    getStarRankBasedOnTotalBaseStats() {
+      const total = parseInt(this.totalBaseStat)
+      if(total <= 200) {
+        return 1
+      } else if (total <= 340) {
+        return 2
+      } else if (total <= 475) {
+        return 3
+      } else if (total <= 540) {
+        return 4
+      } else {
+        return 5
+      }
     }
   }
 };
@@ -210,37 +245,77 @@ export default {
 <style lang="scss" scoped>
 
 .base-stat-container {
-  padding: $s 0 $xl;
+  padding: $xs 0 $xl;
+
+  .section-title {
+    margin: 0 0 $s $m;
+  }
 
   .stat-wrapper {
     display: flex;
     width: 100%;
     align-items: flex-start;
-    justify-content: space-evenly;
+    justify-content: space-around;
+    
+    .base-stat-addon-info {
+      display: flex;
+      flex-direction: column;
+      margin-top: $l;
+      align-items: center;
 
-    .total-base-stats {
-      //padding: $s;
-      width: $xxl;
-      height: $xxl;
-      text-align: center;
-      filter: drop-shadow(0px 1px #66ddcc66) 
-              drop-shadow(1px 0px #66ddcc)
-              drop-shadow(0px -1px #66ddcc66)
-              drop-shadow(-1px 0px #66ddcc);
-      
-      .hexagon-shape {
+      .base-stats-total {
+        margin-bottom: $l;
         width: $xxl;
         height: $xxl;
-        clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
-        background: #fff;
+        text-align: center;
+        filter: drop-shadow(0px 1px #66ddcc66) 
+                drop-shadow(1px 0px #66ddcc)
+                drop-shadow(0px -1px #66ddcc66)
+                drop-shadow(-1px 0px #66ddcc);
+        
+        .hexagon-shape {
+          width: $xxl;
+          height: $xxl;
+          clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+          background: #fff;
+          
+          .micro-label {
+            padding-top: 12px;
+            font-size: $font-xxs;
+          }
+          .total-base-stat-number {
+            color: #555;
+            line-height: $font-m;
+          }
+        }
+      }
+      
+      .base-stat-ranking {
+        text-align: center;
         
         .micro-label {
-          padding-top: 12px;
-          font-size: $font-xxs;
+          font-size: $font-xs;
+          line-height: $font-l;
         }
-        .total-base-stat-number {
-          color: #555;
-          line-height: $font-m;
+        .stars {
+          display: flex;
+          flex-direction: row;
+          
+          .icon {
+            height: 10px;
+            width: 10px;
+            margin: 0 2px;
+            color: #aaa;
+            filter: drop-shadow(0 1px #888);
+            transition: all .4s ease-out;
+          
+            &.filled {
+              color: #ffaa00;
+              transform: scaleX(-1);
+              filter: drop-shadow(0 1px #d80);
+              transition: all .4s ease-in;
+            }
+          }
         }
       }
     }
