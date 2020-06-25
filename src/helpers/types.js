@@ -423,3 +423,78 @@ export const $getTypeColor = (type) => {
       return "#539DDF";
   }
 }
+export const $getAllTypes = () => {
+  return [
+    {
+      name: "bug",
+      color: "#92BC2C"
+    }, 
+    {
+      name: "dark",
+      color: "#595761"
+    },
+    {
+      name: "dragon",
+      color: "#0C69C8"
+    },
+    {
+      name: "electric",
+      color: "#F2D94E"
+    },
+    {
+      name: "fire",
+      color: "#FBA54C"
+    },
+    {    
+      name: "fairy",
+      color: "#EE90E6"
+    },
+    {
+      name: "fighting",
+      color: "#D3425F"
+    },
+    {
+      name: "flying",
+      color: "#A1BBEC"
+    },
+    {
+      name: "ghost",
+      color: "#5F6DBC"
+    },
+    {
+      name: "grass",
+      color: "#5FBD58"
+    },
+    {
+      name: "ground",
+      color: "#DA7C4D"
+    },{
+      name: "ice",
+      color: "#75D0C1"
+    },
+    {
+      name: "normal",
+      color: "#A0A29F"
+    },
+    {
+      name: "poison",
+      color: "#B763CF"
+    }, 
+    {
+      name: "psychic",
+      color: "#FA8581"
+    }, 
+    {
+      name: "rock",
+      color: "#C9BB8A"
+    }, 
+    {
+      name: "steel",
+      color: "#5695A3"
+    }, 
+    {
+      name: "water",
+      color: "#539DDF"
+    }
+  ]
+}
