@@ -169,7 +169,7 @@
       v-if="isTypeModalOpen"
       @closeModal="closeTypeModal"
     >
-      <Type :type="currentTypeInModal" />
+      <TypeModal :type="currentTypeInModal" />
     </BaseModal>
   </div>
 </template>
@@ -184,7 +184,7 @@ import PokeApi from '@/service/pokeApi.js'
 import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
 import PokemonMoves from "@/components/pokemon/PokemonMoves.vue";
-import Type from "@/components/types/Type";
+import TypeModal from "@/components/types/TypeModal";
 
 export default {
   name: "PokemonCard",
@@ -196,7 +196,7 @@ export default {
     PokemonAbout,
     PokemonBaseStats,
     PokemonMoves,
-    Type
+    TypeModal
   },
   props: {
     pokemonId: {

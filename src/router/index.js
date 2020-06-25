@@ -29,11 +29,17 @@ const routes = [
       import('../components/pokedex/Pokedex.vue'),
   },
   {
+    path: 'pokeview/types',
+    name: 'Types',
+    component: () =>
+      import('../views/Types.vue'),
+  },
+  {
     path: 'pokeview/about',
     name: 'About',
     component: () =>
       import('../views/About.vue'),
-  },
+  }
 ]
 
 const scrollBehavior = (to, from, savedPosition) => {
