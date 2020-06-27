@@ -66,10 +66,10 @@ export default {
       flex-direction: column;
       align-items: center;
       width: calc(100% /3);
-      margin-bottom: $l;
+      margin-bottom: $xl;
 
       .type-icon-container {
-        margin-bottom: $m;
+        margin-bottom: $xs;
         width: $m;
         height: $m;
         padding: $s;

@@ -148,7 +148,9 @@ export default {
   }
   .description {
     margin-bottom: $l;
-    color: #555;
+    color: #4d4d4d;
+    text-align: center;
+    line-height: 22px;
   }
   .type-damage-relation-container {
     padding: $m;
