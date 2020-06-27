@@ -74,7 +74,8 @@ export default {
     background: #fff;
     color: #333;
     bottom: 0;
-    width: 100vw;
+    left: 2vw;
+    width: 96vw;
     max-height: 100vh;
     min-height: 30vh;
     border-radius: $m $m 0 0;

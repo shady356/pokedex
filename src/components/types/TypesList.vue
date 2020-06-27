@@ -5,6 +5,7 @@
         class="type"
         v-for="type in types"
         :key="type.name"
+        @click="selectType(type.name)"
       >
         <div 
           class="type-icon-container"
@@ -12,7 +13,7 @@
         >
           <img
             class="type-icon"
-            :src="fire" 
+            :src="getTypeIcon(type.name)" 
             alt="type-icon"
           >
         </div>
@@ -44,8 +45,10 @@ export default {
       }
     },
     getTypeIcon (name) {
-      const imagePath = require(`@/assets/icons/types/${name}.svg`)
-      return imagePath
+      return require("@/assets/icons/types/" + name + ".svg");
+    },
+    selectType (typeName) {
+      this.$emit('select-type', typeName)
     }
   }
 }
@@ -63,7 +66,7 @@ export default {
       flex-direction: column;
       align-items: center;
       width: calc(100% /3);
-      margin-bottom: $xxl;
+      margin-bottom: $l;
 
       .type-icon-container {
         margin-bottom: $m;

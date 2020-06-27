@@ -1,7 +1,7 @@
-export const $types = (type) => {
+export const $getTypeInfoByName = (typeName) => {
   const bug = {
     name: 'bug',
-    description: 'foobar',
+    description: 'Bug types are usually encountered early in your pokémon journey. Due to overall poor move options, this type is seen as a weak choice to have in a party. Although, you can always surprise your opponent\'s psychic type with a super effecitve attack',
     resistantTo: [],
     notVeryEffectiveTo: [
       'flying',
@@ -16,7 +16,7 @@ export const $types = (type) => {
   }
   const dark = {
     name: 'dark',
-    description: 'foobar',
+    description: 'The dark type was added to nerf the over-powered psychic pokémon prior to generation II.',
     resistantTo: ['psychic'],
     superEffectiveTo: ['psychic', 'ghost'],
     notVeryEffectiveTo: ['fighting', 'fairy'],
@@ -24,7 +24,7 @@ export const $types = (type) => {
   }
   const dragon = {
     name: 'dragon',
-    description: 'foobar',
+    description: 'Dragon type is among the strongest in the game. Usually you\'ll encounter semi-legendary and legendary -pokémon equipped with this type. With great bulk and outragous attacks, this type is almost a prerequisite to conquer competitive trainers',
     resistantTo: ['fire', 'water', 'electric', 'grass'],
     notVeryEffectiveTo: ['steel'],
     superEffectiveTo: ['dragon'],
@@ -32,19 +32,19 @@ export const $types = (type) => {
   }
   const electric = {
     name: 'electric',
-    description: 'foobar',
+    description: 'With only one vulnerability in disfavor for Ground types, Electric pokémon provides stability to your party. They are lacking good tanks, but puts speed and attack on the table, which makes them capable of sweeping off tanky Water and Flying -types.',
     superEffectiveTo: ['water', 'flying'],
     vulnerableTo: ['ground'],
   }
   const fairy = {
     name: 'fairy',
-    description: 'foobar',
+    description: 'As a consequence of the over-powered Dragon types and bulky Steel types, Fairy was added as a type to balance the game in the sixth generation. Many former Normal types has been changed into Fairy type to make them even stronger',
     superEffectiveTo: ['dragon', 'fighting', 'dark'],
     vulnerableTo: ['poison', 'steel'],
   }
   const fighting = {
     name: 'fighting',
-    description: 'foobar',
+    description: 'The only type to properly deal with Normal types. Fighting types offer an array of super effective attacks to various types. A recommended choice to have in your party and it also puts an end to the bulky steel types.',
     superEffectiveTo: ['normal', 'ice', 'rock', 'dark', 'steel'],
     vulnerableTo: ['flying', 'psychic', 'fairy'],
   }
@@ -57,37 +57,37 @@ export const $types = (type) => {
   }
   const flying = {
     name: 'flying',
-    description: 'foobar',
+    description: 'A popular choice to have in your party,',
     superEffectiveTo: ['grass', 'bug', 'fighting'],
     vulnerableTo: ['electric', 'ice', 'rock'],
   }
   const ghost = {
     name: 'ghost',
-    description: 'foobar',
+    description: 'This mysteries type completes the triangle with Dark and Psychic types.',
     superEffectiveTo: ['psychic', 'ghost'],
     vulnerableTo: ['dark', 'ghost'],
   }
   const grass = {
     name: 'grass',
-    description: 'foobar',
+    description: 'A good starter in your journey, but will often decline as you progress due its many vulnerabilities',
     superEffectiveTo: ['water', 'ground', 'rock'],
     vulnerableTo: ['fire', 'ice', 'flying', 'poison', 'bug'],
   }
   const ground = {
-    name: 'ground',
-    description: 'foobar',
+    name: 'Ground',
+    description: 'With an impressively super effective encounter-rate (tied with Fighting type), it gives your party a versatile pokémon to sweep off your opponents. Ground types are great tanks too with an overall high defense stat.',
     superEffectiveTo: ['fire', 'rock', 'steel', 'electric', 'poison'],
     vulnerableTo: ['water', 'grass', 'ice'],
   }
   const ice = {
     name: 'ice',
-    description: 'foobar',
+    description: 'A balanced type as it\'s super effective and vulnerable to four types respectiviely. It brings the powerfull Dragons down, but can be risky to play due to its vulnerabilities.',
     superEffectiveTo: ['dragon', 'grass', 'ground', 'flying'],
     vulnerableTo: ['fire', 'rock', 'fighting', 'steel'],
   }
   const normal = {
     name: 'normal',
-    description: 'foobar',
+    description: 'The most balanced pokémon type. Great for beginners as it has only one vulnerability to Fighting types, but on the attacking front it deals mediocre damage to all types as it\'s lacking super effective advantage. It\'s also inefective to Ghost types',
     superEffectiveTo: [],
     vulnerableTo: ['fighting'],
   }
@@ -105,13 +105,13 @@ export const $types = (type) => {
   }
   const rock = {
     name: 'rock',
-    description: 'foobar',
+    description: 'Often seen in combination with Ground types. It\'s vulnerability makes it weak in the competitive play, but on the bright side it can also land some super effective hits',
     superEffectiveTo: ['flying', 'ice', 'fire', 'bug'],
     vulnerableTo: ['water', 'grass', 'fighting', 'ground', 'steel'],
   }
   const steel = {
     name: 'steel',
-    description: 'foobar',
+    description: 'Steel types are one of the best due to its strong resistancy to other types.',
     superEffectiveTo: ['ice', 'rock', 'fairy'],
     vulnerableTo: ['fire', 'fighting', 'ground'],
   }
@@ -121,7 +121,7 @@ export const $types = (type) => {
     superEffectiveTo: ['fire', 'ground', 'rock'],
     vulnerableTo: ['grass', 'electric'],
   }
-  switch (type) {
+  switch (typeName) {
     case 'bug':
       return bug
     case 'dark':

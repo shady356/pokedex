@@ -5,16 +5,16 @@
   >
     <div
       class="type-icon-container"
-      :style="'background:' + getTypeColor(type)"
+      :style="'background:' + getTypeColor(typeName)"
     >
       <img
         class="type-icon"
-        :src="getIcon(type)"
+        :src="getIcon(typeName)"
         alt="type-icon"
       >
     </div>
     <h3 class="type-title uppercase">
-      {{ type }}
+      {{ typeName }}
     </h3>
     <p class="description">
       {{ typeData.description }}
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { $types } from "@/helpers/types.js";
+import { $getTypeInfoByName } from "@/helpers/types.js";
 import BaseTypeTag from "@/components/base/BaseTypeTag";
 export default {
   name: "Type",
@@ -62,7 +62,7 @@ export default {
     BaseTypeTag
   },
   props: {
-    type: {
+    typeName: {
       type: String,
       required: true
     }
@@ -118,7 +118,7 @@ export default {
     }
   },
   mounted() {
-    this.typeData = $types(this.type);
+    this.typeData = $getTypeInfoByName(this.typeName);
   }
 };
 </script>
@@ -148,6 +148,7 @@ export default {
   }
   .description {
     margin-bottom: $l;
+    color: #555;
   }
   .type-damage-relation-container {
     padding: $m;

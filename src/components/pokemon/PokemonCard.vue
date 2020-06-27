@@ -169,7 +169,7 @@
       v-if="isTypeModalOpen"
       @closeModal="closeTypeModal"
     >
-      <TypeModal :type="currentTypeInModal" />
+      <TypeModal :type-name="currentTypeInModal" />
     </BaseModal>
   </div>
 </template>
