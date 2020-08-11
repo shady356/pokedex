@@ -95,4 +95,17 @@ export default {
     }
   }
 }
+
+.dark {
+  .tab-container {
+    .tab-item.active {
+      color: #fff;
+    }
+    .border-line {
+      background: #555;
+    }
+  }
+  
+  
+}
 </style>

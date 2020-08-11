@@ -189,4 +189,11 @@ export default {
     }
   }
 }
+.dark {
+  .modal-type-container {
+    .description {
+      color: #ddd;
+    }
+  }
+}
 </style>

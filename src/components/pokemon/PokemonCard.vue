@@ -150,7 +150,7 @@
       <div
         v-else
         class="pokemon-container"
-        style="background: #08a"
+        style="background: #222"
       >
         <section class="pokemon-cover section-1">
           <div class="name-type-container">
@@ -519,6 +519,23 @@ export default {
       padding: $m $xxs;
       overflow-y: auto;
       overflow-x: hidden;
+    }
+  }
+}
+
+.dark {
+  .pokemon-container {
+      .pokemon-cover {
+        .white-bar {
+          background: #333;
+          
+          .pokemon-name {
+            color: #fff;
+          }
+        }
+      }
+    .section-2 {
+      background: #333;
     }
   }
 }

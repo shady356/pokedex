@@ -4,7 +4,10 @@
       class="column"
       :to="{ name: routerBack }"
     >
-      <fa-icon icon="chevron-left" />
+      <fa-icon 
+        icon="chevron-left" 
+        class="go-back" 
+      />
     </router-link>
     <div class="column">
       <slot name="title" />
@@ -49,6 +52,17 @@ export default {
     }
     &:nth-child(3) {
       flex-grow: 1;
+    }
+  }
+}
+.dark {
+  .header {
+    background: hsla(0, 0%, 10%, 0.9);
+    border-bottom: 1px solid #333;
+    color: #fff;
+    
+    .go-back {
+      color: #fff;
     }
   }
 }

@@ -87,4 +87,10 @@ export default {
       }
     }
   }
+
+  .dark {
+    .type-name {
+      color: #fff;
+    }
+  }
 </style>

@@ -134,4 +134,11 @@ export default {
     }
   }
 }
+
+.dark {
+  .modal-window {
+    background: #333;
+    color: #ddd;
+  }
+}
 </style>

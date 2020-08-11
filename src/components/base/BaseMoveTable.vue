@@ -225,4 +225,21 @@ export default {
       }
     }
   }
+
+  .dark {
+    .title {
+      .text {
+        background: #333;
+      }
+      &::after {
+        content: '';
+        background: #444;
+      }
+    }
+    tbody {
+      tr {
+        border-color: #444;
+      }
+    }
+  }
 </style>

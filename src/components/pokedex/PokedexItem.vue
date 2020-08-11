@@ -73,6 +73,14 @@ export default {
       height: $xxxxxl;  
     }
   }
+}
 
+.dark {
+  .sprite-container {
+    .sprite {
+      background: hsla(0, 0, 0%, .2);
+      box-shadow: none;
+    }
+  }
 }
 </style>

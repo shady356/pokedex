@@ -23,7 +23,7 @@
             </h6>
           </div>
         </div>
-        <div class="base-stat-ranking">
+        <!-- <div class="base-stat-ranking">
           <div class="uppercase letter-spacing micro-label">
             Ranking
           </div>
@@ -35,7 +35,7 @@
               icon="star"
             />
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- <div class="key-data">
@@ -111,7 +111,9 @@ export default {
             fontAlign: 'center',
             fontFamily: 'Roboto condensed',
             lineHeight: 1.3,
-            fontColor: ['#777', '#777', '#777', '#777', '#777', '#777']
+            // Get theme variable:
+            //fontColor: ['#eee', '#eee', '#ddd', '#ddd', '#ddd', '#ddd']
+            fontColor: '#eee'
           }
         },
         
@@ -290,7 +292,7 @@ export default {
         }
       }
       
-      .base-stat-ranking {
+      /* .base-stat-ranking {
         text-align: center;
         
         .micro-label {
@@ -317,7 +319,7 @@ export default {
             }
           }
         }
-      }
+      } */
     }
   }
 
@@ -334,6 +336,28 @@ export default {
         font-size: $font-m;
       }
     }
+  }
+}
+
+.dark {
+  .base-stat-container {
+    .stat-wrapper {
+  
+      .base-stats-total {
+        .hexagon-shape {
+          background: #333;
+    
+          .micro-label {
+            color: #aaa;
+          }
+          .total-base-stat-number {
+            color: #fff;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+
   }
 }
 </style>
