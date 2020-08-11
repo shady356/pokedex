@@ -58,7 +58,7 @@ export default {
 
       .icon-container {
         align-items: center;
-        background: $blue-light;
+        background: #333;
         border-radius: 50%;
         display: flex;
         height: $xxxl;

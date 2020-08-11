@@ -21,7 +21,7 @@ export default {
   padding: 0;
 }
 body {
-  background: $blue-dark;
+  background: #fff;
 
   &.bodyFilter {
     background: $purple-dark;
