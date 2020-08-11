@@ -21,17 +21,10 @@ export default {
   padding: 0;
 }
 body {
-  //background: #73bcdd;
-  background: linear-gradient(180deg, $blue-white 0%, $blue-light 100%);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  height: 100%;
+  background: $blue-dark;
 
   &.bodyFilter {
-    background: linear-gradient(180deg, $purple-white 0%, $purple-light 100%);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100%;
+    background: $purple-dark;
   }
 }
 
