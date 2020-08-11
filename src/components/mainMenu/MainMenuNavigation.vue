@@ -1,5 +1,5 @@
 <template>
-  <ul class="navigationList">
+  <ul class="navigation-list">
     <router-link
       class="item"
       v-for="item in items"
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .navigationList {
+  .navigation-list {
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -77,6 +77,18 @@ export default {
         font-weight: 700;
         margin-top: $s;
         text-align: center;
+      }
+    }
+  }
+
+  .dark {
+    .navigation-list {
+      .icon-container {
+        background: #333;
+        border: 1px solid #444;
+      }
+      .text {
+        color: #aaa;
       }
     }
   }

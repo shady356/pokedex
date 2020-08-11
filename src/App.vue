@@ -1,5 +1,8 @@
 <template>
-  <div id="app">
+  <div 
+    id="app" 
+    class="dark"
+  >
     <!-- <BaseToast /> -->
     <router-view class="main-layout" />
   </div>
@@ -41,5 +44,11 @@ img {
 
 ul li {
   list-style: none;
+}
+
+
+body {
+  background: #1a1a1a;
+  color: #ddd;
 }
 </style>

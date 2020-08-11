@@ -203,7 +203,6 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #ddd;
   padding: $s $l;
   background: $purple;
   color: #fff;
@@ -234,6 +233,14 @@ export default {
           margin: $xs $xxs;
         }
       }
+    }
+  }
+}
+
+.dark {
+  .filter-container {
+    .filter {
+      border-color: #444;
     }
   }
 }

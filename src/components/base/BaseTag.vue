@@ -26,16 +26,29 @@ export default {
   border: 1px solid #ccc;
   color: #222;
   display: inline-flex;
-  font-size: $font-s;
-  padding: $xxs $s;
+  font-size: $font-xs;
+  padding: $xs $m;
   transition: background-color $fast ease-out;
   white-space: nowrap;
 
   &.purple {
-    background: $purple;
+    background-color: $purple;
     color: #fff;
     border-color: transparent;
     transition: background-color $fast ease-in;
+  }
+}
+
+.dark {
+  .tag-container {
+    background-color: #444;
+    border-color: #333;
+    color: #aaa;
+
+    &.purple {
+      background-color: $purple;
+      color: #fff;
+    }
   }
 }
 </style>

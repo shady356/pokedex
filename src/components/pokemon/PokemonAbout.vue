@@ -260,4 +260,23 @@ export default {
       }
     }
   }
+  .dark {
+    .about-container {
+      .data-row {
+        .label {
+          color: #aaa;
+        }
+        .value {
+          color: #ddd;
+        }
+      }
+      .description-container {
+        background: #333;
+
+        .quote {
+          color: #aaa;
+        }
+      }
+    }
+  }
 </style>
