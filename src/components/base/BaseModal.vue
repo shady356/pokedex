@@ -8,7 +8,16 @@
         name="slide-v"
         appear
       >
-        <div :class="['modal-window', { 'is-pokemon-card': isPokemonCard }]">
+        <div
+          id="moving-box"
+          :class="['modal-window', { 'is-pokemon-card': isPokemonCard }]"
+        >
+          <div
+            v-if="dragHandler"
+            class="drag-handler"
+            v-touch:moving="movingHandler"
+            v-touch:end="endHandler"
+          />
           <slot />
           <div
             class="modal-close-container"
@@ -42,15 +51,50 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    dragHandler: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
-  mounted() {
+  data () {
+    return {
+      toPositionPercentage: 0,
+      thresholdExpandPercentage: 75,
+      thresholdClosePercentage: 50
+    }
+  },
+  created() {
     document.body.classList.add("disable-scroll");
   },
   destroyed() {
-    document.body.classList.remove("disable-scroll");
+    setTimeout(() => {
+      document.body.classList.remove("disable-scroll");
+    }, 100)
   },
   methods: {
+    movingHandler (e) {
+      const moving = e.changedTouches[0].clientY
+      const clientHeight = document.documentElement.clientHeight
+      const toPositionPx = clientHeight - moving
+      this.toPositionPercentage = ((moving / clientHeight * 100) - 100 ) * -1
+      document.getElementById('moving-box').style.height = toPositionPx + 'px'
+    },
+    endHandler() {
+      if (this.toPositionPercentage < this.thresholdClosePercentage && this.toPositionPercentage !==0) {
+        this.closeModal()
+      }
+      else if (this.toPositionPercentage > this.thresholdExpandPercentage && this.toPositionPercentage !==0) {
+        this.snapToPosition('98%')
+      }
+      else {
+        this.snapToPosition('initial')
+      }
+    },
+    snapToPosition (value) {
+      document.getElementById('moving-box').style.height = value
+    },
     closeModal() {
       this.$emit("closeModal");
     }
@@ -79,6 +123,16 @@ export default {
     max-height: 100vh;
     min-height: 30vh;
     border-radius: $m $m 0 0;
+
+    .drag-handler {
+      position: sticky;
+      top: $s;
+      margin: $s auto 0;
+      background: #aaa;
+      width: $xxl;
+      height: $xxs;
+      border-radius: $l;
+    }
 
     @media (min-width: 1024px) {
       width: 50vw;

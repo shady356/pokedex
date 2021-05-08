@@ -35,9 +35,9 @@ library.add(
 )
 Vue.component('fa-icon', FontAwesomeIcon)
 
-// Vue2 Touch
-import Vue2Touch from 'vue2-touch'
-Vue.use(Vue2Touch)
+// Vue2 Touch Events
+import Vue2TouchEvents from 'vue2-touch-events'
+Vue.use(Vue2TouchEvents)
 
 // Vue lazy load
 import VueLazyload from 'vue-lazyload'

@@ -23,7 +23,13 @@ export default {
   margin: 0;
   padding: 0;
 }
+html {
+  width: 100%;
+}
+
 body {
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
   background: #fff;
 
   &.bodyFilter {
@@ -32,7 +38,7 @@ body {
 }
 
 .disable-scroll {
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 img {
