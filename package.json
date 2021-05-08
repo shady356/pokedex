@@ -16,7 +16,7 @@
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.4",
-    "gsap": "^3.2.6",
+    "gsap": "^3.6.0",
     "lodash.sortby": "^4.7.0",
     "node-sass": "^4.13.1",
     "register-service-worker": "^1.7.1",
