@@ -113,7 +113,8 @@ export default {
             lineHeight: 1.3,
             // Get theme variable:
             //fontColor: ['#eee', '#eee', '#ddd', '#ddd', '#ddd', '#ddd']
-            fontColor: '#eee'
+            // fontColor: '#eee'
+            fontColor: '#444'
           }
         },
         

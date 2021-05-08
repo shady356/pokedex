@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="title">
+    <div class="move-type-header">
       <div class="text uppercase letter-spacing">
         {{ title }}
       </div>
@@ -8,7 +8,7 @@
     <table>
       <thead>
         <th
-          class="uppercase"
+          class="uppercase table-header"
           v-for="header in headers"
           :key="header"
         >
@@ -155,31 +155,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .title {
+  .move-type-header {
+    background: #fff;
+    height: $m;
+    padding: $xs 0 0;
+    position: sticky;
+    top: 0;
     width: 100%;
-    text-align: center;
-    position: relative;
-    margin: $l 0 $xs;
 
     .text {
-      position: relative;
-      padding: 10px; 
-      background: #fff;
-      display: inline-block;
-      color: #bbb;
-      z-index: 1;
+      color: #888;
       font-weight: 400;
       font-size: $font-s;
-    }
-    &::after {
-      content:'';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 50%;
-      height: 1px;
-      background: #eee;
-      z-index:0;
+      text-align: center;
     }
   }
 
@@ -187,7 +175,15 @@ export default {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: $m;
+
+    .table-header {
+      background: #fff;
+      position: sticky;
+      top: calc(#{$m} + #{$xs});
+    }
+
     thead {
+
       th {
         padding: $s 0;
         text-align: left;

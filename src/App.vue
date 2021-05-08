@@ -1,7 +1,6 @@
 <template>
   <div 
     id="app" 
-    class="dark"
   >
     <!-- <BaseToast /> -->
     <router-view class="main-layout" />
@@ -30,11 +29,16 @@ html {
 body {
   height: 100%;
   -webkit-overflow-scrolling: touch;
-  background: #fff;
+  background: rgb(200, 223, 224);
+  color: #444;
 
-  &.bodyFilter {
+  /* &.bodyFilter {
     background: $purple-dark;
-  }
+  } */
+
+  // Dark theme:
+  // background: #1a1a1a;
+  // color: #ddd;
 }
 
 .disable-scroll {
@@ -50,11 +54,5 @@ img {
 
 ul li {
   list-style: none;
-}
-
-
-body {
-  background: #1a1a1a;
-  color: #ddd;
 }
 </style>

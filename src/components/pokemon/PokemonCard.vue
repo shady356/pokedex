@@ -516,7 +516,6 @@ export default {
     flex-direction: column;
 
     .tab-content {
-      padding: $m $xxs;
       overflow-y: auto;
       overflow-x: hidden;
     }

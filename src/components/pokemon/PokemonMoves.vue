@@ -200,4 +200,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.tab-header {
+  margin: $m 0;
+}
 </style>
