@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="home-navigation-container">
-      <h1 class="pokemon-logo">
+      <h2 class="pokemon-logo">
         PokéView
-      </h1>
+      </h2>
       <MainMenuNavigation 
         :items="navigationItems"
       />
@@ -51,10 +51,12 @@ export default {
   padding: $l;
 
   .pokemon-logo {
-    color: $blue-dark;
-    font-size: 48px;
+    text-shadow: 0 0 10px $green;
+    color: #fff;
     font-weight: 100;
+    font-size: 48px;
     margin-bottom: $xxl;
+    font-family: 'Boogaloo', cursive;
   }
 }
 </style>

@@ -164,7 +164,7 @@ export default {
     width: 100%;
 
     .text {
-      color: #888;
+      color: #666;
       font-weight: 400;
       font-size: $font-s;
       text-align: center;
@@ -209,7 +209,7 @@ export default {
             }
             .level {
               margin-top: $xxs;
-              color: #aaa;
+              color: #666;
               font-size: $font-s;
               font-weight: normal;
             }

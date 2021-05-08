@@ -58,7 +58,8 @@ export default {
 
       .icon-container {
         align-items: center;
-        background: #333;
+        background: #fff;
+        border: 2px solid $green;
         border-radius: 50%;
         display: flex;
         height: $xxxl;
@@ -70,9 +71,8 @@ export default {
           width: $xl;
         }
       }
-
       .text {
-        color: $blue-dark;
+        color: $green-dark;
         font-size: $font-s;
         font-weight: 700;
         margin-top: $s;
