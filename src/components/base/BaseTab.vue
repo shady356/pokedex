@@ -14,7 +14,7 @@
     </div>
     <div class="border-line">
       <div
-        :style="'width: calc(100% /' + numberOfItems + '); left:' + (activeIndex * 100) / numberOfItems + '%'"
+        :style="foo"
         class="indicator"
       />
     </div>
@@ -38,6 +38,13 @@ export default {
   computed: {
     numberOfItems() {
       return this.items.length;
+    },
+    foo () {
+      const leftValue = this.activeIndex * 100 / this.numberOfItems
+      return {
+        width: `calc(100% / ${this.numberOfItems})`,
+        left: `${leftValue}%`
+      }
     }
   },
   mounted () {
