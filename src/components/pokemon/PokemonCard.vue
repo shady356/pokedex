@@ -150,7 +150,7 @@
       <div
         v-else
         class="pokemon-container"
-        style="background: #222"
+        :style="skeletonPokemonContainer"
       >
         <section class="pokemon-cover section-1">
           <div class="name-type-container">
@@ -256,6 +256,11 @@ export default {
         'min-height': '50%',
         'height': 0.7 * (height * 100) + '%',
         'max-height': '90%'
+      }
+    },
+    skeletonPokemonContainer () {
+      return {
+        'background': '#39c680' // Light green. TODO: Make colors available in js, not only scss
       }
     },
     firstType() {
