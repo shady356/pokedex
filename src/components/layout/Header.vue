@@ -34,8 +34,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   align-items: center;
-  background: hsla(0, 0%, 100%, 0.9);
-  border-bottom: 1px solid #ddd;
+  background: $body-color;
   display: flex;
   padding: $s;
   position: sticky;

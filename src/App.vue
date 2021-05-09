@@ -29,7 +29,7 @@ html {
 body {
   height: 100%;
   -webkit-overflow-scrolling: touch;
-  background: $green-light;
+  background: $body-color;
   color: #444;
 
   /* &.bodyFilter {

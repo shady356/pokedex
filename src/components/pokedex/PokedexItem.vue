@@ -59,13 +59,13 @@ export default {
   justify-content: center;
 
   .sprite {
-    border-radius: $xs;
+    border-radius: $s;
     height: 92px;
     width: 92px;
-    background: hsla(0, 0%, 90%, 0.2);
-    box-shadow: 0 0 18px hsla(200, 50%, 100%, 0.5) inset;
+    padding: 10px;
+    background: $blue-white;
     background-position: center;
-    background-size: contain;
+    background-size: 65%;
     background-repeat: no-repeat;
 
     @media (min-width: 1024px) {

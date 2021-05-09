@@ -2,7 +2,7 @@
   <div>
     <Header>
       <template #title>
-        <h3>About PokéView</h3>
+        <h1>About</h1>
       </template> 
     </Header>
     <div class="about-container">

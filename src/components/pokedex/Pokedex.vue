@@ -2,7 +2,7 @@
   <div>
     <Header>
       <template #title>
-        <h3>Pokédex</h3>
+        <h1>Pokédex</h1>
       </template>
       
       <template #options>
@@ -33,7 +33,7 @@
           <PokedexItem
             :id="pokemonList[index].id"
             :name="pokemonList[index].name"
-            :sprite="pokemonList[index].sprite"
+            :sprite="getSprite(pokemonList[index].id)"
           />
         </router-link>
       </ul>
@@ -218,6 +218,9 @@ export default {
       this.pokemonList = [];
       this.loadedCounter = 0;
       this.currentBatch = 1;
+    },
+    getSprite(id) {
+      return "https://pokeres.bastionbot.org/images/pokemon/" + id + ".png";
     },
     setBodyColor() {
       if (this.isFilter) {

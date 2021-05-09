@@ -2,7 +2,7 @@
   <div>
     <Header>
       <template #title>
-        <h3>Types</h3>
+        <h1>Types</h1>
       </template> 
     </Header>
     <div class="types-list-container">
