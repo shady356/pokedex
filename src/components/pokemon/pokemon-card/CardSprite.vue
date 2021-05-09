@@ -15,15 +15,7 @@
         alt="pokemon sprite"
       >
       <!-- Loading pokemon sprite -->
-      <transition
-        v-else
-        name="fade" 
-        mode="in-out"
-      >
-        <div class="loading">
-          <BaseProgressSpinner />
-        </div>
-      </transition>
+      <BaseProgressSpinner v-else />
     </div>
   </transition>
 </template>
