@@ -68,7 +68,7 @@ export default {
       cursor: pointer;
       color: #777;
       width: initial;
-      padding: $xs 0;
+      padding: $xxs 0;
       border-radius: $s;
       text-align: center;
 
