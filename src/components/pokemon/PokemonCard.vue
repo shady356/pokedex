@@ -15,6 +15,7 @@
             @openTypeModal="openTypeModal"
           />          
 
+          <!-- Pagination buttons -->
           <div class="pagination-buttons">
             <div
               v-if="!isFirstPokemon"
@@ -32,34 +33,13 @@
             </div>
           </div>
 
-          <!-- Sprite -->
-          <transition
-            :name="slideDirection"
-            mode="out-in"
-          >
-            <div
-              class="pokemon-sprite-container"
-              :key="pokemonId"
-            >
-              <img
-                v-if="!offloadSprite"
-                :src="getSprite(pokemon.id)"
-                :style="pokemonSpriteHeight"
-                :class="['pokemon-sprite', {'zoom': isPokemonZoom}]"
-                alt="pokemon sprite"
-              >
-              <!-- Loading pokemon sprite -->
-              <transition
-                v-else 
-                name="fade"
-                mode="in-out"
-              >
-                <div class="loading">
-                  <BaseProgressSpinner />
-                </div>
-              </transition>
-            </div>
-          </transition>
+          <CardSprite
+            :slide-direction="slideDirection"
+            :pokemon-id="pokemonId"
+            :offload-sprite="offloadSprite"
+            :pokemon="pokemon"
+            :is-pokemon-zoom="isPokemonZoom"
+          />
 
           <!-- Zoom on sprite button -->
           <div
@@ -70,7 +50,7 @@
           </div>
         </section>
 
-        <!-- Meta container -->
+        <!-- Meta card container -->
         <transition
           name="slide-v"
           mode="out-in"
@@ -127,6 +107,7 @@
           </section>
         </transition>
       </div>
+
       <!-- Skeleton loading -->
       <div
         v-else
@@ -161,6 +142,7 @@ import BaseModal from "@/components/base/BaseModal";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
 import BaseTab from "@/components/base/BaseTab";
 import CardHeader from "@/components/pokemon/pokemon-card/CardHeader.vue"
+import CardSprite from "@/components/pokemon/pokemon-card/CardSprite.vue"
 import PokeApi from '@/service/pokeApi.js'
 import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
@@ -174,6 +156,7 @@ export default {
     BaseProgressSpinner,
     BaseTab,
     CardHeader,
+    CardSprite,
     PokemonAbout,
     PokemonBaseStats,
     PokemonMoves,
@@ -229,15 +212,6 @@ export default {
   computed: {
     isPokemonLoaded() {
       return this.pokemon && this.pokemonSpecies;
-    },
-    pokemonSpriteHeight() {
-      const height = this.pokemon.height / 10
-      
-      return {
-        'min-height': '50%',
-        'height': 0.7 * (height * 100) + '%',
-        'max-height': '90%'
-      }
     },
     skeletonPokemonContainer () {
       return {
@@ -319,9 +293,6 @@ export default {
         hatchCounter: data.hatch_counter
       };
       this.pokemonSpecies = speciesData;
-    },
-    getSprite(id) {
-      return "https://pokeres.bastionbot.org/images/pokemon/" + id + ".png";
     },
     changeMetaTab(index) {
       this.metaItems.forEach(tab => {
@@ -405,32 +376,6 @@ export default {
       }
       .right-button {
         right: 0%;
-      }
-    }
-    .pokemon-sprite-container {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      height: calc(100% - #{$xxl});
-      padding: $l 0;
-      box-sizing: border-box;
-
-      .pokemon-sprite {
-        position: relative;
-        top: 0;
-        transition: height .4s ease-out, top .4s ease-out;
-        z-index: 10;
-
-        &.zoom {
-          top: 100%;
-          height: 125% !important;
-          max-height: 125% !important;
-          transition: height .4s ease-in, top .4s ease-in;
-        }
-
-        @media (min-width: 1024px) {
-          height: 192px;
-        }
       }
     }
     .zoom-pokemon-button {
