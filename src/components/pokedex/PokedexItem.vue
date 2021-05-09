@@ -63,7 +63,8 @@ export default {
     height: 92px;
     width: 92px;
     padding: 10px;
-    background: $blue-white;
+    background: #fff6;
+    border: 1px solid $green;
     background-position: center;
     background-size: 65%;
     background-repeat: no-repeat;
