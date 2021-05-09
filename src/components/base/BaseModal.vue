@@ -164,21 +164,24 @@ export default {
     .modal-close-container {
       display: flex;
       justify-content: center;
+      align-items: center;
       position: fixed;
       bottom: 2vh;
-      left: 0;
-      right: 0;
+      left: calc(50% - #{$xxl} / 2);
       z-index: 10;
+      width: $xxl;
+      height: $xxl;
 
       .modal-close {
         display: flex;
         justify-content: center;
-        border: 1px solid #aaa;
+        background: #fff;
+        border: 1px solid $blue;
         border-radius: 50%;
         padding: $xxxs;
 
         .close-icon {
-          background: #555;
+          background: $blue;
           width: $m;
           height: $m;
           padding: $xs;
