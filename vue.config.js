@@ -9,9 +9,7 @@ module.exports = {
       } 
     }
   },
-
-  publicPath: '/pokeview',
-
+  publicPath: process.env.NODE_ENV === 'production' ? '/pokeview' : '',
   css: {
     loaderOptions: {
       sass: {
