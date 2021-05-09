@@ -1,11 +1,14 @@
 <template>
   <div>
     <div v-if="moves">
-      <BaseTab 
-        class="tab-header" 
-        :items="tabs" 
-        @changeTab="changeTab" 
-      />
+      <div class="generation">
+        <h6>Generation:</h6>
+        <BaseTab 
+          class="tab-header" 
+          :items="tabs" 
+          @changeTab="changeTab" 
+        />
+      </div>
       <!-- TODO: Use a v-for on tables -->
       <BaseMoveTable
         v-if="generations[selectedGeneration].levelUp.length > 0"
@@ -200,7 +203,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tab-header {
-  margin: $m 0;
+.generation {
+  align-items: center;
+  display: flex;
+  margin: $s 0 $m $s;
+
+  .tab-header {
+    margin-left: $s;
+    width: 100%;
+    overflow-x: scroll;
+  }
 }
 </style>

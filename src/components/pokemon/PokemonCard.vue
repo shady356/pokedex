@@ -389,7 +389,7 @@ export default {
   display: grid;
   height: 98vh;
   grid-template-columns: 100%;
-  grid-template-rows: 42% 58%;
+  grid-template-rows: 35% 65%;
   overflow: hidden;
   transition: background-color 1000ms linear;
 
@@ -451,7 +451,7 @@ export default {
     }
     .pagination-buttons {
       position: absolute;
-      top: 25%;
+      top: 18%;
       width: 100%;
 
       .left-button, 
@@ -502,7 +502,7 @@ export default {
     }
     .zoom-pokemon-button {
       position: absolute;
-      top: 37%;
+      top: 30%;
       right: $xs;
       color: #ffffffdd;
       font-size: $font-xs;

@@ -5,7 +5,7 @@
         v-for="(item, index) in items"
         :class="['tab-item', { active: item.active }]"
         :key="index"
-        :style="itemWidth"
+     
         @click="changeTab(index)"
       >
         <h6 class="text uppercase condensed">
@@ -33,18 +33,13 @@ export default {
   computed: {
     numberOfItems() {
       return this.items.length;
-    },
-    itemWidth () {
-      return {
-        width: `calc(100% / ${this.numberOfItems})`,
-      }
     }
   },
   mounted () {
     this.items.forEach((item, index) => {
       if(item.active) {
         this.activeIndex = index
-      }  
+      }
     });
   },
   methods: {
@@ -67,7 +62,7 @@ export default {
     .tab-item {
       cursor: pointer;
       color: #777;
-      width: initial;
+      width: 100%;
       padding: $xxs 0;
       border-radius: $s;
       text-align: center;
