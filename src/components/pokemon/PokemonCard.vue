@@ -365,10 +365,10 @@ export default {
       this.isTypeModalOpen = false;
     },
     swipePokemon(direction) {
-      if (direction === "swiperight") {
+      if (direction === "right") {
         this.paginatePokemon ('previous')
       }
-      if (direction === "swipeleft") {
+      if (direction === "left") {
         this.paginatePokemon ('next')
       }
     },
