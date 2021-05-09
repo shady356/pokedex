@@ -29,8 +29,12 @@
 </template>
 
 <script>
+import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
 export default {
   name: 'CardSprite',
+  components: {
+    BaseProgressSpinner
+  },
   props: {
     slideDirection: {
       type: String,
