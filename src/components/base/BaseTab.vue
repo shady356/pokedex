@@ -5,18 +5,13 @@
         v-for="(item, index) in items"
         :class="['tab-item', { active: item.active }]"
         :key="index"
+        :style="itemWidth"
         @click="changeTab(index)"
       >
         <h6 class="text uppercase condensed">
           {{ item.name }}
         </h6>
       </div>
-    </div>
-    <div class="border-line">
-      <div
-        :style="foo"
-        class="indicator"
-      />
     </div>
   </div>
 </template>
@@ -39,11 +34,9 @@ export default {
     numberOfItems() {
       return this.items.length;
     },
-    foo () {
-      const leftValue = this.activeIndex * 100 / this.numberOfItems
+    itemWidth () {
       return {
         width: `calc(100% / ${this.numberOfItems})`,
-        left: `${leftValue}%`
       }
     }
   },
@@ -67,11 +60,16 @@ export default {
 .tab-container {
   .tab-list {
     display: flex;
-    padding-bottom: 6px;
+    background: $blue-white;
+    border-radius: $s;
+    padding: $xxxs;
 
     .tab-item {
       cursor: pointer;
-      width: 50%;
+      color: #777;
+      width: initial;
+      padding: $xs 0;
+      border-radius: $s;
       text-align: center;
 
       .text {
@@ -79,7 +77,8 @@ export default {
       }
 
       &.active {
-        color: #444;
+        color: $blue;
+        background: #fff;
         transition: all 0.4s;
 
         .text {
