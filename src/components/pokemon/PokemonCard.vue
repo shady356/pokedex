@@ -9,30 +9,11 @@
       >
         <!-- Pokemon Cover -->
         <section :class="['pokemon-cover section-1', {'isZoom': isPokemonZoom}]">
-          <div class="white-bar">
-            <div class="name-type-container">
-              <!-- Name -->
-              <h3 class="capitalize pokemon-name">
-                {{ pokemon.name }}
-              </h3>
-
-              <!-- Type(s) -->
-              <div class="type-container">
-                <BaseTypeTag
-                  v-for="type in pokemon.types"
-                  :key="type.slot"
-                  :type="type.type.name"
-                  class="tag-item"
-                  @click="openTypeModal(type.type)"
-                />
-              </div>
-            </div>
-
-            <!-- Index #number -->
-            <div class="index-number">
-              <h6>#{{ getIndex(pokemonId) }}</h6>
-            </div>
-          </div>
+          <CardHeader
+            :pokemon="pokemon"
+            :pokemon-id="pokemonId"
+            @openTypeModal="openTypeModal"
+          />          
 
           <div class="pagination-buttons">
             <div
@@ -179,7 +160,7 @@ import { $getTypeColor } from "@/helpers/types.js";
 import BaseModal from "@/components/base/BaseModal";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
 import BaseTab from "@/components/base/BaseTab";
-import BaseTypeTag from "@/components/base/BaseTypeTag";
+import CardHeader from "@/components/pokemon/pokemon-card/CardHeader.vue"
 import PokeApi from '@/service/pokeApi.js'
 import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
@@ -192,7 +173,7 @@ export default {
     BaseModal,
     BaseProgressSpinner,
     BaseTab,
-    BaseTypeTag,
+    CardHeader,
     PokemonAbout,
     PokemonBaseStats,
     PokemonMoves,
@@ -342,15 +323,6 @@ export default {
     getSprite(id) {
       return "https://pokeres.bastionbot.org/images/pokemon/" + id + ".png";
     },
-    getIndex(value) {
-      if (value < 10) {
-        return "00" + value;
-      } else if (value < 100) {
-        return "0" + value;
-      } else {
-        return value;
-      }
-    },
     changeMetaTab(index) {
       this.metaItems.forEach(tab => {
         tab.active = false;
@@ -409,45 +381,6 @@ export default {
     
     .loading {
       margin-top: 20vh;
-    }
-    .white-bar {
-      position: relative;
-      border-radius: $m $m 0 0;
-      background: #fff;
-      width: 100%;
-      height: $xxl;
-      clip-path: polygon(100% 0, 100% 60%, 75% 60%, 60% 100%, 0 100%, 0 0);
-
-      .name-type-container {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: $s $m;
-
-        .pokemon-name {
-          color: #333;
-          margin-right: $s;
-        }
-        .type-container {
-          display: flex;
-
-          .tag-item:first-child {
-            margin-right: $xs;
-          }
-        }
-        .skeleton-block-line {
-          background: #ddd;
-          border-radius: $xxs;
-          width: $xxxxl;
-          height: $m;
-        }
-      }
-
-      .index-number {
-        position: absolute;
-        top: 15%;
-        right: 5%;
-      }
     }
     .pagination-buttons {
       position: absolute;
