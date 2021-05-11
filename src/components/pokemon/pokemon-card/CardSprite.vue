@@ -1,6 +1,6 @@
 <template>
   <transition
-    :name="slideDirection" 
+    name="fade"
     mode="out-in"
   >
     <div
@@ -10,9 +10,10 @@
       <img
         v-if="!offloadSprite"
         :src="getSprite(pokemon.id)"
-        :style="pokemonSpriteHeight"
+        
         :class="['pokemon-sprite', { zoom: isPokemonZoom }]"
         alt="pokemon sprite"
+        id="pokemon-sprite-id"
       >
       <!-- Loading pokemon sprite -->
       <BaseProgressSpinner v-else />
@@ -56,7 +57,7 @@ export default {
       
       return {
         'min-height': '50%',
-        'height': 0.7 * (height * 100) + '%',
+        'height': 0.70 * (height * 100) + '%',
         'max-height': '90%'
       }
     }
@@ -80,14 +81,16 @@ export default {
 
   .pokemon-sprite {
     position: relative;
-    top: 0;
+    bottom: 10%;
+    height: 75%;
+    transform: translateX(0%);
     transition: height .4s ease-out, top .4s ease-out;
     z-index: 10;
 
     &.zoom {
       top: 100%;
-      height: 125% !important;
-      max-height: 125% !important;
+      height: 100% !important;
+      max-height: 100% !important;
       transition: height .4s ease-in, top .4s ease-in;
     }
 

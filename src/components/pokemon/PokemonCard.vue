@@ -1,131 +1,131 @@
 <template>
   <div>
     <!-- The Pokemon -->
-    <div v-touch:swipe="swipePokemon">
-      <div
-        v-if="isPokemonLoaded"
-        class="pokemon-container"
-        :style="getModalBackground"
+    <div
+      v-if="isPokemonLoaded"
+      class="pokemon-container"
+      :style="getModalBackground"
+    >
+      <!-- Pokemon Cover -->
+      <section
+        :class="['pokemon-cover section-1', {'isZoom': isPokemonZoom}]"
+        v-touch:start="startHandler"
+        v-touch:moving="movePokemon"
+        v-touch:end="endHandler"
       >
-        <!-- Pokemon Cover -->
-        <section :class="['pokemon-cover section-1', {'isZoom': isPokemonZoom}]">
-          <CardHeader
-            :pokemon="pokemon"
-            :pokemon-id="pokemonId"
-            @openTypeModal="openTypeModal"
-          />          
-
-          <!-- Pagination buttons -->
-          <div class="pagination-buttons">
-            <div
-              v-if="!isFirstPokemon"
-              class="left-button"
-              @click="paginatePokemon('previous')"
-            >
-              <fa-icon icon="chevron-left" />
-            </div>
-            <div
-              v-if="!isLastPokemon"
-              class="right-button"
-              @click="paginatePokemon('next')"
-            >
-              <fa-icon icon="chevron-right" />
-            </div>
+        <CardHeader
+          :pokemon="pokemon"
+          :pokemon-id="pokemonId"
+          @openTypeModal="openTypeModal"
+        />
+        {{ toPositionPercentage }}%
+        {{ Math.ceil(movingGlobal) }}px
+        <!-- Pagination buttons -->
+        <div class="pagination-buttons">
+          <div
+            v-if="!isFirstPokemon"
+            class="left-button"
+            @click="paginatePokemon('previous')"
+          >
+            <fa-icon icon="chevron-left" />
           </div>
+          <div
+            v-if="!isLastPokemon"
+            class="right-button"
+            @click="paginatePokemon('next')"
+          >
+            <fa-icon icon="chevron-right" />
+          </div>
+        </div>
+        <CardSprite
+          :slide-direction="slideDirection"
+          :pokemon-id="pokemonId"
+          :offload-sprite="offloadSprite"
+          :pokemon="pokemon"
+          :is-pokemon-zoom="isPokemonZoom"
+        />
+        <!-- Zoom on sprite button -->
+        <div
+          class="zoom-pokemon-button"
+          @click="toggleZoom()"
+        >
+          <fa-icon :icon="isPokemonZoom ? 'search-minus' : 'search-plus'" />
+        </div>
+      </section>
 
-          <CardSprite
-            :slide-direction="slideDirection"
-            :pokemon-id="pokemonId"
-            :offload-sprite="offloadSprite"
-            :pokemon="pokemon"
-            :is-pokemon-zoom="isPokemonZoom"
+      <!-- Meta card container -->
+      <transition
+        name="slide-v"
+        mode="out-in"
+      >
+        <section 
+          v-if="!isPokemonZoom"
+          class="meta-container section-2"
+        >
+          <BaseTab
+            class="tab-header"
+            :items="metaItems"
+            @changeTab="changeMetaTab"
           />
 
-          <!-- Zoom on sprite button -->
-          <div
-            class="zoom-pokemon-button"
-            @click="toggleZoom()"
-          >
-            <fa-icon :icon="isPokemonZoom ? 'search-minus' : 'search-plus'" />
-          </div>
-        </section>
-
-        <!-- Meta card container -->
-        <transition
-          name="slide-v"
-          mode="out-in"
-        >
-          <section 
-            v-if="!isPokemonZoom"
-            class="meta-container section-2"
-          >
-            <BaseTab
-              class="tab-header"
-              :items="metaItems"
-              @changeTab="changeMetaTab"
-            />
-
-            <div class="tab-content">
-              <transition
-                name="fade"
-                mode="out-in"
+          <div class="tab-content">
+            <transition
+              name="fade"
+              mode="out-in"
+            >
+              <!-- About -->
+              <div
+                v-if="metaItems[0].active"
+                key="tab-about"
+                class="about-container"
               >
-                <!-- About -->
-                <div
-                  v-if="metaItems[0].active"
-                  key="tab-about"
-                  class="about-container"
-                >
-                  <PokemonBaseStats :pokemon="pokemon" />
-                  <PokemonAbout
-                    :pokemon="pokemon"
-                    :pokemon-species="pokemonSpecies"
-                  />
-                </div>
+                <PokemonBaseStats :pokemon="pokemon" />
+                <PokemonAbout
+                  :pokemon="pokemon"
+                  :pokemon-species="pokemonSpecies"
+                />
+              </div>
 
-                <!-- Moves -->
-                <div
-                  v-if="metaItems[1].active"
-                  key="tab-moves"
-                  class="moves-container"
+              <!-- Moves -->
+              <div
+                v-if="metaItems[1].active"
+                key="tab-moves"
+                class="moves-container"
+              >
+                <PokemonMoves
+                  v-if="pokemonId <= 251"
+                  :pokemon-id="pokemonId"
+                  :types="pokemonTypes"
+                />
+                <div 
+                  v-else
+                  style="color: #888; text-align: center; padding: 60px 0;"
                 >
-                  <PokemonMoves
-                    v-if="pokemonId <= 251"
-                    :pokemon-id="pokemonId"
-                    :types="pokemonTypes"
-                  />
-                  <div 
-                    v-else
-                    style="color: #888; text-align: center; padding: 60px 0;"
-                  >
-                    <h5>Whups, comming soon</h5>
-                    <h6>Only available for Kanto and Johto pokémon</h6>
-                  </div>
+                  <h5>Whups, comming soon</h5>
+                  <h6>Only available for Kanto and Johto pokémon</h6>
                 </div>
-              </transition>
-            </div>
-          </section>
-        </transition>
-      </div>
-
-      <!-- Skeleton loading -->
-      <div
-        v-else
-        class="pokemon-container"
-        :style="skeletonPokemonContainer"
-      >
-        <section class="pokemon-cover section-1">
-          <div class="name-type-container">
-            <div class="skeleton-block-line" />
-          </div>
-          <div class="loading">
-            <BaseProgressSpinner />
+              </div>
+            </transition>
           </div>
         </section>
-        <section class="meta-container section-2" />
-      </div>
+      </transition>
     </div>
-
+    <!-- Skeleton loading -->
+    <div
+      v-else
+      class="pokemon-container"
+      :style="skeletonPokemonContainer"
+    >
+      <section class="pokemon-cover section-1">
+        <div class="name-type-container">
+          <div class="skeleton-block-line" />
+        </div>
+        <div class="loading">
+          <BaseProgressSpinner />
+        </div>
+      </section>
+      <section class="meta-container section-2" />
+    </div>
     <!-- Type modal -->
     <BaseModal
       v-if="isTypeModalOpen"
@@ -187,6 +187,9 @@ export default {
       pokemon: null,
       pokemonSpecies: null,
       offloadSprite: false,
+      startTouch: 0,
+      toPositionPercentage: 0,
+      movingGlobal: 0,
       slideDirection: "",
 
       // Texture
@@ -314,6 +317,35 @@ export default {
       if (direction === "left") {
         this.paginatePokemon ('next')
       }
+    },
+    startHandler(e) {
+      this.startTouch = e.changedTouches[0].clientX
+    },
+    movePokemon (e) {
+      this.movingGlobal = e.changedTouches[0].clientX
+      const moving = this.movingGlobal
+      const clientWidth = document.documentElement.clientWidth
+      //const toPositionPx = moving - 100
+      const startFromCenter = moving
+      this.toPositionPercentage = Math.ceil((((startFromCenter) / clientWidth * 100) -50) * 2.5)
+      
+      let pokemonSprite = document.getElementById('pokemon-sprite-id')
+      pokemonSprite.style.transform = `translateX(${this.toPositionPercentage}%)`
+    },
+    endHandler() {
+      //console.log(this.toPositionPercentage)
+      if(this.toPositionPercentage !== 0) {
+        if(this.toPositionPercentage < -50) {
+          this.paginatePokemon('next')
+        } else if (this.toPositionPercentage > 50) {
+          this.paginatePokemon('previous')
+        } else {
+          document.getElementById('pokemon-sprite-id').style.transform = 'translateX(0%)'
+        }
+      }
+      //document.getElementById('pokemon-sprite-id').style.transform = 'translateX(0%)'
+      this.movingGlobal = 0
+      this.toPositionPercentage = 0
     },
     paginatePokemon (direction) {
       this.slideDirection = (direction === 'next') ? 'slide-h-r' : 'slide-h-l'
