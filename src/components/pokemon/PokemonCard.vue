@@ -237,7 +237,7 @@ export default {
         backgroundColor: $getTypeColor(this.firstType),
         backgroundBlendMode: "screen"
       };
-    }
+    },
   },
   watch: {
     pokemonId () {
@@ -347,9 +347,9 @@ export default {
     endHandler() {
       const percentageThreshold = 50
       if(this.toPositionPercentage !== 0) {
-        if(this.toPositionPercentage < -percentageThreshold) {
+        if(this.toPositionPercentage < -percentageThreshold && !this.isLastPokemon) {
           this.paginatePokemon('next')
-        } else if (this.toPositionPercentage > percentageThreshold) {
+        } else if (this.toPositionPercentage > percentageThreshold && !this.isFirstPokemon) {
           this.paginatePokemon('previous')
         } else {
           document.getElementById('pokemon-sprite-id').style = 'transition: transform .4s ease'
