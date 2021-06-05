@@ -352,7 +352,11 @@ export default {
         } else if (this.toPositionPercentage > percentageThreshold) {
           this.paginatePokemon('previous')
         } else {
+          document.getElementById('pokemon-sprite-id').style = 'transition: transform .4s ease'
           document.getElementById('pokemon-sprite-id').style.transform = 'translateX(0%)'
+          setTimeout(() => {
+            document.getElementById('pokemon-sprite-id').style = 'transition: none'
+          }, 400)
         }
       }
       this.toPositionPercentage = 0
