@@ -320,34 +320,32 @@ export default {
     },
     startHandler(e) {
       this.startTouch = e.changedTouches[0].clientX
-      const screenCenter = this.clientWidth / 2
-      if (this.startTouch > screenCenter) {
-        this.startDirection = 1
-      } else if (this.startTouch < screenCenter) {
-        this.startDirection = -1
-      } else {
-        this.startDirection = 0
-      }
     },
     movePokemon (e) {
-      this.movingGlobal = e.changedTouches[0].clientX
-
-      const moving = Math.ceil((((this.movingGlobal) / this.clientWidth * 100) -50) * 2.5)
-      const startMove = Math.ceil((((this.startTouch) / this.clientWidth * 100) -50) * 2.5)
-      if(this.startDirection === 1) {
-        this.toPositionPercentage = moving - startMove
-      } else if (this.startDirection === -1) {
-        this.toPositionPercentage = (startMove - moving) * -1
-      } else {
-        this.toPositionPercentage = moving
-      }
+      const moveTouch = e.changedTouches[0].clientX
+      
+      const moving = Math.ceil((((moveTouch) / this.clientWidth * 100) -50) * 2.5)
+      const startPosition = Math.ceil((((this.startTouch) / this.clientWidth * 100) -50) * 2.5)
+      
+      this.toPositionPercentage = this.calcMovingPercentage(moving, startPosition)
 
       let pokemonSprite = document.getElementById('pokemon-sprite-id')
       pokemonSprite.style.transform = `translateX(${this.toPositionPercentage}%)`
     },
+    calcMovingPercentage (moving, startPosition) {
+      const screenCenter = this.clientWidth / 2
+      let movingPositionPercentage = 0
+      if (this.startTouch > screenCenter) {
+        movingPositionPercentage = moving - startPosition
+      } else if (this.startTouch < screenCenter) {
+        movingPositionPercentage = (startPosition - moving) * -1
+      } else {
+        movingPositionPercentage = moving
+      }
+      return movingPositionPercentage
+    },
     endHandler() {
       const percentageThreshold = 50
-      //console.log(this.toPositionPercentage)
       if(this.toPositionPercentage !== 0) {
         if(this.toPositionPercentage < -percentageThreshold) {
           this.paginatePokemon('next')
@@ -357,8 +355,6 @@ export default {
           document.getElementById('pokemon-sprite-id').style.transform = 'translateX(0%)'
         }
       }
-      //document.getElementById('pokemon-sprite-id').style.transform = 'translateX(0%)'
-      this.movingGlobal = 0
       this.toPositionPercentage = 0
     },
     paginatePokemon (direction) {
