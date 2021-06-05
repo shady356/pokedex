@@ -18,8 +18,6 @@
           :pokemon-id="pokemonId"
           @openTypeModal="openTypeModal"
         />
-        {{ toPositionPercentage }}%
-        {{ Math.ceil(movingGlobal) }}px
         <!-- Pagination buttons -->
         <div class="pagination-buttons">
           <div
@@ -191,6 +189,7 @@ export default {
       toPositionPercentage: 0,
       movingGlobal: 0,
       slideDirection: "",
+      clientWidth: 0,
 
       // Texture
       texture: require("@/assets/textures/grid-texture.png"),
@@ -248,6 +247,7 @@ export default {
     }
   },
   mounted() {
+    this.clientWidth = document.documentElement.clientWidth
     this.getPokemon(this.pokemonId);
     this.getPokemonSpecies(this.pokemonId);
   },
@@ -320,24 +320,38 @@ export default {
     },
     startHandler(e) {
       this.startTouch = e.changedTouches[0].clientX
+      const screenCenter = this.clientWidth / 2
+      if (this.startTouch > screenCenter) {
+        this.startDirection = 1
+      } else if (this.startTouch < screenCenter) {
+        this.startDirection = -1
+      } else {
+        this.startDirection = 0
+      }
     },
     movePokemon (e) {
       this.movingGlobal = e.changedTouches[0].clientX
-      const moving = this.movingGlobal
-      const clientWidth = document.documentElement.clientWidth
-      //const toPositionPx = moving - 100
-      const startFromCenter = moving
-      this.toPositionPercentage = Math.ceil((((startFromCenter) / clientWidth * 100) -50) * 2.5)
-      
+
+      const moving = Math.ceil((((this.movingGlobal) / this.clientWidth * 100) -50) * 2.5)
+      const startMove = Math.ceil((((this.startTouch) / this.clientWidth * 100) -50) * 2.5)
+      if(this.startDirection === 1) {
+        this.toPositionPercentage = moving - startMove
+      } else if (this.startDirection === -1) {
+        this.toPositionPercentage = (startMove - moving) * -1
+      } else {
+        this.toPositionPercentage = moving
+      }
+
       let pokemonSprite = document.getElementById('pokemon-sprite-id')
       pokemonSprite.style.transform = `translateX(${this.toPositionPercentage}%)`
     },
     endHandler() {
+      const percentageThreshold = 50
       //console.log(this.toPositionPercentage)
       if(this.toPositionPercentage !== 0) {
-        if(this.toPositionPercentage < -50) {
+        if(this.toPositionPercentage < -percentageThreshold) {
           this.paginatePokemon('next')
-        } else if (this.toPositionPercentage > 50) {
+        } else if (this.toPositionPercentage > percentageThreshold) {
           this.paginatePokemon('previous')
         } else {
           document.getElementById('pokemon-sprite-id').style.transform = 'translateX(0%)'
