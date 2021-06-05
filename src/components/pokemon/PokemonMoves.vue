@@ -118,6 +118,11 @@ export default {
     this.setupGenerationsDataSet();
     this.getMovesByPokemonId(this.pokemonId);
   },
+  watch: {
+    pokemonId () {
+      this.getMovesByPokemonId(this.pokemonId);
+    }
+  },
   methods: {
     // Api
     async getMovesByPokemonId (id) {
