@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="moves">
+    <div v-if="isMovesLoaded">
       <div class="generation">
         <h6>Generation:</h6>
         <BaseTab 
@@ -72,6 +72,7 @@ export default {
   },
   data() {
     return {
+      isMovesLoaded: false,
       moves: null,
       generations: [],
       totalGenerations: 7,
@@ -112,7 +113,7 @@ export default {
   computed: {
     HENRIKO_API() {
       return process.env.VUE_APP_HENRIKO_URL;
-    }
+    },
   },
   mounted() {
     this.setupGenerationsDataSet();
@@ -120,6 +121,10 @@ export default {
   },
   watch: {
     pokemonId () {
+      this.moves = null
+      this.generations = []
+      this.isMovesLoaded = false
+      this.setupGenerationsDataSet();
       this.getMovesByPokemonId(this.pokemonId);
     }
   },
@@ -131,7 +136,8 @@ export default {
       this.moves = response.data;
       this.categorizeMovesToGenerations(response.data);
       this.sortTables();
-      
+      this.isMovesLoaded = true
+
       if (response.error) {
         console.log('error') // TODO: replace with toast
       }
