@@ -30,7 +30,7 @@ body {
   height: 100%;
   -webkit-overflow-scrolling: touch;
   background: $body-color;
-  color: #444;
+  color: $body-color-text;
 
   /* &.bodyFilter {
     background: $purple-dark;

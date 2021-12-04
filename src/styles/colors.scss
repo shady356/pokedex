@@ -1,24 +1,32 @@
 /* 
   Color Theme Swatches 
 */
-$green: hsl(150, 55%, 50%);
-$green-light: hsl(150, 61%, 66%);
-$green-dark: hsl(150, 60%, 25%);
-$green-extra-dark: hsl(150, 80%, 15%);
+$green-hue: 165;
+$green-white: hsl($green-hue, 40%, 90%);
+$green-light: hsl($green-hue, 65%, 70%);
+$green: hsl($green-hue, 60%, 60%);
+$green-dark: hsl($green-hue, 80%, 15%);
+$green-black: hsl($green-hue, 80%, 10%);
 
-$blue: hsl(200, 55%, 59%);
-$blue-light: hsl(200, 61%, 66%);
-$blue-dark: hsl(200, 60%, 25%);
-$blue-white: hsl(200, 30%, 95%);
+$blue-hue: 220;
+$blue-white: hsl($blue-hue, 30%, 95%);
+$blue-light: hsl($blue-hue, 70%, 65%);
+$blue: hsl($blue-hue, 60%, 60%);
+$blue-dark: hsl($blue-hue, 80%, 15%);
+$blue-black: hsl($blue-hue, 80%, 10%);
 
-$purple: hsl(270, 50%, 50%);
-$purple-light: hsl(270, 70%, 75%);
-$purple-dark: hsl(270, 50%, 25%);
-$purple-white: hsl(270, 45%, 95%);
+$purple-hue: 270;
+$purple-white: hsl($purple-hue, 45%, 95%);
+$purple-light: hsl($purple-hue, 70%, 75%);
+$purple: hsl($purple-hue, 60%, 60%);
+$purple-dark: hsl($purple-hue, 80%, 15%);
+$purple-black: hsl($purple-hue, 80%, 10%);
+
+/* Color Pokemon types */
 
 $bug: #92bc2c;
 $dark: #595761;
-$dragon: #0c69c8;
+$dragon: #0c6bca;
 $electric: #f2d94e;
 $fire: #fba54c;
 $fairy: #ee90e6;
@@ -35,4 +43,9 @@ $rock: #c9bb8a;
 $steel: #5695a3;
 $water: #539ddf;
 
-$body-color: $green-light;
+/* App color theme */
+
+$body-color: $green;
+$body-color-accent: $green-light;
+$body-color-accent-2: $green-dark;
+$body-color-text: $green-dark;

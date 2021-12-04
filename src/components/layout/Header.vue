@@ -45,15 +45,13 @@ export default {
 
     &:nth-child(1) {
       flex-grow: 1;
-      color: #fff;
+      color: $body-color-text;
     }
     &:nth-child(2) {
       flex-grow: 12;
-      color: #fff;
     }
     &:nth-child(3) {
       flex-grow: 1;
-      color: #fff;
     }
   }
 }
