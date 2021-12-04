@@ -35,8 +35,16 @@
               class="tag-item"
             />
           </td>
-          <td class="effect">
-            {{ item.category }}
+          <td
+            class="category"
+            :title="item.category"
+          >
+            <img
+              class="category-img"
+              :src="getItemCategoryImageSrc(item.category)"
+              :alt="item.category"
+            >            
+            {{ itemCategory }}
           </td>
           <td class="power number">
             {{ item.power | power }}
@@ -101,7 +109,7 @@ export default {
   computed: {
     isLevelUp() {
       return this.category === "levelUp";
-    }
+    },
   },
   methods: {
     getTypeColor(type) {
@@ -149,6 +157,16 @@ export default {
     },
     isSameType (type) {
       return this.types.includes(type)
+    },
+    getItemCategoryImageSrc(category) {
+      if(category === 'special') {
+        return require('@/assets/icons/move_types/move-special.png')
+      } else if(category === 'physical') {
+        return require('@/assets/icons/move_types/move-physical.png')
+      }
+      else {
+        return require('@/assets/icons/move_types/move-status.png')
+      }
     }
   }
 };
@@ -187,7 +205,7 @@ export default {
       th {
         padding: $s 0;
         text-align: left;
-        font-size: $font-s;
+        font-size: $font-xs;
 
         &:nth-child(4), &:nth-child(5) {
           text-align: right;
@@ -216,6 +234,12 @@ export default {
           }
           &.number {
             text-align: right;
+          }
+          &.category {
+            .category-img {
+              height: auto;
+              width: $xl;
+            }
           }
         }
       }

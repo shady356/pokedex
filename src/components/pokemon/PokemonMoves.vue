@@ -107,7 +107,7 @@ export default {
           active: true
         }
       ],
-      tableHeaders: ["move", "type", "effect", "power", "acc."]
+      tableHeaders: ["move", "type", "category", "power", "acc."]
     };
   },
   computed: {
