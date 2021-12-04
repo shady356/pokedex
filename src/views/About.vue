@@ -6,6 +6,7 @@
       </template> 
     </Header>
     <div class="about-container">
+      <h3>About</h3>
       <p>
         A small application to present Pokemon and their in-game meta data. The
         data is served from PokéAPI (https://pokeapi.co/), a RESTful Pokemon API.
@@ -15,10 +16,21 @@
         The project is available from GitHub (https://github.com/shady356/pokedex)
       </p>
       <h4>Resources</h4>
+      <p>All external resources in this application</p>
+      <h5>Icons</h5>
       <p>
         Pokemon type icons from:
-        https://github.com/duiker101/pokemon-type-svg-icons. UI icons from Font
-        Awesome
+        https://github.com/duiker101/pokemon-type-svg-icons.
+      </p>
+      <p>
+        UI icons from: https://fontawesome.com/
+      </p>
+      <h5>Sprites</h5>
+      <p>
+        Pokemon sprites from:
+        https://pokemondb.net/sprites.
+        Usage policy:
+        https://pokemondb.net/about
       </p>
     </div>
   </div>
@@ -44,6 +56,7 @@ export default {
 
   p {
     line-height: 1.3rem;
+    margin: $xs 0 $s;
   }
 }
 </style>
