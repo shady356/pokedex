@@ -4,16 +4,23 @@
       class="column"
       :to="{ name: routerBack }"
     >
-      <fa-icon 
-        icon="chevron-left" 
-        class="go-back" 
-      />
+      <button class="header-button">
+        <fa-icon 
+          icon="chevron-left" 
+          class="go-back" 
+        />
+      </button>
     </router-link>
     <div class="column">
       <slot name="title" />
     </div>
-    <div class="column">
-      <slot name="options" />
+    <div
+      class="column"
+      v-if="hasOptionsSlot"
+    >
+      <button class="header-button">
+        <slot name="options" />
+      </button>
     </div>
   </header>
 </template>
@@ -26,6 +33,11 @@ export default {
       type: String,
       required: false,
       default: 'Home'
+    }
+  },
+  computed: {
+    hasOptionsSlot () {
+      return !!this.$slots['options']
     }
   }
 };
@@ -41,7 +53,7 @@ export default {
   top: 0;
 
   .column {
-    text-align: center;
+    display: flex;
 
     &:nth-child(1) {
       flex-grow: 1;
@@ -49,11 +61,24 @@ export default {
     }
     &:nth-child(2) {
       flex-grow: 12;
+      justify-content: center;
     }
     &:nth-child(3) {
       flex-grow: 1;
+      justify-content: flex-end;
     }
   }
+}
+.header-button {
+  align-items: center;
+  background: $body-color-accent;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  height: $s;
+  justify-content: center;
+  padding: $m;
+  width: $s;
 }
 .dark {
   .header {
