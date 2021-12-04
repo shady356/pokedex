@@ -6,7 +6,7 @@
     </div> -->
     <div class="sprite-container">
       <div
-        :style="'backgroundImage: url(' + sprite + ')'"
+        :style="'backgroundImage: url(' + pokemonSpriteImg + ')'"
         class="sprite"
       />
     </div>
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import {getPokemonSpriteByName} from '@/helpers/sprites.js'
 export default {
   name: "PokedexItem",
   filters: {
@@ -41,6 +42,11 @@ export default {
       required: true,
       default: null
     }
+  },
+  computed: {
+     pokemonSpriteImg() {
+      return getPokemonSpriteByName(this.name)
+    },
   }
 };
 </script>

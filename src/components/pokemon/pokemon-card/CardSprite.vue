@@ -9,8 +9,7 @@
     >
       <img
         v-if="!offloadSprite"
-        :src="getSprite(pokemon.id)"
-        
+        :src="pokemonSpriteImg"
         :class="['pokemon-sprite', { zoom: isPokemonZoom }]"
         alt="pokemon sprite"
         id="pokemon-sprite-id"
@@ -22,6 +21,7 @@
 </template>
 
 <script>
+import {getPokemonSpriteByName} from '@/helpers/sprites.js'
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
 export default {
   name: 'CardSprite',
@@ -52,6 +52,9 @@ export default {
     }
   },
   computed: {
+    pokemonSpriteImg() {
+      return getPokemonSpriteByName(this.pokemon.name)
+    },
     pokemonSpriteHeight() {
       const height = this.pokemon.height / 10
       
@@ -62,11 +65,6 @@ export default {
       }
     }
   },
-  methods: {
-    getSprite(id) {
-      return "https://pokeres.bastionbot.org/images/pokemon/" + id + ".png";
-    }
-  }
 }
 </script>
 
@@ -76,13 +74,15 @@ export default {
   justify-content: center;
   align-items: flex-end;
   height: calc(100% - #{$xxl});
+  max-height: calc(100% - #{$xxl});
   padding: $l 0;
   box-sizing: border-box;
 
   .pokemon-sprite {
     position: relative;
     bottom: 10%;
-    height: 75%;
+    max-height: 100%;
+    max-width: 100%;
     transform: translateX(0%);
     transition: height .4s ease-out, top .4s ease-out;
     z-index: 10;

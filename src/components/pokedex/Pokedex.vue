@@ -33,7 +33,7 @@
           <PokedexItem
             :id="pokemonList[index].id"
             :name="pokemonList[index].name"
-            :sprite="getSprite(pokemonList[index].id)"
+            :sprite="getSprite(pokemonList[index].name)"
           />
         </router-link>
       </ul>
@@ -219,8 +219,8 @@ export default {
       this.loadedCounter = 0;
       this.currentBatch = 1;
     },
-    getSprite(id) {
-      return "https://pokeres.bastionbot.org/images/pokemon/" + id + ".png";
+    getSprite(name) {
+      return "https://img.pokemondb.net/sprites/home/normal/" + name + ".png";
     },
     setBodyColor() {
       if (this.isFilter) {
