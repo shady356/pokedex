@@ -276,7 +276,7 @@ $pokemon-gap-mobile: 2%;
 
 .filter-item {
   &.active {
-    color: $purple;
+    color: var(--purple);
   }
 }
 

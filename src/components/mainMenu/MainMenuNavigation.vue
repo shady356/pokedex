@@ -8,11 +8,10 @@
       tag="li"
     >
       <div class="icon-container">
-        <img 
+        <Component
+          :is="item.component"
           class="icon-image"
-          :src="item.icon" 
-          alt="item icon"
-        >
+        />
       </div>
       <div class="text uppercase letter-spacing">
         {{ item.name }}
@@ -22,8 +21,16 @@
 </template>
 
 <script>
+import AboutIcon from '@/assets/home-icons/AboutIcon.vue'
+import PokeballIcon from '@/assets/home-icons/PokeballIcon.vue'
+import PokedexIcon from '@/assets/home-icons/PokedexIcon.vue'
 export default {
   name: 'MainMenuItems',
+  components: {
+    AboutIcon,
+    PokeballIcon,
+    PokedexIcon
+  },
   props: {
     items: {
       type: Array,
@@ -58,8 +65,8 @@ export default {
 
       .icon-container {
         align-items: center;
-        background: $body-color-accent;
-        //border: 2px solid $body-color-accent-2;
+        background: var(--main-color-light);
+        border: 2px solid var(--main-color-dark);
         border-radius: 50%;
         display: flex;
         height: $xxxl;
@@ -72,7 +79,7 @@ export default {
         }
       }
       .text {
-        color: $body-color-text;
+        color: var(--main-color-black);
         font-size: $font-s;
         font-weight: 700;
         margin-top: $s;

@@ -1,7 +1,5 @@
 <template>
-  <div 
-    id="app" 
-  >
+  <div id="app">
     <!-- <BaseToast /> -->
     <router-view class="main-layout" />
   </div>
@@ -29,11 +27,11 @@ html {
 body {
   height: 100%;
   -webkit-overflow-scrolling: touch;
-  background: $body-color;
-  color: $body-color-text;
+  background: var(--main-color);
+  color: var(--main-color-black);
 
   /* &.bodyFilter {
-    background: $purple-dark;
+    background: var(--purple-dark);
   } */
 
   // Dark theme:

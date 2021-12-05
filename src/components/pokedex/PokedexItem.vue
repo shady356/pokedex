@@ -55,7 +55,7 @@ export default {
 .header {
   padding: $xxxs;
   border-radius: $xxs $xxs 0 0;
-  background: $blue;
+  background: var(--blue);
   font-size: $font-xs;
   text-align: center;
 }
@@ -70,7 +70,7 @@ export default {
     width: 92px;
     padding: 10px;
     background: #fff6;
-    border: 1px solid $green;
+    border: 1px solid var(--main-color);
     background-position: center;
     background-size: 65%;
     background-repeat: no-repeat;

@@ -1,26 +1,6 @@
 /* 
   Color Theme Swatches 
 */
-$green-hue: 165;
-$green-white: hsl($green-hue, 40%, 90%);
-$green-light: hsl($green-hue, 65%, 70%);
-$green: hsl($green-hue, 60%, 60%);
-$green-dark: hsl($green-hue, 80%, 15%);
-$green-black: hsl($green-hue, 80%, 10%);
-
-$blue-hue: 220;
-$blue-white: hsl($blue-hue, 30%, 95%);
-$blue-light: hsl($blue-hue, 70%, 65%);
-$blue: hsl($blue-hue, 60%, 60%);
-$blue-dark: hsl($blue-hue, 80%, 15%);
-$blue-black: hsl($blue-hue, 80%, 10%);
-
-$purple-hue: 300;
-$purple-white: hsl($purple-hue, 45%, 95%);
-$purple-light: hsl($purple-hue, 70%, 75%);
-$purple: hsl($purple-hue, 60%, 60%);
-$purple-dark: hsl($purple-hue, 80%, 15%);
-$purple-black: hsl($purple-hue, 80%, 10%);
 
 /* Color Pokemon types */
 
@@ -45,7 +25,46 @@ $water: #539ddf;
 
 /* App color theme */
 
-$body-color: $green;
-$body-color-accent: $green-light;
-$body-color-accent-2: $green-dark;
-$body-color-text: $green-dark;
+:root {
+  --blue-hue: 220;
+  --blue: hsl(var(--blue-hue), 60%, 60%);
+
+  --green-hue: 165;
+  --green-white:  hsl(var(--green-hue), 40%, 90%);
+  --green-light:  hsl(var(--green-hue), 65%, 70%);
+  --green:        hsl(var(--green-hue), 60%, 60%);
+  --green-strong: hsl(var(--green-hue), 75%, 50%);
+  --green-dark:   hsl(var(--green-hue), 80%, 40%);
+  --green-black:  hsl(var(--green-hue), 80%, 10%);
+
+  --blue-hue: 220;
+  --blue-white:  hsl(var(--blue-hue), 30%, 95%);
+  --blue-light:  hsl(var(--blue-hue), 70%, 65%);
+  --blue:        hsl(var(--blue-hue), 60%, 60%);
+  --blue-strong: hsl(var(--blue-hue), 75%, 50%);
+  --blue-dark:   hsl(var(--blue-hue), 80%, 15%);
+  --blue-black:  hsl(var(--blue-hue), 80%, 10%);
+
+  --purple-hue: 300;
+  --purple-white:  hsl(var(--purple-hue), 45%, 95%);
+  --purple-light:  hsl(var(--purple-hue), 70%, 75%);
+  --purple:        hsl(var(--purple-hue), 60%, 60%);
+  --purple-strong: hsl(var(--purple-hue), 75%, 50%);
+  --purple-dark:   hsl(var(--purple-hue), 80%, 15%);
+  --purple-black:  hsl(var(--purple-hue), 80%, 10%);
+
+  --night-hue: 200;
+  --night-white:  hsl(var(--night-hue), 20%, 95%);
+  --night-light:  hsl(var(--night-hue), 30%, 30%);
+  --night:        hsl(var(--night-hue), 25%, 20%);
+  --night-strong: hsl(var(--night-hue), 20%, 10%);
+  --night-dark:   hsl(var(--night-hue), 28%, 80%);
+  --night-black:  hsl(var(--night-hue), 28%, 90%);
+
+  --main-color:         var(--green);
+  --main-color-strong:  var(--green-strong);
+  --main-color-light:   var(--green-light);
+  --main-color-dark:    var(--green-dark);
+  --main-color-white:   var(--green-white);
+  --main-color-black:   var(--green-black);
+}

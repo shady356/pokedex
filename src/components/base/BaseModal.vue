@@ -176,12 +176,12 @@ export default {
         display: flex;
         justify-content: center;
         background: #fff;
-        border: 1px solid $blue;
+        border: 1px solid var(--blue);
         border-radius: 50%;
         padding: $xxxs;
 
         .close-icon {
-          background: $blue;
+          background: var(--blue);
           width: $m;
           height: $m;
           padding: $xs;

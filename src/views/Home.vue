@@ -24,17 +24,17 @@ export default {
         {
           name: "Pokédex",
           route: "Pokedex",
-          icon: require('../assets/home-icons/pokedex_icon.png')
+          component: "PokedexIcon",
         },
         {
           name: "Types",
           route: "Types",
-          icon: require('../assets/home-icons/types.png')
+          component: "PokeballIcon",
         },
         {
           name: "About",
           route: "About",
-          icon: require('../assets/home-icons/about.png')
+          component: "AboutIcon",
         }
       ]
     };
@@ -51,7 +51,7 @@ export default {
   padding: $l;
 
   .pokemon-logo {
-    text-shadow: 0 0 10px $green;
+    text-shadow: 0 0 10px var(--main-color);
     color: #fff;
     font-weight: 100;
     font-size: 48px;

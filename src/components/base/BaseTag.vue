@@ -32,7 +32,7 @@ export default {
   white-space: nowrap;
 
   &.purple {
-    background-color: $purple;
+    background-color: var(--purple);
     color: #fff;
     border-color: transparent;
     transition: background-color $fast ease-in;
@@ -46,7 +46,7 @@ export default {
     color: #aaa;
 
     &.purple {
-      background-color: $purple;
+      background-color: var(--purple);
       color: #fff;
     }
   }

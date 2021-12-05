@@ -16,9 +16,11 @@
     </div>
     <div
       class="column"
-      v-if="hasOptionsSlot"
     >
-      <button class="header-button">
+      <button
+        class="header-button"
+        v-if="hasOptionsSlot"
+      >
         <slot name="options" />
       </button>
     </div>
@@ -46,7 +48,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   align-items: center;
-  background: $body-color;
+  background: var(--main-color);
   display: flex;
   padding: $s;
   position: sticky;
@@ -57,7 +59,7 @@ export default {
 
     &:nth-child(1) {
       flex-grow: 1;
-      color: $body-color-text;
+      color: var(--main-color);
     }
     &:nth-child(2) {
       flex-grow: 12;
@@ -71,7 +73,7 @@ export default {
 }
 .header-button {
   align-items: center;
-  background: $body-color-accent;
+  background: var(--main-color-light);
   border-radius: 50%;
   border: none;
   display: flex;
