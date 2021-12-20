@@ -43,8 +43,7 @@
               class="category-img"
               :src="getItemCategoryImageSrc(item.category)"
               :alt="item.category"
-            >            
-            {{ itemCategory }}
+            >
           </td>
           <td class="power number">
             {{ item.power | power }}
@@ -192,7 +191,7 @@ export default {
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: $m;
+    margin-bottom: $xxl;
 
     .table-header {
       background: #fff;
@@ -207,6 +206,9 @@ export default {
         text-align: left;
         font-size: $font-xs;
 
+        &:nth-child(2), &:nth-child(3) {
+          text-align: center;
+        }
         &:nth-child(4), &:nth-child(5) {
           text-align: right;
         }
@@ -232,33 +234,20 @@ export default {
               font-weight: normal;
             }
           }
-          &.number {
-            text-align: right;
+          &.type {
+            text-align: center;
           }
           &.category {
+            text-align: center;
             .category-img {
               height: auto;
               width: $xl;
             }
           }
+          &.number {
+            text-align: right;
+          }
         }
-      }
-    }
-  }
-
-  .dark {
-    .title {
-      .text {
-        background: #333;
-      }
-      &::after {
-        content: '';
-        background: #444;
-      }
-    }
-    tbody {
-      tr {
-        border-color: #444;
       }
     }
   }
