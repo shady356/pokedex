@@ -1,24 +1,23 @@
 <template>
   <header class="header">
     <router-link
-      class="column"
+      class="header__column"
       :to="{ name: routerBack }"
     >
-      <button class="header-button">
+      <button class="column__button">
         <fa-icon 
-          icon="chevron-left" 
-          class="go-back" 
+          icon="chevron-left"  
         />
       </button>
     </router-link>
-    <div class="column">
+    <div class="header__column">
       <slot name="title" />
     </div>
     <div
-      class="column"
+      class="header__column"
     >
       <button
-        class="header-button"
+        class="column__button"
         v-if="hasOptionsSlot"
       >
         <slot name="options" />
@@ -54,42 +53,28 @@ export default {
   position: sticky;
   top: 0;
 
-  .column {
+  .header__column {
     display: flex;
 
     &:nth-child(1) {
-      flex-grow: 1;
       color: var(--main-color);
     }
     &:nth-child(2) {
-      flex-grow: 12;
+      width: calc(100% - (#{$xxl}*2));
       justify-content: center;
     }
     &:nth-child(3) {
-      flex-grow: 1;
       justify-content: flex-end;
     }
-  }
-}
-.header-button {
-  align-items: center;
-  background: var(--main-color-light);
-  border-radius: 50%;
-  border: none;
-  display: flex;
-  height: $s;
-  justify-content: center;
-  padding: $m;
-  width: $s;
-}
-.dark {
-  .header {
-    background: hsla(0, 0%, 10%, 0.9);
-    border-bottom: 1px solid #333;
-    color: #fff;
-    
-    .go-back {
-      color: #fff;
+    .column__button {
+      align-items: center;
+      background: var(--main-color-light);
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      height: $xxl;
+      justify-content: center;
+      width: $xxl;
     }
   }
 }

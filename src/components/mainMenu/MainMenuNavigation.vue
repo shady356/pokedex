@@ -1,19 +1,19 @@
 <template>
   <ul class="navigation-list">
     <router-link
-      class="item"
+      class="navigation-list__item"
       v-for="item in items"
       :key="item.name"
       :to="{ name: item.route }"
       tag="li"
     >
-      <div class="icon-container">
+      <div class="item__icon">
         <Component
           :is="item.component"
-          class="icon-image"
+          class="icon__image"
         />
       </div>
-      <div class="text uppercase letter-spacing">
+      <div class="item__text uppercase letter-spacing">
         {{ item.name }}
       </div>
     </router-link>
@@ -53,7 +53,7 @@ export default {
       width: 50%;
     }
 
-    .item {
+    .navigation-list__item {
       align-items: center;
       cursor: pointer;
       display: flex;
@@ -63,7 +63,7 @@ export default {
       transition: all 0.4s;
       width: calc(100% / 3);
 
-      .icon-container {
+      .item__icon {
         align-items: center;
         background: var(--main-color-light);
         border: 2px solid var(--main-color-dark);
@@ -73,29 +73,17 @@ export default {
         justify-content: center;
         width: $xxxl;
 
-        .icon-image {
+        .icon__image {
           height: $xl;
           width: $xl;
         }
       }
-      .text {
+      .item__text {
         color: var(--main-color-black);
         font-size: $font-s;
         font-weight: 700;
         margin-top: $s;
         text-align: center;
-      }
-    }
-  }
-
-  .dark {
-    .navigation-list {
-      .icon-container {
-        background: #333;
-        border: 1px solid #444;
-      }
-      .text {
-        color: #aaa;
       }
     }
   }
