@@ -22,21 +22,21 @@ export default {
 }
 html {
   width: 100%;
+  background: var(--main-color-strong);
+  min-height: 100%;
 }
 
 body {
-  height: 100%;
+  min-height: 100vh;
   -webkit-overflow-scrolling: touch;
-  background: var(--main-color);
+  background: var(--main-color-body);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--main-color-black);
 
   /* &.bodyFilter {
     background: var(--purple-dark);
   } */
-
-  // Dark theme:
-  // background: #1a1a1a;
-  // color: #ddd;
 }
 
 .disable-scroll {

@@ -47,7 +47,6 @@ export default {
 <style lang="scss" scoped>
 .header {
   align-items: center;
-  background: var(--main-color);
   display: flex;
   padding: $s;
   position: sticky;
@@ -68,7 +67,8 @@ export default {
     }
     .column__button {
       align-items: center;
-      background: var(--main-color-light);
+      background: none;
+      //background: var(--main-color-light);
       border-radius: 50%;
       border: none;
       display: flex;

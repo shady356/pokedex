@@ -26,13 +26,21 @@ $water: #539ddf;
 /* App color theme */
 
 :root {
-  --green-hue: 165;
+  --green-hue: 140;
   --green-white:  hsl(var(--green-hue), 40%, 90%);
   --green-light:  hsl(var(--green-hue), 65%, 70%);
   --green:        hsl(var(--green-hue), 60%, 60%);
   --green-strong: hsl(var(--green-hue), 75%, 50%);
   --green-dark:   hsl(var(--green-hue), 80%, 40%);
   --green-black:  hsl(var(--green-hue), 80%, 10%);
+
+  --aqua-hue: 200;
+  --aqua-white:  hsl(var(--aqua-hue), 40%, 90%);
+  --aqua-light:  hsl(var(--aqua-hue), 65%, 70%);
+  --aqua:        hsl(var(--aqua-hue), 60%, 60%);
+  --aqua-strong: hsl(var(--aqua-hue), 75%, 50%);
+  --aqua-dark:   hsl(var(--aqua-hue), 80%, 30%);
+  --aqua-black:  hsl(var(--aqua-hue), 80%, 10%);
 
   --blue-hue: 220;
   --blue-white:  hsl(var(--blue-hue), 30%, 95%);
@@ -42,7 +50,7 @@ $water: #539ddf;
   --blue-dark:   hsl(var(--blue-hue), 80%, 15%);
   --blue-black:  hsl(var(--blue-hue), 80%, 10%);
 
-  --purple-hue: 300;
+  --purple-hue: 260;
   --purple-white:  hsl(var(--purple-hue), 45%, 95%);
   --purple-light:  hsl(var(--purple-hue), 70%, 75%);
   --purple:        hsl(var(--purple-hue), 60%, 60%);
@@ -58,10 +66,12 @@ $water: #539ddf;
   --night-dark:   hsl(var(--night-hue), 28%, 80%);
   --night-black:  hsl(var(--night-hue), 28%, 90%);
 
-  --main-color:         var(--green);
-  --main-color-strong:  var(--green-strong);
-  --main-color-light:   var(--green-light);
-  --main-color-dark:    var(--green-dark);
-  --main-color-white:   var(--green-white);
-  --main-color-black:   var(--green-black);
+  --main-color:         var(--aqua);
+  --main-color-strong:  var(--aqua-strong);
+  --main-color-light:   var(--aqua-light);
+  --main-color-dark:    var(--aqua-dark);
+  --main-color-white:   var(--aqua-white);
+  --main-color-black:   var(--aqua-black);
+
+  --main-color-body:   linear-gradient(-145deg, hsl(260, 58%, 53%) 0%, hsl(179, 64%, 47%) 100%);
 }
