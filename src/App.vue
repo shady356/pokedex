@@ -30,10 +30,9 @@ body {
   min-height: 100vh;
   -webkit-overflow-scrolling: touch;
   background: var(--main-color-body);
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-attachment: fixed;
   color: var(--main-color-black);
-
   /* &.bodyFilter {
     background: var(--purple-dark);
   } */

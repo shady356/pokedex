@@ -191,13 +191,9 @@ export default {
       slideDirection: "",
       clientWidth: 0,
 
-      // Texture
-      texture: require("@/assets/textures/grid-texture.png"),
-
       // Type modal
       isTypeModalOpen: false,
       currentTypeInModal: null,
-
 
       metaItems: [
         {
@@ -212,6 +208,9 @@ export default {
     };
   },
   computed: {
+    pokemonTexture() {
+      return require(`@/assets/PK_Textures/${this.firstType}.png`)
+    },
     isPokemonLoaded() {
       return this.pokemon && this.pokemonSpecies;
     },
@@ -233,9 +232,10 @@ export default {
     },
     getModalBackground() {
       return {
-        background: "url(" + this.texture + ")",
+        background: "url(" + this.pokemonTexture + ")",
         backgroundColor: $getTypeColor(this.firstType),
-        backgroundBlendMode: "screen"
+        backgroundBlendMode: "screen",
+        backgroundSize: 'cover'
       };
     },
   },
@@ -380,7 +380,7 @@ export default {
   grid-template-columns: 100%;
   grid-template-rows: 35% 65%;
   overflow: hidden;
-  transition: background-color 1000ms linear;
+  transition: background 1000ms ease-in-out;
 
   .section-1 {
     grid-row-start: 1;

@@ -1,19 +1,19 @@
 <template>
   <ul class="navigation-list">
     <router-link
-      class="navigation-list__item"
-      v-for="item in items"
+      class="navigation-list-item"
+      v-for="item in navigationItems"
       :key="item.name"
       :to="{ name: item.route }"
       tag="li"
     >
-      <div class="item__icon">
+      <div class="navigation-list-item__icon-container">
         <Component
           :is="item.component"
-          class="icon__image"
+          class="navigation-list-item__icon"
         />
       </div>
-      <div class="item__text uppercase letter-spacing">
+      <div class="navigation-list-item__text uppercase letter-spacing">
         {{ item.name }}
       </div>
     </router-link>
@@ -31,60 +31,112 @@ export default {
     PokeballIcon,
     PokedexIcon
   },
-  props: {
-    items: {
-      type: Array,
-      required: true
-    }
+  data() {
+    return {
+      navigationItems: [
+        {
+          name: "Types",
+          route: "Types",
+          component: "PokeballIcon",
+        },
+        {
+          name: "Pokédex",
+          route: "Pokedex",
+          component: "PokedexIcon",
+        },
+        {
+          name: "About",
+          route: "About",
+          component: "AboutIcon",
+        }
+      ]
+    };
   }
 
 }
 </script>
 
 <style lang="scss" scoped>
-  .navigation-list {
+.navigation-list {
+  position: fixed;
+  bottom: $xl;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+
+  @media screen and (min-width: 1024px) {
+    width: 50%;
+  } 
+}
+.navigation-list-item {
+  animation: popup 500ms cubic-bezier(0.270, 0.790, 0.350, 1.210) forwards;
+  visibility: hidden;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: $l;
+  transition: all 0.4s;
+  width: calc(100% / 3);
+
+  &__icon-container {
     align-items: center;
+    background: var(--main-color-light);
+    border: 2px solid var(--main-color-dark);
+    border-radius: 50%;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-
-    @media screen and (min-width: 1024px) {
-      width: 50%;
-    }
-
-    .navigation-list__item {
-      align-items: center;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin-bottom: $l;
-      transition: all 0.4s;
-      width: calc(100% / 3);
-
-      .item__icon {
-        align-items: center;
-        background: var(--main-color-light);
-        border: 2px solid var(--main-color-dark);
-        border-radius: 50%;
-        display: flex;
-        height: $xxxl;
-        justify-content: center;
-        width: $xxxl;
-
-        .icon__image {
-          height: $xl;
-          width: $xl;
-        }
-      }
-      .item__text {
-        color: var(--main-color-black);
-        font-size: $font-s;
-        font-weight: 700;
-        margin-top: $s;
-        text-align: center;
-      }
-    }
+    height: $xxxl;
+    justify-content: center;
+    width: $xxxl;
   }
+  &__icon {
+    height: $xl;
+    width: $xl;
+  }
+  &__text {
+    color: var(--main-color-black);
+    font-size: $font-s;
+    font-weight: 700;
+    margin-top: $s;
+    text-align: center;
+  }
+}
+.navigation-list-item:nth-child(1),
+.navigation-list-item:nth-child(3) {
+  margin-top: -$xxxl;
+
+  .navigation-list-item__icon-container{
+    width: $xxl;
+    height: $xxl;
+  }
+  .navigation-list-item__icon {
+    width: $l;
+    height: $l;
+  }
+  .navigation-list-item__text {
+    font-size: $font-xs;
+    margin-top: $xs;
+  }
+}
+.navigation-list-item:nth-child(1) {
+  animation-delay: 1200ms;
+}
+.navigation-list-item:nth-child(2) {
+  animation-delay: 1000ms;
+}
+.navigation-list-item:nth-child(3) {
+  animation-delay: 1400ms;
+}
+@keyframes popup {
+  0% {
+    transform: scale(0.2);
+  }
+  100% {
+    transform: scale(1);
+    visibility: visible;
+  }
+}
 </style>
