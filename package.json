@@ -1,9 +1,12 @@
 {
   "name": "pokedex",
+  "homepage": "https://shady356.github.io/pokedex/",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint",
     "dev_mode": "vue-cli-service serve --mode development",
@@ -16,6 +19,7 @@
     "axios": "^0.21.1",
     "chart.js": "^2.9.4",
     "core-js": "^3.6.4",
+    "gh-pages": "^3.2.3",
     "gsap": "^3.6.0",
     "lodash.sortby": "^4.7.0",
     "node-sass": "^4.13.1",
