@@ -53,7 +53,7 @@ const scrollBehavior = (to, from, savedPosition) => {
 const router = new VueRouter({
   scrollBehavior,
   routes,
-  mode: 'history',
+  mode: 'hash',
 })
 
 export default router
