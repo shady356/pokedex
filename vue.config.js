@@ -9,7 +9,6 @@ module.exports = {
       } 
     }
   },
-  publicPath: '/pokeview',
   css: {
     loaderOptions: {
       sass: {

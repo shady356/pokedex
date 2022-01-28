@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "build": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint",
     "dev_mode": "vue-cli-service serve --mode development",
