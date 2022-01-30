@@ -20,18 +20,10 @@ export default {
   margin: 0;
   padding: 0;
 }
-html {
-  width: 100%;
-  background: var(--main-color-strong);
-  min-height: 100%;
-}
 
 body {
-  min-height: 100vh;
   -webkit-overflow-scrolling: touch;
   background: var(--main-color-body);
-  background-repeat: repeat;
-  background-attachment: fixed;
   color: var(--main-color-black);
   /* &.bodyFilter {
     background: var(--purple-dark);

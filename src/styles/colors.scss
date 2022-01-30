@@ -66,12 +66,13 @@ $water: #539ddf;
   --night-dark:   hsl(var(--night-hue), 28%, 80%);
   --night-black:  hsl(var(--night-hue), 28%, 90%);
 
-  --main-color:         var(--green);
-  --main-color-strong:  var(--green-strong);
-  --main-color-light:   var(--green-light);
-  --main-color-dark:    var(--green-dark);
-  --main-color-white:   var(--green-white);
-  --main-color-black:   var(--green-black);
+  --main-color:             var(--blue);
+  --main-color-strong:      var(--blue-strong);
+  --main-color-light:       var(--blue-light);
+  --main-color-dark:        var(--blue-dark);
+  --main-color-white:       var(--blue-white);
+  --main-color-black:       var(--blue-black);
 
-  --main-color-body:   linear-gradient(-145deg, var(--green-strong) 0%, var(--aqua-strong) 100%);
+  --main-color-navigation:  var(--blue);
+  --main-color-body:        var(--blue-white);
 }

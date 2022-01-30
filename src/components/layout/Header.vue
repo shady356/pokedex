@@ -51,6 +51,7 @@ export default {
   padding: $s;
   position: sticky;
   top: 0;
+  background: var(--main-color-body);
 
   .header__column {
     display: flex;

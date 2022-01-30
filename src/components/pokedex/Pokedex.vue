@@ -31,9 +31,7 @@
           }"
         >
           <PokedexItem
-            :id="pokemonList[index].id"
-            :name="pokemonList[index].name"
-            :sprite="getSprite(pokemonList[index].name)"
+            :pokemon="pokemonList[index]"
           />
         </router-link>
       </ul>
@@ -167,7 +165,7 @@ export default {
       const pokemonData = {
         id: data.id,
         name: data.name,
-        sprite: data.sprites.front_default
+        types: data.types,
       };
       this.pokemonList[arrayIndex] = pokemonData;
     },
@@ -218,9 +216,6 @@ export default {
       this.pokemonList = [];
       this.loadedCounter = 0;
       this.currentBatch = 1;
-    },
-    getSprite(name) {
-      return "https://img.pokemondb.net/sprites/home/normal/" + name + ".png";
     },
     setBodyColor() {
       if (this.isFilter) {

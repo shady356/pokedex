@@ -407,10 +407,10 @@ export default {
       .left-button, 
       .right-button {
         position: absolute;
-        color: #ffffffaa;
+        color: #fff;
         cursor: pointer;
         font-size: $font-xs;
-        border: 1px solid #ffffff88;
+        border: 1px solid #fff;
         border-radius: $s;
         padding: $s 6px;
         text-align: center;
@@ -428,9 +428,9 @@ export default {
       position: absolute;
       top: 30%;
       right: $xs;
-      color: #ffffffdd;
+      color: #fff;
       font-size: $font-xs;
-      border: 1px solid #ffffffaa;
+      border: 1px solid #fff;
       padding: $xxs $s;
       border-radius: $s;
     }

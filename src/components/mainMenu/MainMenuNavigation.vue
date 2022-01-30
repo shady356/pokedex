@@ -51,8 +51,7 @@ export default {
         }
       ]
     };
-  }
-
+  },
 }
 </script>
 
@@ -63,16 +62,16 @@ export default {
   align-items: center;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   width: 100%;
+  justify-content: space-around;
 
   @media screen and (min-width: 1024px) {
-    width: 50%;
+    justify-content: center;
+    gap: $xxxl;
   } 
 }
 .navigation-list-item {
-  animation: popup 500ms cubic-bezier(0.270, 0.790, 0.350, 1.210) forwards;
-  visibility: hidden;
   align-items: center;
   cursor: pointer;
   display: flex;
@@ -80,9 +79,9 @@ export default {
   justify-content: center;
   margin-bottom: $l;
   transition: all 0.4s;
-  width: calc(100% / 3);
 
   &__icon-container {
+    position: relative;
     align-items: center;
     background: var(--main-color-light);
     border: 2px solid var(--main-color-dark);
@@ -91,6 +90,26 @@ export default {
     height: $xxxl;
     justify-content: center;
     width: $xxxl;
+    overflow: hidden;
+  }
+  &__icon-container:after {
+    position: absolute;
+    content: '';
+    width: 40px;
+    height: 100px;
+    top: -55px;
+    left: -30px;
+    transform: rotate(45deg);
+    visibility: hidden;
+    animation: glare 2000ms cubic-bezier(0.270, 0.790, 0.350, 1.210);
+    animation-delay: 1000ms;
+    background: linear-gradient(
+      to right, 
+      rgba(255, 255, 255, 0.0) 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0.0) 100%
+    );
+    //background: #333;
   }
   &__icon {
     height: $xl;
@@ -121,22 +140,16 @@ export default {
     margin-top: $xs;
   }
 }
-.navigation-list-item:nth-child(1) {
-  animation-delay: 1200ms;
-}
-.navigation-list-item:nth-child(2) {
-  animation-delay: 1000ms;
-}
-.navigation-list-item:nth-child(3) {
-  animation-delay: 1400ms;
-}
-@keyframes popup {
+@keyframes glare {
   0% {
-    transform: scale(0.2);
+    top: -55px;
+    left: -30px;
+    visibility: visible;
   }
   100% {
-    transform: scale(1);
-    visibility: visible;
+    top: 100%;
+    left: 100%;
+    visibility: hidden;
   }
 }
 </style>

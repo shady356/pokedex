@@ -19,16 +19,10 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-logo {
-  position: absolute;
-  top: 40%;
-  color: #fff;
-  display: flex;
-  font-family: 'Fjalla One', sans-serif;
+  color: #000;
   font-size: 36px;
-  font-weight: 100;
-  justify-content: center;
+  font-weight: 900;
+  margin-top: 45vh;
   text-align: center;
-  text-shadow: 2px 2px var(--main-color-dark);
-  width: 100%;
 }
 </style>
