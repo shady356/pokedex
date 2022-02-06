@@ -245,25 +245,25 @@ $pokemon-gap-mobile: 2%;
   justify-content: center;
   
   ul {
-    color: #fff;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
+    gap: $s;
     width: 100%;
+    
 
     li {
-      text-align: center;
-      padding: $pokemon-gap-mobile;
-      width: calc( 100% / #{$pokemon-per-row-mobile} );
       cursor: pointer;
-      box-sizing: border-box;
+      width: 100px;
+      height: 100px;
     }
 
     @media (min-width: 1024px) {
-      width: 50%;
+      width: 70%;
       
       li {
-        width: 18%;
+        width: 128px;
+        height: 128px;
       }
     }
   }

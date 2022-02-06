@@ -1,7 +1,13 @@
 <template>
-  <div
+  <img
     v-if="pokemon"
     :style="spriteStyle"
+    class="sprite"
+    :src="sprite"
+    alt=""
+  >
+  <div
+    v-else
     class="sprite"
   />
 </template>
@@ -20,9 +26,11 @@ export default {
   computed: {
     spriteStyle () {
       return {
-        backgroundImage: `url(${getPokemonSpriteByName(this.pokemon.name)})`, 
         backgroundColor: `${this.typeColor()}`
       }
+    },
+    sprite() {
+      return getPokemonSpriteByName(this.pokemon.name)
     }
   },
   methods: {
@@ -39,17 +47,8 @@ export default {
   align-items: center;
   justify-content: center;
   border-radius: $s;
-  height: 92px;
-  width: 92px;
-  padding: 10px;
   background-color: #ddd;
-  background-position: center;
-  background-size: 65%;
-  background-repeat: no-repeat;
-
-  @media (min-width: 1024px) {
-    width: $xxxxxl;
-    height: $xxxxxl;  
-  }
+  width: 100%;
+  height: 100%;
 }
 </style>
