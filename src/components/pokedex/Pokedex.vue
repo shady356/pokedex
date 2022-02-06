@@ -54,6 +54,7 @@
       v-if="isFilterOpen"
       @closeModal="closeFilter"
       :show-close-button="false"
+      drag-handler
     >
       <FilterPokemon
         @applyFilters="updateFilters"

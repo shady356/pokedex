@@ -49,10 +49,22 @@ h6 {
   line-height: 1.25rem;
 }
 
-.micro-label {
+@mixin title {
+  font-size: $font-l;
+  font-weight: 700;
+}
+@mixin micro-label {
   font-size: $font-s;
   font-weight: 700;
   color: #7e7e7e;
+}
+@mixin small-caps {
+  font-variant: small-caps;
+  text-transform: lowercase;
+}
+
+.micro-label {
+  @include micro-label;
 }
 
 .letter-spacing {
@@ -65,8 +77,7 @@ h6 {
   text-transform: capitalize;
 }
 .small-caps {
-  font-variant: small-caps;
-  text-transform: lowercase;
+  @include small-caps;
 }
 .ellipsis {
   white-space: nowrap;
