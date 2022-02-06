@@ -77,21 +77,26 @@ export default {
   },
   methods: {
     movingHandler (e) {
-      const moving = e.changedTouches[0].clientY
-      const clientHeight = document.documentElement.clientHeight
-      const toPositionPx = clientHeight - moving
-      this.toPositionPercentage = ((moving / clientHeight * 100) - 100 ) * -1
-      document.getElementById('moving-box').style.height = toPositionPx + 'px'
+      if(this.dragHandler) {
+
+        const moving = e.changedTouches[0].clientY
+        const clientHeight = document.documentElement.clientHeight
+        const toPositionPx = clientHeight - moving
+        this.toPositionPercentage = ((moving / clientHeight * 100) - 100 ) * -1
+        document.getElementById('moving-box').style.height = toPositionPx + 'px'
+      }
     },
     endHandler() {
-      if (this.toPositionPercentage < this.thresholdClosePercentage && this.toPositionPercentage !==0) {
-        this.closeModal()
-      }
-      else if (this.toPositionPercentage > this.thresholdExpandPercentage && this.toPositionPercentage !==0) {
-        this.snapToPosition('98%')
-      }
-      else {
-        this.snapToPosition('initial')
+      if(this.dragHandler) {
+        if (this.toPositionPercentage < this.thresholdClosePercentage && this.toPositionPercentage !==0) {
+          this.closeModal()
+        }
+        else if (this.toPositionPercentage > this.thresholdExpandPercentage && this.toPositionPercentage !==0) {
+          this.snapToPosition('98%')
+        }
+        else {
+          this.snapToPosition('initial')
+        }
       }
     },
     snapToPosition (value) {
