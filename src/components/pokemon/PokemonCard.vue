@@ -128,7 +128,6 @@
     <BaseModal
       v-if="isTypeModalOpen"
       @closeModal="closeTypeModal"
-      drag-handler
     >
       <TypeModal :type-name="currentTypeInModal" />
     </BaseModal>
