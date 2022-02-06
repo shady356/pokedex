@@ -209,7 +209,8 @@ export default {
   },
   computed: {
     pokemonTexture() {
-      return require(`@/assets/PK_Textures/${this.firstType}.png`)
+      //return require(`@/assets/PK_Textures/${this.firstType}.png`)
+      return require(`@/assets/PK_Textures/dragon.png`)
     },
     isPokemonLoaded() {
       return this.pokemon && this.pokemonSpecies;
