@@ -3,7 +3,11 @@
     name="fade"
     appear
   >
-    <div class="modal-container">
+    <div
+      class="modal-container"
+      v-touch:moving="movingHandler"
+      v-touch:end="endHandler"
+    >
       <transition
         name="slide-v"
         appear
@@ -15,8 +19,6 @@
           <div
             v-if="dragHandler"
             class="drag-handler"
-            v-touch:moving="movingHandler"
-            v-touch:end="endHandler"
           />
           <slot />
           <div
