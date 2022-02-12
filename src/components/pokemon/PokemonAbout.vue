@@ -3,7 +3,7 @@
     <!-- Description -->
     <section class="description-container">
       <h6 class="title">
-        Description
+        Description foobar
       </h6>
       <p class="data-row">
         {{ pokemonSpecies.description.flavor_text }}

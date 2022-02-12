@@ -190,6 +190,7 @@ export default {
       movingGlobal: 0,
       slideDirection: "",
       clientWidth: 0,
+      foobar: null,
 
       // Type modal
       isTypeModalOpen: false,
