@@ -3,7 +3,7 @@
     v-if="visible" 
     class="toast-container"
   >
-    Foobar
+    Foobar isodfj sofj 
   </div>
 </template>
 
