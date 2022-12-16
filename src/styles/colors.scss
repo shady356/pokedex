@@ -27,52 +27,51 @@ $water: #539ddf;
 
 :root {
   --green-hue: 150;
-  --green-white:  hsl(var(--green-hue), 40%, 90%);
-  --green-light:  hsl(var(--green-hue), 65%, 70%);
-  --green:        hsl(var(--green-hue), 60%, 60%);
+  --green-white: hsl(var(--green-hue), 40%, 90%);
+  --green-light: hsl(var(--green-hue), 65%, 70%);
+  --green: hsl(var(--green-hue), 60%, 60%);
   --green-strong: hsl(var(--green-hue), 75%, 50%);
-  --green-dark:   hsl(var(--green-hue), 80%, 30%);
-  --green-black:  hsl(var(--green-hue), 80%, 10%);
+  --green-dark: hsl(var(--green-hue), 80%, 30%);
+  --green-black: hsl(var(--green-hue), 80%, 10%);
 
   --aqua-hue: 200;
-  --aqua-white:  hsl(var(--aqua-hue), 40%, 90%);
-  --aqua-light:  hsl(var(--aqua-hue), 65%, 70%);
-  --aqua:        hsl(var(--aqua-hue), 60%, 60%);
+  --aqua-white: hsl(var(--aqua-hue), 40%, 90%);
+  --aqua-light: hsl(var(--aqua-hue), 65%, 70%);
+  --aqua: hsl(var(--aqua-hue), 60%, 60%);
   --aqua-strong: hsl(var(--aqua-hue), 75%, 50%);
-  --aqua-dark:   hsl(var(--aqua-hue), 80%, 30%);
-  --aqua-black:  hsl(var(--aqua-hue), 80%, 10%);
+  --aqua-dark: hsl(var(--aqua-hue), 80%, 30%);
+  --aqua-black: hsl(var(--aqua-hue), 80%, 10%);
 
   --blue-hue: 220;
-  --blue-white:  hsl(var(--blue-hue), 30%, 95%);
-  --blue-light:  hsl(var(--blue-hue), 70%, 65%);
-  --blue:        hsl(var(--blue-hue), 60%, 60%);
+  --blue-white: hsl(var(--blue-hue), 30%, 95%);
+  --blue-light: hsl(var(--blue-hue), 70%, 65%);
+  --blue: hsl(var(--blue-hue), 60%, 60%);
   --blue-strong: hsl(var(--blue-hue), 75%, 50%);
-  --blue-dark:   hsl(var(--blue-hue), 80%, 15%);
-  --blue-black:  hsl(var(--blue-hue), 80%, 10%);
+  --blue-dark: hsl(var(--blue-hue), 80%, 15%);
+  --blue-black: hsl(var(--blue-hue), 80%, 10%);
 
   --purple-hue: 260;
-  --purple-white:  hsl(var(--purple-hue), 45%, 95%);
-  --purple-light:  hsl(var(--purple-hue), 70%, 75%);
-  --purple:        hsl(var(--purple-hue), 60%, 60%);
+  --purple-white: hsl(var(--purple-hue), 45%, 95%);
+  --purple-light: hsl(var(--purple-hue), 70%, 75%);
+  --purple: hsl(var(--purple-hue), 60%, 60%);
   --purple-strong: hsl(var(--purple-hue), 75%, 50%);
-  --purple-dark:   hsl(var(--purple-hue), 80%, 15%);
-  --purple-black:  hsl(var(--purple-hue), 80%, 10%);
+  --purple-dark: hsl(var(--purple-hue), 80%, 15%);
+  --purple-black: hsl(var(--purple-hue), 80%, 10%);
 
   --night-hue: 200;
-  --night-white:  hsl(var(--night-hue), 20%, 95%);
-  --night-light:  hsl(var(--night-hue), 30%, 30%);
-  --night:        hsl(var(--night-hue), 25%, 20%);
+  --night-white: hsl(var(--night-hue), 20%, 95%);
+  --night-light: hsl(var(--night-hue), 30%, 30%);
+  --night: hsl(var(--night-hue), 25%, 20%);
   --night-strong: hsl(var(--night-hue), 20%, 10%);
-  --night-dark:   hsl(var(--night-hue), 28%, 80%);
-  --night-black:  hsl(var(--night-hue), 28%, 90%);
+  --night-dark: hsl(var(--night-hue), 28%, 80%);
+  --night-black: hsl(var(--night-hue), 28%, 90%);
 
-  --main-color:             var(--blue);
-  --main-color-strong:      var(--blue-strong);
-  --main-color-light:       var(--blue-light);
-  --main-color-dark:        var(--blue-dark);
-  --main-color-white:       var(--blue-white);
-  --main-color-black:       var(--blue-black);
-
-  --main-color-navigation:  var(--blue);
-  --main-color-body:        var(--blue-white);
+  --main-color: var(--blue);
+  --main-color-strong: var(--blue-strong);
+  --main-color-light: var(--blue-light);
+  --main-color-dark: var(--blue-dark);
+  --main-color-white: var(--blue-white);
+  --main-color-black: var(--blue-black);
+  --main-color-navigation: var(--blue);
+  --main-color-body: var(--blue-white);
 }

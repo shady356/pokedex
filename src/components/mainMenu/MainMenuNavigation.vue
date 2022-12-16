@@ -45,8 +45,8 @@ export default {
           component: "PokedexIcon",
         },
         {
-          name: "About",
-          route: "About",
+          name: "Settings",
+          route: "Settings",
           component: "AboutIcon",
         }
       ]
@@ -69,8 +69,9 @@ export default {
   @media screen and (min-width: 1024px) {
     justify-content: center;
     gap: $xxxl;
-  } 
+  }
 }
+
 .navigation-list-item {
   align-items: center;
   cursor: pointer;
@@ -92,6 +93,7 @@ export default {
     width: $xxxl;
     overflow: hidden;
   }
+
   &__icon-container:after {
     position: absolute;
     content: '';
@@ -103,18 +105,18 @@ export default {
     visibility: hidden;
     animation: glare 2000ms cubic-bezier(0.270, 0.790, 0.350, 1.210);
     animation-delay: 1000ms;
-    background: linear-gradient(
-      to right, 
-      rgba(255, 255, 255, 0.0) 0%,
-      rgba(255, 255, 255, 0.3) 50%,
-      rgba(255, 255, 255, 0.0) 100%
-    );
+    background: linear-gradient(to right,
+        rgba(255, 255, 255, 0.0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0.0) 100%);
     //background: #333;
   }
+
   &__icon {
     height: $xl;
     width: $xl;
   }
+
   &__text {
     color: var(--main-color-black);
     font-size: $font-s;
@@ -123,29 +125,34 @@ export default {
     text-align: center;
   }
 }
+
 .navigation-list-item:nth-child(1),
 .navigation-list-item:nth-child(3) {
   margin-top: -$xxxl;
 
-  .navigation-list-item__icon-container{
+  .navigation-list-item__icon-container {
     width: $xxl;
     height: $xxl;
   }
+
   .navigation-list-item__icon {
     width: $l;
     height: $l;
   }
+
   .navigation-list-item__text {
     font-size: $font-xs;
     margin-top: $xs;
   }
 }
+
 @keyframes glare {
   0% {
     top: -55px;
     left: -30px;
     visibility: visible;
   }
+
   100% {
     top: 100%;
     left: 100%;
