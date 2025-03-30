@@ -5,7 +5,6 @@
       <h6 class="title">
         Description
       </h6>
-
       <p class="data-row">
         {{ pokemonSpecies.description.flavor_text }}
       </p>

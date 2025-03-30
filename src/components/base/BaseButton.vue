@@ -43,7 +43,7 @@ button {
     color: #fff;
   }
   &.purple {
-    background: $purple;
+    background: var(--purple);
     color: #fff;
   }
 }

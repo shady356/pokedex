@@ -55,7 +55,7 @@ export default {
 .tab-container {
   .tab-list {
     display: flex;
-    background: $blue-white;
+    background: var(--blue-white);
     border-radius: $s;
     padding: $xxxs;
 
@@ -72,7 +72,7 @@ export default {
       }
 
       &.active {
-        color: $blue;
+        color: var(--blue);
         background: #fff;
         transition: all 0.4s;
 
@@ -89,7 +89,7 @@ export default {
     width: 100%;
 
     .indicator {
-      background: $blue;
+      background: var(--blue);
       height: 1px;
       position: absolute;
       transition: left 0.2s ease-in-out;

@@ -7,6 +7,7 @@ import store from './store'
 // Font Awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
+  faArrowLeft,
   faEgg,
   faStar,
   faRulerVertical,
@@ -21,6 +22,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(
+  faArrowLeft,
   faEgg,
   faStar,
   faRulerVertical,

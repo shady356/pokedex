@@ -1,28 +1,29 @@
 <template>
-  <div v-if="types">
-    <div class="types-container">
-      <div
-        class="type"
-        v-for="type in types"
-        :key="type.name"
-        @click="selectType(type.name)"
+  <ul
+    v-if="types"
+    class="type-list"
+  >
+    <li
+      class="type-item"
+      v-for="type in types"
+      :key="type.name"
+      @click="selectType(type.name)"
+    >
+      <div 
+        class="type-item__icon"
+        :style="getTypeBackground(type.color)"
       >
-        <div 
-          class="type-icon-container"
-          :style="getTypeBackground(type.color)"
+        <img
+          class="type-item__icon-image"
+          :src="getTypeIcon(type.name)" 
+          alt="type-icon"
         >
-          <img
-            class="type-icon"
-            :src="getTypeIcon(type.name)" 
-            alt="type-icon"
-          >
-        </div>
-        <div class="type-name uppercase">
-          {{ type.name }}
-        </div>
       </div>
-    </div>
-  </div>
+      <div class="type-item__title uppercase">
+        {{ type.name }}
+      </div>
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -32,7 +33,6 @@ export default {
   data () {
     return {
       types: null,
-      fire: require('@/assets/icons/types/fire.svg')
     }
   },
   mounted() {
@@ -55,42 +55,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .types-container {
+  .type-list {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    gap: $s;
 
-    .type {
+    .type-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: calc(100% /3);
-      margin-bottom: $xl;
+      background: #ffffff66;
+      width: 30%;
+      padding: $s;
+      margin-bottom: $s;
+      box-sizing: border-box;
+      border-radius: $s;
 
-      .type-icon-container {
+      &__icon {
         margin-bottom: $xs;
         width: $m;
         height: $m;
         padding: $s;
         border-radius: 50%;
-
-        .type-icon {
-          width: 100%;
-          height: 100%;
-        }
       }
-
-      .type-name {
+      &__icon-image {
+        width: 100%;
+        height: 100%;
+      }
+      &__title {
         text-align: center;
         font-weight: 700;
       }
-    }
-  }
-
-  .dark {
-    .type-name {
-      color: #fff;
     }
   }
 </style>

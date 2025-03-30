@@ -191,13 +191,9 @@ export default {
       slideDirection: "",
       clientWidth: 0,
 
-      // Texture
-      texture: require("@/assets/textures/grid-texture.png"),
-
       // Type modal
       isTypeModalOpen: false,
       currentTypeInModal: null,
-
 
       metaItems: [
         {
@@ -212,6 +208,10 @@ export default {
     };
   },
   computed: {
+    pokemonTexture() {
+      //return require(`@/assets/PK_Textures/${this.firstType}.png`)
+      return require(`@/assets/PK_Textures/dragon.png`)
+    },
     isPokemonLoaded() {
       return this.pokemon && this.pokemonSpecies;
     },
@@ -233,9 +233,10 @@ export default {
     },
     getModalBackground() {
       return {
-        background: "url(" + this.texture + ")",
+        background: "url(" + this.pokemonTexture + ")",
         backgroundColor: $getTypeColor(this.firstType),
-        backgroundBlendMode: "screen"
+        backgroundBlendMode: "screen",
+        backgroundSize: 'cover'
       };
     },
   },
@@ -380,7 +381,7 @@ export default {
   grid-template-columns: 100%;
   grid-template-rows: 35% 65%;
   overflow: hidden;
-  transition: background-color 1000ms linear;
+  transition: background 1000ms ease-in-out;
 
   .section-1 {
     grid-row-start: 1;
@@ -407,10 +408,10 @@ export default {
       .left-button, 
       .right-button {
         position: absolute;
-        color: #ffffffaa;
+        color: #fff;
         cursor: pointer;
         font-size: $font-xs;
-        border: 1px solid #ffffff88;
+        border: 1px solid #fff;
         border-radius: $s;
         padding: $s 6px;
         text-align: center;
@@ -428,9 +429,9 @@ export default {
       position: absolute;
       top: 30%;
       right: $xs;
-      color: #ffffffdd;
+      color: #fff;
       font-size: $font-xs;
-      border: 1px solid #ffffffaa;
+      border: 1px solid #fff;
       padding: $xxs $s;
       border-radius: $s;
     }

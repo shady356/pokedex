@@ -35,8 +35,15 @@
               class="tag-item"
             />
           </td>
-          <td class="effect">
-            {{ item.category }}
+          <td
+            class="category"
+            :title="item.category"
+          >
+            <img
+              class="category-img"
+              :src="getItemCategoryImageSrc(item.category)"
+              :alt="item.category"
+            >
           </td>
           <td class="power number">
             {{ item.power | power }}
@@ -101,7 +108,7 @@ export default {
   computed: {
     isLevelUp() {
       return this.category === "levelUp";
-    }
+    },
   },
   methods: {
     getTypeColor(type) {
@@ -149,6 +156,16 @@ export default {
     },
     isSameType (type) {
       return this.types.includes(type)
+    },
+    getItemCategoryImageSrc(category) {
+      if(category === 'special') {
+        return require('@/assets/icons/move_types/move-special.png')
+      } else if(category === 'physical') {
+        return require('@/assets/icons/move_types/move-physical.png')
+      }
+      else {
+        return require('@/assets/icons/move_types/move-status.png')
+      }
     }
   }
 };
@@ -174,7 +191,7 @@ export default {
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: $m;
+    margin-bottom: $xxl;
 
     .table-header {
       background: #fff;
@@ -187,8 +204,11 @@ export default {
       th {
         padding: $s 0;
         text-align: left;
-        font-size: $font-s;
+        font-size: $font-xs;
 
+        &:nth-child(2), &:nth-child(3) {
+          text-align: center;
+        }
         &:nth-child(4), &:nth-child(5) {
           text-align: right;
         }
@@ -214,27 +234,20 @@ export default {
               font-weight: normal;
             }
           }
+          &.type {
+            text-align: center;
+          }
+          &.category {
+            text-align: center;
+            .category-img {
+              height: auto;
+              width: $xl;
+            }
+          }
           &.number {
             text-align: right;
           }
         }
-      }
-    }
-  }
-
-  .dark {
-    .title {
-      .text {
-        background: #333;
-      }
-      &::after {
-        content: '';
-        background: #444;
-      }
-    }
-    tbody {
-      tr {
-        border-color: #444;
       }
     }
   }

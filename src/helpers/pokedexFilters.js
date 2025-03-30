@@ -6,7 +6,7 @@ export const $filterData = (filters) => {
       list.push({
         id: i + 1,
         name: '',
-        sprite: '',
+        types: [{type: {name: 'normal'}}],
       })
     }
     return list
@@ -16,7 +16,7 @@ export const $filterData = (filters) => {
       list.push({
         id: i + 1,
         name: '',
-        sprite: '',
+        types: [{type: {name: 'normal'}}],
       })
     }
     return list
@@ -26,7 +26,7 @@ export const $filterData = (filters) => {
       list.push({
         id: i + 1,
         name: '',
-        sprite: '',
+        types: [{type: {name: 'normal'}}],
       })
     }
     return list
@@ -38,7 +38,7 @@ export const $filterData = (filters) => {
       list.push({
         id: typeList[i],
         name: '',
-        sprite: '',
+        types: [{type: {name: 'normal'}}],
       })
     }
     return list
@@ -50,7 +50,7 @@ export const $filterData = (filters) => {
       list.push({
         id: i + 1,
         name: '',
-        sprite: '',
+        types: [{type: {name: 'normal'}}],
       })
     }
     return list

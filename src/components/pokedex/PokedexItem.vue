@@ -1,87 +1,54 @@
 <template>
-  <div>
-    <!-- <div class="header">
-      #{{id | index}}
-      <span class="capitalize">{{pokemonList[index].name}}</span>
-    </div> -->
-    <div class="sprite-container">
-      <div
-        :style="'backgroundImage: url(' + sprite + ')'"
-        class="sprite"
-      />
-    </div>
-  </div>
+  <img
+    v-if="pokemon"
+    :style="spriteStyle"
+    class="sprite"
+    :src="sprite"
+    alt=""
+  >
+  <div
+    v-else
+    class="sprite"
+  />
 </template>
 
 <script>
+import { $getTypeColor } from "@/helpers/types.js";
+import {getPokemonSpriteByName} from '@/helpers/sprites.js'
 export default {
   name: "PokedexItem",
-  filters: {
-    index(value) {
-      if (value < 10) {
-        return "00" + value;
-      } else if (value < 100) {
-        return "0" + value;
-      } else {
-        return value;
-      }
+  props: {
+    pokemon: {
+      type: Object,
+      required: true
     }
   },
-  props: {
-    id: {
-      type: Number,
-      required: true
+  computed: {
+    spriteStyle () {
+      return {
+        backgroundColor: `${this.typeColor()}`
+      }
     },
-    name: {
-      type: String,
-      required: true
-    },
-    sprite: {
-      type: String,
-      required: true,
-      default: null
+    sprite() {
+      return getPokemonSpriteByName(this.pokemon.name)
     }
+  },
+  methods: {
+    typeColor () {
+      return $getTypeColor(this.pokemon.types[0].type.name)
+    },
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.header {
-  padding: $xxxs;
-  border-radius: $xxs $xxs 0 0;
-  background: $blue;
-  font-size: $font-xs;
-  text-align: center;
-}
-.sprite-container {
+.sprite {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  .sprite {
-    border-radius: $s;
-    height: 92px;
-    width: 92px;
-    padding: 10px;
-    background: #fff6;
-    border: 1px solid $green;
-    background-position: center;
-    background-size: 65%;
-    background-repeat: no-repeat;
-
-    @media (min-width: 1024px) {
-      width: $xxxxxl;
-      height: $xxxxxl;  
-    }
-  }
-}
-
-.dark {
-  .sprite-container {
-    .sprite {
-      background: hsla(0, 0, 0%, .2);
-      box-shadow: none;
-    }
-  }
+  border-radius: $s;
+  background-color: #ddd;
+  width: 100%;
+  height: 100%;
 }
 </style>

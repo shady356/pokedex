@@ -5,13 +5,13 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/pokeview',
+    path: '/',
     name: 'Home',
     component: () =>
       import('../views/Home.vue'),
   },
   {
-    path: '/pokeview/pokedex',
+    path: '/pokedex',
     name: 'Pokedex',
     children: [
       {
@@ -29,13 +29,19 @@ const routes = [
       import('../components/pokedex/Pokedex.vue'),
   },
   {
-    path: '/pokeview/types',
+    path: '/types',
     name: 'Types',
     component: () =>
       import('../views/Types.vue'),
   },
   {
-    path: '/pokeview/about',
+    path: '/settings',
+    name: 'Settings',
+    component: () =>
+      import('../views/Settings.vue'),
+  },
+  {
+    path: '/settings/about',
     name: 'About',
     component: () =>
       import('../views/About.vue'),
@@ -53,7 +59,7 @@ const scrollBehavior = (to, from, savedPosition) => {
 const router = new VueRouter({
   scrollBehavior,
   routes,
-  mode: 'history',
+  mode: 'hash',
 })
 
 export default router

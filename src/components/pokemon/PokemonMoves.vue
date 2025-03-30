@@ -10,7 +10,7 @@
         />
       </div>
       <!-- TODO: Use a v-for on tables -->
-      <BaseMoveTable
+      <PokemonMovesTable
         v-if="generations[selectedGeneration].levelUp.length > 0"
         :headers="tableHeaders"
         :items="generations[selectedGeneration].levelUp"
@@ -18,7 +18,7 @@
         category="levelUp"
         title="level up"
       />
-      <BaseMoveTable
+      <PokemonMovesTable
         v-if="generations[selectedGeneration].egg.length > 0"
         :headers="tableHeaders"
         :items="generations[selectedGeneration].egg"
@@ -26,7 +26,7 @@
         category="egg"
         title="egg moves"
       />
-      <BaseMoveTable
+      <PokemonMovesTable
         v-if="generations[selectedGeneration].machine.length > 0"
         :headers="tableHeaders"
         :items="generations[selectedGeneration].machine"
@@ -34,7 +34,7 @@
         category="tm-hm"
         title="TM / HM"
       />
-      <BaseMoveTable
+      <PokemonMovesTable
         v-if="generations[selectedGeneration].tutor.length > 0"
         :headers="tableHeaders"
         :items="generations[selectedGeneration].tutor"
@@ -51,13 +51,13 @@
 
 <script>
 import HenrikoApi from '@/service/henrikoApi.js'
-import BaseMoveTable from "@/components/base/BaseMoveTable";
+import PokemonMovesTable from "@/components/pokemon/PokemonMovesTable";
 import BaseTab from "@/components/base/BaseTab";
 
 export default {
   name: "PokemonMoves",
   components: {
-    BaseMoveTable,
+    PokemonMovesTable,
     BaseTab
   },
   props: {
@@ -107,7 +107,7 @@ export default {
           active: true
         }
       ],
-      tableHeaders: ["move", "type", "effect", "power", "acc."]
+      tableHeaders: ["move", "type", "category", "power", "acc."]
     };
   },
   computed: {

@@ -1,7 +1,5 @@
 <template>
-  <div 
-    id="app" 
-  >
+  <div id="app">
     <!-- <BaseToast /> -->
     <router-view class="main-layout" />
   </div>
@@ -22,23 +20,14 @@ export default {
   margin: 0;
   padding: 0;
 }
-html {
-  width: 100%;
-}
 
 body {
-  height: 100%;
   -webkit-overflow-scrolling: touch;
-  background: $body-color;
-  color: #444;
-
+  background: var(--main-color-body);
+  color: var(--main-color-black);
   /* &.bodyFilter {
-    background: $purple-dark;
+    background: var(--purple-dark);
   } */
-
-  // Dark theme:
-  // background: #1a1a1a;
-  // color: #ddd;
 }
 
 .disable-scroll {

@@ -1,19 +1,26 @@
 <template>
   <header class="header">
     <router-link
-      class="column"
+      class="header__column"
       :to="{ name: routerBack }"
     >
-      <fa-icon 
-        icon="chevron-left" 
-        class="go-back" 
-      />
+      <button class="column__button">
+        <fa-icon
+          icon="arrow-left"
+          class="column__button-icon"
+        />
+      </button>
     </router-link>
-    <div class="column">
+    <div class="header__column">
       <slot name="title" />
     </div>
-    <div class="column">
-      <slot name="options" />
+    <div class="header__column">
+      <button
+        class="column__button"
+        v-if="hasOptionsSlot"
+      >
+        <slot name="options" />
+      </button>
     </div>
   </header>
 </template>
@@ -27,6 +34,11 @@ export default {
       required: false,
       default: 'Home'
     }
+  },
+  computed: {
+    hasOptionsSlot() {
+      return !!this.$slots['options']
+    }
   }
 };
 </script>
@@ -34,37 +46,42 @@ export default {
 <style lang="scss" scoped>
 .header {
   align-items: center;
-  background: $body-color;
   display: flex;
   padding: $s;
   position: sticky;
   top: 0;
+  background: var(--main-color-body);
 
-  .column {
-    text-align: center;
+  .header__column {
+    display: flex;
 
     &:nth-child(1) {
-      flex-grow: 1;
-      color: #fff;
+      color: var(--main-color);
     }
+
     &:nth-child(2) {
-      flex-grow: 12;
-      color: #fff;
+      width: calc(100% - (#{$xxl}*2));
+      justify-content: center;
     }
+
     &:nth-child(3) {
-      flex-grow: 1;
-      color: #fff;
+      justify-content: flex-end;
     }
-  }
-}
-.dark {
-  .header {
-    background: hsla(0, 0%, 10%, 0.9);
-    border-bottom: 1px solid #333;
-    color: #fff;
-    
-    .go-back {
-      color: #fff;
+
+    .column__button {
+      align-items: center;
+      background: none;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      height: $xxl;
+      justify-content: center;
+      width: $xxl;
+
+      &-icon {
+        width: $m;
+        height: auto;
+      }
     }
   }
 }

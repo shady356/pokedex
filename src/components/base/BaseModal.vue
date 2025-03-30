@@ -3,7 +3,11 @@
     name="fade"
     appear
   >
-    <div class="modal-container">
+    <div
+      class="modal-container"
+      v-touch:moving="movingHandler"
+      v-touch:end="endHandler"
+    >
       <transition
         name="slide-v"
         appear
@@ -15,8 +19,6 @@
           <div
             v-if="dragHandler"
             class="drag-handler"
-            v-touch:moving="movingHandler"
-            v-touch:end="endHandler"
           />
           <slot />
           <div
@@ -75,21 +77,26 @@ export default {
   },
   methods: {
     movingHandler (e) {
-      const moving = e.changedTouches[0].clientY
-      const clientHeight = document.documentElement.clientHeight
-      const toPositionPx = clientHeight - moving
-      this.toPositionPercentage = ((moving / clientHeight * 100) - 100 ) * -1
-      document.getElementById('moving-box').style.height = toPositionPx + 'px'
+      if(this.dragHandler) {
+
+        const moving = e.changedTouches[0].clientY
+        const clientHeight = document.documentElement.clientHeight
+        const toPositionPx = clientHeight - moving
+        this.toPositionPercentage = ((moving / clientHeight * 100) - 100 ) * -1
+        document.getElementById('moving-box').style.height = toPositionPx + 'px'
+      }
     },
     endHandler() {
-      if (this.toPositionPercentage < this.thresholdClosePercentage && this.toPositionPercentage !==0) {
-        this.closeModal()
-      }
-      else if (this.toPositionPercentage > this.thresholdExpandPercentage && this.toPositionPercentage !==0) {
-        this.snapToPosition('98%')
-      }
-      else {
-        this.snapToPosition('initial')
+      if(this.dragHandler) {
+        if (this.toPositionPercentage < this.thresholdClosePercentage && this.toPositionPercentage !==0) {
+          this.closeModal()
+        }
+        else if (this.toPositionPercentage > this.thresholdExpandPercentage && this.toPositionPercentage !==0) {
+          this.snapToPosition('98%')
+        }
+        else {
+          this.snapToPosition('initial')
+        }
       }
     },
     snapToPosition (value) {
@@ -176,14 +183,14 @@ export default {
         display: flex;
         justify-content: center;
         background: #fff;
-        border: 1px solid $blue;
+        border: 1px solid var(--main-color-navigation);
         border-radius: 50%;
         padding: $xxxs;
 
         .close-icon {
-          background: $blue;
-          width: $m;
-          height: $m;
+          background: var(--main-color-navigation);
+          width: $l;
+          height: $l;
           padding: $xs;
           border-radius: 50%;
         }

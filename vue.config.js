@@ -9,7 +9,6 @@ module.exports = {
       } 
     }
   },
-  publicPath: '/pokeview',
   css: {
     loaderOptions: {
       sass: {
@@ -17,7 +16,9 @@ module.exports = {
       }
     }
   },
-
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/pokedex/'
+    : '/',
   pwa: {
     name: 'PokéView',
     themeColor: '#93EDE4',

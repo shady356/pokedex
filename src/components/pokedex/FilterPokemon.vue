@@ -1,12 +1,21 @@
 <template>
   <div>
     <div class="header">
-      <h5>Filter Pokémon</h5>
-      <!-- <BaseButton
-        class="ghost-white"
-      >
-        Reset
-      </BaseButton> -->
+      <div class="header__title">
+        Filter Pokémon
+      </div>
+      <!-- <div class="header__filter">
+        <div class="header__filter-text-all">
+          all
+        </div>
+        <fa-icon
+          icon="filter"
+          class="header__filter-icon"
+        />
+        <div class="header__filter-text-filtered-number">
+          48
+        </div>
+      </div> -->
     </div>
 
     <div class="filter-container">
@@ -203,9 +212,26 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: $s $l;
-  background: $purple;
-  color: #fff;
+  padding: $l $l;
+  border-bottom: 1px solid #eee;
+
+  &__title {
+    @include title;
+  }
+  &__filter-icon {
+    width: 24px;
+    height: 24px;
+  }
+  &__filter-text-all {
+    @include small-caps;
+    @include micro-label;
+    text-align: center;
+  }
+  &__filter-text-filtered-number {
+    @include small-caps;
+    @include micro-label;
+    text-align: center;
+  }
 }
 
 .filter-container {
@@ -233,14 +259,6 @@ export default {
           margin: $xs $xxs;
         }
       }
-    }
-  }
-}
-
-.dark {
-  .filter-container {
-    .filter {
-      border-color: #444;
     }
   }
 }
