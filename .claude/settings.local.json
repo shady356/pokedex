@@ -8,7 +8,35 @@
       "Bash(gh pr *)",
       "PowerShell(gh pr list)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Skill(update-config)",
+      "Skill(update-config:*)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -WindowStyle Hidden -c (New-Object Media.SoundPlayer 'C:\\Users\\henri\\.claude\\sounds\\sm64_coin.wav').PlaySync()",
+            "shell": "powershell"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -WindowStyle Hidden -c (New-Object Media.SoundPlayer 'C:\\Users\\henri\\.claude\\sounds\\sm64_pause.wav').PlaySync()",
+            "shell": "powershell"
+          }
+        ]
+      }
     ]
   }
 }

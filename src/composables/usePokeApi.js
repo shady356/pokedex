@@ -1,5 +1,5 @@
-import { computed, unref } from 'vue'
-import { useQuery, useQueries, useQueryClient } from '@tanstack/vue-query'
+import { computed, unref, ref, watch } from 'vue'
+import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { fetchPokemon, fetchPokemonSpecies, fetchMove } from '@/service/pokeApi.js'
 
 export { useQueryClient }
@@ -20,10 +20,28 @@ export const usePokemonSpecies = (id) => useQuery({
   enabled: computed(() => !!unref(id)),
 })
 
-export const useMoveDetails = (moveNames) => useQueries({
-  queries: computed(() => unref(moveNames).map(name => ({
-    queryKey: ['move', name],
-    queryFn: () => fetchMove(name),
-    staleTime: STALE,
-  }))),
-})
+export const useMoveDetails = (moveNames) => {
+  const queryClient = useQueryClient()
+  const results = ref([])
+
+  watch(
+    moveNames,
+    async (names) => {
+      results.value = []
+      if (!names.length) return
+      const data = await Promise.all(
+        names.map(name =>
+          queryClient.fetchQuery({
+            queryKey: ['move', name],
+            queryFn: () => fetchMove(name),
+            staleTime: STALE,
+          })
+        )
+      )
+      results.value = data.map(d => ({ data: d, isSuccess: true }))
+    },
+    { immediate: true }
+  )
+
+  return results
+}
