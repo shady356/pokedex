@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import './plugins/axios'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import { VueQueryPlugin } from '@tanstack/vue-query'
 
 // Font Awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -44,8 +44,8 @@ Vue.use(Vue2TouchEvents)
 // Vue lazy load
 import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload)
+Vue.use(VueQueryPlugin)
 
-import './registerServiceWorker'
 Vue.config.productionTip = false
 
 new Vue({

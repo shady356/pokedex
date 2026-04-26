@@ -135,20 +135,64 @@
 </template>
 
 <script>
+import { toRef, computed } from 'vue'
 import { $getTypeColor } from "@/helpers/types.js";
 import BaseModal from "@/components/base/BaseModal";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
 import BaseTab from "@/components/base/BaseTab";
 import CardHeader from "@/components/pokemon/pokemon-card/CardHeader.vue"
 import CardSprite from "@/components/pokemon/pokemon-card/CardSprite.vue"
-import PokeApi from '@/service/pokeApi.js'
+import { usePokemon, usePokemonSpecies } from '@/composables/usePokeApi.js'
 import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
 import PokemonMoves from "@/components/pokemon/PokemonMoves.vue";
 import TypeModal from "@/components/types/TypeModal";
 
+const textures = import.meta.glob('/src/assets/PK_Textures/*.png', { eager: true, import: 'default' })
+
 export default {
   name: "PokemonCard",
+  setup(props) {
+    const pokemonId = toRef(props, 'pokemonId')
+
+    const pokemonQuery = usePokemon(pokemonId)
+    const speciesQuery = usePokemonSpecies(pokemonId)
+
+    const pokemon = computed(() => {
+      const d = pokemonQuery.data.value
+      if (!d) return null
+      return {
+        id: d.id,
+        name: d.name,
+        sprite: d.sprites.front_default,
+        abilities: d.abilities,
+        stats: d.stats,
+        types: d.types,
+        weight: d.weight,
+        height: d.height,
+      }
+    })
+
+    const pokemonSpecies = computed(() => {
+      const d = speciesQuery.data.value
+      if (!d) return null
+      const description = d.flavor_text_entries.find(e => e.language.name === 'en')
+      return {
+        eggGroups: d.egg_groups,
+        description,
+        captureRate: d.capture_rate,
+        baseHappiness: d.base_happiness,
+        growthRate: d.growth_rate.name,
+        hatchCounter: d.hatch_counter,
+      }
+    })
+
+    return {
+      pokemon,
+      pokemonSpecies,
+      offloadSprite: pokemonQuery.isFetching,
+    }
+  },
   components: {
     BaseModal,
     BaseProgressSpinner,
@@ -182,9 +226,6 @@ export default {
   data() {
     return {
       isPokemonZoom: false,
-      pokemon: null,
-      pokemonSpecies: null,
-      offloadSprite: false,
       startTouch: 0,
       toPositionPercentage: 0,
       movingGlobal: 0,
@@ -209,8 +250,7 @@ export default {
   },
   computed: {
     pokemonTexture() {
-      //return require(`@/assets/PK_Textures/${this.firstType}.png`)
-      return require(`@/assets/PK_Textures/dragon.png`)
+      return textures[`/src/assets/PK_Textures/${this.firstType}.png`]
     },
     isPokemonLoaded() {
       return this.pokemon && this.pokemonSpecies;
@@ -225,11 +265,7 @@ export default {
       return type.type.name;
     },
     pokemonTypes() {
-      let types = []
-      this.pokemon.types.forEach(type => {
-        types.push(type.type.name)
-      });
-      return types
+      return this.pokemon.types.map(t => t.type.name)
     },
     getModalBackground() {
       return {
@@ -240,64 +276,10 @@ export default {
       };
     },
   },
-  watch: {
-    pokemonId () {
-      this.offloadSprite = true
-      this.getPokemon(this.pokemonId);
-      this.getPokemonSpecies(this.pokemonId);  
-    }
-  },
   mounted() {
     this.clientWidth = document.documentElement.clientWidth
-    this.getPokemon(this.pokemonId);
-    this.getPokemonSpecies(this.pokemonId);
   },
   methods: {
-    // API
-    async getPokemon (id) {
-      let response = await PokeApi.getPokemonById(id)
-      this.refinePokemonData(response.data);
-      
-      if (response.error) {
-        console.log('error') // TODO: replace with toast
-      }
-    },
-    async getPokemonSpecies (id) {
-      let response = await PokeApi.getPokemonSpeciesById(id)
-      this.refineSpeciesData(response.data);
-      
-      if (response.error) {
-        alert('error') // TODO: replace with toast
-      }
-    },
-    refinePokemonData(data) {
-      const pokemonData = {
-        id: data.id,
-        name: data.name,
-        sprite: data.sprites.front_default,
-        abilities: data.abilities,
-        stats: data.stats,
-        types: data.types,
-        weight: data.weight,
-        height: data.height
-      };
-      this.pokemon = pokemonData;
-      this.offloadSprite = false
-    },
-    refineSpeciesData(data) {
-      const description = data.flavor_text_entries.find(item => {
-        return item.language.name === 'en' 
-      })
-      const speciesData = {
-        eggGroups: data.egg_groups,
-        description: description,
-        captureRate: data.capture_rate,
-        baseHappiness: data.base_happiness,
-        growthRate: data.growth_rate.name,
-        hatchCounter: data.hatch_counter
-      };
-      this.pokemonSpecies = speciesData;
-    },
     changeMetaTab(index) {
       this.metaItems.forEach(tab => {
         tab.active = false;
@@ -320,6 +302,7 @@ export default {
       }
     },
     startHandler(e) {
+      clearTimeout(this._resetTimer)
       this.startTouch = e.changedTouches[0].clientX
     },
     movePokemon (e) {
@@ -353,10 +336,11 @@ export default {
         } else if (this.toPositionPercentage > percentageThreshold && !this.isFirstPokemon) {
           this.paginatePokemon('previous')
         } else {
-          document.getElementById('pokemon-sprite-id').style = 'transition: transform .4s ease'
-          document.getElementById('pokemon-sprite-id').style.transform = 'translateX(0%)'
-          setTimeout(() => {
-            document.getElementById('pokemon-sprite-id').style = 'transition: none'
+          const spriteEl = document.getElementById('pokemon-sprite-id')
+          spriteEl.style = 'transition: transform .4s ease'
+          spriteEl.style.transform = 'translateX(0%)'
+          this._resetTimer = setTimeout(() => {
+            spriteEl.style = 'transition: none'
           }, 400)
         }
       }

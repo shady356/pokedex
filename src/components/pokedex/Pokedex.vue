@@ -76,10 +76,14 @@ import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
 import FilterPokemon from "@/components/pokedex/FilterPokemon.vue";
 import Header from "@/components/layout/Header.vue";
 import PokedexItem from "@/components/pokedex/PokedexItem";
-import PokeApi from '@/service/pokeApi.js'
+import { useQueryClient, STALE } from '@/composables/usePokeApi.js'
+import { fetchPokemonForm } from '@/service/pokeApi.js'
 
 export default {
   name: "Pokedex",
+  setup() {
+    return { queryClient: useQueryClient() }
+  },
   components: {
     Header,
     BaseModal,
@@ -98,8 +102,6 @@ export default {
       currentBatch: 1,
       maxPerBatch: 16,
       loadedCounter: 0,
-      showLoader: false,
-
       isPokemonModal: false,
 
       scrollPosition: 0,
@@ -108,18 +110,14 @@ export default {
         generations: [],
         types: []
       },
-      isFilter: false
+      isFilter: false,
+      isLoadingBatch: false
     };
   },
   computed: {
     batchEndPosition() {
       const endPosition = this.maxPerBatch * this.currentBatch;
-      if (endPosition <= this.totalResults) {
-        return endPosition;
-      } else {
-        let remainer = this.totalResults - endPosition;
-        return this.batchStartPosition + this.maxPerBatch + remainer;
-      }
+      return endPosition <= this.totalResults ? endPosition : this.totalResults;
     },
     batchStartPosition() {
       return this.maxPerBatch * this.currentBatch - this.maxPerBatch;
@@ -149,18 +147,23 @@ export default {
   mounted() {
     this.setPokedexMap(this.filters);
   },
+  beforeDestroy() {
+    if (this._observer) {
+      this._observer.disconnect();
+    }
+  },
   methods: {
     ...mapActions(["commitPokedexIds"]),
     
     // Api
     async getPokemonForm (id, arrayIndex) {
-      const response = await PokeApi.getPokemonFormById(id)
-      this.refineResponseData(response.data, arrayIndex);
-      this.loadedCounter++;
-      
-      if (response.error) {
-        alert('error') // TODO: replace with toast
-      }
+      const data = await this.queryClient.fetchQuery({
+        queryKey: ['pokemon-form', id],
+        queryFn: () => fetchPokemonForm(id),
+        staleTime: STALE,
+      })
+      this.refineResponseData(data, arrayIndex)
+      this.loadedCounter++
     },
     refineResponseData(data, arrayIndex) {
       const pokemonData = {
@@ -170,21 +173,45 @@ export default {
       };
       this.pokemonList[arrayIndex] = pokemonData;
     },
-    getBatchOfPokemon() {
-      for (let i = this.batchStartPosition; i < this.batchEndPosition; i++) {
-        this.getPokemonForm(this.pokemonList[i].id, i);
-      }
+    async getBatchOfPokemon() {
+      if (this.isLoadingBatch) return;
+
+      const start = this.batchStartPosition;
+      const end = this.batchEndPosition;
+
+      if (start >= this.totalResults) return;
+
+      this.isLoadingBatch = true;
       this.currentBatch++;
+
+      await Promise.all(
+        Array.from({ length: end - start }, (_, i) =>
+          this.getPokemonForm(this.pokemonList[start + i].id, start + i)
+        )
+      );
+
+      this.isLoadingBatch = false;
+
+      await this.$nextTick();
+      const rect = this.$refs.trigger?.getBoundingClientRect();
+      if (rect && rect.top < window.innerHeight) {
+        this.getBatchOfPokemon();
+      }
     },
     scrollTrigger() {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.getBatchOfPokemon();
-          }
-        });
+      if (this._observer) {
+        this._observer.disconnect();
+      }
+      this._observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          this.getBatchOfPokemon();
+        }
       });
-      observer.observe(this.$refs.trigger);
+      this.$nextTick(() => {
+        if (this.$refs.trigger) {
+          this._observer.observe(this.$refs.trigger);
+        }
+      });
     },
     openFilter() {
       this.isFilterOpen = true;
