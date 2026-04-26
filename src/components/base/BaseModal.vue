@@ -4,9 +4,9 @@
     appear
   >
     <div
-      class="modal-container"
       v-touch:moving="movingHandler"
       v-touch:end="endHandler"
+      class="modal-container"
     >
       <transition
         name="slide-v"
@@ -22,9 +22,9 @@
           />
           <slot />
           <div
+            v-if="showCloseButton"
             class="modal-close-container"
             @click="closeModal"
-            v-if="showCloseButton"
           >
             <div class="modal-close">
               <img
