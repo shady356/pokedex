@@ -6,7 +6,9 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/)",
       "Bash(pkill -f \"vite --port 5173\")",
       "Bash(gh pr *)",
-      "PowerShell(gh pr list)"
+      "PowerShell(gh pr list)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
