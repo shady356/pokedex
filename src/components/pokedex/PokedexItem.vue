@@ -1,6 +1,6 @@
 <template>
   <img
-    v-if="pokemon"
+    v-if="pokemon && pokemon.name"
     :style="spriteStyle"
     class="sprite"
     :src="sprite"

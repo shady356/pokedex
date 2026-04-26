@@ -81,6 +81,7 @@
                 <PokemonAbout
                   :pokemon="pokemon"
                   :pokemon-species="pokemonSpecies"
+                  @openAbilityModal="openAbilityModal"
                 />
               </div>
 
@@ -131,6 +132,13 @@
     >
       <TypeModal :type-name="currentTypeInModal" />
     </BaseModal>
+    <!-- Ability modal -->
+    <BaseModal
+      v-if="isAbilityModalOpen"
+      @closeModal="closeAbilityModal"
+    >
+      <AbilityModal :ability-name="currentAbilityInModal" />
+    </BaseModal>
   </div>
 </template>
 
@@ -147,6 +155,7 @@ import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
 import PokemonMoves from "@/components/pokemon/PokemonMoves.vue";
 import TypeModal from "@/components/types/TypeModal";
+import AbilityModal from "@/components/pokemon/AbilityModal.vue";
 
 const textures = import.meta.glob('/src/assets/PK_Textures/*.png', { eager: true, import: 'default' })
 
@@ -202,7 +211,8 @@ export default {
     PokemonAbout,
     PokemonBaseStats,
     PokemonMoves,
-    TypeModal
+    TypeModal,
+    AbilityModal
   },
   props: {
     pokemonId: {
@@ -235,6 +245,10 @@ export default {
       // Type modal
       isTypeModalOpen: false,
       currentTypeInModal: null,
+
+      // Ability modal
+      isAbilityModalOpen: false,
+      currentAbilityInModal: null,
 
       metaItems: [
         {
@@ -292,6 +306,13 @@ export default {
     },
     closeTypeModal() {
       this.isTypeModalOpen = false;
+    },
+    openAbilityModal(ability) {
+      this.currentAbilityInModal = ability.name;
+      this.isAbilityModalOpen = true;
+    },
+    closeAbilityModal() {
+      this.isAbilityModalOpen = false;
     },
     swipePokemon(direction) {
       if (direction === "right") {

@@ -23,7 +23,8 @@
         <BaseTag
           v-for="item in pokemon.abilities"
           :key="item.ability.name"
-          class="ability"
+          class="ability clickable"
+          @click.native="$emit('openAbilityModal', item.ability)"
         >
           {{ item.ability.name }}
           <fa-icon
@@ -222,11 +223,16 @@ export default {
 
         .ability {
           margin-right: $xs;
+          cursor: pointer;
 
           .icon {
             margin-left: $xxxs;
             height: $xs;
             color: #6dc;
+          }
+
+          &.clickable:hover {
+            opacity: 0.75;
           }
         }
       }

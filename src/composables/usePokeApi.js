@@ -1,6 +1,6 @@
 import { computed, unref, ref, watch } from 'vue'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
-import { fetchPokemon, fetchPokemonSpecies, fetchMove } from '@/service/pokeApi.js'
+import { fetchPokemon, fetchPokemonSpecies, fetchMove, fetchAbility } from '@/service/pokeApi.js'
 
 export { useQueryClient }
 
@@ -18,6 +18,13 @@ export const usePokemonSpecies = (id) => useQuery({
   queryFn: () => fetchPokemonSpecies(unref(id)),
   staleTime: STALE,
   enabled: computed(() => !!unref(id)),
+})
+
+export const useAbility = (name) => useQuery({
+  queryKey: computed(() => ['ability', unref(name)]),
+  queryFn: () => fetchAbility(unref(name)),
+  staleTime: STALE,
+  enabled: computed(() => !!unref(name)),
 })
 
 export const useMoveDetails = (moveNames) => {

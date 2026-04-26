@@ -15,23 +15,23 @@
     </Header>
     <div
       class="default-page-margin pokedex-container"
-      v-if="loadedCounter > 0"
+      v-if="fetchedCount > 0"
     >
       <ul>
         <router-link
-          v-for="(n, index) in batchEndPosition"
-          :key="index"
+          v-for="(pokemon, index) in visiblePokemon"
+          :key="pokemon.id"
           tag="li"
           :to="{
             name: 'PokemonCardController',
             params: {
-              pokemonId: pokemonList[index].id,
+              pokemonId: pokemon.id,
               pokemonIndex: index
             }
           }"
         >
           <PokedexItem
-            :pokemon="pokemonList[index]"
+            :pokemon="pokemon"
           />
         </router-link>
       </ul>
@@ -94,37 +94,22 @@ export default {
   data() {
     return {
       pokemonList: [],
+      visibleCount: 0,
+      fetchedCount: 0,
+      batchSize: 16,
+      isLoadingBatch: false,
 
-      // Filter:
       isFilterOpen: false,
-
-      //Batch data:
-      currentBatch: 1,
-      maxPerBatch: 16,
-      loadedCounter: 0,
       isPokemonModal: false,
-
       scrollPosition: 0,
-
-      filters: {
-        generations: [],
-        types: []
-      },
+      filters: { generations: [], types: [] },
       isFilter: false,
-      isLoadingBatch: false
     };
   },
   computed: {
-    batchEndPosition() {
-      const endPosition = this.maxPerBatch * this.currentBatch;
-      return endPosition <= this.totalResults ? endPosition : this.totalResults;
+    visiblePokemon() {
+      return this.pokemonList.slice(0, this.visibleCount);
     },
-    batchStartPosition() {
-      return this.maxPerBatch * this.currentBatch - this.maxPerBatch;
-    },
-    totalResults() {
-      return this.pokemonList.length;
-    }
   },
   watch: {
     $route: {
@@ -154,39 +139,29 @@ export default {
   },
   methods: {
     ...mapActions(["commitPokedexIds"]),
-    
-    // Api
-    async getPokemonForm (id, arrayIndex) {
+
+    async fetchPokemon(id, index) {
       const data = await this.queryClient.fetchQuery({
         queryKey: ['pokemon-form', id],
         queryFn: () => fetchPokemonForm(id),
         staleTime: STALE,
-      })
-      this.refineResponseData(data, arrayIndex)
-      this.loadedCounter++
+      });
+      this.$set(this.pokemonList, index, { id: data.id, name: data.name, types: data.types });
+      this.fetchedCount++;
     },
-    refineResponseData(data, arrayIndex) {
-      const pokemonData = {
-        id: data.id,
-        name: data.name,
-        types: data.types,
-      };
-      this.pokemonList[arrayIndex] = pokemonData;
-    },
-    async getBatchOfPokemon() {
+
+    async loadNextBatch() {
       if (this.isLoadingBatch) return;
-
-      const start = this.batchStartPosition;
-      const end = this.batchEndPosition;
-
-      if (start >= this.totalResults) return;
+      const start = this.visibleCount;
+      const end = Math.min(start + this.batchSize, this.pokemonList.length);
+      if (start >= end) return;
 
       this.isLoadingBatch = true;
-      this.currentBatch++;
+      this.visibleCount = end;
 
       await Promise.all(
         Array.from({ length: end - start }, (_, i) =>
-          this.getPokemonForm(this.pokemonList[start + i].id, start + i)
+          this.fetchPokemon(this.pokemonList[start + i].id, start + i)
         )
       );
 
@@ -195,63 +170,38 @@ export default {
       await this.$nextTick();
       const rect = this.$refs.trigger?.getBoundingClientRect();
       if (rect && rect.top < window.innerHeight) {
-        this.getBatchOfPokemon();
+        this.loadNextBatch();
       }
     },
+
     scrollTrigger() {
-      if (this._observer) {
-        this._observer.disconnect();
-      }
+      if (this._observer) this._observer.disconnect();
       this._observer = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-          this.getBatchOfPokemon();
-        }
+        if (entry.isIntersecting) this.loadNextBatch();
       });
       this.$nextTick(() => {
-        if (this.$refs.trigger) {
-          this._observer.observe(this.$refs.trigger);
-        }
+        if (this.$refs.trigger) this._observer.observe(this.$refs.trigger);
       });
     },
-    openFilter() {
-      this.isFilterOpen = true;
-    },
-    closeFilter() {
-      this.isFilterOpen = false;
-    },
-    filterHasData(filters) {
-      return Object.keys(filters).some(filter => {
-        return filters[filter].length > 0;
-      });
-    },
-    updateFilters(filters) {
-      this.isFilter = this.filterHasData(filters);
 
-      this.setBodyColor();
+    setPokedexMap(filters) {
+      this.pokemonList = $filterData(filters);
+      this.visibleCount = 0;
+      this.fetchedCount = 0;
+      this.isLoadingBatch = false;
+      this.scrollTrigger();
+      this.commitPokedexIds(this.pokemonList.map(p => p.id));
+    },
+
+    openFilter() { this.isFilterOpen = true; },
+    closeFilter() { this.isFilterOpen = false; },
+
+    updateFilters(filters) {
+      this.isFilter = Object.values(filters).some(f => f.length > 0);
+      document.body.classList.toggle('bodyFilter', this.isFilter);
       this.setPokedexMap(filters);
       this.closeFilter();
     },
-    setPokedexMap(filters) {
-      this.resetPokedexMap();
-      this.pokemonList = $filterData(filters);
-      this.scrollTrigger();
-      const pokedexIds = this.pokemonList.map(pokemon => {
-        return pokemon.id;
-      });
-      this.commitPokedexIds(pokedexIds);
-    },
-    resetPokedexMap() {
-      this.pokemonList = [];
-      this.loadedCounter = 0;
-      this.currentBatch = 1;
-    },
-    setBodyColor() {
-      if (this.isFilter) {
-        document.body.classList.add("bodyFilter");
-      } else {
-        document.body.classList.remove("bodyFilter");
-      }
-    }
   }
 };
 </script>
