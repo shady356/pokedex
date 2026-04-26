@@ -1,7 +1,7 @@
 export const $getTypeInfoByName = (typeName) => {
   const bug = {
     name: 'bug',
-    description: 'Bug types are usually encountered early in your pokémon journey. Due to overall poor move options, this type is seen as a weak choice to have in a party. Although, you can always surprise your opponent\'s psychic type with a super effecitve attack',
+    description: 'Bug types are usually encountered early in your Pokémon journey. Due to overall poor move options, this type is seen as a weak choice to have in a party. Although, you can always surprise your opponent\'s psychic type with a super effective attack.',
     resistantTo: [],
     notVeryEffectiveTo: [
       'flying',
@@ -24,7 +24,7 @@ export const $getTypeInfoByName = (typeName) => {
   }
   const dragon = {
     name: 'dragon',
-    description: 'Dragon type is among the strongest in the game. Usually you\'ll encounter semi-legendary and legendary -pokémon equipped with this type. With great bulk and outragous attacks, this type is almost a prerequisite to conquer competitive trainers',
+    description: 'Dragon type is among the strongest in the game. Usually you\'ll encounter semi-legendary and legendary Pokémon equipped with this type. With great bulk and outrageous attacks, this type is almost a prerequisite to conquer competitive trainers.',
     resistantTo: ['fire', 'water', 'electric', 'grass'],
     notVeryEffectiveTo: ['steel'],
     superEffectiveTo: ['dragon'],
@@ -32,13 +32,13 @@ export const $getTypeInfoByName = (typeName) => {
   }
   const electric = {
     name: 'electric',
-    description: 'With only one vulnerability in disfavor for Ground types, Electric pokémon provides stability to your party. They are lacking good tanks, but puts speed and attack on the table, which makes them capable of sweeping off tanky Water and Flying -types.',
+    description: 'With only one vulnerability in disfavor of Ground types, Electric Pokémon provide stability to your party. They are lacking good tanks, but put speed and attack on the table, which makes them capable of sweeping aside tanky Water and Flying types.',
     superEffectiveTo: ['water', 'flying'],
     vulnerableTo: ['ground'],
   }
   const fairy = {
     name: 'fairy',
-    description: 'As a consequence of the over-powered Dragon types and bulky Steel types, Fairy was added as a type to balance the game in the sixth generation. Many former Normal types has been changed into Fairy type to make them even stronger',
+    description: 'As a consequence of the over-powered Dragon types and bulky Steel types, Fairy was added as a type to balance the game in the sixth generation. Many former Normal types have been changed into Fairy type to make them even stronger.',
     superEffectiveTo: ['dragon', 'fighting', 'dark'],
     vulnerableTo: ['poison', 'steel'],
   }
@@ -57,19 +57,19 @@ export const $getTypeInfoByName = (typeName) => {
   }
   const flying = {
     name: 'flying',
-    description: 'A popular choice to have in your party,',
+    description: 'A popular choice to have in your party, Flying types are almost always paired with another type, giving them great versatility. They are immune to Ground attacks and dominate Bug, Grass, and Fighting types, though they remain vulnerable to Electric, Ice, and Rock moves.',
     superEffectiveTo: ['grass', 'bug', 'fighting'],
     vulnerableTo: ['electric', 'ice', 'rock'],
   }
   const ghost = {
     name: 'ghost',
-    description: 'This mysteries type completes the triangle with Dark and Psychic types.',
+    description: 'This mysterious type completes the triangle with Dark and Psychic types.',
     superEffectiveTo: ['psychic', 'ghost'],
     vulnerableTo: ['dark', 'ghost'],
   }
   const grass = {
     name: 'grass',
-    description: 'A good starter in your journey, but will often decline as you progress due its many vulnerabilities',
+    description: 'A good starter in your journey, but will often decline as you progress due to its many vulnerabilities.',
     superEffectiveTo: ['water', 'ground', 'rock'],
     vulnerableTo: ['fire', 'ice', 'flying', 'poison', 'bug'],
   }
@@ -81,43 +81,43 @@ export const $getTypeInfoByName = (typeName) => {
   }
   const ice = {
     name: 'ice',
-    description: 'A balanced type as it\'s super effective and vulnerable to four types respectiviely. It brings the powerfull Dragons down, but can be risky to play due to its vulnerabilities.',
+    description: 'A balanced type as it\'s super effective and vulnerable to four types respectively. It brings the powerful Dragons down, but can be risky to play due to its vulnerabilities.',
     superEffectiveTo: ['dragon', 'grass', 'ground', 'flying'],
     vulnerableTo: ['fire', 'rock', 'fighting', 'steel'],
   }
   const normal = {
     name: 'normal',
-    description: 'The most balanced pokémon type. Great for beginners as it has only one vulnerability to Fighting types, but on the attacking front it deals mediocre damage to all types as it\'s lacking super effective advantage. It\'s also inefective to Ghost types',
+    description: 'The most balanced Pokémon type. Great for beginners as it has only one vulnerability to Fighting types, but on the attacking front it deals mediocre damage to all types as it\'s lacking super effective advantage. It\'s also ineffective against Ghost types.',
     superEffectiveTo: [],
     vulnerableTo: ['fighting'],
   }
   const poison = {
     name: 'poison',
-    description: 'foobar',
+    description: 'Poison types excel at wearing down opponents over time with status conditions. They synergize well with Fairy and Grass matchups, and many Poison-type moves inflict the poison status, making them a strategic choice for attrition battles.',
     superEffectiveTo: ['grass', 'fairy'],
     vulnerableTo: ['ground', 'psychic'],
   }
   const psychic = {
     name: 'psychic',
-    description: 'foobar',
+    description: 'Psychic was the dominant type in Generation I, with almost no counters. Game Freak later introduced Dark and more Ghost moves to rein it in. Today it remains powerful with strong special attack stats and coverage against Fighting and Poison types, though it must watch out for its three weaknesses.',
     superEffectiveTo: ['fighting', 'poison'],
     vulnerableTo: ['dark', 'bug', 'ghost'],
   }
   const rock = {
     name: 'rock',
-    description: 'Often seen in combination with Ground types. It\'s vulnerability makes it weak in the competitive play, but on the bright side it can also land some super effective hits',
+    description: 'Often seen in combination with Ground types. Its vulnerability makes it weak in competitive play, but on the bright side it can also land some super effective hits.',
     superEffectiveTo: ['flying', 'ice', 'fire', 'bug'],
     vulnerableTo: ['water', 'grass', 'fighting', 'ground', 'steel'],
   }
   const steel = {
     name: 'steel',
-    description: 'Steel types are one of the best due to its strong resistancy to other types.',
+    description: 'Steel types are one of the best due to their strong resistance to other types.',
     superEffectiveTo: ['ice', 'rock', 'fairy'],
     vulnerableTo: ['fire', 'fighting', 'ground'],
   }
   const water = {
     name: 'water',
-    description: 'foobar',
+    description: 'Water is one of the three basic elemental types alongside Fire and Grass. It is the most common type in the games and offers excellent offensive and defensive coverage. With only two vulnerabilities, Water-type Pokémon are a reliable and versatile addition to any party.',
     superEffectiveTo: ['fire', 'ground', 'rock'],
     vulnerableTo: ['grass', 'electric'],
   }
