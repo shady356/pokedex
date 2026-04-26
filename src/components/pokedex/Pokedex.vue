@@ -223,26 +223,21 @@ $pokemon-gap-mobile: 2%;
   justify-content: center;
   
   ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
     gap: $s;
     width: 100%;
     
 
+    grid-template-columns: repeat(3, 1fr);
+
     li {
       cursor: pointer;
-      width: 100px;
-      height: 100px;
+      aspect-ratio: 1;
     }
 
     @media (min-width: 1024px) {
       width: 70%;
-      
-      li {
-        width: 128px;
-        height: 128px;
-      }
+      grid-template-columns: repeat(6, 1fr);
     }
   }
 }
