@@ -30,7 +30,7 @@ export default {
       return $getTypeColor(this.type)
     },
     getTypeIcon() {
-      return require("@/assets/icons/types/" + this.type + ".svg");
+      return new URL(`../../assets/icons/types/${this.type}.svg`, import.meta.url).href;
     },
   }
 };

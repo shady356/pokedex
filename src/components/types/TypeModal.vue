@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     getIcon(name) {
-      return require("@/assets/icons/types/" + name + ".svg");
+      return new URL(`../../assets/icons/types/${name}.svg`, import.meta.url).href;
     },
     getTypeColor(name) {
       switch (name) {
