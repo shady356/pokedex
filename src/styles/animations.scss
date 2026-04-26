@@ -1,3 +1,5 @@
+@use './spacing' as *;
+
 @mixin progress-grow($max, $time: 1s, $easing: ease-in-out) {
   @keyframes grow {
     0% {

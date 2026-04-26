@@ -1,9 +1,9 @@
 // main.scss
 // load all .scss files
-@import './colors.scss';
-@import './spacing.scss';
-@import './timing.scss';
-@import './transitions.scss';
-@import './animations.scss';
-@import './typography.scss';
-@import './types.scss';
+@forward './colors';
+@forward './spacing';
+@forward './timing';
+@forward './transitions';
+@forward './animations';
+@forward './typography';
+@forward './types';

@@ -42,7 +42,8 @@ export default defineConfig(({ mode }) => ({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "${mainScssPath}";`
+        api: 'modern-compiler',
+        additionalData: `@use "${mainScssPath}" as *;\n`
       }
     }
   },

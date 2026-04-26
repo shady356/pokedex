@@ -1,4 +1,6 @@
-/* 
+@use './timing' as *;
+
+/*
   In usage with Vue's <transition> component
   use attr 'name'
   --- 
@@ -16,7 +18,7 @@
 */
 .slide-v-enter-active,
 .slide-v-leave-active {
-  transition: all $normal ease-in-out;
+  transition: all $duration-normal ease-in-out;
 }
 .slide-v-enter, 
 .slide-v-leave-to {
