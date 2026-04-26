@@ -10,7 +10,8 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Skill(update-config)",
-      "Skill(update-config:*)"
+      "Skill(update-config:*)",
+      "Bash(grep -r '$getTypeColor\\\\|$getTypeInfoByName\\\\|$getAllTypes' /c/Users/henri/Documents/code/pokedex/src '--include=*.vue' '--include=*.js' -l)"
     ]
   },
   "hooks": {
@@ -26,9 +27,9 @@
         ]
       }
     ],
-    "Notification": [
+    "PermissionRequest": [
       {
-        "matcher": "permission_prompt",
+        "matcher": "",
         "hooks": [
           {
             "type": "command",

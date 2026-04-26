@@ -15,7 +15,7 @@ export default {
   position: absolute;
   background: #000;
   color: #ddd;
-  font-size: 10px;
+  font-size: 12px;
   padding: 10px;
   text-align: left;
 }
