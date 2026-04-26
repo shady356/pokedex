@@ -45,7 +45,7 @@ export default {
       }
     },
     getTypeIcon (name) {
-      return require("@/assets/icons/types/" + name + ".svg");
+      return new URL(`../../assets/icons/types/${name}.svg`, import.meta.url).href;
     },
     selectType (typeName) {
       this.$emit('select-type', typeName)

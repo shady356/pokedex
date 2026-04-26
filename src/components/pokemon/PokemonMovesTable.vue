@@ -59,6 +59,9 @@
 
 <script>
 import BaseTypeTag from "@/components/base/BaseTypeTag";
+import moveSpecial from "@/assets/icons/move_types/move-special.png";
+import movePhysical from "@/assets/icons/move_types/move-physical.png";
+import moveStatus from "@/assets/icons/move_types/move-status.png";
 export default {
   name: "BaseMoveTable",
   components: {
@@ -151,21 +154,13 @@ export default {
           return "#539DDF";
       }
     },
-    getIcon(name) {
-      return require("@/assets/icons/types/" + name + ".svg");
-    },
     isSameType (type) {
       return this.types.includes(type)
     },
     getItemCategoryImageSrc(category) {
-      if(category === 'special') {
-        return require('@/assets/icons/move_types/move-special.png')
-      } else if(category === 'physical') {
-        return require('@/assets/icons/move_types/move-physical.png')
-      }
-      else {
-        return require('@/assets/icons/move_types/move-status.png')
-      }
+      if (category === 'special') return moveSpecial
+      if (category === 'physical') return movePhysical
+      return moveStatus
     }
   }
 };
