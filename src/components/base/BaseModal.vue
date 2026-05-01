@@ -122,8 +122,8 @@ export default {
   .modal-window {
     position: fixed;
     overflow-y: auto;
-    background: #fff;
-    color: #333;
+    background: var(--color-bg-primary);
+    color: var(--color-text);
     bottom: 0;
     left: 2vw;
     width: 96vw;
@@ -135,7 +135,7 @@ export default {
       position: sticky;
       top: $s;
       margin: $s auto 0;
-      background: #aaa;
+      background: var(--color-bg-tertiary);
       width: $xxl;
       height: $xxs;
       border-radius: $l;
@@ -182,13 +182,12 @@ export default {
       .modal-close {
         display: flex;
         justify-content: center;
-        background: #fff;
-        border: 1px solid var(--color-navigation);
+        background: var(--color-bg-primary);
         border-radius: 50%;
         padding: $xxxs;
 
         .close-icon {
-          background: var(--color-navigation);
+          background: var(--color-primary);
           width: $l;
           height: $l;
           padding: $xs;
@@ -196,13 +195,6 @@ export default {
         }
       }
     }
-  }
-}
-
-.dark {
-  .modal-window {
-    background: #333;
-    color: #ddd;
   }
 }
 </style>

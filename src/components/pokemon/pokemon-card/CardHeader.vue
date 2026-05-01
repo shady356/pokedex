@@ -64,7 +64,7 @@ export default {
 .white-bar {
   position: relative;
   border-radius: $m $m 0 0;
-  background: #fff;
+  background: var(--color-bg-primary);
   width: 100%;
   height: $xxl;
   clip-path: polygon(100% 0, 100% 60%, 75% 60%, 60% 100%, 0 100%, 0 0);
@@ -76,7 +76,7 @@ export default {
     padding: $s $m;
 
     .pokemon-name {
-      color: #333;
+      color: var(--color-text);
       margin-right: $s;
     }
     .type-container {
@@ -87,7 +87,7 @@ export default {
       }
     }
     .skeleton-block-line {
-      background: #ddd;
+      background: var(--color-bg-tertiary);
       border-radius: $xxs;
       width: $xxxxl;
       height: $m;

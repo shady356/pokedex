@@ -193,22 +193,22 @@ export default {
         .label {
           flex-basis: 35%;
           padding-right: $s;
-          color: #777;
+          color: var(--color-text-light);
         }
         .value {
           flex-basis: 65%;
-          color: #111;
+          color: var(--color-text);
         }
       }
 
       &.description-container {
-        background: #fff;
+        background: var(--color-bg-primary);
         border-radius: $s;
         margin-bottom: $s;
         filter: drop-shadow(0 2px 2px #00000022);
 
         .quote {
-          color: #777;
+          color: var(--color-text-light);
           font-size: $font-xs;
           margin-top: $xxs;
           text-align: right;
@@ -261,25 +261,6 @@ export default {
             margin-right: $xxs;
             transform: scale(-1);
           }
-        }
-      }
-    }
-  }
-  .dark {
-    .about-container {
-      .data-row {
-        .label {
-          color: #aaa;
-        }
-        .value {
-          color: #ddd;
-        }
-      }
-      .description-container {
-        background: #333;
-
-        .quote {
-          color: #aaa;
         }
       }
     }

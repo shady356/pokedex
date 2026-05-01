@@ -9,7 +9,7 @@ $font-xxxl: 1.75rem; // 28px
 $font-xxxxl: 2rem; // 32px
 
 body {
-  color: #1a1a1a;
+  color: var(--color-text);
   font-size: $font-m;
   font-family: 'Roboto Condensed', sans-serif;
 }
@@ -56,7 +56,7 @@ h6 {
 @mixin micro-label {
   font-size: $font-s;
   font-weight: 700;
-  color: #7e7e7e;
+  color: var(--color-text-light);
 }
 @mixin small-caps {
   font-variant: small-caps;

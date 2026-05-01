@@ -84,8 +84,7 @@ export default {
   &__icon-container {
     position: relative;
     align-items: center;
-    background: var(--color-light);
-    border: 2px solid var(--color-dark);
+    background: var(--color-bg-secondary);
     border-radius: 50%;
     display: flex;
     height: $xxxl;
@@ -118,7 +117,7 @@ export default {
   }
 
   &__text {
-    color: var(--color-black);
+    color: var(--color-text);
     font-size: $font-s;
     font-weight: 700;
     margin-top: $s;

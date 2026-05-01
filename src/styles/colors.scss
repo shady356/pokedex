@@ -26,14 +26,51 @@ $water: #539ddf;
 /* App color theme */
 
 :root {
-  --blue-hue: 320;
+  /* Brand */
+  --color-primary: #007a60;
+  --color-primary-fg: #033a2e;
+  --color-secondary: #b4eed1;
+  --color-secondary-fg: #083b22;
 
-  --color: var(--blue);
-  --color-strong: hsl(var(--blue-hue), 75%, 50%);
-  --color-light: hsl(var(--blue-hue), 70%, 65%);
-  --color-dark: hsl(var(--blue-hue), 80%, 15%);;
-  --color-white: hsl(var(--blue-hue), 30%, 95%);
-  --color-black: hsl(var(--blue-hue), 80%, 10%);;
-  --color-navigation: hsl(var(--blue-hue), 60%, 60%);
-  --color-body: hsl(var(--blue-hue), 30%, 95%);
+  /* UI */
+  --color-white: #fff;
+  --color-black: #000;
+
+  /* Text */
+  --color-text: #222;
+  --color-text-light: #666;
+  --color-text-disabled: #999;
+
+  /* Backgrounds */
+  --color-bg-body: #f5f5f5;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #eeeeee;
+  --color-bg-tertiary: #d8d8d8;
+  --color-bg-disabled: #888;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+
+      /* Brand */
+  --color-primary: #007a60;
+  --color-primary-fg: #033a2e;
+  --color-secondary: #b4eed1;
+  --color-secondary-fg: #083b22;
+  
+    /* Backgrounds */
+    --color-bg-body: #1a1a1a;
+    --color-bg-primary: #222222;
+    --color-bg-secondary: #2a2a2a;
+    --color-bg-tertiary: #333333;
+
+    /* Text */
+    --color-text: #ddd;
+    --color-text-light: #aaa;
+      --color-text-disabled: #999;
+
+    /* UI */
+    --color-white: #fff;
+    --color-black: #000;
+  }
 }

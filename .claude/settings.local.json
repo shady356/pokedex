@@ -12,7 +12,14 @@
       "Skill(update-config)",
       "Skill(update-config:*)",
       "Bash(grep -r '$getTypeColor\\\\|$getTypeInfoByName\\\\|$getAllTypes' /c/Users/henri/Documents/code/pokedex/src '--include=*.vue' '--include=*.js' -l)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\" -Recurse -Depth 3)",
+      "Bash(Select-Object -Property FullName, PSIsContainer)",
+      "Bash(Sort-Object FullName)",
+      "Bash(ls -la c:\\\\\\\\Users\\\\\\\\henri\\\\\\\\Documents\\\\\\\\code\\\\\\\\pokedex)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\" -Recurse -File)",
+      "Bash(Select-Object FullName)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\src\" -Recurse -File)"
     ]
   },
   "hooks": {

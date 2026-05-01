@@ -168,7 +168,7 @@ export default {
 
 <style lang="scss" scoped>
   .move-type-header {
-    background: #fff;
+    background: var(--color-bg-primary);
     height: $m;
     padding: $xs 0 0;
     position: sticky;
@@ -176,7 +176,7 @@ export default {
     width: 100%;
 
     .text {
-      color: #666;
+      color: var(--color-text-light);
       font-weight: 400;
       font-size: $font-s;
       text-align: center;
@@ -189,7 +189,7 @@ export default {
     margin-bottom: $xxl;
 
     .table-header {
-      background: #fff;
+      background: var(--color-bg-primary);
       position: sticky;
       top: calc(#{$m} + #{$xs});
     }
@@ -211,7 +211,7 @@ export default {
     }
     tbody {
       tr {
-        border-top: 1px solid #eee;
+        border-top: 1px solid var(--color-bg-secondary);
 
         td {
           padding: $s 0;
@@ -224,7 +224,7 @@ export default {
             }
             .level {
               margin-top: $xxs;
-              color: #666;
+              color: var(--color-text-light);
               font-size: $font-s;
               font-weight: normal;
             }

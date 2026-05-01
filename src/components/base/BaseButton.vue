@@ -18,10 +18,10 @@ export default {
 <style lang="scss" scoped>
 
 button {
-  background: #fff;
+  background: var(--color-bg-primary);
   border-radius: $xs;
   border: 1px solid transparent;
-  color: #333;
+  color: var(--color-text);
   cursor: pointer;
   font-size: $font-s;
   font-weight: 700;
@@ -29,22 +29,22 @@ button {
   padding: $xs $s;
 
   &[disabled] {
-    background: #888;
-    color: #555;
+    background: var(--color-bg-disabled);
+    color: var(--color-text-light);
   }
 
   &.ghost {
     background: none;
-    border: 1px solid #333;
+    border: 1px solid var(--color-black);
   }
   &.ghost-white {
     background: none;
-    border: 1px solid #fff;
-    color: #fff;
+    border: 1px solid var(--color-white);
+    color: var(--color-white);
   }
-  &.purple {
-    background: var(--purple);
-    color: #fff;
+  &.primary {
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
   }
 }
 </style>

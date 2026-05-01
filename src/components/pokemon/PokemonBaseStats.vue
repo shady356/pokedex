@@ -6,11 +6,11 @@
     <div class="stat-wrapper">
       <PokemonBaseStatChart
         v-if="isChartGenerated"
-        :chart-data="baseStatChartData" 
+        ref="baseStatsChart" 
+        :chart-data="baseStatChartData"
         :options="baseStatChartOptions"
         :styles="chartStyles"
         class="stat-chart-container"
-        ref="baseStatsChart"
       />
       <div class="base-stat-addon-info">
         <div class="base-stats-total">
@@ -280,47 +280,18 @@ export default {
           width: $xxl;
           height: $xxl;
           clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
-          background: #fff;
+          background: var(--color-bg-primary);
           
           .micro-label {
             padding-top: 12px;
             font-size: $font-xxs;
           }
           .total-base-stat-number {
-            color: #555;
+            color: var(--color-text-light);
             line-height: $font-m;
           }
         }
       }
-      
-      /* .base-stat-ranking {
-        text-align: center;
-        
-        .micro-label {
-          font-size: $font-xs;
-          line-height: $font-l;
-        }
-        .stars {
-          display: flex;
-          flex-direction: row;
-          
-          .icon {
-            height: 10px;
-            width: 10px;
-            margin: 0 2px;
-            color: #aaa;
-            filter: drop-shadow(0 1px #888);
-            transition: all .4s ease-out;
-          
-            &.filled {
-              color: #ffaa00;
-              transform: scaleX(-1);
-              filter: drop-shadow(0 1px #d80);
-              transition: all .4s ease-in;
-            }
-          }
-        }
-      } */
     }
   }
 
@@ -337,28 +308,6 @@ export default {
         font-size: $font-m;
       }
     }
-  }
-}
-
-.dark {
-  .base-stat-container {
-    .stat-wrapper {
-  
-      .base-stats-total {
-        .hexagon-shape {
-          background: #333;
-    
-          .micro-label {
-            color: #aaa;
-          }
-          .total-base-stat-number {
-            color: #fff;
-            font-weight: 400;
-          }
-        }
-      }
-    }
-
   }
 }
 </style>

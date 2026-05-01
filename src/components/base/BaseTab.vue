@@ -55,13 +55,13 @@ export default {
 .tab-container {
   .tab-list {
     display: flex;
-    background: var(--blue-white);
+    background: var(--color-bg-secondary);
     border-radius: $s;
     padding: $xxxs;
 
     .tab-item {
       cursor: pointer;
-      color: #777;
+      color: var(--color-text-light);
       width: 100%;
       padding: $xxs 0;
       border-radius: $s;
@@ -72,8 +72,8 @@ export default {
       }
 
       &.active {
-        color: var(--blue);
-        background: #fff;
+        color: var(--color-primary);
+        background: var(--color-bg-primary);
         transition: all 0.4s;
 
         .text {
@@ -83,30 +83,17 @@ export default {
     }
   }
   .border-line {
-    background: #eee;
+    background: var(--color-bg-secondary);
     height: 1px;
     position: relative;
     width: 100%;
 
     .indicator {
-      background: var(--blue);
+      background: var(--color-primary);
       height: 1px;
       position: absolute;
       transition: left 0.2s ease-in-out;
     }
   }
-}
-
-.dark {
-  .tab-container {
-    .tab-item.active {
-      color: #fff;
-    }
-    .border-line {
-      background: #555;
-    }
-  }
-  
-  
 }
 </style>

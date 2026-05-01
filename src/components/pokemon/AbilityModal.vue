@@ -77,41 +77,22 @@ export default {
 
   .description {
     margin-bottom: $l;
-    color: #4d4d4d;
+    color: var(--color-text-light);
     text-align: center;
     line-height: 22px;
   }
 
   .effect-container {
-    
-    background-color: #f5f5f5;
+    background-color: var(--color-bg-body);
     padding: $xl $l;
-    border: 1px dashed #ddd;
+    border: 1px dashed var(--color-bg-tertiary);
     text-align: center;
     border-radius: 16px;
 
     .effect-text {
       font-size: $font-s;
       line-height: 20px;
-      color: #333;
-    }
-  }
-}
-
-.dark {
-  .modal-ability-container {
-    .description {
-      color: #ddd;
-    }
-
-    .effect-container {
-      .effect-title {
-        color: #aaa;
-      }
-
-      .effect-text {
-        color: #ddd;
-      }
+      color: var(--color-text);
     }
   }
 }

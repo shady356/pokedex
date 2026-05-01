@@ -1,44 +1,22 @@
 <template>
   <svg
-    width="64"
-    height="64"
-    viewBox="0 0 64 64"
+    width="24" 
+    height="24"
+    viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <rect
-      x="11"
-      y="2.5"
-      width="42"
-      height="59"
-      rx="6"
-      class="rect"
-      stroke-width="2"
-    />
-    <circle
-      cx="20"
-      cy="12"
-      r="4"
-      class="circle"
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M19 20C19 21.1046 18.1046 22 17 22H7C5.89543 22 5 21.1046 5 20V10.5C5 9.94772 5.44772 9.5 6 9.5H9.85547C10.6267 9.49991 11.3545 9.1438 11.8281 8.53516L12.9609 7.0791C13.2451 6.71384 13.6818 6.50009 14.1445 6.5H18C18.5523 6.5 19 6.94772 19 7.5V20ZM10.5 19C10.2239 19 10 19.2239 10 19.5C10 19.7761 10.2239 20 10.5 20H13.5C13.7761 20 14 19.7761 14 19.5C14 19.2239 13.7761 19 13.5 19H10.5Z"
+      fill="currentColor"
     />
     <path
-      d="M53.5 22.5H30L23.5 28H10.5"
-      class="path"
-      stroke-linejoin="round"
-      stroke-width="2"
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M17 2C18.1046 2 19 2.89543 19 4V4.5C19 5.05228 18.5523 5.5 18 5.5H14.1445C13.3733 5.50009 12.6455 5.8562 12.1719 6.46484L11.0391 7.9209C10.7549 8.28616 10.3182 8.49991 9.85547 8.5H6C5.44772 8.5 5 8.05228 5 7.5V4C5 2.89543 5.89543 2 7 2H17ZM8 4C7.44772 4 7 4.44772 7 5C7 5.55228 7.44772 6 8 6C8.55228 6 9 5.55228 9 5C9 4.44772 8.55228 4 8 4Z"
+      fill="currentColor"
     />
   </svg>
 </template>
-
-<style lang="scss" scoped>
-.rect {
-  fill: var(--color-white);
-  stroke: var(--color-dark);
-}
-.circle {
-  fill: var(--color-dark);
-}
-.path {
-  stroke: var(--color-dark);
-}
-</style>

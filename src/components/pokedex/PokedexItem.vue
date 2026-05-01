@@ -47,7 +47,7 @@ export default {
   align-items: center;
   justify-content: center;
   border-radius: $s;
-  background-color: #ddd;
+  background-color: var(--color-bg-secondary);
   width: 100%;
   height: 100%;
 }

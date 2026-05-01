@@ -148,7 +148,7 @@ export default {
   }
   .description {
     margin-bottom: $l;
-    color: #4d4d4d;
+    color: var(--color-text-light);
     text-align: center;
     line-height: 22px;
   }
@@ -186,13 +186,6 @@ export default {
           }
         }
       }
-    }
-  }
-}
-.dark {
-  .modal-type-container {
-    .description {
-      color: #ddd;
     }
   }
 }

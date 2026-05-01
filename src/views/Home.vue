@@ -19,7 +19,7 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-logo {
-  color: #000;
+  color: var(--color-white);
   font-size: 36px;
   font-weight: 900;
   margin-top: 45vh;

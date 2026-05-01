@@ -98,7 +98,7 @@
                 />
                 <div 
                   v-else
-                  style="color: #888; text-align: center; padding: 60px 0;"
+                  style="color: var(--color-text-disabled); text-align: center; padding: 60px 0;"
                 >
                   <h5>Whups, comming soon</h5>
                   <h6>Only available for Kanto and Johto pokémon</h6>
@@ -109,21 +109,12 @@
         </section>
       </transition>
     </div>
-    <!-- Skeleton loading -->
+    <!-- Loading screen -->
     <div
       v-else
-      class="pokemon-container"
-      :style="skeletonPokemonContainer"
+      class="loading-screen"
     >
-      <section class="pokemon-cover section-1">
-        <div class="name-type-container">
-          <div class="skeleton-block-line" />
-        </div>
-        <div class="loading">
-          <BaseProgressSpinner />
-        </div>
-      </section>
-      <section class="meta-container section-2" />
+      <BaseProgressSpinner size="large" />
     </div>
     <!-- Type modal -->
     <BaseModal
@@ -269,11 +260,6 @@ export default {
     isPokemonLoaded() {
       return this.pokemon && this.pokemonSpecies;
     },
-    skeletonPokemonContainer () {
-      return {
-        'background': '#39c680' // Light green. TODO: Make colors available in js, not only scss
-      }
-    },
     firstType() {
       const type = this.pokemon.types.find(type => type.slot === 1);
       return type.type.name;
@@ -393,7 +379,7 @@ export default {
   }
   .section-2 {
     grid-row-start: 2;
-    background: #fff;
+    background: var(--color-bg-primary);
   }
 
   // Section 1
@@ -401,10 +387,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
-    .loading {
-      margin-top: 20vh;
-    }
+
     .pagination-buttons {
       position: absolute;
       top: 18%;
@@ -413,10 +396,10 @@ export default {
       .left-button, 
       .right-button {
         position: absolute;
-        color: #fff;
+        color: var(--color-white);
         cursor: pointer;
         font-size: $font-xs;
-        border: 1px solid #fff;
+        border: 1px solid var(--color-white);
         border-radius: $s;
         padding: $s 6px;
         text-align: center;
@@ -457,20 +440,11 @@ export default {
   }
 }
 
-.dark {
-  .pokemon-container {
-      .pokemon-cover {
-        .white-bar {
-          background: #333;
-          
-          .pokemon-name {
-            color: #fff;
-          }
-        }
-      }
-    .section-2 {
-      background: #333;
-    }
-  }
+.loading-screen {
+  height: 98vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-primary);
 }
 </style>

@@ -13,8 +13,8 @@ export default {
 <style scoped>
 .tooltip-container {
   position: absolute;
-  background: #000;
-  color: #ddd;
+  background: var(--color-black);
+  color: var(--color-white);
   font-size: 12px;
   padding: 10px;
   text-align: left;

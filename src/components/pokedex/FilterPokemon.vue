@@ -37,7 +37,7 @@
             <BaseTag
               v-for="(child, childIndex) in filter.children"
               :key="childIndex"
-              :class="['child', { purple: child.active }]"
+              :class="['child', { primary: child.active }]"
               @click="setFilter(child)"
             >
               {{ child.name }}
@@ -48,7 +48,7 @@
 
       <BaseButton
         @click="applyFilters()"
-        class="purple"
+        class="primary"
       >
         Apply filters
       </BaseButton>
@@ -213,7 +213,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: $l $l;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-bg-secondary);
 
   &__title {
     @include title;
@@ -241,7 +241,7 @@ export default {
     margin-bottom: $xl;
 
     .filter {
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--color-bg-secondary);
       padding: $s 0;
 
       .text {
