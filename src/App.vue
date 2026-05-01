@@ -23,11 +23,8 @@ export default {
 
 body {
   -webkit-overflow-scrolling: touch;
-  background: var(--main-color-body);
-  color: var(--main-color-black);
-  /* &.bodyFilter {
-    background: var(--purple-dark);
-  } */
+  background: var(--color-body);
+  color: var(--color-black);
 }
 
 .disable-scroll {

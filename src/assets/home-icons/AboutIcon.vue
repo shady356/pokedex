@@ -15,6 +15,6 @@
 
 <style lang="scss" scoped>
 .path {
-  fill: var(--main-color-white);
+  fill: var(--color-white);
 }
 </style>

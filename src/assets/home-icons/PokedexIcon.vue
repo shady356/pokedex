@@ -32,13 +32,13 @@
 
 <style lang="scss" scoped>
 .rect {
-  fill: var(--main-color-white);
-  stroke: var(--main-color-dark);
+  fill: var(--color-white);
+  stroke: var(--color-dark);
 }
 .circle {
-  fill: var(--main-color-dark);
+  fill: var(--color-dark);
 }
 .path {
-  stroke: var(--main-color-dark);
+  stroke: var(--color-dark);
 }
 </style>

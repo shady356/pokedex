@@ -50,13 +50,13 @@ export default {
   padding: $s;
   position: sticky;
   top: 0;
-  background: var(--main-color-body);
+  background: var(--color-body);
 
   .header__column {
     display: flex;
 
     &:nth-child(1) {
-      color: var(--main-color);
+      color: var(--color);
     }
 
     &:nth-child(2) {

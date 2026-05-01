@@ -183,12 +183,12 @@ export default {
         display: flex;
         justify-content: center;
         background: #fff;
-        border: 1px solid var(--main-color-navigation);
+        border: 1px solid var(--color-navigation);
         border-radius: 50%;
         padding: $xxxs;
 
         .close-icon {
-          background: var(--main-color-navigation);
+          background: var(--color-navigation);
           width: $l;
           height: $l;
           padding: $xs;

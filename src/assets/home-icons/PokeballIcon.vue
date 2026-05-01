@@ -45,17 +45,17 @@
 
 <style lang="scss" scoped>
 .outer-circle {
-  fill: var(--main-color-white);
-  stroke: var(--main-color-dark);
+  fill: var(--color-white);
+  stroke: var(--color-dark);
 }
 .ellipse {
-  fill: var(--main-color-dark);
+  fill: var(--color-dark);
 }
 .rect {
-  fill: var(--main-color-dark);
+  fill: var(--color-dark);
 }
 .inner-circle {
-  fill: var(--main-color-white);
+  fill: var(--color-white);
   stroke: none;
 }
 </style>
