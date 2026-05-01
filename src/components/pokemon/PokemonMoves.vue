@@ -42,8 +42,8 @@
         title="learned by tutoring"
       />
     </div>
-    <div v-else>
-      Loading moves
+    <div v-else class="loading-moves">
+      <BaseProgressSpinner size="large" />
     </div>
   </div>
 </template>
@@ -54,6 +54,7 @@ import { usePokemon, useMoveDetails } from '@/composables/usePokeApi.js'
 import sortBy from 'lodash.sortby'
 import PokemonMovesTable from "@/components/pokemon/PokemonMovesTable";
 import BaseTab from "@/components/base/BaseTab";
+import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
 
 const VERSION_GROUP_GEN = {
   'red-blue': 1, 'yellow': 1,
@@ -76,7 +77,8 @@ export default {
   name: "PokemonMoves",
   components: {
     PokemonMovesTable,
-    BaseTab
+    BaseTab,
+    BaseProgressSpinner
   },
   props: {
     pokemonId: {
@@ -193,6 +195,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.loading-moves {
+  display: flex;
+  justify-content: center;
+  padding: $xxl 0;
+}
+
 .generation {
   align-items: center;
   display: flex;

@@ -11,6 +11,7 @@ export const usePokemon = (id) => useQuery({
   queryFn: () => fetchPokemon(unref(id)),
   staleTime: STALE,
   enabled: computed(() => !!unref(id)),
+  keepPreviousData: true,
 })
 
 export const usePokemonSpecies = (id) => useQuery({
@@ -18,6 +19,7 @@ export const usePokemonSpecies = (id) => useQuery({
   queryFn: () => fetchPokemonSpecies(unref(id)),
   staleTime: STALE,
   enabled: computed(() => !!unref(id)),
+  keepPreviousData: true,
 })
 
 export const useAbility = (name) => useQuery({
