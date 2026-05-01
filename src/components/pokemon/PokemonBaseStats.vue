@@ -77,8 +77,8 @@ export default {
         labels: [],
         datasets: [
           {
-            backgroundColor: '#00aaddcc',
-            borderColor: '#00aaddcc',
+            backgroundColor: '',
+            borderColor: '',
             pointRadius: 0,
             borderWidth: 0,
             data: []
@@ -94,10 +94,10 @@ export default {
        
         scale: {
           angleLines: {
-            color: '#66ddcc66'
+            color: ''
           },
           gridLines: {
-            color: '#6dc',
+            color: '',
             lineWidth: 2
           },
           ticks: {
@@ -114,7 +114,7 @@ export default {
             // Get theme variable:
             //fontColor: ['#eee', '#eee', '#ddd', '#ddd', '#ddd', '#ddd']
             // fontColor: '#eee'
-            fontColor: '#444'
+            fontColor: ''
           }
         },
         
@@ -167,6 +167,15 @@ export default {
     }
   },
   mounted() {
+    const style = getComputedStyle(document.documentElement)
+    const accent = style.getPropertyValue('--color-accent').trim()
+    const accentDim = style.getPropertyValue('--color-accent-dim').trim()
+    const textColor = style.getPropertyValue('--color-text').trim()
+    this.baseStatChartData.datasets[0].backgroundColor = accentDim
+    this.baseStatChartData.datasets[0].borderColor = accentDim
+    this.baseStatChartOptions.scale.angleLines.color = accentDim
+    this.baseStatChartOptions.scale.gridLines.color = accent
+    this.baseStatChartOptions.scale.pointLabels.fontColor = textColor
     this.tweenedNumber = this.totalBaseStat;
     this.rankStars = this.getStarRankBasedOnTotalBaseStats()
     this.setChartData()
@@ -271,10 +280,10 @@ export default {
         width: $xxl;
         height: $xxl;
         text-align: center;
-        filter: drop-shadow(0px 1px #66ddcc66) 
-                drop-shadow(1px 0px #66ddcc)
-                drop-shadow(0px -1px #66ddcc66)
-                drop-shadow(-1px 0px #66ddcc);
+        filter: drop-shadow(0px 1px var(--color-accent-dim))
+                drop-shadow(1px 0px var(--color-accent))
+                drop-shadow(0px -1px var(--color-accent-dim))
+                drop-shadow(-1px 0px var(--color-accent));
         
         .hexagon-shape {
           width: $xxl;

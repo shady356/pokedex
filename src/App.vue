@@ -6,11 +6,15 @@
 </template>
 
 <script>
+import { getTheme, applyTheme } from '@/utils/theme'
 //import BaseToast from '@/components/base/BaseToast.vue'
 export default {
   name: "App",
   components: {
     //BaseToast
+  },
+  created() {
+    applyTheme(getTheme())
   }
 };
 </script>

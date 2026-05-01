@@ -6,39 +6,17 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle
-      cx="32"
-      cy="32"
-      r="30"
-
-      fill="currentColor"
-    />
-    <ellipse
-      cx="32"
-      cy="32"
-      rx="13.6533"
-      ry="13.6533"
-      fill="currentColor"
-    />
-    <rect
-      x="44"
-      y="30"
-      width="17"
-      height="4"
-      fill="currentColor"
-    />
-    <rect
-      x="2"
-      y="30"
-      width="17"
-      height="4"
-      fill="currentColor"
-    />
-    <circle
-      cx="32"
-      cy="32"
-      r="8.96"
-      fill="currentColor"
-    />
+    <defs>
+      <mask id="pokeball-mask">
+        <rect width="64" height="64" fill="white" />
+        <!-- Horizontal band cutout -->
+        <rect x="0" y="30" width="64" height="4" fill="black" />
+        <!-- Button ring cutout -->
+        <circle cx="32" cy="32" r="12" fill="black" />
+        <!-- Center button filled back in -->
+        <circle cx="32" cy="32" r="7" fill="white" />
+      </mask>
+    </defs>
+    <circle cx="32" cy="32" r="30" fill="currentColor" mask="url(#pokeball-mask)" />
   </svg>
 </template>

@@ -19,7 +19,9 @@
       "Bash(ls -la c:\\\\\\\\Users\\\\\\\\henri\\\\\\\\Documents\\\\\\\\code\\\\\\\\pokedex)",
       "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\" -Recurse -File)",
       "Bash(Select-Object FullName)",
-      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\src\" -Recurse -File)"
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\src\" -Recurse -File)",
+      "Bash(grep -rn \"#[0-9a-fA-F]\\\\{3,6\\\\}\" /Users/heo/Documents/src/pokedex/src --include=\"*.vue\" --include=\"*.scss\" --include=\"*.css\")",
+      "Bash(xargs cat *)"
     ]
   },
   "hooks": {

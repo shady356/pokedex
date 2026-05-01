@@ -52,7 +52,7 @@
   height: $l;
   background: var(--color-white);
   border-radius: 50%;
-  box-shadow: 0 0 30px #f8d8f7, 0 0 10px #fff;
+  box-shadow: 0 0 30px #f8d8f7, 0 0 10px var(--color-white);
 }
 
 @keyframes loading-pokemon-sprite {

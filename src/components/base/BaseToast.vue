@@ -27,9 +27,9 @@ export default {
 
 <style lang="scss" scoped>
   .toast-container {
-    background: #333;
+    background: var(--color-bg-tertiary);
     box-sizing: border-box;
-    color: #ddd;
+    color: var(--color-text);
     padding: $m $xl;
     position: sticky;
     top: 0;

@@ -417,9 +417,9 @@ export default {
       position: absolute;
       top: 30%;
       right: $xs;
-      color: #fff;
+      color: var(--color-white);
       font-size: $font-xs;
-      border: 1px solid #fff;
+      border: 1px solid var(--color-white);
       padding: $xxs $s;
       border-radius: $s;
     }

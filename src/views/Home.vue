@@ -18,8 +18,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+div {
+  background: var(--color-bg-body);
+  min-height: 100dvh;
+}
+
 .pokemon-logo {
-  color: var(--color-white);
+  color: var(--color-text);
   font-size: 36px;
   font-weight: 900;
   margin-top: 45vh;

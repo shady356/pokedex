@@ -228,7 +228,7 @@ export default {
           .icon {
             margin-left: $xxxs;
             height: $xs;
-            color: #6dc;
+            color: var(--color-accent);
           }
 
           &.clickable:hover {
@@ -246,7 +246,7 @@ export default {
           align-items: center;
 
           .icon {
-            color: #6dc;
+            color: var(--color-accent);
             height: $s;
             margin-right: $xxs;
           }
@@ -257,7 +257,7 @@ export default {
 
           .icon {
             height: $s;
-            color: #6dc;
+            color: var(--color-accent);
             margin-right: $xxs;
             transform: scale(-1);
           }

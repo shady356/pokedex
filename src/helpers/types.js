@@ -384,117 +384,12 @@ export const $typesPokemonList = (type) => {
   }
 }
 export const $getTypeColor = (type) => {
-  switch (type) {
-    case "bug":
-      return "#92BC2C";
-    case "dark":
-      return "#595761";
-    case "dragon":
-      return "#0C69C8";
-    case "electric":
-      return "#F2D94E";
-    case "fire":
-      return "#FBA54C";
-    case "fairy":
-      return "#EE90E6";
-    case "fighting":
-      return "#D3425F";
-    case "flying":
-      return "#A1BBEC";
-    case "ghost":
-      return "#5F6DBC";
-    case "grass":
-      return "#5FBD58";
-    case "ground":
-      return "#DA7C4D";
-    case "ice":
-      return "#75D0C1";
-    case "normal":
-      return "#A0A29F";
-    case "poison":
-      return "#B763CF";
-    case "psychic":
-      return "#FA8581";
-    case "rock":
-      return "#C9BB8A";
-    case "steel":
-      return "#5695A3";
-    case "water":
-      return "#539DDF";
-  }
+  return `var(--color-type-${type})`
 }
 export const $getAllTypes = () => {
   return [
-    {
-      name: "bug",
-      color: "#92BC2C"
-    }, 
-    {
-      name: "dark",
-      color: "#595761"
-    },
-    {
-      name: "dragon",
-      color: "#0C69C8"
-    },
-    {
-      name: "electric",
-      color: "#F2D94E"
-    },
-    {
-      name: "fire",
-      color: "#FBA54C"
-    },
-    {    
-      name: "fairy",
-      color: "#EE90E6"
-    },
-    {
-      name: "fighting",
-      color: "#D3425F"
-    },
-    {
-      name: "flying",
-      color: "#A1BBEC"
-    },
-    {
-      name: "ghost",
-      color: "#5F6DBC"
-    },
-    {
-      name: "grass",
-      color: "#5FBD58"
-    },
-    {
-      name: "ground",
-      color: "#DA7C4D"
-    },{
-      name: "ice",
-      color: "#75D0C1"
-    },
-    {
-      name: "normal",
-      color: "#A0A29F"
-    },
-    {
-      name: "poison",
-      color: "#B763CF"
-    }, 
-    {
-      name: "psychic",
-      color: "#FA8581"
-    }, 
-    {
-      name: "rock",
-      color: "#C9BB8A"
-    }, 
-    {
-      name: "steel",
-      color: "#5695A3"
-    }, 
-    {
-      name: "water",
-      color: "#539DDF"
-    }
-  ]
+    "bug", "dark", "dragon", "electric", "fire", "fairy",
+    "fighting", "flying", "ghost", "grass", "ground", "ice",
+    "normal", "poison", "psychic", "rock", "steel", "water"
+  ].map(name => ({ name, color: `var(--color-type-${name})` }))
 }

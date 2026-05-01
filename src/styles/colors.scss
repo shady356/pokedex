@@ -47,30 +47,89 @@ $water: #539ddf;
   --color-bg-secondary: #eeeeee;
   --color-bg-tertiary: #d8d8d8;
   --color-bg-disabled: #888;
+
+  /* Accent */
+  --color-accent: #66ddcc;
+  --color-accent-dim: #66ddcc66;
+
+  /* Pokemon types */
+  --color-type-bug: #92bc2c;
+  --color-type-dark: #595761;
+  --color-type-dragon: #0c69c8;
+  --color-type-electric: #f2d94e;
+  --color-type-fire: #fba54c;
+  --color-type-fairy: #ee90e6;
+  --color-type-fighting: #d3425f;
+  --color-type-flying: #a1bbec;
+  --color-type-ghost: #5f6dbc;
+  --color-type-grass: #5fbd58;
+  --color-type-ground: #da7c4d;
+  --color-type-ice: #75d0c1;
+  --color-type-normal: #a0a29f;
+  --color-type-poison: #b763cf;
+  --color-type-psychic: #fa8581;
+  --color-type-rock: #c9bb8a;
+  --color-type-steel: #5695a3;
+  --color-type-water: #539ddf;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-
-      /* Brand */
+@mixin dark-theme {
+  /* Brand */
   --color-primary: #007a60;
   --color-primary-fg: #033a2e;
   --color-secondary: #b4eed1;
   --color-secondary-fg: #083b22;
-  
-    /* Backgrounds */
-    --color-bg-body: #1a1a1a;
-    --color-bg-primary: #222222;
-    --color-bg-secondary: #2a2a2a;
-    --color-bg-tertiary: #333333;
 
-    /* Text */
-    --color-text: #ddd;
-    --color-text-light: #aaa;
-      --color-text-disabled: #999;
+  /* Backgrounds */
+  --color-bg-body: #1a1a1a;
+  --color-bg-primary: #222222;
+  --color-bg-secondary: #2a2a2a;
+  --color-bg-tertiary: #333333;
 
-    /* UI */
-    --color-white: #fff;
-    --color-black: #000;
+  /* Text */
+  --color-text: #ddd;
+  --color-text-light: #aaa;
+  --color-text-disabled: #999;
+
+  /* UI */
+  --color-white: #fff;
+  --color-black: #000;
+}
+
+@mixin light-theme {
+  /* Brand */
+  --color-primary: #007a60;
+  --color-primary-fg: #033a2e;
+  --color-secondary: #b4eed1;
+  --color-secondary-fg: #083b22;
+
+  /* Text */
+  --color-text: #222;
+  --color-text-light: #666;
+  --color-text-disabled: #999;
+
+  /* Backgrounds */
+  --color-bg-body: #f5f5f5;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #eeeeee;
+  --color-bg-tertiary: #d8d8d8;
+  --color-bg-disabled: #888;
+
+  /* UI */
+  --color-white: #fff;
+  --color-black: #000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include dark-theme;
   }
+}
+
+html.theme-dark {
+  @include dark-theme;
+}
+
+html.theme-light {
+  @include light-theme;
 }
