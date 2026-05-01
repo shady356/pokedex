@@ -96,7 +96,7 @@ export default {
       pokemonList: [],
       visibleCount: 0,
       fetchedCount: 0,
-      batchSize: 16,
+      batchSize: 24,
       isLoadingBatch: false,
 
       isFilterOpen: false,
