@@ -10,16 +10,8 @@
 
     <template v-else-if="abilityData">
       <p class="description">
-        {{ abilityData.flavorText }}
+        {{ abilityData.effect }}
       </p>
-      <div
-        v-if="abilityData.effect"
-        class="effect-container"
-      >
-        <p class="effect-text">
-          {{ abilityData.effect }}
-        </p>
-      </div>
     </template>
   </div>
 </template>
@@ -80,20 +72,6 @@ export default {
     color: var(--color-text-light);
     text-align: center;
     line-height: 22px;
-  }
-
-  .effect-container {
-    background-color: var(--color-bg-body);
-    padding: $xl $l;
-    border: 1px dashed var(--color-bg-tertiary);
-    text-align: center;
-    border-radius: 16px;
-
-    .effect-text {
-      font-size: $font-s;
-      line-height: 20px;
-      color: var(--color-text);
-    }
   }
 }
 </style>
