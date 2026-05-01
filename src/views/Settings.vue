@@ -11,7 +11,10 @@
         <h2 class="settings__section-title">Appearance</h2>
 
         <div class="settings__row">
-          <span class="settings__label">Theme</span>
+          <span class="settings__label">
+            <span class="material-icons-round">palette</span>
+            Theme
+          </span>
           <div class="theme-toggle">
             <button
               v-for="option in themeOptions"
@@ -82,8 +85,15 @@ export default {
   }
 
   &__label {
+    display: flex;
+    align-items: center;
+    gap: $xs;
     font-size: 1rem;
     color: var(--color-text);
+
+    .material-icons-round {
+      font-size: 1.25rem;
+    }
   }
 }
 

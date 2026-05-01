@@ -27,11 +27,10 @@
           @click.native="$emit('openAbilityModal', item.ability)"
         >
           {{ item.ability.name }}
-          <fa-icon
+          <span
             v-if="item.is_hidden"
-            icon="star"
-            class="icon"
-          />
+            class="material-icons icon"
+          >star</span>
         </BaseTag>
       </div>
     </section>
@@ -100,18 +99,12 @@
     <!-- Weight and height -->
     <section class="physique-container">
       <div class="weight">
-        <fa-icon
-          class="icon"
-          icon="weight-hanging"
-        />
+        <span class="material-icons icon">fitness_center</span>
         {{ pokemon.weight | toKilogram }}
       </div>
 
       <div class="height">
-        <fa-icon
-          class="icon"
-          icon="ruler-vertical"
-        />
+        <span class="material-icons icon">straighten</span>
         {{ pokemon.height | toMeter }}
       </div>
     </section>
@@ -227,7 +220,7 @@ export default {
 
           .icon {
             margin-left: $xxxs;
-            height: $xs;
+            font-size: $xs;
             color: var(--color-accent);
           }
 
@@ -247,7 +240,7 @@ export default {
 
           .icon {
             color: var(--color-accent);
-            height: $s;
+            font-size: $s;
             margin-right: $xxs;
           }
         }
@@ -256,10 +249,10 @@ export default {
           align-items: center;
 
           .icon {
-            height: $s;
+            font-size: $s;
             color: var(--color-accent);
             margin-right: $xxs;
-            transform: scale(-1);
+            transform: rotate(90deg);
           }
         }
       }

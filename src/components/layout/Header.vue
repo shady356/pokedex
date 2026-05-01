@@ -4,30 +4,28 @@
       class="header__column"
       :to="{ name: routerBack }"
     >
-      <button class="column__button">
-        <fa-icon
-          icon="arrow-left"
-          class="column__button-icon"
-        />
-      </button>
+      <BaseButtonIcon>
+        <span class="material-icons-round column__button-icon">arrow_back</span>
+      </BaseButtonIcon>
     </router-link>
     <div class="header__column">
       <slot name="title" />
     </div>
     <div class="header__column">
-      <button
-        class="column__button"
+      <BaseButtonIcon
         v-if="hasOptionsSlot"
       >
         <slot name="options" />
-      </button>
+      </BaseButtonIcon>
     </div>
   </header>
 </template>
 
 <script>
+import BaseButtonIcon from "@/components/base/BaseButtonIcon.vue";
 export default {
   name: "Header",
+  components: { BaseButtonIcon },
   props: {
     routerBack: {
       type: String,
@@ -54,6 +52,7 @@ export default {
 
   .header__column {
     display: flex;
+    text-decoration: none;
 
     &:nth-child(1) {
       color: var(--color-text);
@@ -68,20 +67,8 @@ export default {
       justify-content: flex-end;
     }
 
-    .column__button {
-      align-items: center;
-      background: none;
-      border-radius: 50%;
-      border: none;
-      display: flex;
-      height: $xxl;
-      justify-content: center;
-      width: $xxl;
-
-      &-icon {
-        width: $m;
-        height: auto;
-      }
+    .column__button-icon {
+      font-size: $l;
     }
   }
 }

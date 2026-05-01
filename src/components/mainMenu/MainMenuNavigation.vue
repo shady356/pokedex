@@ -21,15 +21,15 @@
 </template>
 
 <script>
-import AboutIcon from '@/assets/home-icons/AboutIcon.vue'
 import PokeballIcon from '@/assets/home-icons/PokeballIcon.vue'
 import PokedexIcon from '@/assets/home-icons/PokedexIcon.vue'
+import SettingsIcon from '@/assets/home-icons/SettingsIcon.vue'
 export default {
   name: 'MainMenuItems',
   components: {
-    AboutIcon,
     PokeballIcon,
-    PokedexIcon
+    PokedexIcon,
+    SettingsIcon
   },
   data() {
     return {
@@ -47,7 +47,7 @@ export default {
         {
           name: "Settings",
           route: "Settings",
-          component: "AboutIcon",
+          component: "SettingsIcon",
         }
       ]
     };
@@ -114,6 +114,7 @@ export default {
   &__icon {
     height: $xl;
     width: $xl;
+    font-size: $xl;
   }
 
   &__text {
@@ -137,6 +138,7 @@ export default {
   .navigation-list-item__icon {
     width: $l;
     height: $l;
+    font-size: $l;
   }
 
   .navigation-list-item__text {

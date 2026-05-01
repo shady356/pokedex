@@ -3,39 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { VueQueryPlugin } from '@tanstack/vue-query'
-
-// Font Awesome
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {
-  faArrowLeft,
-  faEgg,
-  faStar,
-  faRulerVertical,
-  faWeightHanging,
-  faFilter,
-  faSearch,
-  faChevronLeft,
-  faChevronRight,
-  faHeart,
-  faSearchPlus,
-  faSearchMinus
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(
-  faArrowLeft,
-  faEgg,
-  faStar,
-  faRulerVertical,
-  faWeightHanging,
-  faFilter,
-  faSearch,
-  faChevronRight,
-  faChevronLeft,
-  faHeart,
-  faSearchPlus,
-  faSearchMinus
-)
-Vue.component('fa-icon', FontAwesomeIcon)
+import 'material-icons/iconfont/material-icons.css'
+import 'material-icons/iconfont/round.css'
 
 // Vue2 Touch Events
 import Vue2TouchEvents from 'vue2-touch-events'

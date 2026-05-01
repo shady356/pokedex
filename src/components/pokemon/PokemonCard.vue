@@ -25,14 +25,14 @@
             class="left-button"
             @click="paginatePokemon('previous')"
           >
-            <fa-icon icon="chevron-left" />
+            <span class="material-icons">chevron_left</span>
           </div>
           <div
             v-if="!isLastPokemon"
             class="right-button"
             @click="paginatePokemon('next')"
           >
-            <fa-icon icon="chevron-right" />
+            <span class="material-icons">chevron_right</span>
           </div>
         </div>
         <CardSprite
@@ -47,7 +47,7 @@
           class="zoom-pokemon-button"
           @click="toggleZoom()"
         >
-          <fa-icon :icon="isPokemonZoom ? 'search-minus' : 'search-plus'" />
+          <span class="material-icons">{{ isPokemonZoom ? 'zoom_out' : 'zoom_in' }}</span>
         </div>
       </section>
 

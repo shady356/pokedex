@@ -66,7 +66,7 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: #ffffff66;
+      background: var(--color-bg-secondary);
       width: 30%;
       padding: $s;
       margin-bottom: $s;

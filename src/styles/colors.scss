@@ -76,7 +76,7 @@ $water: #539ddf;
 @mixin dark-theme {
   /* Brand */
   --color-primary: #007a60;
-  --color-primary-fg: #033a2e;
+  --color-primary-fg: #fff;
   --color-secondary: #b4eed1;
   --color-secondary-fg: #083b22;
 
@@ -99,7 +99,7 @@ $water: #539ddf;
 @mixin light-theme {
   /* Brand */
   --color-primary: #007a60;
-  --color-primary-fg: #033a2e;
+  --color-primary-fg: #fff;
   --color-secondary: #b4eed1;
   --color-secondary-fg: #083b22;
 

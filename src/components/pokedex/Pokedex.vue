@@ -6,16 +6,15 @@
       </template>
       
       <template #options>
-        <fa-icon
-          :class="['filter-item ',{ 'active': isFilter }]"
-          icon="filter"
+        <span
+          :class="['material-icons-round filter-item',{ 'active': isFilter }]"
           @click="openFilter"
-        />
+        >filter_list</span>
       </template> 
     </Header>
     <div
-      class="default-page-margin pokedex-container"
       v-if="fetchedCount > 0"
+      class="default-page-margin pokedex-container"
     >
       <ul>
         <router-link
