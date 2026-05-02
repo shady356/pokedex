@@ -1,14 +1,17 @@
 <template>
-  <img
+  <div
     v-if="pokemon && pokemon.name"
-    :style="spriteStyle"
     class="sprite"
-    :src="sprite"
-    alt=""
   >
+    <img
+      class="sprite__image"
+      :src="sprite"
+      alt=""
+    >
+  </div>
   <div
     v-else
-    class="sprite"
+    class="sprite--empty"
   />
 </template>
 
@@ -26,7 +29,7 @@ export default {
   computed: {
     spriteStyle () {
       return {
-        backgroundColor: `${this.typeColor()}`
+        boxShadow: ` 0 0 3px ${this.typeColor()}`,
       }
     },
     sprite() {
@@ -47,8 +50,22 @@ export default {
   align-items: center;
   justify-content: center;
   border-radius: $s;
-  background-color: var(--color-bg-secondary);
+  background-color: #88888822;
   width: 100%;
   height: 100%;
+  transition: transform 50ms ease-in-out;
+
+  &:active {
+    transform: scale(1.05);
+  }
+  
+  &__image {
+    width: 75%;
+    height: 75%;
+  }
+  
+  &--empty {
+    background-color: var(--color-bg-secondary);
+  }
 }
 </style>

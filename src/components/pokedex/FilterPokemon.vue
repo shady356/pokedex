@@ -4,18 +4,6 @@
       <div class="header__title">
         Filter Pokémon
       </div>
-      <!-- <div class="header__filter">
-        <div class="header__filter-text-all">
-          all
-        </div>
-        <fa-icon
-          icon="filter"
-          class="header__filter-icon"
-        />
-        <div class="header__filter-text-filtered-number">
-          48
-        </div>
-      </div> -->
     </div>
 
     <div class="filter-container">

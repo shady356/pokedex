@@ -11,8 +11,7 @@
       />
     </div>
     <BaseModal
-      v-if="isTypeModalOpen"
-      drag-handler
+      v-if="isTypeModalOpen"      
       @closeModal="closeTypeModal"
     >
       <TypeModal

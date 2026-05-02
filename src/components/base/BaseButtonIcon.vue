@@ -26,6 +26,7 @@ export default {
   justify-content: center;
   outline: none;
   width: $xxl;
+  transition: transform 50ms ease-in-out;
 
   &:hover {
     background: var(--color-bg-tertiary);
@@ -33,6 +34,7 @@ export default {
 
   &:active {
     background: var(--color-bg-secondary);
+    transform: scale(1.05);
   }
 }
 </style>

@@ -214,7 +214,6 @@ $pokemon-gap-mobile: 2%;
   position: relative;
   height: 20vh;
   width: 100%;
-  //background: #00000022;
 }
 
 .pokedex-container {
@@ -227,7 +226,7 @@ $pokemon-gap-mobile: 2%;
     width: 100%;
     
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 
     li {
       cursor: pointer;
