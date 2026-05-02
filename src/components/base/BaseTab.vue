@@ -56,7 +56,7 @@ export default {
   .tab-list {
     display: flex;
     background: var(--color-bg-secondary);
-    border-radius: $s;
+    border-radius: $m;
     padding: $xxxs;
 
     .tab-item {
@@ -73,7 +73,7 @@ export default {
 
       &.active {
         color: var(--color-primary);
-        background: var(--color-bg-primary);
+        background: var(--color-bg-body);
         transition: all 0.4s;
 
         .text {

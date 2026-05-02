@@ -175,7 +175,7 @@ export default {
     }
     tbody {
       tr {
-        border-top: 1px solid var(--color-bg-secondary);
+        border-top: 1px solid var(--color-border);
 
         td {
           padding: $s 0;

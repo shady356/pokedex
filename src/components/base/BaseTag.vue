@@ -23,7 +23,7 @@ export default {
   align-items: center;
   background: var(--color-bg-primary);
   border-radius: $l;
-  border: 1px solid var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
   color: var(--color-text);
   display: inline-flex;
   font-size: $font-xs;
