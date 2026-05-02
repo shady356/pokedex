@@ -6,11 +6,12 @@
       </template>
       
       <template #options>
-        <span
-          :class="['material-icons-round filter-item',{ 'active': isFilter }]"
-          @click="openFilter"
-        >filter_list</span>
-      </template> 
+        <BaseButtonIcon @click="openFilter">
+          <span
+            :class="['material-icons-round filter-item',{ 'active': isFilter }]"
+          >filter_list</span>
+        </BaseButtonIcon>
+      </template>
     </Header>
     <div
       v-if="fetchedCount > 0"
@@ -70,6 +71,7 @@
 <script>
 import { $filterData } from "@/helpers/pokedexFilters.js";
 import { mapActions } from "vuex";
+import BaseButtonIcon from "@/components/base/BaseButtonIcon.vue";
 import BaseModal from "@/components/base/BaseModal.vue";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
 import FilterPokemon from "@/components/pokedex/FilterPokemon.vue";
@@ -84,6 +86,7 @@ export default {
     return { queryClient: useQueryClient() }
   },
   components: {
+    BaseButtonIcon,
     Header,
     BaseModal,
     BaseProgressSpinner,

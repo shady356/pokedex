@@ -12,11 +12,7 @@
       <slot name="title" />
     </div>
     <div class="header__column">
-      <BaseButtonIcon
-        v-if="hasOptionsSlot"
-      >
-        <slot name="options" />
-      </BaseButtonIcon>
+      <slot name="options" />
     </div>
   </header>
 </template>
@@ -33,11 +29,6 @@ export default {
       default: 'Home'
     }
   },
-  computed: {
-    hasOptionsSlot() {
-      return !!this.$slots['options']
-    }
-  }
 };
 </script>
 
