@@ -25,7 +25,14 @@
       "Bash(xargs grep *)",
       "Bash(npm uninstall *)",
       "Bash(grep -rn '\\\\$bug\\\\|\\\\$dark\\\\|\\\\$dragon\\\\|\\\\$electric\\\\|\\\\$fire\\\\|\\\\$fairy\\\\|\\\\$fighting\\\\|\\\\$flying\\\\|\\\\$ghost\\\\|\\\\$grass\\\\|\\\\$ground\\\\|\\\\$ice\\\\|\\\\$normal\\\\|\\\\$poison\\\\|\\\\$psychic\\\\|\\\\$rock\\\\|\\\\$steel\\\\|\\\\$water' /Users/heo/Documents/src/pokedex/src '--include=*.scss' '--include=*.vue' '--include=*.js' '--include=*.ts')",
-      "Bash(grep -E '\\\\.\\(vue|css|scss\\)$')"
+      "Bash(grep -E '\\\\.\\(vue|css|scss\\)$')",
+      "Bash(grep -r 'typeColor\\\\|getTypeColor\\\\|$getTypeColor\\\\|type.*color\\\\|color.*type' /Users/heo/Documents/src/pokedex/src/helpers/types.js)",
+      "Bash(file /Users/heo/Documents/src/pokedex/src/assets/PK_Textures/*.png)",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 -c \"from PIL import Image, ImageFilter, ImageDraw; import numpy; print\\('PIL OK'\\)\")",
+      "Bash(pip3 install *)",
+      "Bash(python3 -c \"from PIL import Image; print\\('OK'\\)\")",
+      "Bash(python3 scripts/gen_textures.py)"
     ]
   },
   "hooks": {

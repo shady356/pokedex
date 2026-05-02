@@ -272,8 +272,7 @@ export default {
     getModalBackground() {
       return {
         background: "url(" + this.pokemonTexture + ")",
-        backgroundColor: $getTypeColor(this.firstType),
-        backgroundBlendMode: "screen",
+        //backgroundBlendMode: "darken",
         backgroundSize: 'cover'
       };
     },
