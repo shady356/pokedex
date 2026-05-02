@@ -28,6 +28,7 @@ button {
   outline: none;
   padding: $m $l;
   transition: transform 50ms ease-in-out;
+  -webkit-tap-highlight-color: transparent;
 
   &[disabled] {
     background: var(--color-bg-disabled);

@@ -38,15 +38,15 @@ export default {
 
 .pokeball-bg {
   position: absolute;
-  bottom: 0%;
-  right: -10%;
+  bottom: -22%;
+  right: -30%;
   pointer-events: none;
   color: var(--color-text);
-  opacity: 0.04;
+  opacity: 0.05;
 
   :deep(svg) {
-    width: min(80vw, 80vh);
-    height: min(80vw, 80vh);
+    width: min(85vw, 85vh);
+    height: min(85vw, 85vh);
     animation: pokeball-idle 6s ease-in-out infinite;
   }
 }

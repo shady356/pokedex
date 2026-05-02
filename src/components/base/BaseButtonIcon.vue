@@ -27,6 +27,7 @@ export default {
   outline: none;
   width: $xxl;
   transition: transform 50ms ease-in-out;
+  -webkit-tap-highlight-color: transparent;
 
   &:hover {
     background: var(--color-accent);

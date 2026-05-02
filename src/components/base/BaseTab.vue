@@ -66,6 +66,7 @@ export default {
       padding: $xxs 0;
       border-radius: $s;
       text-align: center;
+      -webkit-tap-highlight-color: transparent;
 
       .text {
         font-weight: 400;

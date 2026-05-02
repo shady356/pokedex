@@ -30,6 +30,7 @@ export default {
   padding: $xs $m;
   transition: background-color $fast ease-out;
   white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
 
   &.primary {
     background-color: var(--color-primary);

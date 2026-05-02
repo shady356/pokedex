@@ -72,6 +72,7 @@ export default {
       margin-bottom: $s;
       box-sizing: border-box;
       border-radius: $s;
+      -webkit-tap-highlight-color: transparent;
 
       &__icon {
         margin-bottom: $xs;

@@ -170,8 +170,9 @@ export default {
     const style = getComputedStyle(document.documentElement)
     const accent = style.getPropertyValue('--color-accent').trim()
     const accentDim = style.getPropertyValue('--color-accent-dim').trim()
+    const graphColor = style.getPropertyValue('--color-graph').trim()
     const textColor = style.getPropertyValue('--color-text').trim()
-    this.baseStatChartData.datasets[0].backgroundColor = accentDim
+    this.baseStatChartData.datasets[0].backgroundColor = graphColor
     this.baseStatChartData.datasets[0].borderColor = accentDim
     this.baseStatChartOptions.scale.angleLines.color = accentDim
     this.baseStatChartOptions.scale.gridLines.color = accent

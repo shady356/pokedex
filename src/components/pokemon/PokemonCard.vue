@@ -20,20 +20,20 @@
         />
         <!-- Pagination buttons -->
         <div class="pagination-buttons">
-          <div
+          <BaseButtonIcon
             v-if="!isFirstPokemon"
             class="left-button"
             @click="paginatePokemon('previous')"
           >
             <span class="material-icons">chevron_left</span>
-          </div>
-          <div
+          </BaseButtonIcon>
+          <BaseButtonIcon
             v-if="!isLastPokemon"
             class="right-button"
             @click="paginatePokemon('next')"
           >
             <span class="material-icons">chevron_right</span>
-          </div>
+          </BaseButtonIcon>
         </div>
         <CardSprite
           :slide-direction="slideDirection"
@@ -43,12 +43,12 @@
           :is-pokemon-zoom="isPokemonZoom"
         />
         <!-- Zoom on sprite button -->
-        <div
+        <BaseButtonIcon
           class="zoom-pokemon-button"
           @click="toggleZoom()"
         >
           <span class="material-icons">{{ isPokemonZoom ? 'zoom_out' : 'zoom_in' }}</span>
-        </div>
+        </BaseButtonIcon>
       </section>
 
       <!-- Meta card container -->
@@ -138,6 +138,7 @@ import { toRef, computed } from 'vue'
 import { $getTypeColor } from "@/helpers/types.js";
 import BaseModal from "@/components/base/BaseModal";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
+import BaseButtonIcon from "@/components/base/BaseButtonIcon";
 import BaseTab from "@/components/base/BaseTab";
 import CardHeader from "@/components/pokemon/pokemon-card/CardHeader.vue"
 import CardSprite from "@/components/pokemon/pokemon-card/CardSprite.vue"
@@ -152,6 +153,38 @@ const textures = import.meta.glob('/src/assets/PK_Textures/*.png', { eager: true
 
 export default {
   name: "PokemonCard",
+  components: {
+    BaseModal,
+    BaseProgressSpinner,
+    BaseButtonIcon,
+    BaseTab,
+    CardHeader,
+    CardSprite,
+    PokemonAbout,
+    PokemonBaseStats,
+    PokemonMoves,
+    TypeModal,
+    AbilityModal
+  },
+  props: {
+    pokemonId: {
+      type: [Number, String],
+      required: true
+    },
+    pokemonIndex: {
+      type: Number,
+      required: false,
+      default: 0
+    },
+    isFirstPokemon: {
+      type: Boolean,
+      required: true
+    },
+    isLastPokemon: {
+      type: Boolean,
+      required: true
+    }
+  },
   setup(props) {
     const pokemonId = toRef(props, 'pokemonId')
 
@@ -191,37 +224,6 @@ export default {
       pokemon,
       pokemonSpecies,
       offloadSprite: pokemonQuery.isFetching,
-    }
-  },
-  components: {
-    BaseModal,
-    BaseProgressSpinner,
-    BaseTab,
-    CardHeader,
-    CardSprite,
-    PokemonAbout,
-    PokemonBaseStats,
-    PokemonMoves,
-    TypeModal,
-    AbilityModal
-  },
-  props: {
-    pokemonId: {
-      type: [Number, String],
-      required: true
-    },
-    pokemonIndex: {
-      type: Number,
-      required: false,
-      default: 0
-    },
-    isFirstPokemon: {
-      type: Boolean,
-      required: true
-    },
-    isLastPokemon: {
-      type: Boolean,
-      required: true
     }
   },
   data() {
@@ -393,16 +395,9 @@ export default {
       top: 18%;
       width: 100%;
 
-      .left-button, 
+      .left-button,
       .right-button {
         position: absolute;
-        color: var(--color-white);
-        cursor: pointer;
-        font-size: $font-xs;
-        border: 1px solid var(--color-white);
-        border-radius: $s;
-        padding: $s 6px;
-        text-align: center;
         margin: 0 $xs;
       }
 
@@ -415,13 +410,8 @@ export default {
     }
     .zoom-pokemon-button {
       position: absolute;
-      top: 30%;
+      top: 28%;
       right: $xs;
-      color: var(--color-white);
-      font-size: $font-xs;
-      border: 1px solid var(--color-white);
-      padding: $xxs $s;
-      border-radius: $s;
     }
   }
 
