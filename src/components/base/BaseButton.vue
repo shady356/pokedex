@@ -19,14 +19,15 @@ export default {
 
 button {
   background: var(--color-bg-primary);
-  border-radius: $xs;
+  border-radius: $l;
   border: 1px solid transparent;
   color: var(--color-text);
   cursor: pointer;
   font-size: $font-s;
   font-weight: 700;
   outline: none;
-  padding: $xs $s;
+  padding: $m $l;
+  transition: transform 50ms ease-in-out;
 
   &[disabled] {
     background: var(--color-bg-disabled);
@@ -45,6 +46,10 @@ button {
   &.primary {
     background: var(--color-primary);
     color: var(--color-primary-fg);
+  }
+
+  &:active {
+    transform: scale(1.05);
   }
 }
 </style>
