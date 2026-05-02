@@ -16,7 +16,7 @@ export default {
 <style lang="scss" scoped>
 .base-button-icon {
   align-items: center;
-  background: var(--color-bg-secondary);
+  background: var( --color-accent-dim);
   border-radius: 50%;
   border: none;
   color: var(--color-text);
@@ -29,11 +29,11 @@ export default {
   transition: transform 50ms ease-in-out;
 
   &:hover {
-    background: var(--color-bg-tertiary);
+    background: var(--color-accent);
   }
 
   &:active {
-    background: var(--color-bg-secondary);
+    background: var( --color-accent-dim);
     transform: scale(1.05);
   }
 }

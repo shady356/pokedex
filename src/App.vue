@@ -27,7 +27,8 @@ export default {
 
 body {
   -webkit-overflow-scrolling: touch;
-  background: var(--color-bg-body);
+  background: var(--color-bg-body-gradient);
+  background-attachment: fixed;
   color: var(--color-text);
 }
 

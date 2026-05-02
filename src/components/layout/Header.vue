@@ -39,7 +39,7 @@ export default {
   padding: $s;
   position: sticky;
   top: 0;
-  background: var(--color-bg-body);
+   background: var(--color-header);
 
   .header__column {
     display: flex;
@@ -52,6 +52,10 @@ export default {
     &:nth-child(2) {
       width: calc(100% - (#{$xxl}*2));
       justify-content: center;
+
+      h1 {
+        font-size: 1.8rem;
+      }
     }
 
     &:nth-child(3) {

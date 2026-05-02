@@ -18,17 +18,21 @@
 
   /* Backgrounds */
   --color-bg-body: #f5f5f5;
+  --color-bg-body-gradient: linear-gradient(135deg, #e8f5ee 0%, #e3eef8 100%);
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #eeeeee;
   --color-bg-tertiary: #d8d8d8;
   --color-bg-disabled: #888;
 
   /* Accent */
-  --color-accent: #66ddcc;
-  --color-accent-dim: #66ddcc66;
+  --color-accent: #c8f3ec;
+  --color-accent-dim: #b3d2ce66;
 
-      /* Border */
+  /* Border */
   --color-border: #ddd;
+
+  /* Header */
+  --color-header: #e8f5ee;
 
   /* Pokemon types */
   --color-type-bug: #92bc2c;
@@ -53,7 +57,7 @@
 
 @mixin dark-theme {
   /* Brand */
-  --color-primary: #007a60;
+  --color-primary: #00b38c;
   --color-primary-fg: #fff;
   --color-secondary: #b4eed1;
   --color-secondary-fg: #05331d;
@@ -69,17 +73,21 @@
 
   /* Backgrounds */
   --color-bg-body: #1a1a1a;
+  --color-bg-body-gradient: linear-gradient(135deg, #1a1a1a 0%, #1d2425 50%, #042b2f 100%);
   --color-bg-primary: #222222;
   --color-bg-secondary: #2a2a2a;
   --color-bg-tertiary: #333333;
   --color-bg-disabled: #888;
 
   /* Accent */
-  --color-accent: #66ddcc;
-  --color-accent-dim: #66ddcc66;
+  --color-accent: #004336;
+  --color-accent-dim: #435a5766;
 
-    /* Border */
+  /* Border */
   --color-border: #404040;
+
+  /* Header */
+  --color-header: #1a1a1a;
 
   /* Pokemon types */
   --color-type-bug: #92bc2c;

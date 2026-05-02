@@ -73,7 +73,7 @@ export default {
 
       &.active {
         color: var(--color-primary);
-        background: var(--color-bg-body);
+        background: var(--color-bg-primary);
         transition: all 0.4s;
 
         .text {

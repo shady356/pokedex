@@ -50,7 +50,7 @@ export default {
   align-items: center;
   justify-content: center;
   border-radius: $s;
-  background-color: #88888822;
+  background-color: var(--color-accent-dim);
   width: 100%;
   height: 100%;
   transition: transform 50ms ease-in-out;
