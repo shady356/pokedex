@@ -79,12 +79,16 @@ export default {
   flex-direction: column;
   justify-content: center;
   margin-bottom: $l;
-  transition: all 0.4s;
+  transition: transform 50ms ease-in-out;
+
+  &:active {
+    transform: scale(1.05);
+  }
 
   &__icon-container {
     position: relative;
     align-items: center;
-    background: var(--color-bg-secondary);
+    background: var(--color-secondary);
     border-radius: 50%;
     display: flex;
     height: $xxxl;
@@ -108,15 +112,15 @@ export default {
         rgba(255, 255, 255, 0.0) 0%,
         rgba(255, 255, 255, 0.3) 50%,
         rgba(255, 255, 255, 0.0) 100%);
-    //background: #333;
   }
 
   &__icon {
     height: $xl;
     width: $xl;
+    color: var(--color-secondary-fg);
     font-size: $xl;
   }
-
+  
   &__text {
     color: var(--color-text);
     font-size: $font-s;
