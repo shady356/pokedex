@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home">
     <h2 class="pokemon-logo">
       PokéView
     </h2>
@@ -18,16 +18,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-div {
+.home {
   background: var(--color-bg-body);
-  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pokemon-logo {
   color: var(--color-text);
   font-size: 36px;
   font-weight: 900;
-  margin-top: 45vh;
   text-align: center;
 }
 </style>
