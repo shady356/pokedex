@@ -23,7 +23,8 @@
       "Bash(grep -rn \"#[0-9a-fA-F]\\\\{3,6\\\\}\" /Users/heo/Documents/src/pokedex/src --include=\"*.vue\" --include=\"*.scss\" --include=\"*.css\")",
       "Bash(xargs cat *)",
       "Bash(xargs grep *)",
-      "Bash(npm uninstall *)"
+      "Bash(npm uninstall *)",
+      "Bash(grep -rn '\\\\$bug\\\\|\\\\$dark\\\\|\\\\$dragon\\\\|\\\\$electric\\\\|\\\\$fire\\\\|\\\\$fairy\\\\|\\\\$fighting\\\\|\\\\$flying\\\\|\\\\$ghost\\\\|\\\\$grass\\\\|\\\\$ground\\\\|\\\\$ice\\\\|\\\\$normal\\\\|\\\\$poison\\\\|\\\\$psychic\\\\|\\\\$rock\\\\|\\\\$steel\\\\|\\\\$water' /Users/heo/Documents/src/pokedex/src '--include=*.scss' '--include=*.vue' '--include=*.js' '--include=*.ts')"
     ]
   },
   "hooks": {

@@ -198,7 +198,7 @@ export default {
         background: var(--color-bg-primary);
         border-radius: $s;
         margin-bottom: $s;
-        filter: drop-shadow(0 2px 2px #00000022);
+        border: 1px solid var(--color-border);
 
         .quote {
           color: var(--color-text-light);

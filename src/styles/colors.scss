@@ -1,34 +1,9 @@
-/* 
-  Color Theme Swatches 
-*/
-
-/* Color Pokemon types */
-
-$bug: #92bc2c;
-$dark: #595761;
-$dragon: #0c6bca;
-$electric: #f2d94e;
-$fire: #fba54c;
-$fairy: #ee90e6;
-$fighting: #d3425f;
-$flying: #a1bbec;
-$ghost: #5f6dbc;
-$grass: #5fbd58;
-$ground: #da7c4d;
-$ice: #75d0c1;
-$normal: #a0a29f;
-$poison: #b763cf;
-$psychic: #fa8581;
-$rock: #c9bb8a;
-$steel: #5695a3;
-$water: #539ddf;
-
 /* App color theme */
 
-:root {
+@mixin light-theme {
   /* Brand */
   --color-primary: #007a60;
-  --color-primary-fg: #033a2e;
+  --color-primary-fg: #fff;
   --color-secondary: #b4eed1;
   --color-secondary-fg: #083b22;
 
@@ -80,44 +55,49 @@ $water: #539ddf;
   --color-secondary: #b4eed1;
   --color-secondary-fg: #083b22;
 
-  /* Backgrounds */
-  --color-bg-body: #1a1a1a;
-  --color-bg-primary: #222222;
-  --color-bg-secondary: #2a2a2a;
-  --color-bg-tertiary: #333333;
+  /* UI */
+  --color-white: #fff;
+  --color-black: #000;
 
   /* Text */
   --color-text: #ddd;
   --color-text-light: #aaa;
   --color-text-disabled: #999;
 
-  /* UI */
-  --color-white: #fff;
-  --color-black: #000;
-}
-
-@mixin light-theme {
-  /* Brand */
-  --color-primary: #007a60;
-  --color-primary-fg: #fff;
-  --color-secondary: #b4eed1;
-  --color-secondary-fg: #083b22;
-
-  /* Text */
-  --color-text: #222;
-  --color-text-light: #666;
-  --color-text-disabled: #999;
-
   /* Backgrounds */
-  --color-bg-body: #f5f5f5;
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #eeeeee;
-  --color-bg-tertiary: #d8d8d8;
+  --color-bg-body: #1a1a1a;
+  --color-bg-primary: #222222;
+  --color-bg-secondary: #2a2a2a;
+  --color-bg-tertiary: #333333;
   --color-bg-disabled: #888;
 
-  /* UI */
-  --color-white: #fff;
-  --color-black: #000;
+  /* Accent */
+  --color-accent: #66ddcc;
+  --color-accent-dim: #66ddcc66;
+
+  /* Pokemon types */
+  --color-type-bug: #92bc2c;
+  --color-type-dark: #595761;
+  --color-type-dragon: #0c69c8;
+  --color-type-electric: #f2d94e;
+  --color-type-fire: #fba54c;
+  --color-type-fairy: #ee90e6;
+  --color-type-fighting: #d3425f;
+  --color-type-flying: #a1bbec;
+  --color-type-ghost: #5f6dbc;
+  --color-type-grass: #5fbd58;
+  --color-type-ground: #da7c4d;
+  --color-type-ice: #75d0c1;
+  --color-type-normal: #a0a29f;
+  --color-type-poison: #b763cf;
+  --color-type-psychic: #fa8581;
+  --color-type-rock: #c9bb8a;
+  --color-type-steel: #5695a3;
+  --color-type-water: #539ddf;
+}
+
+:root {
+  @include light-theme;
 }
 
 @media (prefers-color-scheme: dark) {

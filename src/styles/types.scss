@@ -1,56 +1,54 @@
-@use './colors' as *;
-
 .bug-bg {
-  background: $bug;
+  background: var(--color-type-bug);
 }
 .dark-bg {
-  background: $dark;
+  background: var(--color-type-dark);
 }
 .dragon-bg {
-  background: $dark;
+  background: var(--color-type-dragon);
 }
 .electric-bg {
-  background: $electric;
+  background: var(--color-type-electric);
 }
 .fire-bg {
-  background: $fire;
+  background: var(--color-type-fire);
 }
 .fairy-bg {
-  background: $fairy;
+  background: var(--color-type-fairy);
 }
 .fighting-bg {
-  background: $fighting;
+  background: var(--color-type-fighting);
 }
 .flying-bg {
-  background: $flying;
+  background: var(--color-type-flying);
 }
 .ghost-bg {
-  background: $ghost;
+  background: var(--color-type-ghost);
 }
 .grass-bg {
-  background: $grass;
+  background: var(--color-type-grass);
 }
 .ground-bg {
-  background: $ground;
+  background: var(--color-type-ground);
 }
 .ice-bg {
-  background: $ice;
+  background: var(--color-type-ice);
 }
 .normal-bg {
-  background: $normal;
+  background: var(--color-type-normal);
 }
 .poison-bg {
-  background: $poison;
+  background: var(--color-type-poison);
 }
 .psychic-bg {
-  background: $psychic;
+  background: var(--color-type-psychic);
 }
 .rock-bg {
-  background: $rock;
+  background: var(--color-type-rock);
 }
 .steel-bg {
-  background: $steel;
+  background: var(--color-type-steel);
 }
 .water-bg {
-  background: $water;
+  background: var(--color-type-water);
 }
