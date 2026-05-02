@@ -57,14 +57,14 @@ export default {
     display: flex;
     background: var(--color-bg-secondary);
     border-radius: $m;
-    padding: $xxxs;
+    padding: $xxs;
 
     .tab-item {
       cursor: pointer;
       color: var(--color-text-light);
       width: 100%;
       padding: $xxs 0;
-      border-radius: $s;
+      border-radius: $m;
       text-align: center;
       -webkit-tap-highlight-color: transparent;
 

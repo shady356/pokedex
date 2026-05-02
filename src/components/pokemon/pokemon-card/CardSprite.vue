@@ -55,15 +55,6 @@ export default {
     pokemonSpriteImg() {
       return getPokemonSpriteByName(this.pokemon.name)
     },
-    /* pokemonSpriteHeight() {
-      const height = this.pokemon.height / 10
-      
-      return {
-        'min-height': '50%',
-        'height': 0.70 * (height * 100) + '%',
-        'max-height': '90%'
-      }
-    } */
   },
 }
 </script>

@@ -20,7 +20,7 @@
 
     <!-- Index #number -->
     <div class="index-number">
-      <h6>#{{ getIndex(pokemonId) }}</h6>
+      #{{ getIndex(pokemonId) }}
     </div>
   </div>
 </template>
@@ -97,7 +97,9 @@ export default {
   .index-number {
     position: absolute;
     top: 15%;
-    right: 5%;
+    right: 3%;
+    font-size: 14px;
+    font-weight: 600;
   }
 }
 </style>
