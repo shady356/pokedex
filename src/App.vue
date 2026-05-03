@@ -23,6 +23,15 @@ export default {
 * {
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a, .modal-close-container {
+  transition: transform 50ms ease-in-out;
+
+  &:active {
+    transform: scale(1.05);
+  }
 }
 
 body {
