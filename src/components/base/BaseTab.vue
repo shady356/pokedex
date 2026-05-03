@@ -77,7 +77,7 @@ export default {
       }
 
       &.active {
-        color: var(--color-primary);
+        color: var(--color-tab-highlight);
         background: var(--color-bg-primary);
         transition: all 0.4s;
 
