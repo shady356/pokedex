@@ -327,9 +327,11 @@ export default {
     },
     startHandler(e) {
       clearTimeout(this._resetTimer)
+      if (!e.changedTouches || e.changedTouches.length === 0) return
       this.startTouch = e.changedTouches[0].clientX
     },
     movePokemon (e) {
+      if (!e.changedTouches || e.changedTouches.length === 0) return
       const moveTouch = e.changedTouches[0].clientX
       
       const moving = Math.ceil((((moveTouch) / this.clientWidth * 100) -50) * 2.5)
