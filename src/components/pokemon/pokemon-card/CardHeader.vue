@@ -2,9 +2,9 @@
   <div class="white-bar">
     <div class="name-type-container">
       <!-- Name -->
-      <h3 class="capitalize pokemon-name">
+      <h2 class="capitalize pokemon-name">
         {{ pokemon.name }}
-      </h3>
+      </h2>
 
       <!-- Type(s) -->
       <div class="type-container">
@@ -78,6 +78,7 @@ export default {
     .pokemon-name {
       color: var(--color-text);
       margin-right: $s;
+      font-size: 1.4rem;
     }
     .type-container {
       display: flex;

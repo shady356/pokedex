@@ -8,10 +8,10 @@
     >
       <!-- Pokemon Cover -->
       <section
-        :class="['pokemon-cover section-1', {'isZoom': isPokemonZoom}]"
         v-touch:start="startHandler"
         v-touch:moving="movePokemon"
         v-touch:end="endHandler"
+        :class="['pokemon-cover section-1', {'isZoom': isPokemonZoom}]"
       >
         <CardHeader
           :pokemon="pokemon"
@@ -135,7 +135,6 @@
 
 <script>
 import { toRef, computed } from 'vue'
-import { $getTypeColor } from "@/helpers/types.js";
 import BaseModal from "@/components/base/BaseModal";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
 import BaseButtonIcon from "@/components/base/BaseButtonIcon";
@@ -143,6 +142,7 @@ import BaseTab from "@/components/base/BaseTab";
 import CardHeader from "@/components/pokemon/pokemon-card/CardHeader.vue"
 import CardSprite from "@/components/pokemon/pokemon-card/CardSprite.vue"
 import { usePokemon, usePokemonSpecies } from '@/composables/usePokeApi.js'
+import { getTypeGradients } from '@/utils/typeGradients.js'
 import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
 import PokemonMoves from "@/components/pokemon/PokemonMoves.vue";
@@ -234,6 +234,7 @@ export default {
       movingGlobal: 0,
       slideDirection: "",
       clientWidth: 0,
+      isDark: false,
 
       // Type modal
       isTypeModalOpen: false,
@@ -270,17 +271,32 @@ export default {
       return this.pokemon.types.map(t => t.type.name)
     },
     getModalBackground() {
+      const gradient = getTypeGradients(this.isDark)[this.firstType]
       return {
-        background: "url(" + this.pokemonTexture + ")",
-        //backgroundBlendMode: "darken",
-        backgroundSize: 'cover'
-      };
+        backgroundImage: `url(${this.pokemonTexture}), ${gradient}`,
+        backgroundBlendMode: 'overlay, normal',
+        backgroundSize: 'cover, cover',
+      }
     },
   },
   mounted() {
     this.clientWidth = document.documentElement.clientWidth
+    this.isDark = this._resolveIsDark()
+    this._themeObserver = new MutationObserver(() => {
+      this.isDark = this._resolveIsDark()
+    })
+    this._themeObserver.observe(document.documentElement, { attributeFilter: ['class'] })
+  },
+  beforeDestroy() {
+    this._themeObserver?.disconnect()
   },
   methods: {
+    _resolveIsDark() {
+      const cl = document.documentElement.classList
+      if (cl.contains('theme-dark')) return true
+      if (cl.contains('theme-light')) return false
+      return window.matchMedia('(prefers-color-scheme: dark)').matches
+    },
     changeMetaTab(index) {
       this.metaItems.forEach(tab => {
         tab.active = false;

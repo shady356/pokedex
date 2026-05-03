@@ -239,7 +239,7 @@ export default {
           align-items: center;
 
           .icon {
-            color: var(--color-accent);
+            color: var(--color-primary);
             font-size: $s;
             margin-right: $xxs;
           }
@@ -250,7 +250,7 @@ export default {
 
           .icon {
             font-size: $s;
-            color: var(--color-accent);
+            color: var(--color-primary);
             margin-right: $xxs;
             transform: rotate(90deg);
           }

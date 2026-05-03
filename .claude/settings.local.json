@@ -32,7 +32,13 @@
       "Bash(python3 -c \"from PIL import Image, ImageFilter, ImageDraw; import numpy; print\\('PIL OK'\\)\")",
       "Bash(pip3 install *)",
       "Bash(python3 -c \"from PIL import Image; print\\('OK'\\)\")",
-      "Bash(python3 scripts/gen_textures.py)"
+      "Bash(python3 scripts/gen_textures.py)",
+      "PowerShell(Get-Command python, python3, py -ErrorAction SilentlyContinue)",
+      "PowerShell(& py --version 2>&1)",
+      "PowerShell(& \"C:\\\\Users\\\\henri\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\" --version 2>&1)",
+      "PowerShell(& \"C:\\\\Python311\\\\python.exe\" --version 2>&1)",
+      "PowerShell(node scripts/gen_water_texture.mjs)",
+      "Bash(node scripts/gen_all_textures.mjs)"
     ]
   },
   "hooks": {

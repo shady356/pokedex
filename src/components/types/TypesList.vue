@@ -16,7 +16,7 @@
         <img
           class="type-item__icon-image"
           :src="getTypeIcon(type.name)" 
-          alt="type-icon"
+          alt=""
         >
       </div>
       <div class="type-item__title uppercase">

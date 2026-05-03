@@ -1,17 +1,17 @@
 <template>
   <div class="tab-container">
     <div class="tab-list">
-      <div
+      <button
         v-for="(item, index) in items"
         :class="['tab-item', { active: item.active }]"
         :key="index"
      
         @click="changeTab(index)"
       >
-        <h6 class="text uppercase condensed">
+        <div class="text uppercase condensed">
           {{ item.name }}
-        </h6>
-      </div>
+        </div>
+      </button>
     </div>
   </div>
 </template>
@@ -65,11 +65,15 @@ export default {
       width: 100%;
       padding: $xxs 0;
       border-radius: $m;
+      font-family: "Roboto Condensed", sans-serif;
+      background: transparent;
+      border: none;
       text-align: center;
       -webkit-tap-highlight-color: transparent;
 
       .text {
         font-weight: 400;
+
       }
 
       &.active {
