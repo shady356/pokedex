@@ -4,9 +4,9 @@
     class="type-list"
   >
     <li
-      class="type-item"
       v-for="type in types"
       :key="type.name"
+      class="type-item"
     >
       <button
         class="type-item__button"
