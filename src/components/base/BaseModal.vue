@@ -78,6 +78,7 @@ export default {
   methods: {
     movingHandler (e) {
       if(this.dragHandler) {
+        if (!e.changedTouches || !e.changedTouches.length) return
 
         const moving = e.changedTouches[0].clientY
         const clientHeight = document.documentElement.clientHeight
