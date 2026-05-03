@@ -7,21 +7,25 @@
       class="type-item"
       v-for="type in types"
       :key="type.name"
-      @click="selectType(type.name)"
     >
-      <div 
-        class="type-item__icon"
-        :style="getTypeBackground(type.color)"
+      <button
+        class="type-item__button"
+        @click="selectType(type.name)"
       >
-        <img
-          class="type-item__icon-image"
-          :src="getTypeIcon(type.name)" 
-          alt=""
+        <div
+          class="type-item__icon"
+          :style="getTypeBackground(type.color)"
         >
-      </div>
-      <div class="type-item__title uppercase">
-        {{ type.name }}
-      </div>
+          <img
+            class="type-item__icon-image"
+            :src="getTypeIcon(type.name)"
+            alt=""
+          >
+        </div>
+        <div class="type-item__title uppercase">
+          {{ type.name }}
+        </div>
+      </button>
     </li>
   </ul>
 </template>
@@ -63,16 +67,24 @@ export default {
     gap: $s;
 
     .type-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: var(--color-accent-dim);
       width: 30%;
-      padding: $s;
       margin-bottom: $s;
-      box-sizing: border-box;
-      border-radius: $s;
-      -webkit-tap-highlight-color: transparent;
+
+      &__button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: var(--color-accent-dim);
+        width: 100%;
+        padding: $s;
+        box-sizing: border-box;
+        border-radius: $s;
+        border: none;
+        cursor: pointer;
+        color: inherit;
+        font: inherit;
+        -webkit-tap-highlight-color: transparent;
+      }
 
       &__icon {
         margin-bottom: $xs;

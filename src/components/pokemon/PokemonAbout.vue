@@ -2,9 +2,9 @@
   <div class="about-container">
     <!-- Description -->
     <section class="description-container">
-      <h6 class="title">
+      <h3 class="title">
         Description
-      </h6>
+      </h3>
       <p class="data-row">
         {{ pokemonSpecies.description.flavor_text }}
       </p>
@@ -15,9 +15,9 @@
 
     <!-- Abilities -->
     <section>
-      <h6 class="title">
+      <h3 class="title">
         Abilities
-      </h6>
+      </h3>
 
       <div class="abilities-container">
         <BaseTag
@@ -37,9 +37,9 @@
 
     <!-- Training -->
     <section>
-      <h6 class="title">
+      <h3 class="title">
         Training
-      </h6>
+      </h3>
 
       <div class="data-row">
         <div class="label">
@@ -71,9 +71,9 @@
 
     <!-- Breeding -->
     <section>
-      <h6 class="title">
+      <h3 class="title">
         Breeding
-      </h6>
+      </h3>
 
       <!-- Egg group -->
       <div class="data-row">
@@ -175,6 +175,7 @@ export default {
         margin-bottom: $xxs;
         display: flex;
         align-items: center;
+        font-size: 14px;
       }
 
       .data-row {

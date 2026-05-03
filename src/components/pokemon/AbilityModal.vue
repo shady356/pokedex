@@ -60,7 +60,7 @@ export default {
   text-align: center;
   flex-direction: column;
   align-items: center;
-  min-height: 350px;
+  min-height: 256px;
 
   .ability-title {
     margin-top: $l;

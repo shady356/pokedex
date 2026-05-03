@@ -1,16 +1,16 @@
 <template>
-  <div class="home">
+  <main class="home">
     <div
       class="pokeball-bg"
       aria-hidden="true"
     >
       <PokeballIcon />
     </div>
-    <h2 class="pokemon-logo">
+    <h1 class="pokemon-logo">
       PokéView
-    </h2>
+    </h1>
     <MainMenuNavigation />
-  </div>
+  </main>
 </template>
 
 <script>

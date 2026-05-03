@@ -1,23 +1,25 @@
 <template>
-  <ul class="navigation-list">
-    <router-link
-      class="navigation-list-item"
-      v-for="item in navigationItems"
-      :key="item.name"
-      :to="{ name: item.route }"
-      tag="li"
-    >
-      <div class="navigation-list-item__icon-container">
-        <Component
-          :is="item.component"
-          class="navigation-list-item__icon"
-        />
-      </div>
-      <div class="navigation-list-item__text uppercase letter-spacing">
-        {{ item.name }}
-      </div>
-    </router-link>
-  </ul>
+  <nav>
+    <ul class="navigation-list">
+      <router-link
+        v-for="item in navigationItems"
+        :key="item.name"
+        class="navigation-list-item"
+        :to="{ name: item.route }"
+        tag="li"
+      >
+        <div class="navigation-list-item__icon-container">
+          <Component
+            :is="item.component"
+            class="navigation-list-item__icon"
+          />
+        </div>
+        <div class="navigation-list-item__text uppercase letter-spacing">
+          {{ item.name }}
+        </div>
+      </router-link>
+    </ul>
+  </nav>
 </template>
 
 <script>
@@ -56,6 +58,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+nav {
+  display: contents;
+}
+
 .navigation-list {
   position: fixed;
   bottom: $xl;

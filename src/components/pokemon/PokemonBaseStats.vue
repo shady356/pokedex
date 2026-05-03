@@ -1,8 +1,8 @@
 <template>
   <div class="base-stat-container">
-    <h6 class="section-title">
+    <h3 class="section-title">
       Base stats
-    </h6>
+    </h3>
     <div class="stat-wrapper">
       <PokemonBaseStatChart
         v-if="isChartGenerated"
@@ -18,37 +18,13 @@
             <div class="uppercase letter-spacing micro-label">
               total
             </div>
-            <h6 class="total-base-stat-number">
+            <h4 class="total-base-stat-number">
               {{ totalBaseStatAnimated }}
-            </h6>
+            </h4>
           </div>
         </div>
-        <!-- <div class="base-stat-ranking">
-          <div class="uppercase letter-spacing micro-label">
-            Ranking
-          </div>
-          <div class="stars">
-            <fa-icon
-              v-for="index in 5"
-              :key="index"
-              :class="['icon', {'filled': index <= rankStars}]"
-              icon="star"
-            />
-          </div>
-        </div> -->
       </div>
     </div>
-    <!-- <div class="key-data">
-      <div class="did-you-know">
-        <div class="uppercase letter-spacing micro-label">
-          Did you know
-        </div>
-        <p class="content">
-          <span class="capitalize">{{ pokemon.name }}</span>
-          has the 3rd highest Attack -stat among grass types
-        </p>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -111,9 +87,6 @@ export default {
             fontAlign: 'center',
             fontFamily: 'Roboto condensed',
             lineHeight: 1.3,
-            // Get theme variable:
-            //fontColor: ['#eee', '#eee', '#ddd', '#ddd', '#ddd', '#ddd']
-            // fontColor: '#eee'
             fontColor: ''
           }
         },
@@ -262,6 +235,7 @@ export default {
 
   .section-title {
     margin: 0 0 $s $m;
+    font-size: 14px;
   }
 
   .stat-wrapper {
@@ -299,6 +273,7 @@ export default {
           .total-base-stat-number {
             color: var(--color-text-light);
             line-height: $font-m;
+            font-size: 14px;
           }
         }
       }
