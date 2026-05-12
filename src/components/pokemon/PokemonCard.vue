@@ -16,7 +16,6 @@
         <CardHeader
           :pokemon="pokemon"
           :pokemon-id="pokemonId"
-          @openTypeModal="openTypeModal"
         />
         <!-- Pagination buttons -->
         <div class="pagination-buttons">
@@ -116,13 +115,7 @@
     >
       <BaseProgressSpinner size="large" />
     </div>
-    <!-- Type modal -->
-    <BaseModal
-      v-if="isTypeModalOpen"
-      @closeModal="closeTypeModal"
-    >
-      <TypeModal :type-name="currentTypeInModal" />
-    </BaseModal>
+   
     <!-- Ability modal -->
     <BaseModal
       v-if="isAbilityModalOpen"
@@ -146,7 +139,7 @@ import { getTypeGradients } from '@/utils/typeGradients.js'
 import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
 import PokemonMoves from "@/components/pokemon/PokemonMoves.vue";
-import TypeModal from "@/components/types/TypeModal";
+
 import AbilityModal from "@/components/pokemon/AbilityModal.vue";
 
 const textures = import.meta.glob('/src/assets/PK_Textures/*.png', { eager: true, import: 'default' })
@@ -163,7 +156,6 @@ export default {
     PokemonAbout,
     PokemonBaseStats,
     PokemonMoves,
-    TypeModal,
     AbilityModal
   },
   props: {
@@ -236,10 +228,6 @@ export default {
       clientWidth: 0,
       isDark: false,
 
-      // Type modal
-      isTypeModalOpen: false,
-      currentTypeInModal: null,
-
       // Ability modal
       isAbilityModalOpen: false,
       currentAbilityInModal: null,
@@ -303,13 +291,7 @@ export default {
       });
       this.metaItems[index].active = true;
     },
-    openTypeModal(type) {
-      this.currentTypeInModal = type.name;
-      this.isTypeModalOpen = true;
-    },
-    closeTypeModal() {
-      this.isTypeModalOpen = false;
-    },
+
     openAbilityModal(ability) {
       this.currentAbilityInModal = ability.name;
       this.isAbilityModalOpen = true;

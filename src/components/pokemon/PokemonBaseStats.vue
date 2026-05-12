@@ -1,29 +1,51 @@
 <template>
   <div class="base-stat-container">
-    <h3 class="section-title">
-      Base stats
-    </h3>
     <div class="stat-wrapper">
       <PokemonBaseStatChart
         v-if="isChartGenerated"
         ref="baseStatsChart" 
         :chart-data="baseStatChartData"
         :options="baseStatChartOptions"
-        :styles="chartStyles"
         class="stat-chart-container"
       />
-      <div class="base-stat-addon-info">
-        <div class="base-stats-total">
-          <div class="hexagon-shape">
-            <div class="uppercase letter-spacing micro-label">
-              total
+
+      <div class="right">
+        <div class="pokemon-types">
+          <BaseTypeTag
+            :key="1"
+            :type="pokemon.types[0]?.type.name"
+            display-name
+            @click="toggleTypeModal(pokemon.types[0]?.type.name)"
+          />
+          <BaseTypeTag
+            :key="2"
+            :type="pokemon.types[1]?.type.name"
+            display-name
+            @click="toggleTypeModal(pokemon.types[1]?.type.name)"
+          />
+        </div>
+        <!--
+        <div class="base-stat-addon-info">
+          <div class="base-stats-total">
+            <div class="hexagon-shape">
+              <div class="uppercase letter-spacing micro-label">
+                total
+              </div>
+              <h4 class="total-base-stat-number">
+                {{ totalBaseStatAnimated }}
+              </h4>
             </div>
-            <h4 class="total-base-stat-number">
-              {{ totalBaseStatAnimated }}
-            </h4>
           </div>
         </div>
+      -->
       </div>
+
+      <BaseModal
+        v-if="currentType"
+        @closeModal="toggleTypeModal('')"
+      >
+        <TypeModal :type-name="currentType" />
+      </BaseModal>
     </div>
   </div>
 </template>
@@ -31,10 +53,16 @@
 <script>
 import { gsap } from "gsap";
 import PokemonBaseStatChart from '@/components/pokemon/PokemonBaseStatChart.vue'
+import TypeModal from "@/components/types/TypeModal";
+import BaseModal from "@/components/base/BaseModal";
+import BaseTypeTag from "../base/BaseTypeTag.vue";
 export default {
   name: "PokemonBaseStats",
   components: {
-    PokemonBaseStatChart
+    PokemonBaseStatChart,
+    BaseTypeTag,
+      BaseModal,
+    TypeModal
   },
   props: {
     pokemon: {
@@ -45,9 +73,8 @@ export default {
   data() {
     return {
       tweenedNumber: 0,
-      rankStars: 0,
       isChartGenerated: false,
-      bestStatIndex: null,
+      currentType: '',
 
       baseStatChartData: {
         labels: [],
@@ -74,7 +101,7 @@ export default {
           },
           gridLines: {
             color: '',
-            lineWidth: 2
+            lineWidth: 3
           },
           ticks: {
             suggestedMin: 0,
@@ -83,10 +110,10 @@ export default {
             stepSize: 255
           },
           pointLabels: {
-            fontSize: 12,
+            fontSize: 13,
             fontAlign: 'center',
             fontFamily: 'Roboto condensed',
-            lineHeight: 1.3,
+            lineHeight: 1.5,
             fontColor: ''
           }
         },
@@ -95,12 +122,6 @@ export default {
     };
   },
   computed: {
-    chartStyles () {
-      return {
-        width: '50%',
-        position: 'relative'
-      }
-    },
     totalBaseStat() {
       let total = 0;
       this.pokemon.stats.forEach(stat => {
@@ -135,7 +156,6 @@ export default {
     pokemon() {
       this.isChartGenerated = false
       this.setChartData()
-      this.rankStars = this.getStarRankBasedOnTotalBaseStats()
       this.$refs.baseStatsChart.update()
     }
   },
@@ -151,7 +171,6 @@ export default {
     this.baseStatChartOptions.scale.gridLines.color = accent
     this.baseStatChartOptions.scale.pointLabels.fontColor = textColor
     this.tweenedNumber = this.totalBaseStat;
-    this.rankStars = this.getStarRankBasedOnTotalBaseStats()
     this.setChartData()
   },
   methods: {
@@ -210,20 +229,10 @@ export default {
       this.isChartGenerated = true
       
     },
-    getStarRankBasedOnTotalBaseStats() {
-      const total = parseInt(this.totalBaseStat)
-      if(total <= 200) {
-        return 1
-      } else if (total <= 340) {
-        return 2
-      } else if (total <= 475) {
-        return 3
-      } else if (total <= 540) {
-        return 4
-      } else {
-        return 5
-      }
-    }
+
+    toggleTypeModal(type) {
+      this.currentType = type
+    },
   }
 };
 </script>
@@ -231,11 +240,11 @@ export default {
 <style lang="scss" scoped>
 
 .base-stat-container {
-  padding: $xs 0 $xl;
+  padding: $xl 0 $xl;
 
   .section-title {
     margin: 0 0 $s $m;
-    font-size: 14px;
+    font-size: $font-s;
   }
 
   .stat-wrapper {
@@ -243,6 +252,10 @@ export default {
     width: 100%;
     align-items: flex-start;
     justify-content: space-around;
+
+    .stat-chart-container {
+      max-width: 180px;
+    }
     
     .base-stat-addon-info {
       display: flex;
@@ -273,26 +286,17 @@ export default {
           .total-base-stat-number {
             color: var(--color-text-light);
             line-height: $font-m;
-            font-size: 14px;
+            font-size: $font-s;
           }
         }
       }
     }
   }
+}
 
-  .key-data {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: $l;
-
-    .did-you-know {
-      padding: 0 $l;
-
-      .content {
-        font-size: $font-m;
-      }
-    }
-  }
+.pokemon-types {
+  display: flex;
+  flex-direction: column;
+  gap: $xs;
 }
 </style>

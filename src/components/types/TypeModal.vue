@@ -56,8 +56,8 @@
 <script>
 import { $getTypeInfoByName, $getTypeColor } from "@/helpers/types.js";
 import BaseTypeTag from "@/components/base/BaseTypeTag";
+
 export default {
-  name: "Type",
   components: {
     BaseTypeTag
   },
@@ -72,6 +72,9 @@ export default {
       typeData: null
     };
   },
+  mounted() {
+    this.typeData = $getTypeInfoByName(this.typeName);
+  },
   methods: {
     getIcon(name) {
       return new URL(`../../assets/icons/types/${name}.svg`, import.meta.url).href;
@@ -79,9 +82,6 @@ export default {
     getTypeColor(name) {
       return $getTypeColor(name)
     }
-  },
-  mounted() {
-    this.typeData = $getTypeInfoByName(this.typeName);
   }
 };
 </script>
