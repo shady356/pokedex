@@ -20,9 +20,9 @@
           v-for="(item, index) in items"
           :key="index"
         >
-          <td :class="['name', {'is-same-type': isSameType(item.type)}]">
+          <td :class="['name', { 'is-same-type': isSameType(item.type) }]">
             {{ item.name }}
-            <div 
+            <div
               v-if="isLevelUp"
               class="level"
             >
@@ -46,10 +46,10 @@
             >
           </td>
           <td class="power number">
-            {{ item.power | power }}
+            {{ formatPower(item.power) }}
           </td>
           <td class="accuracy number">
-            {{ item.accuracy | accuracy }}
+            {{ formatAccuracy(item.accuracy) }}
           </td>
         </tr>
       </tbody>
@@ -66,45 +66,29 @@ import moveStatus from "@/assets/icons/move_types/move-status.png";
 export default {
   name: "BaseMoveTable",
   components: {
-    BaseTypeTag
-  },
-  filters: {
-    accuracy(value) {
-      if (value !== null) {
-        return value + "%";
-      } else {
-        return "–";
-      }
-    },
-    power(value) {
-      if (value !== null) {
-        return value;
-      } else {
-        return "–";
-      }
-    }
+    BaseTypeTag,
   },
   props: {
     headers: {
       type: Array,
-      required: true
+      required: true,
     },
     items: {
       type: Array,
-      required: true
+      required: true,
     },
     title: {
       type: String,
-      required: true
+      required: true,
     },
     category: {
       type: String,
-      required: true
+      required: true,
     },
     types: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {};
@@ -116,98 +100,105 @@ export default {
   },
   methods: {
     getTypeColor(type) {
-      return $getTypeColor(type)
+      return $getTypeColor(type);
     },
-    isSameType (type) {
-      return this.types.includes(type)
+    isSameType(type) {
+      return this.types.includes(type);
     },
     getItemCategoryImageSrc(category) {
-      if (category === 'special') return moveSpecial
-      if (category === 'physical') return movePhysical
-      return moveStatus
-    }
-  }
+      if (category === "special") return moveSpecial;
+      if (category === "physical") return movePhysical;
+      return moveStatus;
+    },
+    formatPower(value) {
+      return value !== null ? value : "–";
+    },
+    formatAccuracy(value) {
+      return value !== null ? value + "%" : "–";
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-  .move-type-header {
-    background: var(--color-bg-primary);
-    height: $space-16;
-    padding: $space-8 0 0;
-    position: sticky;
-    top: 0;
-    width: 100%;
+.move-type-header {
+  background: var(--color-bg-primary);
+  height: $space-16;
+  padding: $space-8 0 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
 
-    .text {
-      color: var(--color-text-light);
-      font-weight: 400;
-      font-size: $font-s;
-      text-align: center;
-    }
+  .text {
+    color: var(--color-text-light);
+    font-weight: 400;
+    font-size: $font-s;
+    text-align: center;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: $space-48;
+
+  .table-header {
+    background: var(--color-bg-primary);
+    position: sticky;
+    top: calc(#{$space-16} + #{$space-8});
   }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: $space-48;
+  thead {
+    th {
+      padding: $space-12 0;
+      text-align: left;
+      font-size: $font-xs;
 
-    .table-header {
-      background: var(--color-bg-primary);
-      position: sticky;
-      top: calc(#{$space-16} + #{$space-8});
+      &:nth-child(2),
+      &:nth-child(3) {
+        text-align: center;
+      }
+      &:nth-child(4),
+      &:nth-child(5) {
+        text-align: right;
+      }
     }
+  }
+  tbody {
+    tr {
+      border-top: 1px solid var(--color-border);
 
-    thead {
-
-      th {
+      td {
         padding: $space-12 0;
-        text-align: left;
-        font-size: $font-xs;
+        text-transform: capitalize;
+        font-size: 14px;
 
-        &:nth-child(2), &:nth-child(3) {
+        &.name {
+          &.is-same-type {
+            font-weight: bold;
+          }
+          .level {
+            margin-top: $space-4;
+            color: var(--color-text-light);
+            font-size: $font-s;
+            font-weight: normal;
+          }
+        }
+        &.type {
           text-align: center;
         }
-        &:nth-child(4), &:nth-child(5) {
+        &.category {
+          text-align: center;
+          .category-img {
+            height: auto;
+            width: $space-32;
+          }
+        }
+        &.number {
           text-align: right;
         }
       }
     }
-    tbody {
-      tr {
-        border-top: 1px solid var(--color-border);
-
-        td {
-          padding: $space-12 0;
-          text-transform: capitalize;
-          font-size: 14px;
-          
-          &.name {
-            &.is-same-type {
-              font-weight: bold;
-            }
-            .level {
-              margin-top: $space-4;
-              color: var(--color-text-light);
-              font-size: $font-s;
-              font-weight: normal;
-            }
-          }
-          &.type {
-            text-align: center;
-          }
-          &.category {
-            text-align: center;
-            .category-img {
-              height: auto;
-              width: $space-32;
-            }
-          }
-          &.number {
-            text-align: right;
-          }
-        }
-      }
-    }
   }
+}
 </style>

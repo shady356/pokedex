@@ -5,29 +5,29 @@
     @click="click()"
   >
     <img
-      :style="'backgroundColor:' + getTypeColor()"
+      :style="{ backgroundColor: getTypeColor() }"
       :src="getTypeIcon()"
       class="icon icon--skewed"
       alt="icon"
     >
-    
+
     <div class="type-tag-container__text">
       {{ type }}
     </div>
   </button>
-  
+
   <button
     v-else-if="type && !displayName"
     class="icon-button"
   >
     <img
-      :style="'backgroundColor:' + getTypeColor()"
+      :style="{ backgroundColor: getTypeColor() }"
       :src="getTypeIcon()"
       class="icon icon--circle"
       alt="icon"
     >
   </button>
-  
+
   <div
     v-else
     class="type-tag-container"
@@ -41,17 +41,14 @@
 <script>
 import { $getTypeColor } from "@/helpers/types.js";
 
-
 export default {
   name: "BaseTypeTag",
-  components: {
-  
-  },
+  components: {},
   props: {
     type: {
       type: String,
       required: false,
-      default: undefined
+      default: undefined,
     },
     displayName: {
       type: Boolean,
@@ -62,11 +59,11 @@ export default {
   data() {
     return {
       isModalOpen: false,
-    }
+    };
   },
   methods: {
     click() {
-      this.$emit('click')
+      this.$emit("click");
     },
 
     getTypeColor() {
@@ -119,7 +116,7 @@ export default {
   border: none;
 }
 
- .icon {
+.icon {
   display: flex;
   background: none;
   width: $space-12;

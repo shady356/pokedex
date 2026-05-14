@@ -4,9 +4,9 @@
     appear
   >
     <div
-      v-touch:moving="movingHandler"
-      v-touch:end="endHandler"
       class="modal-container"
+      @touchmove.passive="movingHandler"
+      @touchend="endHandler"
     >
       <transition
         name="slide-v"
@@ -47,66 +47,71 @@ export default {
     showCloseButton: {
       type: Boolean,
       required: false,
-      default: true
+      default: true,
     },
     isPokemonCard: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     dragHandler: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
-  data () {
+  data() {
     return {
       toPositionPercentage: 0,
       thresholdExpandPercentage: 75,
-      thresholdClosePercentage: 50
-    }
+      thresholdClosePercentage: 50,
+    };
   },
   created() {
     document.body.classList.add("disable-scroll");
   },
-  destroyed() {
+  unmounted() {
     setTimeout(() => {
       document.body.classList.remove("disable-scroll");
-    }, 100)
+    }, 100);
   },
   methods: {
-    movingHandler (e) {
-      if(this.dragHandler) {
-        if (!e.changedTouches || !e.changedTouches.length) return
+    movingHandler(e) {
+      if (this.dragHandler) {
+        if (!e.changedTouches || !e.changedTouches.length) return;
 
-        const moving = e.changedTouches[0].clientY
-        const clientHeight = document.documentElement.clientHeight
-        const toPositionPx = clientHeight - moving
-        this.toPositionPercentage = ((moving / clientHeight * 100) - 100 ) * -1
-        document.getElementById('moving-box').style.height = toPositionPx + 'px'
+        const moving = e.changedTouches[0].clientY;
+        const clientHeight = document.documentElement.clientHeight;
+        const toPositionPx = clientHeight - moving;
+        this.toPositionPercentage = ((moving / clientHeight) * 100 - 100) * -1;
+        document.getElementById("moving-box").style.height =
+          toPositionPx + "px";
       }
     },
     endHandler() {
-      if(this.dragHandler) {
-        if (this.toPositionPercentage < this.thresholdClosePercentage && this.toPositionPercentage !==0) {
-          this.closeModal()
-        }
-        else if (this.toPositionPercentage > this.thresholdExpandPercentage && this.toPositionPercentage !==0) {
-          this.snapToPosition('98%')
-        }
-        else {
-          this.snapToPosition('initial')
+      if (this.dragHandler) {
+        if (
+          this.toPositionPercentage < this.thresholdClosePercentage &&
+          this.toPositionPercentage !== 0
+        ) {
+          this.closeModal();
+        } else if (
+          this.toPositionPercentage > this.thresholdExpandPercentage &&
+          this.toPositionPercentage !== 0
+        ) {
+          this.snapToPosition("98%");
+        } else {
+          this.snapToPosition("initial");
         }
       }
     },
-    snapToPosition (value) {
-      document.getElementById('moving-box').style.height = value
+    snapToPosition(value) {
+      document.getElementById("moving-box").style.height = value;
     },
     closeModal() {
       this.$emit("closeModal");
-    }
-  }
+    },
+  },
 };
 </script>
 

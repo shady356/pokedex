@@ -1,25 +1,47 @@
+<template>
+  <div>
+    <Radar
+      :data="chartData"
+      :options="options"
+    />
+  </div>
+</template>
+
 <script>
-import { Radar } from 'vue-chartjs'
+import {
+  Chart,
+  RadarController,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Radar } from "vue-chartjs";
+
+Chart.register(
+  RadarController,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+);
+
 export default {
-  name: 'PokemonBaseStatChart',
-  extends: Radar,
+  name: "PokemonBaseStatChart",
+  components: { Radar },
   props: {
     chartData: {
       type: Object,
-      required: true
+      required: true,
     },
     options: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
-  mounted () {
-    this.renderChart(this.chartData, this.options)
-  },
-  methods: {
-    update() {
-      this.$data._chart.update()
-    }
-  }
-}
+};
 </script>

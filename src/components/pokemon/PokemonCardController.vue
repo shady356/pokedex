@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- Pokemon -->
-    <BaseModal is-pokemon-card @closeModal="closePokemonCardController()">
+    <BaseModal
+      is-pokemon-card
+      @closeModal="closePokemonCardController()"
+    >
       <PokemonCard
         :pokemon-id="pokemonId"
         :pokemon-index="pokemonIndex"
@@ -66,10 +69,10 @@ export default {
           params: {
             pokemonId: this.getPokemonPaginationId(
               this.pokemonIndex,
-              "previous"
+              "previous",
             ),
-            pokemonIndex: this.pokemonIndex - 1,
           },
+          query: { i: this.pokemonIndex - 1 },
         });
       }
     },
@@ -79,8 +82,8 @@ export default {
           name: "PokemonCardController",
           params: {
             pokemonId: this.getPokemonPaginationId(this.pokemonIndex, "next"),
-            pokemonIndex: this.pokemonIndex + 1,
           },
+          query: { i: this.pokemonIndex + 1 },
         });
       }
     },

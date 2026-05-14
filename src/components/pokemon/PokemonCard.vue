@@ -8,10 +8,10 @@
     >
       <!-- Pokemon Cover -->
       <section
-        v-touch:start="startHandler"
-        v-touch:moving="movePokemon"
-        v-touch:end="endHandler"
-        :class="['pokemon-cover section-1', {'isZoom': isPokemonZoom}]"
+        :class="['pokemon-cover section-1', { isZoom: isPokemonZoom }]"
+        @touchstart.passive="startHandler"
+        @touchmove.passive="movePokemon"
+        @touchend="endHandler"
       >
         <CardHeader
           :pokemon="pokemon"
@@ -46,7 +46,9 @@
           class="zoom-pokemon-button"
           @click="toggleZoom()"
         >
-          <span class="material-icons">{{ isPokemonZoom ? 'zoom_out' : 'zoom_in' }}</span>
+          <span class="material-icons">{{
+            isPokemonZoom ? "zoom_out" : "zoom_in"
+          }}</span>
         </BaseButtonIcon>
       </section>
 
@@ -55,7 +57,7 @@
         name="slide-v"
         mode="out-in"
       >
-        <section 
+        <section
           v-if="!isPokemonZoom"
           class="meta-container section-2"
         >
@@ -86,7 +88,7 @@
 
               <!-- Moves -->
               <div
-                v-if="metaItems[1].active"
+                v-else
                 key="tab-moves"
                 class="moves-container"
               >
@@ -95,9 +97,13 @@
                   :pokemon-id="pokemonId"
                   :types="pokemonTypes"
                 />
-                <div 
+                <div
                   v-else
-                  style="color: var(--color-text-disabled); text-align: center; padding: 60px 0;"
+                  style="
+                    color: var(--color-text-disabled);
+                    text-align: center;
+                    padding: 60px 0;
+                  "
                 >
                   <h5>Whups, comming soon</h5>
                   <h6>Only available for Kanto and Johto pokémon</h6>
@@ -115,7 +121,7 @@
     >
       <BaseProgressSpinner size="large" />
     </div>
-   
+
     <!-- Ability modal -->
     <BaseModal
       v-if="isAbilityModalOpen"
@@ -127,22 +133,25 @@
 </template>
 
 <script>
-import { toRef, computed } from 'vue'
+import { toRef, computed } from "vue";
 import BaseModal from "@/components/base/BaseModal";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
 import BaseButtonIcon from "@/components/base/BaseButtonIcon";
 import BaseTab from "@/components/base/BaseTab";
-import CardHeader from "@/components/pokemon/pokemon-card/CardHeader.vue"
-import CardSprite from "@/components/pokemon/pokemon-card/CardSprite.vue"
-import { usePokemon, usePokemonSpecies } from '@/composables/usePokeApi.js'
-import { getTypeGradients } from '@/utils/typeGradients.js'
+import CardHeader from "@/components/pokemon/pokemon-card/CardHeader.vue";
+import CardSprite from "@/components/pokemon/pokemon-card/CardSprite.vue";
+import { usePokemon, usePokemonSpecies } from "@/composables/usePokeApi.js";
+import { getTypeGradients } from "@/utils/typeGradients.js";
 import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
 import PokemonMoves from "@/components/pokemon/PokemonMoves.vue";
 
 import AbilityModal from "@/components/pokemon/AbilityModal.vue";
 
-const textures = import.meta.glob('/src/assets/PK_Textures/*.png', { eager: true, import: 'default' })
+const textures = import.meta.glob("/src/assets/PK_Textures/*.png", {
+  eager: true,
+  import: "default",
+});
 
 export default {
   name: "PokemonCard",
@@ -156,36 +165,36 @@ export default {
     PokemonAbout,
     PokemonBaseStats,
     PokemonMoves,
-    AbilityModal
+    AbilityModal,
   },
   props: {
     pokemonId: {
       type: [Number, String],
-      required: true
+      required: true,
     },
     pokemonIndex: {
       type: Number,
       required: false,
-      default: 0
+      default: 0,
     },
     isFirstPokemon: {
       type: Boolean,
-      required: true
+      required: true,
     },
     isLastPokemon: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
-    const pokemonId = toRef(props, 'pokemonId')
+    const pokemonId = toRef(props, "pokemonId");
 
-    const pokemonQuery = usePokemon(pokemonId)
-    const speciesQuery = usePokemonSpecies(pokemonId)
+    const pokemonQuery = usePokemon(pokemonId);
+    const speciesQuery = usePokemonSpecies(pokemonId);
 
     const pokemon = computed(() => {
-      const d = pokemonQuery.data.value
-      if (!d) return null
+      const d = pokemonQuery.data.value;
+      if (!d) return null;
       return {
         id: d.id,
         name: d.name,
@@ -195,13 +204,15 @@ export default {
         types: d.types,
         weight: d.weight,
         height: d.height,
-      }
-    })
+      };
+    });
 
     const pokemonSpecies = computed(() => {
-      const d = speciesQuery.data.value
-      if (!d) return null
-      const description = d.flavor_text_entries.find(e => e.language.name === 'en')
+      const d = speciesQuery.data.value;
+      if (!d) return null;
+      const description = d.flavor_text_entries.find(
+        (e) => e.language.name === "en",
+      );
       return {
         eggGroups: d.egg_groups,
         description,
@@ -209,14 +220,14 @@ export default {
         baseHappiness: d.base_happiness,
         growthRate: d.growth_rate.name,
         hatchCounter: d.hatch_counter,
-      }
-    })
+      };
+    });
 
     return {
       pokemon,
       pokemonSpecies,
       offloadSprite: pokemonQuery.isFetching,
-    }
+    };
   },
   data() {
     return {
@@ -235,58 +246,60 @@ export default {
       metaItems: [
         {
           name: "about",
-          active: true
+          active: true,
         },
         {
-          name: 'moves',
-          active: false
-        }
-      ]
+          name: "moves",
+          active: false,
+        },
+      ],
     };
   },
   computed: {
     pokemonTexture() {
-      return textures[`/src/assets/PK_Textures/${this.firstType}.png`]
+      return textures[`/src/assets/PK_Textures/${this.firstType}.png`];
     },
     isPokemonLoaded() {
       return this.pokemon && this.pokemonSpecies;
     },
     firstType() {
-      const type = this.pokemon.types.find(type => type.slot === 1);
+      const type = this.pokemon.types.find((type) => type.slot === 1);
       return type.type.name;
     },
     pokemonTypes() {
-      return this.pokemon.types.map(t => t.type.name)
+      return this.pokemon.types.map((t) => t.type.name);
     },
     getModalBackground() {
-      const gradient = getTypeGradients(this.isDark)[this.firstType]
+      const gradient = getTypeGradients(this.isDark)[this.firstType];
       return {
         backgroundImage: `url(${this.pokemonTexture}), ${gradient}`,
-        backgroundBlendMode: 'overlay, normal',
-        backgroundSize: 'cover, cover',
-      }
+        backgroundBlendMode: "overlay, normal",
+        backgroundSize: "cover, cover",
+      };
     },
   },
   mounted() {
-    this.clientWidth = document.documentElement.clientWidth
-    this.isDark = this._resolveIsDark()
+    this.clientWidth = document.documentElement.clientWidth;
+    this.isDark = this._resolveIsDark();
     this._themeObserver = new MutationObserver(() => {
-      this.isDark = this._resolveIsDark()
-    })
-    this._themeObserver.observe(document.documentElement, { attributeFilter: ['class'] })
+      this.isDark = this._resolveIsDark();
+    });
+    this._themeObserver.observe(document.documentElement, {
+      attributeFilter: ["class"],
+    });
   },
-  beforeDestroy() {
-    this._themeObserver?.disconnect()
+  beforeUnmount() {
+    this._themeObserver?.disconnect();
   },
   methods: {
     _resolveIsDark() {
-      const cl = document.documentElement.classList
-      if (cl.contains('theme-dark')) return true
-      if (cl.contains('theme-light')) return false
-      return window.matchMedia('(prefers-color-scheme: dark)').matches
+      const cl = document.documentElement.classList;
+      if (cl.contains("theme-dark")) return true;
+      if (cl.contains("theme-light")) return false;
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
     },
     changeMetaTab(index) {
-      this.metaItems.forEach(tab => {
+      this.metaItems.forEach((tab) => {
         tab.active = false;
       });
       this.metaItems[index].active = true;
@@ -301,72 +314,84 @@ export default {
     },
     swipePokemon(direction) {
       if (direction === "right") {
-        this.paginatePokemon ('previous')
+        this.paginatePokemon("previous");
       }
       if (direction === "left") {
-        this.paginatePokemon ('next')
+        this.paginatePokemon("next");
       }
     },
     startHandler(e) {
-      clearTimeout(this._resetTimer)
-      if (!e.changedTouches || e.changedTouches.length === 0) return
-      this.startTouch = e.changedTouches[0].clientX
+      clearTimeout(this._resetTimer);
+      if (!e.changedTouches || e.changedTouches.length === 0) return;
+      this.startTouch = e.changedTouches[0].clientX;
     },
-    movePokemon (e) {
-      if (!e.changedTouches || e.changedTouches.length === 0) return
-      const moveTouch = e.changedTouches[0].clientX
-      
-      const moving = Math.ceil((((moveTouch) / this.clientWidth * 100) -50) * 2.5)
-      const startPosition = Math.ceil((((this.startTouch) / this.clientWidth * 100) -50) * 2.5)
-      
-      this.toPositionPercentage = this.calcMovingPercentage(moving, startPosition)
+    movePokemon(e) {
+      if (!e.changedTouches || e.changedTouches.length === 0) return;
+      const moveTouch = e.changedTouches[0].clientX;
 
-      let pokemonSprite = document.getElementById('pokemon-sprite-id')
-      pokemonSprite.style.transform = `translateX(${this.toPositionPercentage}%)`
+      const moving = Math.ceil(
+        ((moveTouch / this.clientWidth) * 100 - 50) * 2.5,
+      );
+      const startPosition = Math.ceil(
+        ((this.startTouch / this.clientWidth) * 100 - 50) * 2.5,
+      );
+
+      this.toPositionPercentage = this.calcMovingPercentage(
+        moving,
+        startPosition,
+      );
+
+      let pokemonSprite = document.getElementById("pokemon-sprite-id");
+      pokemonSprite.style.transform = `translateX(${this.toPositionPercentage}%)`;
     },
-    calcMovingPercentage (moving, startPosition) {
-      const screenCenter = this.clientWidth / 2
-      let movingPositionPercentage = 0
+    calcMovingPercentage(moving, startPosition) {
+      const screenCenter = this.clientWidth / 2;
+      let movingPositionPercentage = 0;
       if (this.startTouch > screenCenter) {
-        movingPositionPercentage = moving - startPosition
+        movingPositionPercentage = moving - startPosition;
       } else if (this.startTouch < screenCenter) {
-        movingPositionPercentage = (startPosition - moving) * -1
+        movingPositionPercentage = (startPosition - moving) * -1;
       } else {
-        movingPositionPercentage = moving
+        movingPositionPercentage = moving;
       }
-      return movingPositionPercentage
+      return movingPositionPercentage;
     },
     endHandler() {
-      const percentageThreshold = 50
-      if(this.toPositionPercentage !== 0) {
-        if(this.toPositionPercentage < -percentageThreshold && !this.isLastPokemon) {
-          this.paginatePokemon('next')
-        } else if (this.toPositionPercentage > percentageThreshold && !this.isFirstPokemon) {
-          this.paginatePokemon('previous')
+      const percentageThreshold = 50;
+      if (this.toPositionPercentage !== 0) {
+        if (
+          this.toPositionPercentage < -percentageThreshold &&
+          !this.isLastPokemon
+        ) {
+          this.paginatePokemon("next");
+        } else if (
+          this.toPositionPercentage > percentageThreshold &&
+          !this.isFirstPokemon
+        ) {
+          this.paginatePokemon("previous");
         } else {
-          const spriteEl = document.getElementById('pokemon-sprite-id')
-          spriteEl.style = 'transition: transform .4s ease'
-          spriteEl.style.transform = 'translateX(0%)'
+          const spriteEl = document.getElementById("pokemon-sprite-id");
+          spriteEl.style = "transition: transform .4s ease";
+          spriteEl.style.transform = "translateX(0%)";
           this._resetTimer = setTimeout(() => {
-            spriteEl.style = 'transition: none'
-          }, 400)
+            spriteEl.style = "transition: none";
+          }, 400);
         }
       }
-      this.toPositionPercentage = 0
+      this.toPositionPercentage = 0;
     },
-    paginatePokemon (direction) {
-      this.slideDirection = (direction === 'next') ? 'slide-h-r' : 'slide-h-l'
-      this.$emit('paginate-pokemon', direction)
+    paginatePokemon(direction) {
+      this.slideDirection = direction === "next" ? "slide-h-r" : "slide-h-l";
+      this.$emit("paginate-pokemon", direction);
     },
-    toggleZoom () {
-      this.isPokemonZoom = !this.isPokemonZoom
-    }
-  }
+    toggleZoom() {
+      this.isPokemonZoom = !this.isPokemonZoom;
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-
 .pokemon-container {
   display: grid;
   height: 98vh;

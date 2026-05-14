@@ -9,33 +9,42 @@
         <BaseButtonIcon @click="openFilter">
           <span
             :class="['material-icons-round filter-item', { active: isFilter }]"
-            >filter_list</span
-          >
+          >filter_list</span>
         </BaseButtonIcon>
       </template>
     </Header>
-    <div v-if="fetchedCount > 0" class="default-page-margin pokedex-container">
+    <div
+      v-if="fetchedCount > 0"
+      class="default-page-margin pokedex-container"
+    >
       <ul>
         <router-link
           v-for="(pokemon, index) in visiblePokemon"
           :key="pokemon.id"
-          tag="li"
+          v-slot="{ navigate }"
+          custom
           :to="{
             name: 'PokemonCardController',
-            params: {
-              pokemonId: pokemon.id,
-              pokemonIndex: index,
-            },
+            params: { pokemonId: pokemon.id },
+            query: { i: index },
           }"
         >
-          <PokedexItem :pokemon="pokemon" />
+          <li @click="navigate">
+            <PokedexItem :pokemon="pokemon" />
+          </li>
         </router-link>
       </ul>
     </div>
-    <div v-else class="loading">
+    <div
+      v-else
+      class="loading"
+    >
       <BaseProgressSpinner size="large" />
     </div>
-    <div ref="trigger" class="trigger" />
+    <div
+      ref="trigger"
+      class="trigger"
+    />
 
     <!-- Filter -->
     <BaseModal
@@ -44,7 +53,10 @@
       drag-handler
       @closeModal="closeFilter"
     >
-      <FilterPokemon :is-filter="isFilter" @applyFilters="updateFilters" />
+      <FilterPokemon
+        :is-filter="isFilter"
+        @applyFilters="updateFilters"
+      />
     </BaseModal>
 
     <div v-if="isPokemonModal">
@@ -121,7 +133,7 @@ export default {
   mounted() {
     this.setPokedexMap(this.filters);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this._observer) {
       this._observer.disconnect();
     }
@@ -133,11 +145,11 @@ export default {
         queryFn: () => fetchPokemonForm(id),
         staleTime: STALE,
       });
-      this.$set(this.pokemonList, index, {
+      this.pokemonList[index] = {
         id: data.id,
         name: data.name,
         types: data.types,
-      });
+      };
       this.fetchedCount++;
     },
 
@@ -152,8 +164,8 @@ export default {
 
       await Promise.all(
         Array.from({ length: end - start }, (_, i) =>
-          this.fetchPokemon(this.pokemonList[start + i].id, start + i)
-        )
+          this.fetchPokemon(this.pokemonList[start + i].id, start + i),
+        ),
       );
 
       this.isLoadingBatch = false;

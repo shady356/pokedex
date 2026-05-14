@@ -24,7 +24,7 @@
           v-for="item in pokemon.abilities"
           :key="item.ability.name"
           class="ability clickable"
-          @click.native="$emit('openAbilityModal', item.ability)"
+          @click="$emit('openAbilityModal', item.ability)"
         >
           {{ item.ability.name }}
           <span
@@ -75,17 +75,15 @@
         Breeding
       </h3>
 
-      <!-- Egg group -->
       <div class="data-row">
         <div class="label">
           Egg Group
         </div>
         <div class="value capitalize">
-          {{ pokemonSpecies.eggGroups | eggGroups }}
+          {{ formatEggGroups(pokemonSpecies.eggGroups) }}
         </div>
       </div>
 
-      <!-- Hatch counter -->
       <div class="data-row">
         <div class="label">
           Hatch Counter
@@ -100,12 +98,12 @@
     <section class="physique-container">
       <div class="weight">
         <span class="material-icons icon">fitness_center</span>
-        {{ pokemon.weight | toKilogram }}
+        {{ toKilogram(pokemon.weight) }}
       </div>
 
       <div class="height">
         <span class="material-icons icon">straighten</span>
-        {{ pokemon.height | toMeter }}
+        {{ toMeter(pokemon.height) }}
       </div>
     </section>
   </div>
@@ -116,147 +114,137 @@ import BaseTag from "@/components/base/BaseTag.vue";
 export default {
   name: "PokemonAbout",
   components: {
-    BaseTag
+    BaseTag,
   },
-  filters: {
+  props: {
+    pokemon: {
+      type: Object,
+      required: true,
+    },
+    pokemonSpecies: {
+      type: Object,
+      required: true,
+    },
+  },
+  methods: {
     toMeter(value) {
-      value /= 10;
       return new Intl.NumberFormat("en-UK", {
         style: "unit",
         unit: "meter",
         unitDisplay: "short",
         minimumSignificantDigits: 2,
-        maximumSignificantDigits: 2
-      }).format(value);
+        maximumSignificantDigits: 2,
+      }).format(value / 10);
     },
     toKilogram(value) {
-      value /= 10;
       return new Intl.NumberFormat("en-UK", {
         style: "unit",
         unit: "kilogram",
         unitDisplay: "short",
         minimumSignificantDigits: 2,
-        maximumSignificantDigits: 2
-      }).format(value);
+        maximumSignificantDigits: 2,
+      }).format(value / 10);
     },
-    eggGroups(value) {
-      let eggs = "";
-      value.forEach((item, index) => {
-        if (index === value.length - 1) {
-          eggs += item.name;
-        } else {
-          eggs += item.name + ", ";
-        }
-      });
-      return eggs;
-    }
+    formatEggGroups(value) {
+      return value.map((item) => item.name).join(", ");
+    },
   },
-  props: {
-    pokemon: {
-      type: Object,
-      required: true
-    },
-    pokemonSpecies: {
-      type: Object,
-      required: true
-    }
-  }
 };
 </script>
 
 <style lang="scss" scoped>
-  .about-container {
-    padding-bottom: $space-48;
+.about-container {
+  padding-bottom: $space-48;
 
-    section {
-      padding: $space-16;
+  section {
+    padding: $space-16;
 
-      .title {
-        margin-bottom: $space-4;
+    .title {
+      margin-bottom: $space-4;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .data-row {
+      display: flex;
+      padding: $space-4 0;
+      font-size: $font-s;
+      width: 100%;
+
+      .label {
+        flex-basis: 35%;
+        padding-right: $space-12;
+        color: var(--color-text-light);
+      }
+      .value {
+        flex-basis: 65%;
+        color: var(--color-text);
+      }
+    }
+
+    &.description-container {
+      background: var(--color-bg-primary);
+      border-radius: $space-12;
+      margin-bottom: $space-12;
+      border: 1px solid var(--color-border);
+
+      .quote {
+        color: var(--color-text-light);
+        font-size: $font-xs;
+        margin-top: $space-4;
+        text-align: right;
+      }
+    }
+
+    .abilities-container {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: $space-8;
+
+      .ability {
+        margin-right: $space-8;
+        cursor: pointer;
+
+        .icon {
+          margin-left: $space-2;
+          font-size: $space-8;
+          color: var(--color-accent);
+        }
+
+        &.clickable:hover {
+          opacity: 0.75;
+        }
+      }
+    }
+
+    &.physique-container {
+      display: flex;
+      justify-content: space-evenly;
+
+      .weight {
         display: flex;
         align-items: center;
-        font-size: 14px;
-      }
 
-      .data-row {
+        .icon {
+          color: var(--color-primary);
+          font-size: $space-12;
+          margin-right: $space-4;
+        }
+      }
+      .height {
         display: flex;
-        padding: $space-4 0;
-        font-size: $font-s;
-        width: 100%;
+        align-items: center;
 
-        .label {
-          flex-basis: 35%;
-          padding-right: $space-12;
-          color: var(--color-text-light);
-        }
-        .value {
-          flex-basis: 65%;
-          color: var(--color-text);
-        }
-      }
-
-      &.description-container {
-        background: var(--color-bg-primary);
-        border-radius: $space-12;
-        margin-bottom: $space-12;
-        border: 1px solid var(--color-border);
-
-        .quote {
-          color: var(--color-text-light);
-          font-size: $font-xs;
-          margin-top: $space-4;
-          text-align: right;
-        }
-      }
-
-      .abilities-container {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        padding-bottom: $space-8;
-
-        .ability {
-          margin-right: $space-8;
-          cursor: pointer;
-
-          .icon {
-            margin-left: $space-2;
-            font-size: $space-8;
-            color: var(--color-accent);
-          }
-
-          &.clickable:hover {
-            opacity: 0.75;
-          }
-        }
-      }
-
-      &.physique-container {
-        display: flex;
-        justify-content: space-evenly;
-
-        .weight {
-          display: flex;
-          align-items: center;
-
-          .icon {
-            color: var(--color-primary);
-            font-size: $space-12;
-            margin-right: $space-4;
-          }
-        }
-        .height {
-          display: flex;
-          align-items: center;
-
-          .icon {
-            font-size: $space-12;
-            color: var(--color-primary);
-            margin-right: $space-4;
-            transform: rotate(90deg);
-          }
+        .icon {
+          font-size: $space-12;
+          color: var(--color-primary);
+          margin-right: $space-4;
+          transform: rotate(90deg);
         }
       }
     }
   }
+}
 </style>

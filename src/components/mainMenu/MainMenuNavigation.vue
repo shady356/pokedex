@@ -9,10 +9,7 @@
         tag="li"
       >
         <div class="navigation-list-item__icon-container">
-          <Component
-            :is="item.component"
-            class="navigation-list-item__icon"
-          />
+          <Component :is="item.component" class="navigation-list-item__icon" />
         </div>
         <div class="navigation-list-item__text uppercase letter-spacing">
           {{ item.name }}
@@ -23,15 +20,15 @@
 </template>
 
 <script>
-import PokeballIcon from '@/assets/home-icons/PokeballIcon.vue'
-import PokedexIcon from '@/assets/home-icons/PokedexIcon.vue'
-import SettingsIcon from '@/assets/home-icons/SettingsIcon.vue'
+import PokeballIcon from "@/assets/home-icons/PokeballIcon.vue";
+import PokedexIcon from "@/assets/home-icons/PokedexIcon.vue";
+import SettingsIcon from "@/assets/home-icons/SettingsIcon.vue";
 export default {
-  name: 'MainMenuItems',
+  name: "MainMenuItems",
   components: {
     PokeballIcon,
     PokedexIcon,
-    SettingsIcon
+    SettingsIcon,
   },
   data() {
     return {
@@ -50,11 +47,11 @@ export default {
           name: "Settings",
           route: "Settings",
           component: "SettingsIcon",
-        }
-      ]
+        },
+      ],
     };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -85,6 +82,7 @@ nav {
   flex-direction: column;
   justify-content: center;
   margin-bottom: $space-24;
+  text-decoration: none;
   transition: transform 50ms ease-in-out;
 
   &:active {
@@ -105,19 +103,21 @@ nav {
 
   &__icon-container:after {
     position: absolute;
-    content: '';
+    content: "";
     width: 40px;
     height: 100px;
     top: -55px;
     left: -30px;
     transform: rotate(45deg);
     visibility: hidden;
-    animation: glare 2000ms cubic-bezier(0.270, 0.790, 0.350, 1.210);
+    animation: glare 2000ms cubic-bezier(0.27, 0.79, 0.35, 1.21);
     animation-delay: 1000ms;
-    background: linear-gradient(to right,
-        rgba(255, 255, 255, 0.0) 0%,
-        rgba(255, 255, 255, 0.3) 50%,
-        rgba(255, 255, 255, 0.0) 100%);
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
   }
 
   &__icon {
@@ -126,7 +126,7 @@ nav {
     color: var(--color-secondary-fg);
     font-size: $space-32;
   }
-  
+
   &__text {
     color: var(--color-text);
     font-size: $font-s;
@@ -156,5 +156,4 @@ nav {
     margin-top: $space-8;
   }
 }
-
 </style>

@@ -40,7 +40,10 @@
       "PowerShell(node scripts/gen_water_texture.mjs)",
       "Bash(node scripts/gen_all_textures.mjs)",
       "Bash(New-Item -ItemType Directory -Path \"C:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\.claude\\\\skills\\\\refactor\" -Force)",
-      "Bash(mkdir -p \"c:/Users/henri/Documents/code/pokedex/.claude/skills/refactor\")"
+      "Bash(mkdir -p \"c:/Users/henri/Documents/code/pokedex/.claude/skills/refactor\")",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/vue-router/package.json'\\).version\\)\")",
+      "Bash(Remove-Item -Recurse -Force node_modules/.vite -ErrorAction SilentlyContinue)",
+      "Bash(node -e \"const r = require\\('c:/Users/henri/Documents/code/pokedex/node_modules/vue-router'\\); console.log\\(Object.keys\\(r\\).filter\\(k => k.includes\\('create'\\) || k.includes\\('Router'\\)\\)\\)\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\henri\\Documents\\code\\pokedex\\.claude\\skills"

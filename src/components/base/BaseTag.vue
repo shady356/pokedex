@@ -10,11 +10,12 @@
 <script>
 export default {
   name: "BaseTag",
+  emits: ["click"],
   methods: {
     clicked() {
       this.$emit("click");
-    }
-  }
+    },
+  },
 };
 </script>
 
