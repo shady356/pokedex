@@ -16,34 +16,28 @@
         </th>
       </thead>
       <tbody>
-        <tr
-          v-for="(item, index) in items"
-          :key="index"
-        >
-          <td :class="['name', { 'is-same-type': isSameType(item.type) }]">
+        <tr v-for="(item, index) in items" :key="index">
+          <td
+            :class="[
+              'name',
+              { 'is-same-type': item.type && isSameType(item.type) },
+            ]"
+          >
             {{ item.name }}
-            <div
-              v-if="isLevelUp"
-              class="level"
-            >
-              Level {{ item.level }}
-            </div>
+            <div v-if="isLevelUp" class="level">Level {{ item.level }}</div>
           </td>
           <td class="type">
             <BaseTypeTag
-              :type="item.type"
+              :type="item.type as PokemonTypeName"
               class="tag-item"
             />
           </td>
-          <td
-            class="category"
-            :title="item.category"
-          >
+          <td class="category" :title="item.category">
             <img
               class="category-img"
               :src="getItemCategoryImageSrc(item.category)"
               :alt="item.category"
-            >
+            />
           </td>
           <td class="power number">
             {{ formatPower(item.power) }}
@@ -57,24 +51,33 @@
   </div>
 </template>
 
-<script>
-import BaseTypeTag from "@/components/base/BaseTypeTag";
-import { $getTypeColor } from "@/helpers/types.js";
+<script lang="ts">
+import { defineComponent, type PropType } from "vue";
+import BaseTypeTag from "@/components/base/BaseTypeTag.vue";
+import { $getTypeColor, type PokemonTypeName } from "@/helpers/types";
 import moveSpecial from "@/assets/icons/move_types/move-special.png";
 import movePhysical from "@/assets/icons/move_types/move-physical.png";
 import moveStatus from "@/assets/icons/move_types/move-status.png";
-export default {
+
+interface MoveItem {
+  name: string;
+  type: string | undefined;
+  category: string | undefined;
+  power: number | null;
+  accuracy: number | null;
+  level?: number;
+}
+
+export default defineComponent({
   name: "BaseMoveTable",
-  components: {
-    BaseTypeTag,
-  },
+  components: { BaseTypeTag },
   props: {
     headers: {
-      type: Array,
+      type: Array as PropType<string[]>,
       required: true,
     },
     items: {
-      type: Array,
+      type: Array as PropType<MoveItem[]>,
       required: true,
     },
     title: {
@@ -86,38 +89,35 @@ export default {
       required: true,
     },
     types: {
-      type: Array,
+      type: Array as PropType<string[]>,
       required: true,
     },
   },
-  data() {
-    return {};
-  },
   computed: {
-    isLevelUp() {
+    isLevelUp(): boolean {
       return this.category === "levelUp";
     },
   },
   methods: {
-    getTypeColor(type) {
+    getTypeColor(type: PokemonTypeName): string {
       return $getTypeColor(type);
     },
-    isSameType(type) {
+    isSameType(type: string): boolean {
       return this.types.includes(type);
     },
-    getItemCategoryImageSrc(category) {
+    getItemCategoryImageSrc(category: string | undefined): string {
       if (category === "special") return moveSpecial;
       if (category === "physical") return movePhysical;
       return moveStatus;
     },
-    formatPower(value) {
-      return value !== null ? value : "–";
+    formatPower(value: number | null): string {
+      return value !== null ? String(value) : "–";
     },
-    formatAccuracy(value) {
+    formatAccuracy(value: number | null): string {
       return value !== null ? value + "%" : "–";
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

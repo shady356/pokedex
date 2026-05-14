@@ -9,75 +9,61 @@
       :src="getTypeIcon()"
       class="icon icon--skewed"
       alt="icon"
-    >
+    />
 
     <div class="type-tag-container__text">
       {{ type }}
     </div>
   </button>
 
-  <button
-    v-else-if="type && !displayName"
-    class="icon-button"
-  >
+  <button v-else-if="type && !displayName" class="icon-button">
     <img
       :style="{ backgroundColor: getTypeColor() }"
       :src="getTypeIcon()"
       class="icon icon--circle"
       alt="icon"
-    >
+    />
   </button>
 
-  <div
-    v-else
-    class="type-tag-container"
-  >
-    <div class="type-tag-container__empty-text">
-      –
-    </div>
+  <div v-else class="type-tag-container">
+    <div class="type-tag-container__empty-text">–</div>
   </div>
 </template>
 
-<script>
-import { $getTypeColor } from "@/helpers/types.js";
+<script lang="ts">
+import { defineComponent } from "vue";
+import type { PropType } from "vue";
+import { $getTypeColor } from "@/helpers/types";
+import type { PokemonTypeName } from "@/helpers/types";
 
-export default {
+export default defineComponent({
   name: "BaseTypeTag",
-  components: {},
   props: {
     type: {
-      type: String,
-      required: false,
+      type: String as PropType<PokemonTypeName>,
       default: undefined,
     },
     displayName: {
       type: Boolean,
-      required: false,
       default: false,
     },
   },
-  data() {
-    return {
-      isModalOpen: false,
-    };
-  },
+  emits: ["click"],
   methods: {
     click() {
       this.$emit("click");
     },
-
-    getTypeColor() {
-      return $getTypeColor(this.type);
+    getTypeColor(): string {
+      return $getTypeColor(this.type as PokemonTypeName);
     },
-
-    getTypeIcon() {
+    getTypeIcon(): string {
       return new URL(
         `../../assets/icons/types/${this.type}.svg`,
         import.meta.url,
       ).href;
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

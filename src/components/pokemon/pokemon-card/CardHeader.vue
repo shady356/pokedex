@@ -6,37 +6,34 @@
       </h2>
     </div>
 
-    <div class="index-number">
-      #{{ getIndex(pokemonId) }}
-    </div>
+    <div class="index-number">#{{ getIndex(pokemonId) }}</div>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, type PropType } from "vue";
+
+export default defineComponent({
   props: {
     pokemon: {
-      type: Object,
+      type: Object as PropType<Record<string, any>>,
       required: true,
-      default: () => {}
+      default: () => ({}),
     },
     pokemonId: {
-      type: [Number, String],
-      required: true
-    }
+      type: [Number, String] as PropType<number | string>,
+      required: true,
+    },
   },
   methods: {
-    getIndex(value) {
-      if (value < 10) {
-        return "00" + value;
-      } else if (value < 100) {
-        return "0" + value;
-      } else {
-        return value;
-      }
+    getIndex(value: number | string): string {
+      const n = Number(value);
+      if (n < 10) return "00" + n;
+      if (n < 100) return "0" + n;
+      return String(n);
     },
-  }
-}
+  },
+});
 </script>
 
 <style lang="scss" scoped>

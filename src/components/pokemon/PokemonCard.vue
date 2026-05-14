@@ -13,10 +13,7 @@
         @touchmove.passive="movePokemon"
         @touchend="endHandler"
       >
-        <CardHeader
-          :pokemon="pokemon"
-          :pokemon-id="pokemonId"
-        />
+        <CardHeader :pokemon="pokemon!" :pokemon-id="pokemonId" />
         <!-- Pagination buttons -->
         <div class="pagination-buttons">
           <BaseButtonIcon
@@ -38,14 +35,11 @@
           :slide-direction="slideDirection"
           :pokemon-id="pokemonId"
           :offload-sprite="offloadSprite"
-          :pokemon="pokemon"
+          :pokemon="pokemon!"
           :is-pokemon-zoom="isPokemonZoom"
         />
         <!-- Zoom on sprite button -->
-        <BaseButtonIcon
-          class="zoom-pokemon-button"
-          @click="toggleZoom()"
-        >
+        <BaseButtonIcon class="zoom-pokemon-button" @click="toggleZoom()">
           <span class="material-icons">{{
             isPokemonZoom ? "zoom_out" : "zoom_in"
           }}</span>
@@ -53,47 +47,34 @@
       </section>
 
       <!-- Meta card container -->
-      <transition
-        name="slide-v"
-        mode="out-in"
-      >
-        <section
-          v-if="!isPokemonZoom"
-          class="meta-container section-2"
-        >
+      <transition name="slide-v" mode="out-in">
+        <section v-if="!isPokemonZoom" class="meta-container section-2">
           <BaseTab
             class="tab-header"
             :items="metaItems"
-            @changeTab="changeMetaTab"
+            @change-tab="changeMetaTab"
           />
 
           <div class="tab-content">
-            <transition
-              name="fade"
-              mode="out-in"
-            >
+            <transition name="fade" mode="out-in">
               <!-- About -->
               <div
                 v-if="metaItems[0].active"
                 key="tab-about"
                 class="about-container"
               >
-                <PokemonBaseStats :pokemon="pokemon" />
+                <PokemonBaseStats :pokemon="pokemon!" />
                 <PokemonAbout
-                  :pokemon="pokemon"
-                  :pokemon-species="pokemonSpecies"
-                  @openAbilityModal="openAbilityModal"
+                  :pokemon="pokemon!"
+                  :pokemon-species="pokemonSpecies!"
+                  @open-ability-modal="openAbilityModal"
                 />
               </div>
 
               <!-- Moves -->
-              <div
-                v-else
-                key="tab-moves"
-                class="moves-container"
-              >
+              <div v-else key="tab-moves" class="moves-container">
                 <PokemonMoves
-                  v-if="pokemonId <= 251"
+                  v-if="Number(pokemonId) <= 251"
                   :pokemon-id="pokemonId"
                   :types="pokemonTypes"
                 />
@@ -115,45 +96,39 @@
       </transition>
     </div>
     <!-- Loading screen -->
-    <div
-      v-else
-      class="loading-screen"
-    >
+    <div v-else class="loading-screen">
       <BaseProgressSpinner size="large" />
     </div>
 
     <!-- Ability modal -->
-    <BaseModal
-      v-if="isAbilityModalOpen"
-      @closeModal="closeAbilityModal"
-    >
-      <AbilityModal :ability-name="currentAbilityInModal" />
+    <BaseModal v-if="isAbilityModalOpen" @close-modal="closeAbilityModal">
+      <AbilityModal :ability-name="currentAbilityInModal ?? ''" />
     </BaseModal>
   </div>
 </template>
 
-<script>
-import { toRef, computed } from "vue";
-import BaseModal from "@/components/base/BaseModal";
-import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
-import BaseButtonIcon from "@/components/base/BaseButtonIcon";
-import BaseTab from "@/components/base/BaseTab";
+<script lang="ts">
+import { defineComponent, toRef, computed, markRaw, type PropType } from "vue";
+import BaseModal from "@/components/base/BaseModal.vue";
+import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
+import BaseButtonIcon from "@/components/base/BaseButtonIcon.vue";
+import BaseTab from "@/components/base/BaseTab.vue";
 import CardHeader from "@/components/pokemon/pokemon-card/CardHeader.vue";
 import CardSprite from "@/components/pokemon/pokemon-card/CardSprite.vue";
-import { usePokemon, usePokemonSpecies } from "@/composables/usePokeApi.js";
-import { getTypeGradients } from "@/utils/typeGradients.js";
+import { usePokemon, usePokemonSpecies } from "@/composables/usePokeApi";
+import { getTypeGradients } from "@/utils/typeGradients";
 import PokemonAbout from "@/components/pokemon/PokemonAbout.vue";
 import PokemonBaseStats from "@/components/pokemon/PokemonBaseStats.vue";
 import PokemonMoves from "@/components/pokemon/PokemonMoves.vue";
-
 import AbilityModal from "@/components/pokemon/AbilityModal.vue";
+import type { PokemonTypeName } from "@/helpers/types";
 
-const textures = import.meta.glob("/src/assets/PK_Textures/*.png", {
-  eager: true,
-  import: "default",
-});
+const textures: Record<string, string> = import.meta.glob(
+  "/src/assets/PK_Textures/*.png",
+  { eager: true, import: "default" },
+);
 
-export default {
+export default defineComponent({
   name: "PokemonCard",
   components: {
     BaseModal,
@@ -169,12 +144,11 @@ export default {
   },
   props: {
     pokemonId: {
-      type: [Number, String],
+      type: [Number, String] as PropType<number | string>,
       required: true,
     },
     pokemonIndex: {
       type: Number,
-      required: false,
       default: 0,
     },
     isFirstPokemon: {
@@ -186,9 +160,9 @@ export default {
       required: true,
     },
   },
+  emits: ["paginate-pokemon"],
   setup(props) {
     const pokemonId = toRef(props, "pokemonId");
-
     const pokemonQuery = usePokemon(pokemonId);
     const speciesQuery = usePokemonSpecies(pokemonId);
 
@@ -211,7 +185,7 @@ export default {
       const d = speciesQuery.data.value;
       if (!d) return null;
       const description = d.flavor_text_entries.find(
-        (e) => e.language.name === "en",
+        (e: any) => e.language.name === "en",
       );
       return {
         eggGroups: d.egg_groups,
@@ -223,11 +197,7 @@ export default {
       };
     });
 
-    return {
-      pokemon,
-      pokemonSpecies,
-      offloadSprite: pokemonQuery.isFetching,
-    };
+    return { pokemon, pokemonSpecies, offloadSprite: pokemonQuery.isFetching };
   },
   data() {
     return {
@@ -238,39 +208,34 @@ export default {
       slideDirection: "",
       clientWidth: 0,
       isDark: false,
-
-      // Ability modal
       isAbilityModalOpen: false,
-      currentAbilityInModal: null,
-
+      currentAbilityInModal: null as string | null,
+      _resetTimer: undefined as ReturnType<typeof setTimeout> | undefined,
+      _themeObserver: null as MutationObserver | null,
       metaItems: [
-        {
-          name: "about",
-          active: true,
-        },
-        {
-          name: "moves",
-          active: false,
-        },
+        { name: "about", active: true },
+        { name: "moves", active: false },
       ],
     };
   },
   computed: {
-    pokemonTexture() {
+    pokemonTexture(): string {
       return textures[`/src/assets/PK_Textures/${this.firstType}.png`];
     },
-    isPokemonLoaded() {
-      return this.pokemon && this.pokemonSpecies;
+    isPokemonLoaded(): boolean {
+      return !!(this.pokemon && this.pokemonSpecies);
     },
-    firstType() {
-      const type = this.pokemon.types.find((type) => type.slot === 1);
-      return type.type.name;
+    firstType(): string {
+      const type = this.pokemon!.types.find((t: any) => t.slot === 1);
+      return type?.type.name ?? "";
     },
-    pokemonTypes() {
-      return this.pokemon.types.map((t) => t.type.name);
+    pokemonTypes(): string[] {
+      return this.pokemon!.types.map((t: any) => t.type.name);
     },
-    getModalBackground() {
-      const gradient = getTypeGradients(this.isDark)[this.firstType];
+    getModalBackground(): Record<string, string> {
+      const gradient = getTypeGradients(this.isDark)[
+        this.firstType as PokemonTypeName
+      ];
       return {
         backgroundImage: `url(${this.pokemonTexture}), ${gradient}`,
         backgroundBlendMode: "overlay, normal",
@@ -281,9 +246,11 @@ export default {
   mounted() {
     this.clientWidth = document.documentElement.clientWidth;
     this.isDark = this._resolveIsDark();
-    this._themeObserver = new MutationObserver(() => {
-      this.isDark = this._resolveIsDark();
-    });
+    this._themeObserver = markRaw(
+      new MutationObserver(() => {
+        this.isDark = this._resolveIsDark();
+      }),
+    );
     this._themeObserver.observe(document.documentElement, {
       attributeFilter: ["class"],
     });
@@ -292,69 +259,56 @@ export default {
     this._themeObserver?.disconnect();
   },
   methods: {
-    _resolveIsDark() {
+    _resolveIsDark(): boolean {
       const cl = document.documentElement.classList;
       if (cl.contains("theme-dark")) return true;
       if (cl.contains("theme-light")) return false;
       return window.matchMedia("(prefers-color-scheme: dark)").matches;
     },
-    changeMetaTab(index) {
+    changeMetaTab(index: number) {
       this.metaItems.forEach((tab) => {
         tab.active = false;
       });
       this.metaItems[index].active = true;
     },
-
-    openAbilityModal(ability) {
+    openAbilityModal(ability: { name: string }) {
       this.currentAbilityInModal = ability.name;
       this.isAbilityModalOpen = true;
     },
     closeAbilityModal() {
       this.isAbilityModalOpen = false;
     },
-    swipePokemon(direction) {
-      if (direction === "right") {
-        this.paginatePokemon("previous");
-      }
-      if (direction === "left") {
-        this.paginatePokemon("next");
-      }
+    swipePokemon(direction: string) {
+      if (direction === "right") this.paginatePokemon("previous");
+      if (direction === "left") this.paginatePokemon("next");
     },
-    startHandler(e) {
+    startHandler(e: TouchEvent) {
       clearTimeout(this._resetTimer);
       if (!e.changedTouches || e.changedTouches.length === 0) return;
       this.startTouch = e.changedTouches[0].clientX;
     },
-    movePokemon(e) {
+    movePokemon(e: TouchEvent) {
       if (!e.changedTouches || e.changedTouches.length === 0) return;
       const moveTouch = e.changedTouches[0].clientX;
-
       const moving = Math.ceil(
         ((moveTouch / this.clientWidth) * 100 - 50) * 2.5,
       );
       const startPosition = Math.ceil(
         ((this.startTouch / this.clientWidth) * 100 - 50) * 2.5,
       );
-
       this.toPositionPercentage = this.calcMovingPercentage(
         moving,
         startPosition,
       );
-
-      let pokemonSprite = document.getElementById("pokemon-sprite-id");
-      pokemonSprite.style.transform = `translateX(${this.toPositionPercentage}%)`;
+      const pokemonSprite = document.getElementById("pokemon-sprite-id");
+      if (pokemonSprite)
+        pokemonSprite.style.transform = `translateX(${this.toPositionPercentage}%)`;
     },
-    calcMovingPercentage(moving, startPosition) {
+    calcMovingPercentage(moving: number, startPosition: number): number {
       const screenCenter = this.clientWidth / 2;
-      let movingPositionPercentage = 0;
-      if (this.startTouch > screenCenter) {
-        movingPositionPercentage = moving - startPosition;
-      } else if (this.startTouch < screenCenter) {
-        movingPositionPercentage = (startPosition - moving) * -1;
-      } else {
-        movingPositionPercentage = moving;
-      }
-      return movingPositionPercentage;
+      if (this.startTouch > screenCenter) return moving - startPosition;
+      if (this.startTouch < screenCenter) return (startPosition - moving) * -1;
+      return moving;
     },
     endHandler() {
       const percentageThreshold = 50;
@@ -371,16 +325,18 @@ export default {
           this.paginatePokemon("previous");
         } else {
           const spriteEl = document.getElementById("pokemon-sprite-id");
-          spriteEl.style = "transition: transform .4s ease";
-          spriteEl.style.transform = "translateX(0%)";
-          this._resetTimer = setTimeout(() => {
-            spriteEl.style = "transition: none";
-          }, 400);
+          if (spriteEl) {
+            spriteEl.style.cssText = "transition: transform .4s ease";
+            spriteEl.style.transform = "translateX(0%)";
+            this._resetTimer = setTimeout(() => {
+              spriteEl.style.cssText = "transition: none";
+            }, 400);
+          }
         }
       }
       this.toPositionPercentage = 0;
     },
-    paginatePokemon(direction) {
+    paginatePokemon(direction: string) {
       this.slideDirection = direction === "next" ? "slide-h-r" : "slide-h-l";
       this.$emit("paginate-pokemon", direction);
     },
@@ -388,7 +344,7 @@ export default {
       this.isPokemonZoom = !this.isPokemonZoom;
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

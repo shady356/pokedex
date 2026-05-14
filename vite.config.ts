@@ -39,7 +39,7 @@ export default defineConfig(({ mode }) => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-    extensions: [".mjs", ".js", ".jsx", ".json", ".vue"],
+    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", ".vue"],
   },
   css: {
     preprocessorOptions: {

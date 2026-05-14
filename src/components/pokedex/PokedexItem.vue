@@ -1,47 +1,35 @@
 <template>
-  <div
-    v-if="pokemon && pokemon.name"
-    class="sprite"
-  >
-    <img
-      class="sprite__image"
-      :src="sprite"
-      alt=""
-    >
+  <div v-if="pokemon && pokemon.name" class="sprite">
+    <img class="sprite__image" :src="sprite" alt="" />
   </div>
-  <div
-    v-else
-    class="sprite--empty"
-  />
+  <div v-else class="sprite--empty" />
 </template>
 
-<script>
-import { $getTypeColor } from "@/helpers/types.js";
-import {getPokemonSpriteByName} from '@/helpers/sprites.js'
-export default {
+<script lang="ts">
+import { defineComponent, type PropType } from "vue";
+import { $getTypeColor, type PokemonTypeName } from "@/helpers/types";
+import { getPokemonSpriteByName } from "@/helpers/sprites";
+import type { PokemonEntry } from "@/helpers/pokedexFilters";
+
+export default defineComponent({
   name: "PokedexItem",
   props: {
     pokemon: {
-      type: Object,
-      required: true
-    }
+      type: Object as PropType<PokemonEntry>,
+      required: true,
+    },
   },
   computed: {
-    spriteStyle () {
-      return {
-        boxShadow: ` 0 0 3px ${this.typeColor()}`,
-      }
+    sprite(): string {
+      return getPokemonSpriteByName(this.pokemon.name);
     },
-    sprite() {
-      return getPokemonSpriteByName(this.pokemon.name)
-    }
   },
   methods: {
-    typeColor () {
-      return $getTypeColor(this.pokemon.types[0].type.name)
+    typeColor(): string {
+      return $getTypeColor(this.pokemon.types[0].type.name as PokemonTypeName);
     },
-  }
-};
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -58,12 +46,12 @@ export default {
   &:active {
     transform: scale(1.05);
   }
-  
+
   &__image {
     width: 75%;
     height: 75%;
   }
-  
+
   &--empty {
     background-color: var(--color-bg-secondary);
   }

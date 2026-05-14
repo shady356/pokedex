@@ -1,13 +1,11 @@
 <template>
   <div>
-    <Radar
-      :data="chartData"
-      :options="options"
-    />
+    <Radar :data="chartData" :options="options" />
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, type PropType } from "vue";
 import {
   Chart,
   RadarController,
@@ -17,6 +15,8 @@ import {
   Filler,
   Tooltip,
   Legend,
+  type ChartData,
+  type ChartOptions,
 } from "chart.js";
 import { Radar } from "vue-chartjs";
 
@@ -30,18 +30,18 @@ Chart.register(
   Legend,
 );
 
-export default {
+export default defineComponent({
   name: "PokemonBaseStatChart",
   components: { Radar },
   props: {
     chartData: {
-      type: Object,
+      type: Object as PropType<ChartData<"radar">>,
       required: true,
     },
     options: {
-      type: Object,
+      type: Object as PropType<ChartOptions<"radar">>,
       required: true,
     },
   },
-};
+});
 </script>

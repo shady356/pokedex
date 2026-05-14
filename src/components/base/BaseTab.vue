@@ -5,7 +5,6 @@
         v-for="(item, index) in items"
         :key="index"
         :class="['tab-item', { active: item.active }]"
-     
         @click="changeTab(index)"
       >
         <div class="text uppercase condensed">
@@ -16,39 +15,48 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+import { PropType } from "vue";
+
+type TabItem = {
+  name: string;
+  active: boolean;
+};
+
+export default defineComponent({
   name: "BaseTab",
   props: {
     items: {
-      type: Array,
-      required: true
-    }
+      type: Array as PropType<TabItem[]>,
+      required: true,
+    },
   },
+  emits: ["changeTab"],
   data() {
     return {
-      activeIndex: 0
+      activeIndex: 0,
     };
   },
   computed: {
-    numberOfItems() {
+    numberOfItems(): number {
       return this.items.length;
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.items.forEach((item, index) => {
-      if(item.active) {
-        this.activeIndex = index
+      if (item.active) {
+        this.activeIndex = index;
       }
     });
   },
   methods: {
-    changeTab(index) {
+    changeTab(index: number) {
       this.activeIndex = index;
       this.$emit("changeTab", index);
-    }
-  }
-};
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -73,7 +81,6 @@ export default {
 
       .text {
         font-weight: 400;
-
       }
 
       &.active {

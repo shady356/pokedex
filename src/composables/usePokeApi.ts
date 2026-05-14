@@ -1,4 +1,4 @@
-import { computed, unref, ref, watch } from "vue";
+import { computed, unref, ref, watch, type MaybeRef, type Ref } from "vue";
 import {
   useQuery,
   useQueryClient,
@@ -9,13 +9,13 @@ import {
   fetchPokemonSpecies,
   fetchMove,
   fetchAbility,
-} from "@/service/pokeApi.js";
+} from "@/service/pokeApi";
 
 export { useQueryClient };
 
 export const STALE = Infinity;
 
-export const usePokemon = (id) =>
+export const usePokemon = (id: MaybeRef<number | string>) =>
   useQuery({
     queryKey: computed(() => ["pokemon", unref(id)]),
     queryFn: () => fetchPokemon(unref(id)),
@@ -24,7 +24,7 @@ export const usePokemon = (id) =>
     placeholderData: keepPreviousData,
   });
 
-export const usePokemonSpecies = (id) =>
+export const usePokemonSpecies = (id: MaybeRef<number | string>) =>
   useQuery({
     queryKey: computed(() => ["pokemon-species", unref(id)]),
     queryFn: () => fetchPokemonSpecies(unref(id)),
@@ -33,7 +33,7 @@ export const usePokemonSpecies = (id) =>
     placeholderData: keepPreviousData,
   });
 
-export const useAbility = (name) =>
+export const useAbility = (name: MaybeRef<string>) =>
   useQuery({
     queryKey: computed(() => ["ability", unref(name)]),
     queryFn: () => fetchAbility(unref(name)),
@@ -41,9 +41,9 @@ export const useAbility = (name) =>
     enabled: computed(() => !!unref(name)),
   });
 
-export const useMoveDetails = (moveNames) => {
+export const useMoveDetails = (moveNames: Ref<string[]>) => {
   const queryClient = useQueryClient();
-  const results = ref([]);
+  const results = ref<Array<{ data: any; isSuccess: boolean }>>([]);
 
   watch(
     moveNames,

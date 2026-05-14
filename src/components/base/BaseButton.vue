@@ -4,19 +4,21 @@
   </button>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "BaseButton",
+  emits: ["click"],
   methods: {
     clicked() {
       this.$emit("click");
-    }
-  }
-};
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-
 button {
   background: var(--color-bg-primary);
   border-radius: $space-24;

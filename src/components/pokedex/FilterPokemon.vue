@@ -39,18 +39,28 @@
   </div>
 </template>
 
-<script>
-import { GENERATIONS } from "@/helpers/pokedexFilters.js";
-import { $getAllTypes } from "@/helpers/types.js";
+<script lang="ts">
+import { defineComponent } from "vue";
+import { GENERATIONS } from "@/helpers/pokedexFilters";
+import { $getAllTypes } from "@/helpers/types";
 import BaseTag from "@/components/base/BaseTag.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 
-export default {
+interface FilterChild {
+  name: string;
+  active: boolean;
+}
+
+interface Filter {
+  name: string;
+  open: boolean;
+  children: FilterChild[];
+}
+
+export default defineComponent({
   name: "FilterPokemon",
-  components: {
-    BaseTag,
-    BaseButton,
-  },
+  components: { BaseTag, BaseButton },
+  emits: ["applyFilters"],
   data() {
     return {
       filters: [
@@ -67,38 +77,33 @@ export default {
             active: false,
           })),
         },
-      ],
+      ] as Filter[],
     };
   },
   methods: {
-    openFilter(index) {
-      this.filters.forEach((filter) => {
-        filter.open = false;
+    openFilter(index: number) {
+      this.filters.forEach((f) => {
+        f.open = false;
       });
       this.filters[index].open = true;
     },
-    setFilter(child) {
+    setFilter(child: FilterChild) {
       child.active = !child.active;
     },
-    getActiveFilters() {
-      let activeFilters = {};
-
+    getActiveFilters(): Record<string, string[]> {
+      const activeFilters: Record<string, string[]> = {};
       this.filters.forEach((filter) => {
-        activeFilters[filter.name] = [];
-        filter.children.filter((child) => {
-          if (child.active) {
-            activeFilters[filter.name].push(child.name);
-          }
-        });
+        activeFilters[filter.name] = filter.children
+          .filter((child) => child.active)
+          .map((child) => child.name);
       });
       return activeFilters;
     },
     applyFilters() {
-      const filters = this.getActiveFilters();
-      this.$emit("applyFilters", filters);
+      this.$emit("applyFilters", this.getActiveFilters());
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

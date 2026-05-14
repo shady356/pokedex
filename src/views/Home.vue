@@ -13,21 +13,19 @@
   </main>
 </template>
 
-<script>
-import MainMenuNavigation from '@/components/mainMenu/MainMenuNavigation.vue'
-import PokeballIcon from '@/assets/home-icons/PokeballIcon.vue'
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+import MainMenuNavigation from "@/components/mainMenu/MainMenuNavigation.vue";
+import PokeballIcon from "@/assets/home-icons/PokeballIcon.vue";
+
+export default defineComponent({
   name: "Home",
-  components: {
-    MainMenuNavigation,
-    PokeballIcon,
-  },
-};
+  components: { MainMenuNavigation, PokeballIcon },
+});
 </script>
 
 <style lang="scss" scoped>
 .home {
-
   height: 100dvh;
   overflow: hidden;
   display: flex;
@@ -57,5 +55,4 @@ export default {
   font-weight: 900;
   text-align: center;
 }
-
 </style>

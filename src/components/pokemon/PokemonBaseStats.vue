@@ -36,36 +36,30 @@
             </div>
           </div>
         </div>
-      -->
-      </div>
+      --></div>
 
-      <BaseModal
-        v-if="currentType"
-        @closeModal="toggleTypeModal('')"
-      >
-        <TypeModal :type-name="currentType" />
+      <BaseModal v-if="currentType" @closeModal="toggleTypeModal('')">
+        <TypeModal :type-name="currentType as any" />
       </BaseModal>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, type PropType } from "vue";
 import { gsap } from "gsap";
 import PokemonBaseStatChart from "@/components/pokemon/PokemonBaseStatChart.vue";
-import TypeModal from "@/components/types/TypeModal";
-import BaseModal from "@/components/base/BaseModal";
+import TypeModal from "@/components/types/TypeModal.vue";
+import BaseModal from "@/components/base/BaseModal.vue";
 import BaseTypeTag from "../base/BaseTypeTag.vue";
-export default {
+import type { ChartData } from "chart.js";
+
+export default defineComponent({
   name: "PokemonBaseStats",
-  components: {
-    PokemonBaseStatChart,
-    BaseTypeTag,
-    BaseModal,
-    TypeModal,
-  },
+  components: { PokemonBaseStatChart, BaseTypeTag, BaseModal, TypeModal },
   props: {
     pokemon: {
-      type: Object,
+      type: Object as PropType<Record<string, any>>,
       required: true,
     },
   },
@@ -73,7 +67,7 @@ export default {
     return {
       tweenedNumber: 0,
       isChartGenerated: false,
-      currentType: "",
+      currentType: "" as string,
 
       baseStatChartData: {
         labels: [],
@@ -86,7 +80,7 @@ export default {
             data: [],
           },
         ],
-      },
+      } as ChartData<"radar">,
       baseStatChartOptions: {
         responsive: true,
         maintainAspectRatio: true,
@@ -125,7 +119,7 @@ export default {
   computed: {
     totalBaseStat() {
       let total = 0;
-      this.pokemon.stats.forEach((stat) => {
+      this.pokemon.stats.forEach((stat: any) => {
         total += stat.base_stat;
       });
       return total;
@@ -138,7 +132,7 @@ export default {
         name: this.pokemon.stats[0].stat.name,
         value: this.pokemon.stats[0].base_stat,
       };
-      this.pokemon.stats.forEach((stat) => {
+      this.pokemon.stats.forEach((stat: any) => {
         if (stat.base_stat >= bestStat.value) {
           bestStat.name = stat.stat.name;
           bestStat.value = stat.base_stat;
@@ -176,18 +170,18 @@ export default {
     this.setChartData();
   },
   methods: {
-    isBestStat(stat) {
+    isBestStat(stat: any): boolean {
       return this.bestStat.name === stat.stat.name;
     },
     setChartData() {
-      const labels = [];
-      const datasets = [];
+      const labels: any[] = [];
+      const datasets: number[] = [];
       let positionIndex = 0;
 
       this.baseStatChartData.labels = [];
       this.baseStatChartData.datasets[0].data = [];
 
-      this.pokemon.stats.forEach((stat) => {
+      this.pokemon.stats.forEach((stat: any) => {
         let name = stat.stat.name;
 
         switch (name) {
@@ -231,11 +225,11 @@ export default {
       this.isChartGenerated = true;
     },
 
-    toggleTypeModal(type) {
+    toggleTypeModal(type: string) {
       this.currentType = type;
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

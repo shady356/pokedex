@@ -9,14 +9,12 @@
         <BaseButtonIcon @click="openFilter">
           <span
             :class="['material-icons-round filter-item', { active: isFilter }]"
-          >filter_list</span>
+            >filter_list</span
+          >
         </BaseButtonIcon>
       </template>
     </Header>
-    <div
-      v-if="fetchedCount > 0"
-      class="default-page-margin pokedex-container"
-    >
+    <div v-if="fetchedCount > 0" class="default-page-margin pokedex-container">
       <ul>
         <router-link
           v-for="(pokemon, index) in visiblePokemon"
@@ -35,16 +33,10 @@
         </router-link>
       </ul>
     </div>
-    <div
-      v-else
-      class="loading"
-    >
+    <div v-else class="loading">
       <BaseProgressSpinner size="large" />
     </div>
-    <div
-      ref="trigger"
-      class="trigger"
-    />
+    <div ref="trigger" class="trigger" />
 
     <!-- Filter -->
     <BaseModal
@@ -53,10 +45,7 @@
       drag-handler
       @closeModal="closeFilter"
     >
-      <FilterPokemon
-        :is-filter="isFilter"
-        @applyFilters="updateFilters"
-      />
+      <FilterPokemon :is-filter="isFilter" @applyFilters="updateFilters" />
     </BaseModal>
 
     <div v-if="isPokemonModal">
@@ -65,18 +54,23 @@
   </div>
 </template>
 
-<script>
-import { $filterData } from "@/helpers/pokedexFilters.js";
+<script lang="ts">
+import { defineComponent, markRaw } from "vue";
+import {
+  $filterData,
+  type Filters,
+  type PokemonEntry,
+} from "@/helpers/pokedexFilters";
 import BaseButtonIcon from "@/components/base/BaseButtonIcon.vue";
 import BaseModal from "@/components/base/BaseModal.vue";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
 import FilterPokemon from "@/components/pokedex/FilterPokemon.vue";
 import Header from "@/components/layout/Header.vue";
-import PokedexItem from "@/components/pokedex/PokedexItem";
-import { useQueryClient, STALE } from "@/composables/usePokeApi.js";
-import { fetchPokemonForm } from "@/service/pokeApi.js";
+import PokedexItem from "@/components/pokedex/PokedexItem.vue";
+import { useQueryClient, STALE } from "@/composables/usePokeApi";
+import { fetchPokemonForm } from "@/service/pokeApi";
 
-export default {
+export default defineComponent({
   name: "Pokedex",
   components: {
     BaseButtonIcon,
@@ -91,36 +85,36 @@ export default {
   },
   data() {
     return {
-      pokemonList: [],
+      pokemonList: [] as PokemonEntry[],
       visibleCount: 0,
       fetchedCount: 0,
       batchSize: 24,
       isLoadingBatch: false,
-
       isFilterOpen: false,
       isPokemonModal: false,
       scrollPosition: 0,
-      filters: { generations: [], types: [] },
+      filters: { generations: [], types: [] } as Filters,
       isFilter: false,
+      _observer: null as IntersectionObserver | null,
     };
   },
   computed: {
-    visiblePokemon() {
+    visiblePokemon(): PokemonEntry[] {
       return this.pokemonList.slice(0, this.visibleCount);
     },
-    pokedexIds() {
+    pokedexIds(): number[] {
       return this.pokemonList.map((p) => p.id);
     },
   },
   watch: {
     $route: {
       immediate: true,
-      handler(newVal, oldVal) {
+      handler(newVal: any, oldVal: any) {
         if (oldVal) {
           if (oldVal.name === "Pokedex") {
             this.scrollPosition = window.scrollY;
           } else {
-            let scrollY = this.scrollPosition;
+            const scrollY = this.scrollPosition;
             setTimeout(() => {
               window.scroll(0, scrollY);
             }, 10);
@@ -134,12 +128,10 @@ export default {
     this.setPokedexMap(this.filters);
   },
   beforeUnmount() {
-    if (this._observer) {
-      this._observer.disconnect();
-    }
+    this._observer?.disconnect();
   },
   methods: {
-    async fetchPokemon(id, index) {
+    async fetchPokemon(id: number, index: number) {
       const data = await this.queryClient.fetchQuery({
         queryKey: ["pokemon-form", id],
         queryFn: () => fetchPokemonForm(id),
@@ -169,25 +161,27 @@ export default {
       );
 
       this.isLoadingBatch = false;
-
       await this.$nextTick();
-      const rect = this.$refs.trigger?.getBoundingClientRect();
-      if (rect && rect.top < window.innerHeight) {
-        this.loadNextBatch();
-      }
+      const rect = (
+        this.$refs.trigger as Element | undefined
+      )?.getBoundingClientRect();
+      if (rect && rect.top < window.innerHeight) this.loadNextBatch();
     },
 
     scrollTrigger() {
-      if (this._observer) this._observer.disconnect();
-      this._observer = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) this.loadNextBatch();
-      });
+      this._observer?.disconnect();
+      this._observer = markRaw(
+        new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) this.loadNextBatch();
+        }),
+      );
       this.$nextTick(() => {
-        if (this.$refs.trigger) this._observer.observe(this.$refs.trigger);
+        if (this.$refs.trigger)
+          this._observer!.observe(this.$refs.trigger as Element);
       });
     },
 
-    async setPokedexMap(filters) {
+    async setPokedexMap(filters: Filters) {
       this.pokemonList = [];
       this.visibleCount = 0;
       this.fetchedCount = 0;
@@ -203,14 +197,14 @@ export default {
       this.isFilterOpen = false;
     },
 
-    async updateFilters(filters) {
+    async updateFilters(filters: Record<string, string[]>) {
       this.isFilter = Object.values(filters).some((f) => f.length > 0);
       document.body.classList.toggle("bodyFilter", this.isFilter);
       this.closeFilter();
-      await this.setPokedexMap(filters);
+      await this.setPokedexMap(filters as unknown as Filters);
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

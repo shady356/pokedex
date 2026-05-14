@@ -43,7 +43,13 @@
       "Bash(mkdir -p \"c:/Users/henri/Documents/code/pokedex/.claude/skills/refactor\")",
       "Bash(node -e \"console.log\\(require\\('./node_modules/vue-router/package.json'\\).version\\)\")",
       "Bash(Remove-Item -Recurse -Force node_modules/.vite -ErrorAction SilentlyContinue)",
-      "Bash(node -e \"const r = require\\('c:/Users/henri/Documents/code/pokedex/node_modules/vue-router'\\); console.log\\(Object.keys\\(r\\).filter\\(k => k.includes\\('create'\\) || k.includes\\('Router'\\)\\)\\)\")"
+      "Bash(node -e \"const r = require\\('c:/Users/henri/Documents/code/pokedex/node_modules/vue-router'\\); console.log\\(Object.keys\\(r\\).filter\\(k => k.includes\\('create'\\) || k.includes\\('Router'\\)\\)\\)\")",
+      "Bash(xargs sed -i -e 's|from \"@/service/pokeApi\\\\.js\"|from \"@/service/pokeApi\"|g' -e 's|from '\\\\''@/service/pokeApi\\\\.js'\\\\''|from '\\\\''@/service/pokeApi'\\\\''|g' -e 's|from \"@/helpers/types\\\\.js\"|from \"@/helpers/types\"|g' -e 's|from '\\\\''@/helpers/types\\\\.js'\\\\''|from '\\\\''@/helpers/types'\\\\''|g' -e 's|from \"@/helpers/sprites\\\\.js\"|from \"@/helpers/sprites\"|g' -e 's|from '\\\\''@/helpers/sprites\\\\.js'\\\\''|from '\\\\''@/helpers/sprites'\\\\''|g' -e 's|from \"@/helpers/pokedexFilters\\\\.js\"|from \"@/helpers/pokedexFilters\"|g' -e 's|from '\\\\''@/helpers/pokedexFilters\\\\.js'\\\\''|from '\\\\''@/helpers/pokedexFilters'\\\\''|g' -e 's|from \"@/composables/usePokeApi\\\\.js\"|from \"@/composables/usePokeApi\"|g' -e 's|from '\\\\''@/composables/usePokeApi\\\\.js'\\\\''|from '\\\\''@/composables/usePokeApi'\\\\''|g' -e 's|from \"@/utils/typeGradients\\\\.js\"|from \"@/utils/typeGradients\"|g' -e 's|from '\\\\''@/utils/typeGradients\\\\.js'\\\\''|from '\\\\''@/utils/typeGradients'\\\\''|g' -e 's|from \"@/utils/theme\\\\.js\"|from \"@/utils/theme\"|g' -e 's|from '\\\\''@/utils/theme\\\\.js'\\\\''|from '\\\\''@/utils/theme'\\\\''|g')",
+      "Bash(npx tsc *)",
+      "Bash(npm list *)",
+      "Bash(npx eslint *)",
+      "Bash(npx vue-tsc *)",
+      "Bash(Select-String \"Types.vue\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\henri\\Documents\\code\\pokedex\\.claude\\skills"

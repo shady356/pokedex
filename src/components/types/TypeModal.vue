@@ -1,17 +1,10 @@
 <template>
-  <div
-    v-if="typeData"
-    class="modal-type-container"
-  >
+  <div v-if="typeData" class="modal-type-container">
     <div
       class="type-icon-container"
       :style="'background:' + getTypeColor(typeName)"
     >
-      <img
-        class="type-icon"
-        :src="getIcon(typeName)"
-        alt="type-icon"
-      >
+      <img class="type-icon" :src="getIcon(typeName)" alt="type-icon" />
     </div>
     <h3 class="type-title uppercase">
       {{ typeName }}
@@ -23,9 +16,7 @@
     <div class="type-damage-relation-container">
       <ul>
         <li>
-          <h6 class="type-relation-title">
-            Super effective against
-          </h6>
+          <h6 class="type-relation-title">Super effective against</h6>
           <div class="tag-types-container">
             <BaseTypeTag
               v-for="(typeItem, index) in typeData.superEffectiveTo"
@@ -36,9 +27,7 @@
           </div>
         </li>
         <li>
-          <h6 class="type-relation-title">
-            Vulnerable to
-          </h6>
+          <h6 class="type-relation-title">Vulnerable to</h6>
           <div class="tag-types-container">
             <BaseTypeTag
               v-for="(typeItem, index) in typeData.vulnerableTo"
@@ -53,37 +42,42 @@
   </div>
 </template>
 
-<script>
-import { $getTypeInfoByName, $getTypeColor } from "@/helpers/types.js";
-import BaseTypeTag from "@/components/base/BaseTypeTag";
+<script lang="ts">
+import { defineComponent, type PropType } from "vue";
+import {
+  $getTypeInfoByName,
+  $getTypeColor,
+  type PokemonTypeName,
+  type TypeInfo,
+} from "@/helpers/types";
+import BaseTypeTag from "@/components/base/BaseTypeTag.vue";
 
-export default {
-  components: {
-    BaseTypeTag
-  },
+export default defineComponent({
+  components: { BaseTypeTag },
   props: {
     typeName: {
-      type: String,
-      required: true
-    }
+      type: String as PropType<PokemonTypeName>,
+      required: true,
+    },
   },
   data() {
     return {
-      typeData: null
+      typeData: null as TypeInfo | null,
     };
   },
   mounted() {
-    this.typeData = $getTypeInfoByName(this.typeName);
+    this.typeData = $getTypeInfoByName(this.typeName) ?? null;
   },
   methods: {
-    getIcon(name) {
-      return new URL(`../../assets/icons/types/${name}.svg`, import.meta.url).href;
+    getIcon(name: string): string {
+      return new URL(`../../assets/icons/types/${name}.svg`, import.meta.url)
+        .href;
     },
-    getTypeColor(name) {
-      return $getTypeColor(name)
-    }
-  }
-};
+    getTypeColor(name: PokemonTypeName): string {
+      return $getTypeColor(name);
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>

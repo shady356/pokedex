@@ -6,30 +6,31 @@
   >
 </template>
 
-<script>
-export default {
-  name: 'BaseProgressSpinner',
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "BaseProgressSpinner",
   props: {
     size: {
       type: String,
-      required: false,
-      default: 'medium'
-    }
-  }
-}
+      default: "medium",
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-  .progress-spinner {
-    animation: progressSpinner 3s infinite;
+.progress-spinner {
+  animation: progressSpinner 3s infinite;
 
-    &.medium {
-      width: 36px;
-      height: 36px;
-    }
-    &.large {
-      width: 64px;
-      height: 64px;
-    }
+  &.medium {
+    width: 36px;
+    height: 36px;
   }
+  &.large {
+    width: 64px;
+    height: 64px;
+  }
+}
 </style>

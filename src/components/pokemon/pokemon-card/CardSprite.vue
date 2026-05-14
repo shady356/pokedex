@@ -1,62 +1,55 @@
 <template>
-  <transition
-    name="fade"
-    mode="out-in"
-  >
-    <div
-      :key="pokemonId"
-      class="pokemon-sprite-container"
-    >
+  <transition name="fade" mode="out-in">
+    <div :key="pokemonId" class="pokemon-sprite-container">
       <img
         v-if="!offloadSprite"
         id="pokemon-sprite-id"
         :src="pokemonSpriteImg"
         :class="['pokemon-sprite', { zoom: isPokemonZoom }]"
         alt="pokemon sprite"
-      >
+      />
       <!-- Loading pokemon sprite -->
       <BaseProgressSpinner v-else />
     </div>
   </transition>
 </template>
 
-<script>
-import {getPokemonSpriteByName} from '@/helpers/sprites.js'
-import BaseProgressSpinner from "@/components/base/BaseProgressSpinner";
-export default {
-  name: 'CardSprite',
-  components: {
-    BaseProgressSpinner
-  },
+<script lang="ts">
+import { defineComponent, type PropType } from "vue";
+import { getPokemonSpriteByName } from "@/helpers/sprites";
+import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
+
+export default defineComponent({
+  name: "CardSprite",
+  components: { BaseProgressSpinner },
   props: {
     slideDirection: {
       type: String,
-      required: true
+      required: true,
     },
     pokemonId: {
-      type: [Number, String],
-      required: true
+      type: [Number, String] as PropType<number | string>,
+      required: true,
     },
     offloadSprite: {
       type: Boolean,
-      required: true
+      required: true,
     },
     pokemon: {
-      type: Object,
-      requiered: true,
-      default: () => {}
+      type: Object as PropType<Record<string, any>>,
+      default: () => ({}),
     },
     isPokemonZoom: {
       type: Boolean,
-      required: true
-    }
-  },
-  computed: {
-    pokemonSpriteImg() {
-      return getPokemonSpriteByName(this.pokemon.name)
+      required: true,
     },
   },
-}
+  computed: {
+    pokemonSpriteImg(): string {
+      return getPokemonSpriteByName(this.pokemon.name);
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -75,14 +68,18 @@ export default {
     max-height: 100%;
     max-width: 100%;
     transform: translateX(0%);
-    transition: height .4s ease-out, top .4s ease-out;
+    transition:
+      height 0.4s ease-out,
+      top 0.4s ease-out;
     z-index: 10;
 
     &.zoom {
       top: 100%;
       height: 100% !important;
       max-height: 100% !important;
-      transition: height .4s ease-in, top .4s ease-in;
+      transition:
+        height 0.4s ease-in,
+        top 0.4s ease-in;
     }
 
     @media (min-width: 1024px) {

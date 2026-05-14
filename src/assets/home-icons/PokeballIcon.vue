@@ -8,15 +8,41 @@
   >
     <defs>
       <mask id="pokeball-mask">
-        <rect width="64" height="64" fill="white" />
+        <rect
+          width="64"
+          height="64"
+          fill="white"
+        />
         <!-- Horizontal band cutout -->
-        <rect x="0" y="30" width="64" height="4" fill="black" />
+        <rect
+          x="0"
+          y="30"
+          width="64"
+          height="4"
+          fill="black"
+        />
         <!-- Button ring cutout -->
-        <circle cx="32" cy="32" r="12" fill="black" />
+        <circle
+          cx="32"
+          cy="32"
+          r="12"
+          fill="black"
+        />
         <!-- Center button filled back in -->
-        <circle cx="32" cy="32" r="7" fill="white" />
+        <circle
+          cx="32"
+          cy="32"
+          r="7"
+          fill="white"
+        />
       </mask>
     </defs>
-    <circle cx="32" cy="32" r="30" fill="currentColor" mask="url(#pokeball-mask)" />
+    <circle
+      cx="32"
+      cy="32"
+      r="30"
+      fill="currentColor"
+      mask="url(#pokeball-mask)"
+    />
   </svg>
 </template>

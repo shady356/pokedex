@@ -17,19 +17,20 @@
   </header>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import BaseButtonIcon from "@/components/base/BaseButtonIcon.vue";
-export default {
+
+export default defineComponent({
   name: "Header",
   components: { BaseButtonIcon },
   props: {
     routerBack: {
       type: String,
-      required: false,
-      default: 'Home'
-    }
+      default: "Home",
+    },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -39,7 +40,7 @@ export default {
   padding: $space-12;
   position: sticky;
   top: 0;
-   background: var(--color-header);
+  background: var(--color-header);
 
   .header__column {
     display: flex;
@@ -50,7 +51,7 @@ export default {
     }
 
     &:nth-child(2) {
-      width: calc(100% - (#{$space-48}*2));
+      width: calc(100% - (#{$space-48}* 2));
       justify-content: center;
 
       h1 {

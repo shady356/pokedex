@@ -3,17 +3,19 @@
     <Header>
       <template #title>
         <h1>About</h1>
-      </template> 
+      </template>
     </Header>
     <div class="about-container">
       <h3>About</h3>
       <p>
         A small application to present Pokemon and their in-game meta data. The
-        data is served from PokéAPI (https://pokeapi.co/), a RESTful Pokemon API.
+        data is served from PokéAPI (https://pokeapi.co/), a RESTful Pokemon
+        API.
       </p>
       <h4>Project</h4>
       <p>
-        The project is available from GitHub (https://github.com/shady356/pokedex)
+        The project is available from GitHub
+        (https://github.com/shady356/pokedex)
       </p>
       <h4>Resources</h4>
       <p>All external resources in this application</p>
@@ -22,28 +24,24 @@
         Pokemon type icons from:
         https://github.com/duiker101/pokemon-type-svg-icons.
       </p>
-      <p>
-        UI icons from: https://fontawesome.com/
-      </p>
+      <p>UI icons from: https://fontawesome.com/</p>
       <h5>Sprites</h5>
       <p>
-        Pokemon sprites from:
-        https://pokemondb.net/sprites.
-        Usage policy:
+        Pokemon sprites from: https://pokemondb.net/sprites. Usage policy:
         https://pokemondb.net/about
       </p>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import Header from "@/components/layout/Header.vue";
-export default {
+
+export default defineComponent({
   name: "About",
-  components: {
-    Header
-  },
-};
+  components: { Header },
+});
 </script>
 
 <style lang="scss" scoped>

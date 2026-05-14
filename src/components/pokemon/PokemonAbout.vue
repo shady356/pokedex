@@ -2,9 +2,7 @@
   <div class="about-container">
     <!-- Description -->
     <section class="description-container">
-      <h3 class="title">
-        Description
-      </h3>
+      <h3 class="title">Description</h3>
       <p class="data-row">
         {{ pokemonSpecies.description.flavor_text }}
       </p>
@@ -15,9 +13,7 @@
 
     <!-- Abilities -->
     <section>
-      <h3 class="title">
-        Abilities
-      </h3>
+      <h3 class="title">Abilities</h3>
 
       <div class="abilities-container">
         <BaseTag
@@ -27,42 +23,31 @@
           @click="$emit('openAbilityModal', item.ability)"
         >
           {{ item.ability.name }}
-          <span
-            v-if="item.is_hidden"
-            class="material-icons icon"
-          >star</span>
+          <span v-if="item.is_hidden" class="material-icons icon">star</span>
         </BaseTag>
       </div>
     </section>
 
     <!-- Training -->
     <section>
-      <h3 class="title">
-        Training
-      </h3>
+      <h3 class="title">Training</h3>
 
       <div class="data-row">
-        <div class="label">
-          Growth rate
-        </div>
+        <div class="label">Growth rate</div>
         <div class="value capitalize">
           {{ pokemonSpecies.growthRate }}
         </div>
       </div>
 
       <div class="data-row">
-        <div class="label">
-          Catch rate
-        </div>
+        <div class="label">Catch rate</div>
         <div class="value">
           {{ pokemonSpecies.captureRate }}
         </div>
       </div>
 
       <div class="data-row">
-        <div class="label">
-          Base happiness
-        </div>
+        <div class="label">Base happiness</div>
         <div class="value">
           {{ pokemonSpecies.baseHappiness }}
         </div>
@@ -71,23 +56,17 @@
 
     <!-- Breeding -->
     <section>
-      <h3 class="title">
-        Breeding
-      </h3>
+      <h3 class="title">Breeding</h3>
 
       <div class="data-row">
-        <div class="label">
-          Egg Group
-        </div>
+        <div class="label">Egg Group</div>
         <div class="value capitalize">
           {{ formatEggGroups(pokemonSpecies.eggGroups) }}
         </div>
       </div>
 
       <div class="data-row">
-        <div class="label">
-          Hatch Counter
-        </div>
+        <div class="label">Hatch Counter</div>
         <div class="value">
           {{ pokemonSpecies.hatchCounter }}
         </div>
@@ -109,25 +88,26 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, type PropType } from "vue";
 import BaseTag from "@/components/base/BaseTag.vue";
-export default {
+
+export default defineComponent({
   name: "PokemonAbout",
-  components: {
-    BaseTag,
-  },
+  components: { BaseTag },
   props: {
     pokemon: {
-      type: Object,
+      type: Object as PropType<Record<string, any>>,
       required: true,
     },
     pokemonSpecies: {
-      type: Object,
+      type: Object as PropType<Record<string, any>>,
       required: true,
     },
   },
+  emits: ["openAbilityModal"],
   methods: {
-    toMeter(value) {
+    toMeter(value: number): string {
       return new Intl.NumberFormat("en-UK", {
         style: "unit",
         unit: "meter",
@@ -136,7 +116,7 @@ export default {
         maximumSignificantDigits: 2,
       }).format(value / 10);
     },
-    toKilogram(value) {
+    toKilogram(value: number): string {
       return new Intl.NumberFormat("en-UK", {
         style: "unit",
         unit: "kilogram",
@@ -145,11 +125,11 @@ export default {
         maximumSignificantDigits: 2,
       }).format(value / 10);
     },
-    formatEggGroups(value) {
+    formatEggGroups(value: Array<{ name: string }>): string {
       return value.map((item) => item.name).join(", ");
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,6 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory, type RouteRecordRaw } from "vue-router";
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "Home",
@@ -43,17 +43,12 @@ const routes = [
   },
 ];
 
-const scrollBehavior = (to, from, savedPosition) => {
-  if (savedPosition) {
-    return savedPosition;
-  } else {
-    return { left: 0, top: 0 };
-  }
-};
-
 const router = createRouter({
   history: createWebHashHistory(),
-  scrollBehavior,
+  scrollBehavior: (_to, _from, savedPosition) => {
+    if (savedPosition) return savedPosition;
+    return { left: 0, top: 0 };
+  },
   routes,
 });
 

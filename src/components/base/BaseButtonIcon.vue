@@ -7,16 +7,19 @@
   </button>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "BaseButtonIcon",
-};
+  emits: ["click"],
+});
 </script>
 
 <style lang="scss" scoped>
 .base-button-icon {
   align-items: center;
-  background: var( --color-accent-dim);
+  background: var(--color-accent-dim);
   border-radius: 50%;
   border: none;
   color: var(--color-text);
@@ -34,7 +37,7 @@ export default {
   }
 
   &:active {
-    background: var( --color-accent-dim);
+    background: var(--color-accent-dim);
     transform: scale(1.05);
   }
 }

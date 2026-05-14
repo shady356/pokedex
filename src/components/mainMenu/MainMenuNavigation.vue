@@ -4,54 +4,52 @@
       <router-link
         v-for="item in navigationItems"
         :key="item.name"
+        v-slot="{ navigate }"
         class="navigation-list-item"
         :to="{ name: item.route }"
-        tag="li"
+        custom
       >
-        <div class="navigation-list-item__icon-container">
-          <Component :is="item.component" class="navigation-list-item__icon" />
-        </div>
-        <div class="navigation-list-item__text uppercase letter-spacing">
-          {{ item.name }}
-        </div>
+        <li role="link" @click="navigate" @keypress.enter="() => navigate()">
+          <div class="navigation-list-item__icon-container">
+            <Component
+              :is="item.component"
+              class="navigation-list-item__icon"
+            />
+          </div>
+          <div class="navigation-list-item__text uppercase letter-spacing">
+            {{ item.name }}
+          </div>
+        </li>
       </router-link>
     </ul>
   </nav>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import PokeballIcon from "@/assets/home-icons/PokeballIcon.vue";
 import PokedexIcon from "@/assets/home-icons/PokedexIcon.vue";
 import SettingsIcon from "@/assets/home-icons/SettingsIcon.vue";
-export default {
+
+interface NavigationItem {
+  name: string;
+  route: string;
+  component: string;
+}
+
+export default defineComponent({
   name: "MainMenuItems",
-  components: {
-    PokeballIcon,
-    PokedexIcon,
-    SettingsIcon,
-  },
+  components: { PokeballIcon, PokedexIcon, SettingsIcon },
   data() {
     return {
       navigationItems: [
-        {
-          name: "Types",
-          route: "Types",
-          component: "PokeballIcon",
-        },
-        {
-          name: "Pokédex",
-          route: "Pokedex",
-          component: "PokedexIcon",
-        },
-        {
-          name: "Settings",
-          route: "Settings",
-          component: "SettingsIcon",
-        },
-      ],
+        { name: "Types", route: "Types", component: "PokeballIcon" },
+        { name: "Pokédex", route: "Pokedex", component: "PokedexIcon" },
+        { name: "Settings", route: "Settings", component: "SettingsIcon" },
+      ] as NavigationItem[],
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

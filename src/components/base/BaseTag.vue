@@ -7,8 +7,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "BaseTag",
   emits: ["click"],
   methods: {
@@ -16,7 +18,7 @@ export default {
       this.$emit("click");
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

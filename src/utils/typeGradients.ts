@@ -1,8 +1,8 @@
-// Top: bright characteristic colour. Bottom: dark bg matching the texture seed.
-// Both derived from the ember/fly colours and bg values in gen_all_textures.mjs.
-// Dark theme uses more muted tops and deeper bottoms.
+import type { PokemonTypeName } from '@/helpers/types'
 
-export const TYPE_GRADIENTS_LIGHT = {
+type TypeGradients = Record<PokemonTypeName, string>
+
+export const TYPE_GRADIENTS_LIGHT: TypeGradients = {
   fire:     'linear-gradient(180deg, #75451d 0%, #700f00 100%)',
   grass:    'linear-gradient(180deg, #b9e7a9 0%, #7faf73 100%)',
   water:    'linear-gradient(180deg, #a3dbca 0%, #000d27 100%)',
@@ -23,7 +23,7 @@ export const TYPE_GRADIENTS_LIGHT = {
   normal:   'linear-gradient(180deg, #c8c8b4 0%, #1e1c10 100%)',
 }
 
-export const TYPE_GRADIENTS_DARK = {
+export const TYPE_GRADIENTS_DARK: TypeGradients = {
   fire:     'linear-gradient(180deg, #963e3e 0%, #180300 100%)',
   grass:    'linear-gradient(180deg, #848d63 0%, #050f03 100%)',
   water:    'linear-gradient(180deg, #97bba0 0%, #050f30 100%)',
@@ -44,6 +44,6 @@ export const TYPE_GRADIENTS_DARK = {
   normal:   'linear-gradient(180deg, #646458 0%, #0f0e08 100%)',
 }
 
-export function getTypeGradients(isDark) {
+export function getTypeGradients(isDark: boolean): TypeGradients {
   return isDark ? TYPE_GRADIENTS_DARK : TYPE_GRADIENTS_LIGHT
 }

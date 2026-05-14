@@ -1,25 +1,16 @@
 <template>
-  <transition
-    name="fade"
-    appear
-  >
+  <transition name="fade" appear>
     <div
       class="modal-container"
       @touchmove.passive="movingHandler"
       @touchend="endHandler"
     >
-      <transition
-        name="slide-v"
-        appear
-      >
+      <transition name="slide-v" appear>
         <div
           id="moving-box"
           :class="['modal-window', { 'is-pokemon-card': isPokemonCard }]"
         >
-          <div
-            v-if="dragHandler"
-            class="drag-handler"
-          />
+          <div v-if="dragHandler" class="drag-handler" />
           <slot />
           <div
             v-if="showCloseButton"
@@ -31,7 +22,7 @@
                 class="close-icon"
                 src="@/assets/icons/clear-24px.svg"
                 alt="clear icon"
-              >
+              />
             </div>
           </div>
         </div>
@@ -40,26 +31,26 @@
   </transition>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "BaseModal",
   props: {
     showCloseButton: {
       type: Boolean,
-      required: false,
       default: true,
     },
     isPokemonCard: {
       type: Boolean,
-      required: false,
       default: false,
     },
     dragHandler: {
       type: Boolean,
-      required: false,
       default: false,
     },
   },
+  emits: ["closeModal"],
   data() {
     return {
       toPositionPercentage: 0,
@@ -76,7 +67,7 @@ export default {
     }, 100);
   },
   methods: {
-    movingHandler(e) {
+    movingHandler(e: TouchEvent) {
       if (this.dragHandler) {
         if (!e.changedTouches || !e.changedTouches.length) return;
 
@@ -84,7 +75,7 @@ export default {
         const clientHeight = document.documentElement.clientHeight;
         const toPositionPx = clientHeight - moving;
         this.toPositionPercentage = ((moving / clientHeight) * 100 - 100) * -1;
-        document.getElementById("moving-box").style.height =
+        document.getElementById("moving-box")!.style.height =
           toPositionPx + "px";
       }
     },
@@ -105,14 +96,14 @@ export default {
         }
       }
     },
-    snapToPosition(value) {
-      document.getElementById("moving-box").style.height = value;
+    snapToPosition(value: string) {
+      document.getElementById("moving-box")!.style.height = value;
     },
     closeModal() {
       this.$emit("closeModal");
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

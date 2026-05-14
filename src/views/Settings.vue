@@ -8,9 +8,7 @@
 
     <div class="settings">
       <section class="settings__section">
-        <h2 class="settings__section-title">
-          Appearance
-        </h2>
+        <h2 class="settings__section-title">Appearance</h2>
 
         <div class="settings__row">
           <span class="settings__label">
@@ -22,7 +20,9 @@
               v-for="option in themeOptions"
               :key="option.value"
               class="theme-toggle__btn"
-              :class="{ 'theme-toggle__btn--active': currentTheme === option.value }"
+              :class="{
+                'theme-toggle__btn--active': currentTheme === option.value,
+              }"
               @click="selectTheme(option.value)"
             >
               {{ option.label }}
@@ -34,29 +34,30 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import Header from "@/components/layout/Header.vue";
-import { getTheme, setTheme } from "@/utils/theme";
+import { getTheme, setTheme, type ThemeOption } from "@/utils/theme";
 
-export default {
+export default defineComponent({
   components: { Header },
   data() {
     return {
       currentTheme: getTheme(),
       themeOptions: [
-        { value: 'light', label: 'Light' },
-        { value: 'system', label: 'System' },
-        { value: 'dark', label: 'Dark' },
+        { value: "light" as ThemeOption, label: "Light" },
+        { value: "system" as ThemeOption, label: "System" },
+        { value: "dark" as ThemeOption, label: "Dark" },
       ],
-    }
+    };
   },
   methods: {
-    selectTheme(theme) {
-      this.currentTheme = theme
-      setTheme(theme)
-    }
-  }
-}
+    selectTheme(theme: ThemeOption) {
+      this.currentTheme = theme;
+      setTheme(theme);
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -114,7 +115,9 @@ export default {
     cursor: pointer;
     font-size: 0.875rem;
     padding: $space-4 $space-12;
-    transition: background 0.15s, color 0.15s;
+    transition:
+      background 0.15s,
+      color 0.15s;
 
     &--active {
       background: var(--color-bg-primary);

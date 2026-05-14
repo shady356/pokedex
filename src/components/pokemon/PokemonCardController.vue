@@ -1,10 +1,7 @@
 <template>
   <div>
     <!-- Pokemon -->
-    <BaseModal
-      is-pokemon-card
-      @closeModal="closePokemonCardController()"
-    >
+    <BaseModal is-pokemon-card @closeModal="closePokemonCardController()">
       <PokemonCard
         :pokemon-id="pokemonId"
         :pokemon-index="pokemonIndex"
@@ -16,46 +13,41 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, type PropType } from "vue";
 import BaseModal from "@/components/base/BaseModal.vue";
 import PokemonCard from "@/components/pokemon/PokemonCard.vue";
-export default {
+
+export default defineComponent({
   name: "PokemonCardController",
-  components: {
-    BaseModal,
-    PokemonCard,
-  },
+  components: { BaseModal, PokemonCard },
   props: {
     pokemonId: {
-      type: [Number, String],
+      type: [Number, String] as PropType<number | string>,
       required: true,
     },
     pokemonIndex: {
       type: Number,
-      required: false,
       default: 0,
     },
     pokedexIds: {
-      type: Array,
-      required: false,
+      type: Array as PropType<number[]>,
       default: () => [],
     },
   },
   computed: {
-    isFirstPokemon() {
+    isFirstPokemon(): boolean {
       return this.pokemonIndex === 0;
     },
-    isLastPokemon() {
+    isLastPokemon(): boolean {
       return this.pokemonIndex === this.pokedexIds.length - 1;
     },
   },
   methods: {
     closePokemonCardController() {
-      this.$router.push({
-        name: "Pokedex",
-      });
+      this.$router.push({ name: "Pokedex" });
     },
-    paginatePokemon(direction) {
+    paginatePokemon(direction: string) {
       if (direction === "next") {
         this.paginateNextPokemon();
       } else {
@@ -87,13 +79,11 @@ export default {
         });
       }
     },
-    getPokemonPaginationId(index, direction) {
-      if (direction === "previous") {
-        return this.pokedexIds[index - 1];
-      } else {
-        return this.pokedexIds[index + 1];
-      }
+    getPokemonPaginationId(index: number, direction: string): number {
+      return direction === "previous"
+        ? this.pokedexIds[index - 1]
+        : this.pokedexIds[index + 1];
     },
   },
-};
+});
 </script>
