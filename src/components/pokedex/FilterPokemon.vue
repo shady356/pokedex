@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <div class="header__title">
-        Filter Pokémon
-      </div>
+      <div class="header__title">Filter Pokémon</div>
     </div>
 
     <div class="filter-container">
@@ -34,10 +32,7 @@
         </li>
       </ul>
 
-      <BaseButton
-        class="primary"
-        @click="applyFilters()"
-      >
+      <BaseButton class="primary" @click="applyFilters()">
         Apply filters
       </BaseButton>
     </div>
@@ -45,6 +40,8 @@
 </template>
 
 <script>
+import { GENERATIONS } from "@/helpers/pokedexFilters.js";
+import { $getAllTypes } from "@/helpers/types.js";
 import BaseTag from "@/components/base/BaseTag.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 
@@ -52,7 +49,7 @@ export default {
   name: "FilterPokemon",
   components: {
     BaseTag,
-    BaseButton
+    BaseButton,
   },
   data() {
     return {
@@ -60,113 +57,22 @@ export default {
         {
           name: "generations",
           open: true,
-          children: [
-            {
-              name: "kanto",
-              active: false
-            },
-            {
-              name: "johto",
-              active: false
-            },
-            {
-              name: "hoenn",
-              active: false
-            }
-            /* {
-              name: 'sinnoh',
-              active: false
-            },
-            {
-              name: 'kalos',
-              active: false
-            } */
-          ]
+          children: GENERATIONS.map((g) => ({ name: g.name, active: false })),
         },
         {
           name: "types",
           open: false,
-          children: [
-            /* {
-              name: 'bug',
-              active: false
-            },
-            {
-              name: 'dark',
-              active: false
-            },
-            {
-              name: 'dragon',
-              active: false
-            },
-            {
-              name: 'electric',
-              active: false
-            },
-            {
-              name: 'fairy',
-              active: false
-            },
-            {
-              name: 'fighting',
-              active: false
-            }, */
-            {
-              name: "fire",
-              active: false
-            },
-            /* {
-              name: 'flying',
-              active: false
-            },
-            {
-              name: 'ghost',
-              active: false
-            },
-            {
-              name: 'grass',
-              active: false
-            },
-            {
-              name: 'ground',
-              active: false
-            },
-            {
-              name: 'ice',
-              active: false
-            },
-            {
-              name: 'normal',
-              active: false
-            },
-            {
-              name: 'poison',
-              active: false
-            },
-            {
-              name: 'psychic',
-              active: false
-            },
-            {
-              name: 'rock',
-              active: false
-            },
-            {
-              name: 'steel',
-              active: false
-            }, */
-            {
-              name: "water",
-              active: false
-            }
-          ]
-        }
-      ]
+          children: $getAllTypes().map((t) => ({
+            name: t.name,
+            active: false,
+          })),
+        },
+      ],
     };
   },
   methods: {
     openFilter(index) {
-      this.filters.forEach(filter => {
+      this.filters.forEach((filter) => {
         filter.open = false;
       });
       this.filters[index].open = true;
@@ -177,9 +83,9 @@ export default {
     getActiveFilters() {
       let activeFilters = {};
 
-      this.filters.forEach(filter => {
+      this.filters.forEach((filter) => {
         activeFilters[filter.name] = [];
-        filter.children.filter(child => {
+        filter.children.filter((child) => {
           if (child.active) {
             activeFilters[filter.name].push(child.name);
           }
@@ -190,8 +96,8 @@ export default {
     applyFilters() {
       const filters = this.getActiveFilters();
       this.$emit("applyFilters", filters);
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -175,11 +175,12 @@ export default {
       });
     },
 
-    setPokedexMap(filters) {
-      this.pokemonList = $filterData(filters);
+    async setPokedexMap(filters) {
+      this.pokemonList = [];
       this.visibleCount = 0;
       this.fetchedCount = 0;
       this.isLoadingBatch = false;
+      this.pokemonList = await $filterData(filters);
       this.scrollTrigger();
     },
 
@@ -190,11 +191,11 @@ export default {
       this.isFilterOpen = false;
     },
 
-    updateFilters(filters) {
+    async updateFilters(filters) {
       this.isFilter = Object.values(filters).some((f) => f.length > 0);
       document.body.classList.toggle("bodyFilter", this.isFilter);
-      this.setPokedexMap(filters);
       this.closeFilter();
+      await this.setPokedexMap(filters);
     },
   },
 };

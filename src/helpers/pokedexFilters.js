@@ -1,58 +1,44 @@
-import { $typesPokemonList } from '@/helpers/types.js'
-export const $filterData = (filters) => {
-  if (filters.generations.includes('kanto')) {
-    let list = []
-    for (let i = 0; i < 151; i++) {
-      list.push({
-        id: i + 1,
-        name: '',
-        types: [{type: {name: 'normal'}}],
-      })
-    }
-    return list
-  } else if (filters.generations.includes('johto')) {
-    let list = []
-    for (let i = 152 - 1; i < 251; i++) {
-      list.push({
-        id: i + 1,
-        name: '',
-        types: [{type: {name: 'normal'}}],
-      })
-    }
-    return list
-  } else if (filters.generations.includes('hoenn')) {
-    let list = []
-    for (let i = 252 - 1; i < 385; i++) {
-      list.push({
-        id: i + 1,
-        name: '',
-        types: [{type: {name: 'normal'}}],
-      })
-    }
-    return list
-  } else if (filters.types.length > 0) {
-    let list = []
-    let typeList = $typesPokemonList(filters.types[0])
+import { fetchGeneration, fetchType } from "@/service/pokeApi.js";
 
-    for (let i = 0; i < typeList.length; i++) {
-      list.push({
-        id: typeList[i],
-        name: '',
-        types: [{type: {name: 'normal'}}],
-      })
+export const GENERATIONS = [
+  { name: "kanto", apiName: "generation-i" },
+  { name: "johto", apiName: "generation-ii" },
+  { name: "hoenn", apiName: "generation-iii" },
+  { name: "sinnoh", apiName: "generation-iv" },
+  { name: "unova", apiName: "generation-v" },
+  { name: "kalos", apiName: "generation-vi" },
+  { name: "alola", apiName: "generation-vii" },
+  { name: "galar", apiName: "generation-viii" },
+];
+
+const extractId = (url) => parseInt(url.split("/").filter(Boolean).pop());
+
+const toEntry = (id) => ({
+  id,
+  name: "",
+  types: [{ type: { name: "normal" } }],
+});
+
+export const $filterData = async (filters) => {
+  if (filters.generations.length > 0) {
+    const gen = GENERATIONS.find((g) => g.name === filters.generations[0]);
+    if (gen) {
+      const data = await fetchGeneration(gen.apiName);
+      return data.pokemon_species
+        .map((s) => toEntry(extractId(s.url)))
+        .sort((a, b) => a.id - b.id);
     }
-    return list
   }
-  // All pokemon:
-  else {
-    let list = []
-    for (let i = 0; i < 151; i++) {
-      list.push({
-        id: i + 1,
-        name: '',
-        types: [{type: {name: 'normal'}}],
-      })
-    }
-    return list
+
+  if (filters.types.length > 0) {
+    const data = await fetchType(filters.types[0]);
+    return data.pokemon
+      .map((p) => toEntry(extractId(p.pokemon.url)))
+      .sort((a, b) => a.id - b.id);
   }
-}
+
+  const data = await fetchGeneration("generation-i");
+  return data.pokemon_species
+    .map((s) => toEntry(extractId(s.url)))
+    .sort((a, b) => a.id - b.id);
+};
