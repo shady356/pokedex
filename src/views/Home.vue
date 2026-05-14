@@ -58,11 +58,4 @@ export default {
   text-align: center;
 }
 
-@keyframes pokeball-idle {
-  0%, 60%, 100% { transform: rotate(0deg); }
-  65%            { transform: rotate(10deg); }
-  72%            { transform: rotate(-5deg); }
-  78%            { transform: rotate(7deg); }
-  85%            { transform: rotate(0deg); }
-}
 </style>

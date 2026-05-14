@@ -157,17 +157,4 @@ nav {
   }
 }
 
-@keyframes glare {
-  0% {
-    top: -55px;
-    left: -30px;
-    visibility: visible;
-  }
-
-  100% {
-    top: 100%;
-    left: 100%;
-    visibility: hidden;
-  }
-}
 </style>

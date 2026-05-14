@@ -66,3 +66,25 @@
     transform: scale(1);
   }
 }
+
+@keyframes glare {
+  0% {
+    top: -55px;
+    left: -30px;
+    visibility: visible;
+  }
+
+  100% {
+    top: 100%;
+    left: 100%;
+    visibility: hidden;
+  }
+}
+
+@keyframes pokeball-idle {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  65%            { transform: rotate(10deg); }
+  72%            { transform: rotate(-5deg); }
+  78%            { transform: rotate(7deg); }
+  85%            { transform: rotate(0deg); }
+}
