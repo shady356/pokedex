@@ -133,8 +133,8 @@ export default {
 <style lang="scss" scoped>
   .move-type-header {
     background: var(--color-bg-primary);
-    height: $m;
-    padding: $xs 0 0;
+    height: $space-16;
+    padding: $space-8 0 0;
     position: sticky;
     top: 0;
     width: 100%;
@@ -150,18 +150,18 @@ export default {
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: $xxl;
+    margin-bottom: $space-48;
 
     .table-header {
       background: var(--color-bg-primary);
       position: sticky;
-      top: calc(#{$m} + #{$xs});
+      top: calc(#{$space-16} + #{$space-8});
     }
 
     thead {
 
       th {
-        padding: $s 0;
+        padding: $space-12 0;
         text-align: left;
         font-size: $font-xs;
 
@@ -178,7 +178,7 @@ export default {
         border-top: 1px solid var(--color-border);
 
         td {
-          padding: $s 0;
+          padding: $space-12 0;
           text-transform: capitalize;
           font-size: 14px;
           
@@ -187,7 +187,7 @@ export default {
               font-weight: bold;
             }
             .level {
-              margin-top: $xxs;
+              margin-top: $space-4;
               color: var(--color-text-light);
               font-size: $font-s;
               font-weight: normal;
@@ -200,7 +200,7 @@ export default {
             text-align: center;
             .category-img {
               height: auto;
-              width: $xl;
+              width: $space-32;
             }
           }
           &.number {

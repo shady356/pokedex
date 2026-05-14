@@ -48,15 +48,15 @@ export default {
 
 <style lang="scss" scoped>
 .about-container {
-  margin: $l;
+  margin: $space-24;
 
   h4 {
-    margin: $xs 0 $s;
+    margin: $space-8 0 $space-12;
   }
 
   p {
     line-height: 1.3rem;
-    margin: $xs 0 $s;
+    margin: $space-8 0 $space-12;
   }
 }
 </style>

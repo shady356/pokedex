@@ -56,19 +56,19 @@ export default {
 <style lang="scss" scoped>
 .modal-ability-container {
   display: flex;
-  padding: $m $l;
+  padding: $space-16 $space-24;
   text-align: center;
   flex-direction: column;
   align-items: center;
   min-height: 256px;
 
   .ability-title {
-    margin-top: $l;
-    margin-bottom: $m;
+    margin-top: $space-24;
+    margin-bottom: $space-16;
   }
 
   .description {
-    margin-bottom: $l;
+    margin-bottom: $space-24;
     color: var(--color-text-light);
     text-align: center;
     line-height: 22px;

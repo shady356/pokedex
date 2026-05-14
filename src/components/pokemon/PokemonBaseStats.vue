@@ -240,10 +240,10 @@ export default {
 <style lang="scss" scoped>
 
 .base-stat-container {
-  padding: $xl 0 $xl;
+  padding: $space-32 0 $space-32;
 
   .section-title {
-    margin: 0 0 $s $m;
+    margin: 0 0 $space-12 $space-16;
     font-size: $font-s;
   }
 
@@ -260,13 +260,13 @@ export default {
     .base-stat-addon-info {
       display: flex;
       flex-direction: column;
-      margin-top: $l;
+      margin-top: $space-24;
       align-items: center;
 
       .base-stats-total {
-        margin-bottom: $l;
-        width: $xxl;
-        height: $xxl;
+        margin-bottom: $space-24;
+        width: $space-48;
+        height: $space-48;
         text-align: center;
         filter: drop-shadow(0px 1px var(--color-accent-dim))
                 drop-shadow(1px 0px var(--color-accent))
@@ -274,8 +274,8 @@ export default {
                 drop-shadow(-1px 0px var(--color-accent));
         
         .hexagon-shape {
-          width: $xxl;
-          height: $xxl;
+          width: $space-48;
+          height: $space-48;
           clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
           background: var(--color-bg-primary);
           
@@ -297,6 +297,6 @@ export default {
 .pokemon-types {
   display: flex;
   flex-direction: column;
-  gap: $xs;
+  gap: $space-8;
 }
 </style>

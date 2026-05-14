@@ -30,7 +30,7 @@ export default {
     background: var(--color-bg-tertiary);
     box-sizing: border-box;
     color: var(--color-text);
-    padding: $m $xl;
+    padding: $space-16 $space-32;
     position: sticky;
     top: 0;
     width: 100%;

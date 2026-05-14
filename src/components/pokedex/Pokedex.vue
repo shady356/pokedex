@@ -225,7 +225,7 @@ $pokemon-gap-mobile: 2%;
   
   ul {
     display: grid;
-    gap: $s;
+    gap: $space-12;
     width: 100%;
     
 

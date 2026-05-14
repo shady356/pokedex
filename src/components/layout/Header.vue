@@ -36,7 +36,7 @@ export default {
 .header {
   align-items: center;
   display: flex;
-  padding: $s;
+  padding: $space-12;
   position: sticky;
   top: 0;
    background: var(--color-header);
@@ -50,7 +50,7 @@ export default {
     }
 
     &:nth-child(2) {
-      width: calc(100% - (#{$xxl}*2));
+      width: calc(100% - (#{$space-48}*2));
       justify-content: center;
 
       h1 {
@@ -63,7 +63,7 @@ export default {
     }
 
     .column__button-icon {
-      font-size: $l;
+      font-size: $space-24;
     }
   }
 }

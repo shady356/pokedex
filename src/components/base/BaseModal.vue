@@ -130,16 +130,16 @@ export default {
     width: 96vw;
     max-height: 100vh;
     min-height: 30vh;
-    border-radius: $m $m 0 0;
+    border-radius: $space-16 $space-16 0 0;
 
     .drag-handler {
       position: sticky;
-      top: $s;
-      margin: $s auto 0;
+      top: $space-12;
+      margin: $space-12 auto 0;
       background: var(--color-bg-tertiary);
-      width: $xxl;
-      height: $xxs;
-      border-radius: $l;
+      width: $space-48;
+      height: $space-4;
+      border-radius: $space-24;
     }
 
     @media (min-width: 1024px) {
@@ -147,7 +147,7 @@ export default {
       height: 50vh;
       top: 25vh;
       left: 25vw;
-      border-radius: $m;
+      border-radius: $space-16;
     }
 
     &.is-pokemon-card {
@@ -155,7 +155,7 @@ export default {
       bottom: 1vh;
       left: 1vw;
       height: 98vh;
-      border-radius: $m;
+      border-radius: $space-16;
 
       .modal-close-container {
         bottom: 3vh;
@@ -175,23 +175,23 @@ export default {
       align-items: center;
       position: fixed;
       bottom: 2vh;
-      left: calc(50% - #{$xxl} / 2);
+      left: calc(50% - #{$space-48} / 2);
       z-index: 10;
-      width: $xxl;
-      height: $xxl;
+      width: $space-48;
+      height: $space-48;
 
       .modal-close {
         display: flex;
         justify-content: center;
         background: var(--color-bg-primary);
         border-radius: 50%;
-        padding: $xxxs;
+        padding: $space-2;
 
         .close-icon {
           background: var(--color-primary);
-          width: $l;
-          height: $l;
-          padding: $xs;
+          width: $space-24;
+          height: $space-24;
+          padding: $space-8;
           border-radius: 50%;
         }
       }

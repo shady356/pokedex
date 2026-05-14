@@ -22,10 +22,10 @@ export default {
   color: var(--color-text);
   cursor: pointer;
   display: flex;
-  height: $xxl;
+  height: $space-48;
   justify-content: center;
   outline: none;
-  width: $xxl;
+  width: $space-48;
   transition: transform 50ms ease-in-out;
   -webkit-tap-highlight-color: transparent;
 

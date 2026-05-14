@@ -59,10 +59,10 @@ export default {
 
 <style lang="scss" scoped>
 .settings {
-  padding: $l $m;
+  padding: $space-24 $space-16;
 
   &__section {
-    margin-bottom: $xl;
+    margin-bottom: $space-32;
   }
 
   &__section-title {
@@ -71,7 +71,7 @@ export default {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-light);
-    margin-bottom: $s;
+    margin-bottom: $space-12;
   }
 
   &__row {
@@ -79,15 +79,15 @@ export default {
     align-items: center;
     justify-content: space-between;
     background: var(--color-bg-primary);
-    border-radius: $s;
-    padding: $s $m;
-    min-height: $xxl;
+    border-radius: $space-12;
+    padding: $space-12 $space-16;
+    min-height: $space-48;
   }
 
   &__label {
     display: flex;
     align-items: center;
-    gap: $xs;
+    gap: $space-8;
     font-size: 1rem;
     color: var(--color-text);
 
@@ -100,18 +100,18 @@ export default {
 .theme-toggle {
   display: flex;
   background: var(--color-bg-secondary);
-  border-radius: $xs;
-  padding: $xxxs;
-  gap: $xxxs;
+  border-radius: $space-8;
+  padding: $space-2;
+  gap: $space-2;
 
   &__btn {
     background: none;
     border: none;
-    border-radius: calc(#{$xs} - 2px);
+    border-radius: calc(#{$space-8} - 2px);
     color: var(--color-text-light);
     cursor: pointer;
     font-size: 0.875rem;
-    padding: $xxs $s;
+    padding: $space-4 $space-12;
     transition: background 0.15s, color 0.15s;
 
     &--active {

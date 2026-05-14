@@ -42,7 +42,7 @@ export default {
 <style lang="scss" scoped>
 .white-bar {
   position: relative;
-  border-radius: $m $m 0 0;
+  border-radius: $space-16 $space-16 0 0;
   background: var(--color-bg-primary);
   width: 100%;
   clip-path: polygon(100% 0, 100% 60%, 75% 60%, 60% 100%, 0 100%, 0 0);
@@ -51,19 +51,19 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: $xs $m;
+    padding: $space-8 $space-16;
 
     .pokemon-name {
       color: var(--color-text);
-      margin-right: $s;
+      margin-right: $space-12;
       font-size: 1.4rem;
     }
 
     .skeleton-block-line {
       background: var(--color-bg-tertiary);
-      border-radius: $xxs;
-      width: $xxxxl;
-      height: $m;
+      border-radius: $space-4;
+      width: $space-96;
+      height: $space-16;
     }
   }
 

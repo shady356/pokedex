@@ -19,14 +19,14 @@ export default {
 
 button {
   background: var(--color-bg-primary);
-  border-radius: $l;
+  border-radius: $space-24;
   border: 1px solid transparent;
   color: var(--color-text);
   cursor: pointer;
   font-size: $font-s;
   font-weight: 700;
   outline: none;
-  padding: $m $l;
+  padding: $space-16 $space-24;
   transition: transform 50ms ease-in-out;
   -webkit-tap-highlight-color: transparent;
 

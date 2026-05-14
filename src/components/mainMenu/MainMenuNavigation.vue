@@ -64,7 +64,7 @@ nav {
 
 .navigation-list {
   position: fixed;
-  bottom: $xl;
+  bottom: $space-32;
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -74,7 +74,7 @@ nav {
 
   @media screen and (min-width: 1024px) {
     justify-content: center;
-    gap: $xxxl;
+    gap: $space-64;
   }
 }
 
@@ -84,7 +84,7 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: $l;
+  margin-bottom: $space-24;
   transition: transform 50ms ease-in-out;
 
   &:active {
@@ -97,9 +97,9 @@ nav {
     background: var(--color-secondary);
     border-radius: 50%;
     display: flex;
-    height: $xxxl;
+    height: $space-64;
     justify-content: center;
-    width: $xxxl;
+    width: $space-64;
     overflow: hidden;
   }
 
@@ -121,39 +121,39 @@ nav {
   }
 
   &__icon {
-    height: $xl;
-    width: $xl;
+    height: $space-32;
+    width: $space-32;
     color: var(--color-secondary-fg);
-    font-size: $xl;
+    font-size: $space-32;
   }
   
   &__text {
     color: var(--color-text);
     font-size: $font-s;
     font-weight: 700;
-    margin-top: $s;
+    margin-top: $space-12;
     text-align: center;
   }
 }
 
 .navigation-list-item:nth-child(1),
 .navigation-list-item:nth-child(3) {
-  margin-top: -$xxxl;
+  margin-top: -$space-64;
 
   .navigation-list-item__icon-container {
-    width: $xxl;
-    height: $xxl;
+    width: $space-48;
+    height: $space-48;
   }
 
   .navigation-list-item__icon {
-    width: $l;
-    height: $l;
-    font-size: $l;
+    width: $space-24;
+    height: $space-24;
+    font-size: $space-24;
   }
 
   .navigation-list-item__text {
     font-size: $font-xs;
-    margin-top: $xs;
+    margin-top: $space-8;
   }
 }
 

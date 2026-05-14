@@ -55,6 +55,6 @@ export default {
 
 <style lang="scss" scoped>
   .types-list-container {
-    margin: $xl $m;
+    margin: $space-32 $space-16;
   }
 </style>

@@ -89,36 +89,36 @@ export default {
 <style lang="scss" scoped>
 .modal-type-container {
   display: flex;
-  padding: $m;
+  padding: $space-16;
   text-align: center;
   flex-direction: column;
   align-items: center;
 
   .type-icon-container {
     border-radius: 50%;
-    margin: $m 0 $l 0;
-    padding: $m;
-    width: $xxl;
-    height: $xxl;
+    margin: $space-16 0 $space-24 0;
+    padding: $space-16;
+    width: $space-48;
+    height: $space-48;
 
     .type-icon {
-      width: $xxl;
-      height: $xxl;
+      width: $space-48;
+      height: $space-48;
     }
   }
   .type-title {
-    margin-bottom: $m;
+    margin-bottom: $space-16;
   }
   .description {
-    margin-bottom: $l;
+    margin-bottom: $space-24;
     color: var(--color-text-light);
     text-align: center;
     line-height: 22px;
   }
   .type-damage-relation-container {
-    padding: $m;
+    padding: $space-16;
     width: 100%;
-    margin-bottom: $m;
+    margin-bottom: $space-16;
 
     ul {
       display: flex;
@@ -129,7 +129,7 @@ export default {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: $m;
+        margin-bottom: $space-16;
 
         .type-relation-title {
           text-align: left;
@@ -141,7 +141,7 @@ export default {
           flex-wrap: wrap;
 
           .tag-item {
-            margin-left: $xxs;
+            margin-left: $space-4;
 
             &:first-child {
               margin: 0;

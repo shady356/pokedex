@@ -86,7 +86,7 @@ export default {
 <style lang="scss" scoped>
 .type-tag-container {
   display: inline-flex;
-  gap: $s;
+  gap: $space-12;
   border: none;
   background: none;
   border-radius: 8px;
@@ -98,7 +98,7 @@ export default {
 
   &__text {
     color: var(--color-text-light);
-    padding-right: $m;
+    padding-right: $space-16;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -108,7 +108,7 @@ export default {
   &__empty-text {
     width: 100%;
     color: var(--color-text-light);
-    padding: $xxs;
+    padding: $space-4;
     font-weight: 700;
     text-align: center;
   }
@@ -122,9 +122,9 @@ export default {
  .icon {
   display: flex;
   background: none;
-  width: $s;
-  height: $s;
-  padding: $xs;
+  width: $space-12;
+  height: $space-12;
+  padding: $space-8;
   border-radius: 8px 0 0 8px;
 
   &--circle {

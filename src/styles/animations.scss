@@ -48,8 +48,8 @@
 
 .loading-pokemon-sprite {
   animation: loading-pokemon-sprite 2s infinite ease-in-out;
-  width: $l;
-  height: $l;
+  width: $space-24;
+  height: $space-24;
   background: var(--color-white);
   border-radius: 50%;
   box-shadow: 0 0 30px #f8d8f7, 0 0 10px var(--color-white);

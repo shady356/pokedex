@@ -166,13 +166,13 @@ export default {
 
 <style lang="scss" scoped>
   .about-container {
-    padding-bottom: $xxl;
+    padding-bottom: $space-48;
 
     section {
-      padding: $m;
+      padding: $space-16;
 
       .title {
-        margin-bottom: $xxs;
+        margin-bottom: $space-4;
         display: flex;
         align-items: center;
         font-size: 14px;
@@ -180,13 +180,13 @@ export default {
 
       .data-row {
         display: flex;
-        padding: $xxs 0;
+        padding: $space-4 0;
         font-size: $font-s;
         width: 100%;
 
         .label {
           flex-basis: 35%;
-          padding-right: $s;
+          padding-right: $space-12;
           color: var(--color-text-light);
         }
         .value {
@@ -197,14 +197,14 @@ export default {
 
       &.description-container {
         background: var(--color-bg-primary);
-        border-radius: $s;
-        margin-bottom: $s;
+        border-radius: $space-12;
+        margin-bottom: $space-12;
         border: 1px solid var(--color-border);
 
         .quote {
           color: var(--color-text-light);
           font-size: $font-xs;
-          margin-top: $xxs;
+          margin-top: $space-4;
           text-align: right;
         }
       }
@@ -213,15 +213,15 @@ export default {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
-        padding-bottom: $xs;
+        padding-bottom: $space-8;
 
         .ability {
-          margin-right: $xs;
+          margin-right: $space-8;
           cursor: pointer;
 
           .icon {
-            margin-left: $xxxs;
-            font-size: $xs;
+            margin-left: $space-2;
+            font-size: $space-8;
             color: var(--color-accent);
           }
 
@@ -241,8 +241,8 @@ export default {
 
           .icon {
             color: var(--color-primary);
-            font-size: $s;
-            margin-right: $xxs;
+            font-size: $space-12;
+            margin-right: $space-4;
           }
         }
         .height {
@@ -250,9 +250,9 @@ export default {
           align-items: center;
 
           .icon {
-            font-size: $s;
+            font-size: $space-12;
             color: var(--color-primary);
-            margin-right: $xxs;
+            margin-right: $space-4;
             transform: rotate(90deg);
           }
         }

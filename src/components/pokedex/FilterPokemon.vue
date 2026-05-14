@@ -200,7 +200,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: $l $l;
+  padding: $space-24 $space-24;
   border-bottom: 1px solid var(--color-bg-secondary);
 
   &__title {
@@ -223,14 +223,14 @@ export default {
 }
 
 .filter-container {
-  padding: $l;
+  padding: $space-24;
 
   .filter-list {
-    margin-bottom: $xl;
+    margin-bottom: $space-32;
 
     .filter {
       border-bottom: 1px solid var(--color-bg-secondary);
-      padding: $s 0;
+      padding: $space-12 0;
 
       .text {
         &.open {
@@ -239,12 +239,12 @@ export default {
       }
 
       .children-list {
-        padding: $xs;
+        padding: $space-8;
         display: flex;
         flex-wrap: wrap;
 
         .child {
-          margin: $xs $xxs;
+          margin: $space-8 $space-4;
         }
       }
     }

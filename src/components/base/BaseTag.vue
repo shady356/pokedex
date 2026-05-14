@@ -22,12 +22,12 @@ export default {
 .tag-container {
   align-items: center;
   background: var(--color-bg-primary);
-  border-radius: $l;
+  border-radius: $space-24;
   border: 1px solid var(--color-border);
   color: var(--color-text);
   display: inline-flex;
   font-size: $font-xs;
-  padding: $xs $m;
+  padding: $space-8 $space-16;
   transition: background-color $fast ease-out;
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;

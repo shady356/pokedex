@@ -64,11 +64,11 @@ export default {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: $s;
+    gap: $space-12;
 
     .type-item {
       width: 30%;
-      margin-bottom: $s;
+      margin-bottom: $space-12;
 
       &__button {
         display: flex;
@@ -76,9 +76,9 @@ export default {
         align-items: center;
         background: var(--color-accent-dim);
         width: 100%;
-        padding: $s;
+        padding: $space-12;
         box-sizing: border-box;
-        border-radius: $s;
+        border-radius: $space-12;
         border: none;
         cursor: pointer;
         color: inherit;
@@ -87,10 +87,10 @@ export default {
       }
 
       &__icon {
-        margin-bottom: $xs;
-        width: $m;
-        height: $m;
-        padding: $s;
+        margin-bottom: $space-8;
+        width: $space-16;
+        height: $space-16;
+        padding: $space-12;
         border-radius: 50%;
       }
       &__icon-image {

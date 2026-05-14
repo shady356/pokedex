@@ -64,9 +64,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  height: calc(100% - #{$xxl});
-  max-height: calc(100% - #{$xxl});
-  padding: $l 0;
+  height: calc(100% - #{$space-48});
+  max-height: calc(100% - #{$space-48});
+  padding: $space-24 0;
   box-sizing: border-box;
 
   .pokemon-sprite {

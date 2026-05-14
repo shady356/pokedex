@@ -397,7 +397,7 @@ export default {
       .left-button,
       .right-button {
         position: absolute;
-        margin: 0 $xs;
+        margin: 0 $space-8;
       }
 
       .left-button {
@@ -410,15 +410,15 @@ export default {
     .zoom-pokemon-button {
       position: absolute;
       top: 28%;
-      right: $xs;
+      right: $space-8;
     }
   }
 
   // Section 2
   .meta-container {
-    border-radius: $s $s 0 0;
-    padding: $m;
-    margin: 0 $xs;
+    border-radius: $space-12 $space-12 0 0;
+    padding: $space-16;
+    margin: 0 $space-8;
     display: flex;
     flex-direction: column;
 

@@ -56,15 +56,15 @@ export default {
   .tab-list {
     display: flex;
     background: var(--color-bg-secondary);
-    border-radius: $m;
-    padding: $xxs;
+    border-radius: $space-16;
+    padding: $space-4;
 
     .tab-item {
       cursor: pointer;
       color: var(--color-text-light);
       width: 100%;
-      padding: $xxs 0;
-      border-radius: $m;
+      padding: $space-4 0;
+      border-radius: $space-16;
       font-family: "Roboto Condensed", sans-serif;
       background: transparent;
       border: none;

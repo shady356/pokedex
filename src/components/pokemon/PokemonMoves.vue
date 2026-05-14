@@ -198,16 +198,16 @@ export default {
 .loading-moves {
   display: flex;
   justify-content: center;
-  padding: $xxl 0;
+  padding: $space-48 0;
 }
 
 .generation {
   align-items: center;
   display: flex;
-  margin: $s 0 $m $s;
+  margin: $space-12 0 $space-16 $space-12;
 
   .tab-header {
-    margin-left: $s;
+    margin-left: $space-12;
     width: 100%;
     overflow-x: scroll;
   }
