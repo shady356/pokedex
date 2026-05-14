@@ -8,9 +8,9 @@
     <table>
       <thead>
         <th
-          class="uppercase table-header"
           v-for="header in headers"
           :key="header"
+          class="uppercase table-header"
         >
           {{ header }}
         </th>
@@ -84,9 +84,6 @@ export default {
       }
     }
   },
-  data() {
-    return {};
-  },
   props: {
     headers: {
       type: Array,
@@ -108,6 +105,9 @@ export default {
       type: Array,
       required: true
     }
+  },
+  data() {
+    return {};
   },
   computed: {
     isLevelUp() {

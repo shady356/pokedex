@@ -8,7 +8,9 @@
 
     <div class="settings">
       <section class="settings__section">
-        <h2 class="settings__section-title">Appearance</h2>
+        <h2 class="settings__section-title">
+          Appearance
+        </h2>
 
         <div class="settings__row">
           <span class="settings__label">

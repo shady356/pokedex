@@ -1,8 +1,8 @@
 <script>
 import { Radar } from 'vue-chartjs'
 export default {
-  extends: Radar,
   name: 'PokemonBaseStatChart',
+  extends: Radar,
   props: {
     chartData: {
       type: Object,

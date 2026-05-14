@@ -42,7 +42,10 @@
         title="learned by tutoring"
       />
     </div>
-    <div v-else class="loading-moves">
+    <div
+      v-else
+      class="loading-moves"
+    >
       <BaseProgressSpinner size="large" />
     </div>
   </div>

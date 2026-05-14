@@ -42,6 +42,19 @@
     ]
   },
   "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$json = [Console]::In.ReadToEnd() | ConvertFrom-Json; $f = $json.tool_input.file_path; if ($f -match \"\\.(vue|js)$\") { Push-Location \"c:\\Users\\henri\\Documents\\code\\pokedex\"; npx eslint $f --fix; npx prettier $f --write; Pop-Location; exit $LASTEXITCODE }",
+            "shell": "powershell",
+            "statusMessage": "Linting..."
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "matcher": "",

@@ -3,8 +3,8 @@
     <div class="tab-list">
       <button
         v-for="(item, index) in items"
-        :class="['tab-item', { active: item.active }]"
         :key="index"
+        :class="['tab-item', { active: item.active }]"
      
         @click="changeTab(index)"
       >

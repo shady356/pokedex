@@ -4,11 +4,11 @@
       <template #title>
         <h1>Pokédex</h1>
       </template>
-      
+
       <template #options>
         <BaseButtonIcon @click="openFilter">
           <span
-            :class="['material-icons-round filter-item',{ 'active': isFilter }]"
+            :class="['material-icons-round filter-item', { active: isFilter }]"
           >filter_list</span>
         </BaseButtonIcon>
       </template>
@@ -26,13 +26,11 @@
             name: 'PokemonCardController',
             params: {
               pokemonId: pokemon.id,
-              pokemonIndex: index
-            }
+              pokemonIndex: index,
+            },
           }"
         >
-          <PokedexItem
-            :pokemon="pokemon"
-          />
+          <PokedexItem :pokemon="pokemon" />
         </router-link>
       </ul>
     </div>
@@ -40,25 +38,23 @@
       v-else
       class="loading"
     >
-      <BaseProgressSpinner
-        size="large"
-      />
+      <BaseProgressSpinner size="large" />
     </div>
     <div
-      class="trigger"
       ref="trigger"
+      class="trigger"
     />
 
     <!-- Filter -->
     <BaseModal
       v-if="isFilterOpen"
-      @closeModal="closeFilter"
       :show-close-button="false"
       drag-handler
+      @closeModal="closeFilter"
     >
       <FilterPokemon
-        @applyFilters="updateFilters"
         :is-filter="isFilter"
+        @applyFilters="updateFilters"
       />
     </BaseModal>
 
@@ -77,21 +73,21 @@ import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
 import FilterPokemon from "@/components/pokedex/FilterPokemon.vue";
 import Header from "@/components/layout/Header.vue";
 import PokedexItem from "@/components/pokedex/PokedexItem";
-import { useQueryClient, STALE } from '@/composables/usePokeApi.js'
-import { fetchPokemonForm } from '@/service/pokeApi.js'
+import { useQueryClient, STALE } from "@/composables/usePokeApi.js";
+import { fetchPokemonForm } from "@/service/pokeApi.js";
 
 export default {
   name: "Pokedex",
-  setup() {
-    return { queryClient: useQueryClient() }
-  },
   components: {
     BaseButtonIcon,
     Header,
     BaseModal,
     BaseProgressSpinner,
     FilterPokemon,
-    PokedexItem
+    PokedexItem,
+  },
+  setup() {
+    return { queryClient: useQueryClient() };
   },
   data() {
     return {
@@ -128,8 +124,8 @@ export default {
           }
         }
         this.isPokemonModal = newVal ? newVal.meta.showModal : false;
-      }
-    }
+      },
+    },
   },
   mounted() {
     this.setPokedexMap(this.filters);
@@ -144,11 +140,15 @@ export default {
 
     async fetchPokemon(id, index) {
       const data = await this.queryClient.fetchQuery({
-        queryKey: ['pokemon-form', id],
+        queryKey: ["pokemon-form", id],
         queryFn: () => fetchPokemonForm(id),
         staleTime: STALE,
       });
-      this.$set(this.pokemonList, index, { id: data.id, name: data.name, types: data.types });
+      this.$set(this.pokemonList, index, {
+        id: data.id,
+        name: data.name,
+        types: data.types,
+      });
       this.fetchedCount++;
     },
 
@@ -163,8 +163,8 @@ export default {
 
       await Promise.all(
         Array.from({ length: end - start }, (_, i) =>
-          this.fetchPokemon(this.pokemonList[start + i].id, start + i)
-        )
+          this.fetchPokemon(this.pokemonList[start + i].id, start + i),
+        ),
       );
 
       this.isLoadingBatch = false;
@@ -192,24 +192,27 @@ export default {
       this.fetchedCount = 0;
       this.isLoadingBatch = false;
       this.scrollTrigger();
-      this.commitPokedexIds(this.pokemonList.map(p => p.id));
+      this.commitPokedexIds(this.pokemonList.map((p) => p.id));
     },
 
-    openFilter() { this.isFilterOpen = true; },
-    closeFilter() { this.isFilterOpen = false; },
+    openFilter() {
+      this.isFilterOpen = true;
+    },
+    closeFilter() {
+      this.isFilterOpen = false;
+    },
 
     updateFilters(filters) {
-      this.isFilter = Object.values(filters).some(f => f.length > 0);
-      document.body.classList.toggle('bodyFilter', this.isFilter);
+      this.isFilter = Object.values(filters).some((f) => f.length > 0);
+      document.body.classList.toggle("bodyFilter", this.isFilter);
       this.setPokedexMap(filters);
       this.closeFilter();
     },
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-
 $pokemon-per-row-mobile: 3;
 $pokemon-gap-mobile: 2%;
 
@@ -222,12 +225,11 @@ $pokemon-gap-mobile: 2%;
 .pokedex-container {
   display: flex;
   justify-content: center;
-  
+
   ul {
     display: grid;
     gap: $space-12;
     width: 100%;
-    
 
     grid-template-columns: repeat(4, 1fr);
 

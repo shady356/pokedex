@@ -4,15 +4,15 @@
     mode="out-in"
   >
     <div
-      class="pokemon-sprite-container"
       :key="pokemonId"
+      class="pokemon-sprite-container"
     >
       <img
         v-if="!offloadSprite"
+        id="pokemon-sprite-id"
         :src="pokemonSpriteImg"
         :class="['pokemon-sprite', { zoom: isPokemonZoom }]"
         alt="pokemon sprite"
-        id="pokemon-sprite-id"
       >
       <!-- Loading pokemon sprite -->
       <BaseProgressSpinner v-else />

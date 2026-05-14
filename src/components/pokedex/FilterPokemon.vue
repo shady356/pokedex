@@ -9,9 +9,9 @@
     <div class="filter-container">
       <ul class="filter-list">
         <li
-          class="filter"
           v-for="(filter, index) in filters"
           :key="filter.name"
+          class="filter"
           @click="openFilter(index)"
         >
           <div :class="['text capitalize', { open: filter.open }]">
@@ -35,8 +35,8 @@
       </ul>
 
       <BaseButton
-        @click="applyFilters()"
         class="primary"
+        @click="applyFilters()"
       >
         Apply filters
       </BaseButton>
