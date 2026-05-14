@@ -48,7 +48,7 @@
     </BaseModal>
 
     <div v-if="isPokemonModal">
-      <router-view :pokedex-ids="pokemonList.map((p) => p.id)" />
+      <router-view :pokedex-ids="pokedexIds" />
     </div>
   </div>
 </template>
@@ -96,6 +96,9 @@ export default {
     visiblePokemon() {
       return this.pokemonList.slice(0, this.visibleCount);
     },
+    pokedexIds() {
+      return this.pokemonList.map((p) => p.id);
+    },
   },
   watch: {
     $route: {
@@ -111,7 +114,7 @@ export default {
             }, 10);
           }
         }
-        this.isPokemonModal = newVal ? newVal.meta.showModal : false;
+        this.isPokemonModal = !!newVal?.meta?.showModal;
       },
     },
   },
