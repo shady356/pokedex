@@ -9,14 +9,12 @@
         <BaseButtonIcon @click="openFilter">
           <span
             :class="['material-icons-round filter-item', { active: isFilter }]"
-          >filter_list</span>
+            >filter_list</span
+          >
         </BaseButtonIcon>
       </template>
     </Header>
-    <div
-      v-if="fetchedCount > 0"
-      class="default-page-margin pokedex-container"
-    >
+    <div v-if="fetchedCount > 0" class="default-page-margin pokedex-container">
       <ul>
         <router-link
           v-for="(pokemon, index) in visiblePokemon"
@@ -34,16 +32,10 @@
         </router-link>
       </ul>
     </div>
-    <div
-      v-else
-      class="loading"
-    >
+    <div v-else class="loading">
       <BaseProgressSpinner size="large" />
     </div>
-    <div
-      ref="trigger"
-      class="trigger"
-    />
+    <div ref="trigger" class="trigger" />
 
     <!-- Filter -->
     <BaseModal
@@ -52,21 +44,17 @@
       drag-handler
       @closeModal="closeFilter"
     >
-      <FilterPokemon
-        :is-filter="isFilter"
-        @applyFilters="updateFilters"
-      />
+      <FilterPokemon :is-filter="isFilter" @applyFilters="updateFilters" />
     </BaseModal>
 
     <div v-if="isPokemonModal">
-      <router-view />
+      <router-view :pokedex-ids="pokemonList.map((p) => p.id)" />
     </div>
   </div>
 </template>
 
 <script>
 import { $filterData } from "@/helpers/pokedexFilters.js";
-import { mapActions } from "vuex";
 import BaseButtonIcon from "@/components/base/BaseButtonIcon.vue";
 import BaseModal from "@/components/base/BaseModal.vue";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
@@ -136,8 +124,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["commitPokedexIds"]),
-
     async fetchPokemon(id, index) {
       const data = await this.queryClient.fetchQuery({
         queryKey: ["pokemon-form", id],
@@ -163,8 +149,8 @@ export default {
 
       await Promise.all(
         Array.from({ length: end - start }, (_, i) =>
-          this.fetchPokemon(this.pokemonList[start + i].id, start + i),
-        ),
+          this.fetchPokemon(this.pokemonList[start + i].id, start + i)
+        )
       );
 
       this.isLoadingBatch = false;
@@ -192,7 +178,6 @@ export default {
       this.fetchedCount = 0;
       this.isLoadingBatch = false;
       this.scrollTrigger();
-      this.commitPokedexIds(this.pokemonList.map((p) => p.id));
     },
 
     openFilter() {
