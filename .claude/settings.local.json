@@ -38,7 +38,12 @@
       "PowerShell(& \"C:\\\\Users\\\\henri\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\" --version 2>&1)",
       "PowerShell(& \"C:\\\\Python311\\\\python.exe\" --version 2>&1)",
       "PowerShell(node scripts/gen_water_texture.mjs)",
-      "Bash(node scripts/gen_all_textures.mjs)"
+      "Bash(node scripts/gen_all_textures.mjs)",
+      "Bash(New-Item -ItemType Directory -Path \"C:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\.claude\\\\skills\\\\refactor\" -Force)",
+      "Bash(mkdir -p \"c:/Users/henri/Documents/code/pokedex/.claude/skills/refactor\")"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\henri\\Documents\\code\\pokedex\\.claude\\skills"
     ]
   },
   "hooks": {
