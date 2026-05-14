@@ -38,198 +38,131 @@
         </div>
       --></div>
 
-      <BaseModal v-if="currentType" @closeModal="toggleTypeModal('')">
+      <BaseModal v-if="currentType" @close-modal="toggleTypeModal('')">
         <TypeModal :type-name="currentType as any" />
       </BaseModal>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from "vue";
-import { gsap } from "gsap";
+<script setup lang="ts">
+import { ref, watch, onMounted, nextTick } from "vue";
 import PokemonBaseStatChart from "@/components/pokemon/PokemonBaseStatChart.vue";
 import TypeModal from "@/components/types/TypeModal.vue";
 import BaseModal from "@/components/base/BaseModal.vue";
 import BaseTypeTag from "../base/BaseTypeTag.vue";
 import type { ChartData } from "chart.js";
 
-export default defineComponent({
-  name: "PokemonBaseStats",
-  components: { PokemonBaseStatChart, BaseTypeTag, BaseModal, TypeModal },
-  props: {
-    pokemon: {
-      type: Object as PropType<Record<string, any>>,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      tweenedNumber: 0,
-      isChartGenerated: false,
-      currentType: "" as string,
+const props = defineProps<{ pokemon: Record<string, any> }>();
 
-      baseStatChartData: {
-        labels: [],
-        datasets: [
-          {
-            backgroundColor: "",
-            borderColor: "",
-            pointRadius: 0,
-            borderWidth: 0,
-            data: [],
-          },
-        ],
-      } as ChartData<"radar">,
-      baseStatChartOptions: {
-        responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
-        scales: {
-          r: {
-            angleLines: {
-              color: "",
-            },
-            grid: {
-              color: "",
-              lineWidth: 3,
-            },
-            suggestedMin: 0,
-            max: 255,
-            ticks: {
-              display: false,
-              stepSize: 255,
-            },
-            pointLabels: {
-              font: {
-                size: 13,
-                family: "Roboto condensed",
-              },
-              color: "",
-            },
-          },
-        },
+const isChartGenerated = ref(false);
+const currentType = ref("");
+
+const baseStatChartData = ref<ChartData<"radar">>({
+  labels: [],
+  datasets: [
+    {
+      backgroundColor: "",
+      borderColor: "",
+      pointRadius: 0,
+      borderWidth: 0,
+      data: [],
+    },
+  ],
+});
+
+const baseStatChartOptions = ref({
+  responsive: true,
+  maintainAspectRatio: true,
+  plugins: { legend: { display: false } },
+  scales: {
+    r: {
+      angleLines: { color: "" },
+      grid: { color: "", lineWidth: 3 },
+      suggestedMin: 0,
+      max: 255,
+      ticks: { display: false, stepSize: 255 },
+      pointLabels: {
+        font: { size: 13, family: "Roboto condensed" },
+        color: "",
       },
-    };
-  },
-  computed: {
-    totalBaseStat() {
-      let total = 0;
-      this.pokemon.stats.forEach((stat: any) => {
-        total += stat.base_stat;
-      });
-      return total;
-    },
-    totalBaseStatAnimated() {
-      return this.tweenedNumber.toFixed(0);
-    },
-    bestStat() {
-      let bestStat = {
-        name: this.pokemon.stats[0].stat.name,
-        value: this.pokemon.stats[0].base_stat,
-      };
-      this.pokemon.stats.forEach((stat: any) => {
-        if (stat.base_stat >= bestStat.value) {
-          bestStat.name = stat.stat.name;
-          bestStat.value = stat.base_stat;
-        }
-      });
-      return bestStat;
-    },
-    stats() {
-      return this.pokemon.stats;
-    },
-  },
-  watch: {
-    totalBaseStat(newVal) {
-      gsap.to(this.$data, { duration: 0.4, tweenedNumber: newVal });
-    },
-    pokemon() {
-      this.isChartGenerated = false;
-      this.$nextTick(() => {
-        this.setChartData();
-      });
-    },
-  },
-  mounted() {
-    const style = getComputedStyle(document.documentElement);
-    const accent = style.getPropertyValue("--color-accent").trim();
-    const accentDim = style.getPropertyValue("--color-accent-dim").trim();
-    const graphColor = style.getPropertyValue("--color-graph").trim();
-    const textColor = style.getPropertyValue("--color-text").trim();
-    this.baseStatChartData.datasets[0].backgroundColor = graphColor;
-    this.baseStatChartData.datasets[0].borderColor = accentDim;
-    this.baseStatChartOptions.scales.r.angleLines.color = accentDim;
-    this.baseStatChartOptions.scales.r.grid.color = accent;
-    this.baseStatChartOptions.scales.r.pointLabels.color = textColor;
-    this.tweenedNumber = this.totalBaseStat;
-    this.setChartData();
-  },
-  methods: {
-    isBestStat(stat: any): boolean {
-      return this.bestStat.name === stat.stat.name;
-    },
-    setChartData() {
-      const labels: any[] = [];
-      const datasets: number[] = [];
-      let positionIndex = 0;
-
-      this.baseStatChartData.labels = [];
-      this.baseStatChartData.datasets[0].data = [];
-
-      this.pokemon.stats.forEach((stat: any) => {
-        let name = stat.stat.name;
-
-        switch (name) {
-          case "hp":
-            positionIndex = 0;
-            name = "HP";
-            break;
-          case "attack":
-            positionIndex = 1;
-            name = "Attack";
-            break;
-          case "defense":
-            positionIndex = 2;
-            name = "Defense";
-            break;
-          case "speed":
-            positionIndex = 3;
-            name = "Speed";
-            break;
-          case "special-defense":
-            positionIndex = 4;
-            name = "Sp. Def";
-            break;
-          case "special-attack":
-            positionIndex = 5;
-            name = "Sp. Atk";
-            break;
-        }
-
-        if (positionIndex >= 2 && positionIndex <= 4) {
-          labels[positionIndex] = [name, stat.base_stat];
-        } else {
-          labels[positionIndex] = [stat.base_stat, name];
-        }
-
-        datasets[positionIndex] = stat.base_stat;
-      });
-
-      this.baseStatChartData.labels = labels;
-      this.baseStatChartData.datasets[0].data = datasets;
-      this.isChartGenerated = true;
-    },
-
-    toggleTypeModal(type: string) {
-      this.currentType = type;
     },
   },
 });
+
+watch(
+  () => props.pokemon,
+  () => {
+    isChartGenerated.value = false;
+    nextTick(() => setChartData());
+  },
+);
+
+onMounted(() => {
+  const style = getComputedStyle(document.documentElement);
+  const accent = style.getPropertyValue("--color-accent").trim();
+  const accentDim = style.getPropertyValue("--color-accent-dim").trim();
+  const graphColor = style.getPropertyValue("--color-graph").trim();
+  const textColor = style.getPropertyValue("--color-text").trim();
+  baseStatChartData.value.datasets[0].backgroundColor = graphColor;
+  baseStatChartData.value.datasets[0].borderColor = accentDim;
+  baseStatChartOptions.value.scales.r.angleLines.color = accentDim;
+  baseStatChartOptions.value.scales.r.grid.color = accent;
+  baseStatChartOptions.value.scales.r.pointLabels.color = textColor;
+  setChartData();
+});
+
+function setChartData() {
+  const labels: any[] = [];
+  const datasets: number[] = [];
+  let positionIndex = 0;
+
+  baseStatChartData.value.labels = [];
+  baseStatChartData.value.datasets[0].data = [];
+
+  props.pokemon.stats.forEach((stat: any) => {
+    let name = stat.stat.name;
+    switch (name) {
+      case "hp":
+        positionIndex = 0;
+        name = "HP";
+        break;
+      case "attack":
+        positionIndex = 1;
+        name = "Attack";
+        break;
+      case "defense":
+        positionIndex = 2;
+        name = "Defense";
+        break;
+      case "speed":
+        positionIndex = 3;
+        name = "Speed";
+        break;
+      case "special-defense":
+        positionIndex = 4;
+        name = "Sp. Def";
+        break;
+      case "special-attack":
+        positionIndex = 5;
+        name = "Sp. Atk";
+        break;
+    }
+    labels[positionIndex] =
+      positionIndex >= 2 && positionIndex <= 4
+        ? [name, stat.base_stat]
+        : [stat.base_stat, name];
+    datasets[positionIndex] = stat.base_stat;
+  });
+
+  baseStatChartData.value.labels = labels;
+  baseStatChartData.value.datasets[0].data = datasets;
+  isChartGenerated.value = true;
+}
+
+function toggleTypeModal(type: string) {
+  currentType.value = type;
+}
 </script>
 
 <style lang="scss" scoped>

@@ -31,79 +31,66 @@
   </transition>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref, onUnmounted } from "vue";
 
-export default defineComponent({
-  name: "BaseModal",
-  props: {
-    showCloseButton: {
-      type: Boolean,
-      default: true,
-    },
-    isPokemonCard: {
-      type: Boolean,
-      default: false,
-    },
-    dragHandler: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ["closeModal"],
-  data() {
-    return {
-      toPositionPercentage: 0,
-      thresholdExpandPercentage: 75,
-      thresholdClosePercentage: 50,
-    };
-  },
-  created() {
-    document.body.classList.add("disable-scroll");
-  },
-  unmounted() {
-    setTimeout(() => {
-      document.body.classList.remove("disable-scroll");
-    }, 100);
-  },
-  methods: {
-    movingHandler(e: TouchEvent) {
-      if (this.dragHandler) {
-        if (!e.changedTouches || !e.changedTouches.length) return;
+const props = withDefaults(
+  defineProps<{
+    showCloseButton?: boolean;
+    isPokemonCard?: boolean;
+    dragHandler?: boolean;
+  }>(),
+  { showCloseButton: true, isPokemonCard: false, dragHandler: false },
+);
+const emit = defineEmits<{ closeModal: [] }>();
 
-        const moving = e.changedTouches[0].clientY;
-        const clientHeight = document.documentElement.clientHeight;
-        const toPositionPx = clientHeight - moving;
-        this.toPositionPercentage = ((moving / clientHeight) * 100 - 100) * -1;
-        document.getElementById("moving-box")!.style.height =
-          toPositionPx + "px";
-      }
-    },
-    endHandler() {
-      if (this.dragHandler) {
-        if (
-          this.toPositionPercentage < this.thresholdClosePercentage &&
-          this.toPositionPercentage !== 0
-        ) {
-          this.closeModal();
-        } else if (
-          this.toPositionPercentage > this.thresholdExpandPercentage &&
-          this.toPositionPercentage !== 0
-        ) {
-          this.snapToPosition("98%");
-        } else {
-          this.snapToPosition("initial");
-        }
-      }
-    },
-    snapToPosition(value: string) {
-      document.getElementById("moving-box")!.style.height = value;
-    },
-    closeModal() {
-      this.$emit("closeModal");
-    },
-  },
+const toPositionPercentage = ref(0);
+const thresholdExpandPercentage = 75;
+const thresholdClosePercentage = 50;
+
+document.body.classList.add("disable-scroll");
+onUnmounted(() => {
+  setTimeout(() => {
+    document.body.classList.remove("disable-scroll");
+  }, 100);
 });
+
+function movingHandler(e: TouchEvent) {
+  if (props.dragHandler) {
+    if (!e.changedTouches || !e.changedTouches.length) return;
+    const moving = e.changedTouches[0].clientY;
+    const clientHeight = document.documentElement.clientHeight;
+    const toPositionPx = clientHeight - moving;
+    toPositionPercentage.value = ((moving / clientHeight) * 100 - 100) * -1;
+    document.getElementById("moving-box")!.style.height = toPositionPx + "px";
+  }
+}
+
+function endHandler() {
+  if (props.dragHandler) {
+    if (
+      toPositionPercentage.value < thresholdClosePercentage &&
+      toPositionPercentage.value !== 0
+    ) {
+      closeModal();
+    } else if (
+      toPositionPercentage.value > thresholdExpandPercentage &&
+      toPositionPercentage.value !== 0
+    ) {
+      snapToPosition("98%");
+    } else {
+      snapToPosition("initial");
+    }
+  }
+}
+
+function snapToPosition(value: string) {
+  document.getElementById("moving-box")!.style.height = value;
+}
+
+function closeModal() {
+  emit("closeModal");
+}
 </script>
 
 <style lang="scss" scoped>

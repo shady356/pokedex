@@ -4,16 +4,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import { getTheme, applyTheme } from "@/utils/theme";
 
-export default defineComponent({
-  name: "App",
-  created() {
-    applyTheme(getTheme());
-  },
-});
+applyTheme(getTheme());
 </script>
 
 <style lang="scss">

@@ -51,10 +51,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
 import BaseTypeTag from "@/components/base/BaseTypeTag.vue";
-import { $getTypeColor, type PokemonTypeName } from "@/helpers/types";
+import type { PokemonTypeName } from "@/helpers/types";
 import moveSpecial from "@/assets/icons/move_types/move-special.png";
 import movePhysical from "@/assets/icons/move_types/move-physical.png";
 import moveStatus from "@/assets/icons/move_types/move-status.png";
@@ -68,56 +68,33 @@ interface MoveItem {
   level?: number;
 }
 
-export default defineComponent({
-  name: "BaseMoveTable",
-  components: { BaseTypeTag },
-  props: {
-    headers: {
-      type: Array as PropType<string[]>,
-      required: true,
-    },
-    items: {
-      type: Array as PropType<MoveItem[]>,
-      required: true,
-    },
-    title: {
-      type: String,
-      required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
-    types: {
-      type: Array as PropType<string[]>,
-      required: true,
-    },
-  },
-  computed: {
-    isLevelUp(): boolean {
-      return this.category === "levelUp";
-    },
-  },
-  methods: {
-    getTypeColor(type: PokemonTypeName): string {
-      return $getTypeColor(type);
-    },
-    isSameType(type: string): boolean {
-      return this.types.includes(type);
-    },
-    getItemCategoryImageSrc(category: string | undefined): string {
-      if (category === "special") return moveSpecial;
-      if (category === "physical") return movePhysical;
-      return moveStatus;
-    },
-    formatPower(value: number | null): string {
-      return value !== null ? String(value) : "–";
-    },
-    formatAccuracy(value: number | null): string {
-      return value !== null ? value + "%" : "–";
-    },
-  },
-});
+const props = defineProps<{
+  headers: string[];
+  items: MoveItem[];
+  title: string;
+  category: string;
+  types: string[];
+}>();
+
+const isLevelUp = computed(() => props.category === "levelUp");
+
+function isSameType(type: string): boolean {
+  return props.types.includes(type);
+}
+
+function getItemCategoryImageSrc(category: string | undefined): string {
+  if (category === "special") return moveSpecial;
+  if (category === "physical") return movePhysical;
+  return moveStatus;
+}
+
+function formatPower(value: number | null): string {
+  return value !== null ? String(value) : "–";
+}
+
+function formatAccuracy(value: number | null): string {
+  return value !== null ? value + "%" : "–";
+}
 </script>
 
 <style lang="scss" scoped>

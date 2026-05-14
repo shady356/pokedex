@@ -15,48 +15,29 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { PropType } from "vue";
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
 
 type TabItem = {
   name: string;
   active: boolean;
 };
 
-export default defineComponent({
-  name: "BaseTab",
-  props: {
-    items: {
-      type: Array as PropType<TabItem[]>,
-      required: true,
-    },
-  },
-  emits: ["changeTab"],
-  data() {
-    return {
-      activeIndex: 0,
-    };
-  },
-  computed: {
-    numberOfItems(): number {
-      return this.items.length;
-    },
-  },
-  mounted() {
-    this.items.forEach((item, index) => {
-      if (item.active) {
-        this.activeIndex = index;
-      }
-    });
-  },
-  methods: {
-    changeTab(index: number) {
-      this.activeIndex = index;
-      this.$emit("changeTab", index);
-    },
-  },
+const props = defineProps<{ items: TabItem[] }>();
+const emit = defineEmits<{ changeTab: [index: number] }>();
+
+const activeIndex = ref(0);
+
+onMounted(() => {
+  props.items.forEach((item, index) => {
+    if (item.active) activeIndex.value = index;
+  });
 });
+
+function changeTab(index: number) {
+  activeIndex.value = index;
+  emit("changeTab", index);
+}
 </script>
 
 <style lang="scss" scoped>

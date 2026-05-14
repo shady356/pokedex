@@ -30,40 +30,28 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import type { PropType } from "vue";
+<script setup lang="ts">
 import { $getTypeColor } from "@/helpers/types";
 import type { PokemonTypeName } from "@/helpers/types";
 
-export default defineComponent({
-  name: "BaseTypeTag",
-  props: {
-    type: {
-      type: String as PropType<PokemonTypeName>,
-      default: undefined,
-    },
-    displayName: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ["click"],
-  methods: {
-    click() {
-      this.$emit("click");
-    },
-    getTypeColor(): string {
-      return $getTypeColor(this.type as PokemonTypeName);
-    },
-    getTypeIcon(): string {
-      return new URL(
-        `../../assets/icons/types/${this.type}.svg`,
-        import.meta.url,
-      ).href;
-    },
-  },
-});
+const props = withDefaults(
+  defineProps<{ type?: PokemonTypeName; displayName?: boolean }>(),
+  { type: undefined, displayName: false },
+);
+const emit = defineEmits<{ click: [] }>();
+
+function click() {
+  emit("click");
+}
+
+function getTypeColor(): string {
+  return $getTypeColor(props.type as PokemonTypeName);
+}
+
+function getTypeIcon(): string {
+  return new URL(`../../assets/icons/types/${props.type}.svg`, import.meta.url)
+    .href;
+}
 </script>
 
 <style lang="scss" scoped>

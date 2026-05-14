@@ -88,48 +88,38 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from "vue";
+<script setup lang="ts">
 import BaseTag from "@/components/base/BaseTag.vue";
 
-export default defineComponent({
-  name: "PokemonAbout",
-  components: { BaseTag },
-  props: {
-    pokemon: {
-      type: Object as PropType<Record<string, any>>,
-      required: true,
-    },
-    pokemonSpecies: {
-      type: Object as PropType<Record<string, any>>,
-      required: true,
-    },
-  },
-  emits: ["openAbilityModal"],
-  methods: {
-    toMeter(value: number): string {
-      return new Intl.NumberFormat("en-UK", {
-        style: "unit",
-        unit: "meter",
-        unitDisplay: "short",
-        minimumSignificantDigits: 2,
-        maximumSignificantDigits: 2,
-      }).format(value / 10);
-    },
-    toKilogram(value: number): string {
-      return new Intl.NumberFormat("en-UK", {
-        style: "unit",
-        unit: "kilogram",
-        unitDisplay: "short",
-        minimumSignificantDigits: 2,
-        maximumSignificantDigits: 2,
-      }).format(value / 10);
-    },
-    formatEggGroups(value: Array<{ name: string }>): string {
-      return value.map((item) => item.name).join(", ");
-    },
-  },
-});
+defineProps<{
+  pokemon: Record<string, any>;
+  pokemonSpecies: Record<string, any>;
+}>();
+defineEmits<{ openAbilityModal: [ability: { name: string }] }>();
+
+function toMeter(value: number): string {
+  return new Intl.NumberFormat("en-UK", {
+    style: "unit",
+    unit: "meter",
+    unitDisplay: "short",
+    minimumSignificantDigits: 2,
+    maximumSignificantDigits: 2,
+  }).format(value / 10);
+}
+
+function toKilogram(value: number): string {
+  return new Intl.NumberFormat("en-UK", {
+    style: "unit",
+    unit: "kilogram",
+    unitDisplay: "short",
+    minimumSignificantDigits: 2,
+    maximumSignificantDigits: 2,
+  }).format(value / 10);
+}
+
+function formatEggGroups(value: Array<{ name: string }>): string {
+  return value.map((item) => item.name).join(", ");
+}
 </script>
 
 <style lang="scss" scoped>

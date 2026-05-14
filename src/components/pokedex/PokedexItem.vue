@@ -5,31 +5,14 @@
   <div v-else class="sprite--empty" />
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from "vue";
-import { $getTypeColor, type PokemonTypeName } from "@/helpers/types";
+<script setup lang="ts">
+import { computed } from "vue";
 import { getPokemonSpriteByName } from "@/helpers/sprites";
 import type { PokemonEntry } from "@/helpers/pokedexFilters";
 
-export default defineComponent({
-  name: "PokedexItem",
-  props: {
-    pokemon: {
-      type: Object as PropType<PokemonEntry>,
-      required: true,
-    },
-  },
-  computed: {
-    sprite(): string {
-      return getPokemonSpriteByName(this.pokemon.name);
-    },
-  },
-  methods: {
-    typeColor(): string {
-      return $getTypeColor(this.pokemon.types[0].type.name as PokemonTypeName);
-    },
-  },
-});
+const props = defineProps<{ pokemon: PokemonEntry }>();
+
+const sprite = computed(() => getPokemonSpriteByName(props.pokemon.name));
 </script>
 
 <style lang="scss" scoped>

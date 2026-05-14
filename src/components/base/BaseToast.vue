@@ -1,29 +1,16 @@
 <template>
-  <div
-    v-if="visible"
-    class="toast-container"
-  >
-    Foobar
-  </div>
+  <div v-if="visible" class="toast-container">Foobar</div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 
-export default defineComponent({
-  name: "BaseToast",
-  data() {
-    return {
-      visible: false,
-    };
-  },
-  created() {
-    this.visible = true;
-    setTimeout(() => {
-      this.visible = false;
-    }, 3000);
-  },
-});
+const visible = ref(false);
+
+visible.value = true;
+setTimeout(() => {
+  visible.value = false;
+}, 3000);
 </script>
 
 <style lang="scss" scoped>

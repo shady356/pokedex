@@ -1,19 +1,11 @@
 <template>
-  <button
-    class="base-button-icon"
-    @click="$emit('click')"
-  >
+  <button class="base-button-icon" @click="$emit('click')">
     <slot />
   </button>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "BaseButtonIcon",
-  emits: ["click"],
-});
+<script setup lang="ts">
+defineEmits<{ click: [] }>();
 </script>
 
 <style lang="scss" scoped>

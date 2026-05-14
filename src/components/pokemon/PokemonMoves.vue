@@ -3,7 +3,7 @@
     <div v-if="isMovesLoaded">
       <div class="generation">
         <h6>Generation:</h6>
-        <BaseTab class="tab-header" :items="tabs" @changeTab="changeTab" />
+        <BaseTab class="tab-header" :items="tabs" @change-tab="changeTab" />
       </div>
       <PokemonMovesTable
         v-if="generations[selectedGeneration].levelUp.length > 0"
@@ -44,8 +44,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, toRef, computed, type PropType } from "vue";
+<script setup lang="ts">
+import { ref, computed, watch, toRef } from "vue";
 import { usePokemon, useMoveDetails } from "@/composables/usePokeApi";
 import sortBy from "lodash.sortby";
 import PokemonMovesTable from "@/components/pokemon/PokemonMovesTable.vue";
@@ -88,130 +88,107 @@ interface GenData {
   tutor: any[];
 }
 
-export default defineComponent({
-  name: "PokemonMoves",
-  components: { PokemonMovesTable, BaseTab, BaseProgressSpinner },
-  props: {
-    pokemonId: {
-      type: [Number, String] as PropType<number | string>,
-      required: true,
-    },
-    types: {
-      type: Array as PropType<string[]>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const pokemonId = toRef(props, "pokemonId");
-    const { data: pokemonData } = usePokemon(pokemonId);
+const props = defineProps<{ pokemonId: number | string; types: string[] }>();
 
-    const moveNames = computed<string[]>(() => [
-      ...new Set<string>(
-        (pokemonData.value?.moves ?? []).map((m: any) => m.move.name as string),
-      ),
-    ]);
+const pokemonId = toRef(props, "pokemonId");
+const { data: pokemonData } = usePokemon(pokemonId);
 
-    const moveDetailQueries = useMoveDetails(moveNames);
+const moveNames = computed<string[]>(() => [
+  ...new Set<string>(
+    (pokemonData.value?.moves ?? []).map((m: any) => m.move.name as string),
+  ),
+]);
 
-    const moveDetailsMap = computed<Record<string, any>>(() => {
-      const map: Record<string, any> = {};
-      moveDetailQueries.value.forEach((q) => {
-        if (q.data) map[q.data.name] = q.data;
-      });
-      return map;
-    });
+const moveDetailQueries = useMoveDetails(moveNames);
 
-    const isMovesLoaded = computed(
-      () =>
-        pokemonData.value != null &&
-        moveDetailQueries.value.length > 0 &&
-        moveDetailQueries.value.every((q) => q.isSuccess),
-    );
-
-    const generations = computed(() => {
-      if (!isMovesLoaded.value) return [];
-
-      const gens: GenData[] = Array.from({ length: 7 }, (_, i) => ({
-        name: "gen" + (i + 1),
-        levelUp: [],
-        egg: [],
-        machine: [],
-        tutor: [],
-      }));
-
-      pokemonData.value.moves.forEach(
-        ({ move, version_group_details }: any) => {
-          const details = moveDetailsMap.value[move.name];
-          if (!details) return;
-
-          const seen = new Set<string>();
-          version_group_details.forEach(
-            ({ level_learned_at, move_learn_method, version_group }: any) => {
-              const gen = VERSION_GROUP_GEN[version_group.name];
-              const method = METHOD_KEY[move_learn_method.name];
-              if (!gen || !method) return;
-
-              const key = `${gen}-${method}`;
-              if (seen.has(key)) return;
-              seen.add(key);
-              (gens[gen - 1] as any)[method].push({
-                name: move.name,
-                accuracy: details.accuracy,
-                category: details.damage_class?.name,
-                power: details.power,
-                type: details.type?.name,
-                level: level_learned_at,
-              });
-            },
-          );
-        },
-      );
-
-      gens.forEach((gen) => {
-        gen.levelUp = sortBy(gen.levelUp, "level");
-        gen.egg = sortBy(gen.egg, "name");
-        gen.machine = sortBy(gen.machine, "name");
-        gen.tutor = sortBy(gen.tutor, "name");
-      });
-
-      return gens;
-    });
-
-    return { isMovesLoaded, generations };
-  },
-  data() {
-    return {
-      selectedGeneration: 6,
-      tabs: [
-        { name: "1", active: false },
-        { name: "2", active: false },
-        { name: "3", active: false },
-        { name: "4", active: false },
-        { name: "5", active: false },
-        { name: "6", active: false },
-        { name: "7", active: true },
-      ],
-      tableHeaders: ["move", "type", "category", "power", "acc."],
-    };
-  },
-  watch: {
-    pokemonId() {
-      this.tabs.forEach((tab, i) => {
-        tab.active = i === 6;
-      });
-      this.selectedGeneration = 6;
-    },
-  },
-  methods: {
-    changeTab(index: number) {
-      this.tabs.forEach((tab) => {
-        tab.active = false;
-      });
-      this.tabs[index].active = true;
-      this.selectedGeneration = index;
-    },
-  },
+const moveDetailsMap = computed<Record<string, any>>(() => {
+  const map: Record<string, any> = {};
+  moveDetailQueries.value.forEach((q) => {
+    if (q.data) map[q.data.name] = q.data;
+  });
+  return map;
 });
+
+const isMovesLoaded = computed(
+  () =>
+    pokemonData.value != null &&
+    moveDetailQueries.value.length > 0 &&
+    moveDetailQueries.value.every((q) => q.isSuccess),
+);
+
+const generations = computed(() => {
+  if (!isMovesLoaded.value) return [];
+
+  const gens: GenData[] = Array.from({ length: 7 }, (_, i) => ({
+    name: "gen" + (i + 1),
+    levelUp: [],
+    egg: [],
+    machine: [],
+    tutor: [],
+  }));
+
+  pokemonData.value.moves.forEach(({ move, version_group_details }: any) => {
+    const details = moveDetailsMap.value[move.name];
+    if (!details) return;
+
+    const seen = new Set<string>();
+    version_group_details.forEach(
+      ({ level_learned_at, move_learn_method, version_group }: any) => {
+        const gen = VERSION_GROUP_GEN[version_group.name];
+        const method = METHOD_KEY[move_learn_method.name];
+        if (!gen || !method) return;
+
+        const key = `${gen}-${method}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        (gens[gen - 1] as any)[method].push({
+          name: move.name,
+          accuracy: details.accuracy,
+          category: details.damage_class?.name,
+          power: details.power,
+          type: details.type?.name,
+          level: level_learned_at,
+        });
+      },
+    );
+  });
+
+  gens.forEach((gen) => {
+    gen.levelUp = sortBy(gen.levelUp, "level");
+    gen.egg = sortBy(gen.egg, "name");
+    gen.machine = sortBy(gen.machine, "name");
+    gen.tutor = sortBy(gen.tutor, "name");
+  });
+
+  return gens;
+});
+
+const selectedGeneration = ref(6);
+const tabs = ref([
+  { name: "1", active: false },
+  { name: "2", active: false },
+  { name: "3", active: false },
+  { name: "4", active: false },
+  { name: "5", active: false },
+  { name: "6", active: false },
+  { name: "7", active: true },
+]);
+const tableHeaders = ["move", "type", "category", "power", "acc."];
+
+watch(pokemonId, () => {
+  tabs.value.forEach((tab, i) => {
+    tab.active = i === 6;
+  });
+  selectedGeneration.value = 6;
+});
+
+function changeTab(index: number) {
+  tabs.value.forEach((tab) => {
+    tab.active = false;
+  });
+  tabs.value[index].active = true;
+  selectedGeneration.value = index;
+}
 </script>
 
 <style lang="scss" scoped>

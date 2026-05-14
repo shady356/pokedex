@@ -39,8 +39,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import { GENERATIONS } from "@/helpers/pokedexFilters";
 import { $getAllTypes } from "@/helpers/types";
 import BaseTag from "@/components/base/BaseTag.vue";
@@ -57,53 +57,47 @@ interface Filter {
   children: FilterChild[];
 }
 
-export default defineComponent({
-  name: "FilterPokemon",
-  components: { BaseTag, BaseButton },
-  emits: ["applyFilters"],
-  data() {
-    return {
-      filters: [
-        {
-          name: "generations",
-          open: true,
-          children: GENERATIONS.map((g) => ({ name: g.name, active: false })),
-        },
-        {
-          name: "types",
-          open: false,
-          children: $getAllTypes().map((t) => ({
-            name: t.name,
-            active: false,
-          })),
-        },
-      ] as Filter[],
-    };
+const emit = defineEmits<{
+  applyFilters: [filters: Record<string, string[]>];
+}>();
+
+const filters = ref<Filter[]>([
+  {
+    name: "generations",
+    open: true,
+    children: GENERATIONS.map((g) => ({ name: g.name, active: false })),
   },
-  methods: {
-    openFilter(index: number) {
-      this.filters.forEach((f) => {
-        f.open = false;
-      });
-      this.filters[index].open = true;
-    },
-    setFilter(child: FilterChild) {
-      child.active = !child.active;
-    },
-    getActiveFilters(): Record<string, string[]> {
-      const activeFilters: Record<string, string[]> = {};
-      this.filters.forEach((filter) => {
-        activeFilters[filter.name] = filter.children
-          .filter((child) => child.active)
-          .map((child) => child.name);
-      });
-      return activeFilters;
-    },
-    applyFilters() {
-      this.$emit("applyFilters", this.getActiveFilters());
-    },
+  {
+    name: "types",
+    open: false,
+    children: $getAllTypes().map((t) => ({ name: t.name, active: false })),
   },
-});
+]);
+
+function openFilter(index: number) {
+  filters.value.forEach((f) => {
+    f.open = false;
+  });
+  filters.value[index].open = true;
+}
+
+function setFilter(child: FilterChild) {
+  child.active = !child.active;
+}
+
+function getActiveFilters(): Record<string, string[]> {
+  const activeFilters: Record<string, string[]> = {};
+  filters.value.forEach((filter) => {
+    activeFilters[filter.name] = filter.children
+      .filter((child) => child.active)
+      .map((child) => child.name);
+  });
+  return activeFilters;
+}
+
+function applyFilters() {
+  emit("applyFilters", getActiveFilters());
+}
 </script>
 
 <style lang="scss" scoped>

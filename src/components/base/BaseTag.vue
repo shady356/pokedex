@@ -1,24 +1,15 @@
 <template>
-  <div
-    class="tag-container uppercase letter-spacing"
-    @click="clicked()"
-  >
+  <div class="tag-container uppercase letter-spacing" @click="clicked()">
     <slot />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+const emit = defineEmits<{ click: [] }>();
 
-export default defineComponent({
-  name: "BaseTag",
-  emits: ["click"],
-  methods: {
-    clicked() {
-      this.$emit("click");
-    },
-  },
-});
+function clicked() {
+  emit("click");
+}
 </script>
 
 <style lang="scss" scoped>

@@ -14,42 +14,25 @@
   </transition>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
 import { getPokemonSpriteByName } from "@/helpers/sprites";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
 
-export default defineComponent({
-  name: "CardSprite",
-  components: { BaseProgressSpinner },
-  props: {
-    slideDirection: {
-      type: String,
-      required: true,
-    },
-    pokemonId: {
-      type: [Number, String] as PropType<number | string>,
-      required: true,
-    },
-    offloadSprite: {
-      type: Boolean,
-      required: true,
-    },
-    pokemon: {
-      type: Object as PropType<Record<string, any>>,
-      default: () => ({}),
-    },
-    isPokemonZoom: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  computed: {
-    pokemonSpriteImg(): string {
-      return getPokemonSpriteByName(this.pokemon.name);
-    },
-  },
-});
+const props = withDefaults(
+  defineProps<{
+    slideDirection: string;
+    pokemonId: number | string;
+    offloadSprite: boolean;
+    pokemon?: Record<string, any>;
+    isPokemonZoom: boolean;
+  }>(),
+  { pokemon: () => ({}) },
+);
+
+const pokemonSpriteImg = computed(() =>
+  getPokemonSpriteByName(props.pokemon!.name),
+);
 </script>
 
 <style lang="scss" scoped>

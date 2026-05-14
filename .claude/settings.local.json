@@ -49,7 +49,9 @@
       "Bash(npm list *)",
       "Bash(npx eslint *)",
       "Bash(npx vue-tsc *)",
-      "Bash(Select-String \"Types.vue\")"
+      "Bash(Select-String \"Types.vue\")",
+      "Bash(Get-Content src/assets/home-icons/*.vue -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object -First 50)"
     ],
     "additionalDirectories": [
       "c:\\Users\\henri\\Documents\\code\\pokedex\\.claude\\skills"

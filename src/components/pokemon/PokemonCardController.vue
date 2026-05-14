@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Pokemon -->
-    <BaseModal is-pokemon-card @closeModal="closePokemonCardController()">
+    <BaseModal is-pokemon-card @close-modal="closePokemonCardController()">
       <PokemonCard
         :pokemon-id="pokemonId"
         :pokemon-index="pokemonIndex"
@@ -13,77 +13,64 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
+import { useRouter } from "vue-router";
 import BaseModal from "@/components/base/BaseModal.vue";
 import PokemonCard from "@/components/pokemon/PokemonCard.vue";
 
-export default defineComponent({
-  name: "PokemonCardController",
-  components: { BaseModal, PokemonCard },
-  props: {
-    pokemonId: {
-      type: [Number, String] as PropType<number | string>,
-      required: true,
-    },
-    pokemonIndex: {
-      type: Number,
-      default: 0,
-    },
-    pokedexIds: {
-      type: Array as PropType<number[]>,
-      default: () => [],
-    },
-  },
-  computed: {
-    isFirstPokemon(): boolean {
-      return this.pokemonIndex === 0;
-    },
-    isLastPokemon(): boolean {
-      return this.pokemonIndex === this.pokedexIds.length - 1;
-    },
-  },
-  methods: {
-    closePokemonCardController() {
-      this.$router.push({ name: "Pokedex" });
-    },
-    paginatePokemon(direction: string) {
-      if (direction === "next") {
-        this.paginateNextPokemon();
-      } else {
-        this.paginatePreviousPokemon();
-      }
-    },
-    paginatePreviousPokemon() {
-      if (!this.isFirstPokemon) {
-        this.$router.push({
-          name: "PokemonCardController",
-          params: {
-            pokemonId: this.getPokemonPaginationId(
-              this.pokemonIndex,
-              "previous",
-            ),
-          },
-          query: { i: this.pokemonIndex - 1 },
-        });
-      }
-    },
-    paginateNextPokemon() {
-      if (!this.isLastPokemon) {
-        this.$router.push({
-          name: "PokemonCardController",
-          params: {
-            pokemonId: this.getPokemonPaginationId(this.pokemonIndex, "next"),
-          },
-          query: { i: this.pokemonIndex + 1 },
-        });
-      }
-    },
-    getPokemonPaginationId(index: number, direction: string): number {
-      return direction === "previous"
-        ? this.pokedexIds[index - 1]
-        : this.pokedexIds[index + 1];
-    },
-  },
-});
+const props = withDefaults(
+  defineProps<{
+    pokemonId: number | string;
+    pokemonIndex?: number;
+    pokedexIds?: number[];
+  }>(),
+  { pokemonIndex: 0, pokedexIds: () => [] },
+);
+
+const router = useRouter();
+
+const isFirstPokemon = computed(() => props.pokemonIndex === 0);
+const isLastPokemon = computed(
+  () => props.pokemonIndex === props.pokedexIds.length - 1,
+);
+
+function closePokemonCardController() {
+  router.push({ name: "Pokedex" });
+}
+
+function paginatePokemon(direction: string) {
+  if (direction === "next") paginateNextPokemon();
+  else paginatePreviousPokemon();
+}
+
+function paginatePreviousPokemon() {
+  if (!isFirstPokemon.value) {
+    router.push({
+      name: "PokemonCardController",
+      params: {
+        pokemonId: getPokemonPaginationId(props.pokemonIndex!, "previous"),
+      },
+      query: { i: props.pokemonIndex! - 1 },
+    });
+  }
+}
+
+function paginateNextPokemon() {
+  if (!isLastPokemon.value) {
+    router.push({
+      name: "PokemonCardController",
+      params: {
+        pokemonId: getPokemonPaginationId(props.pokemonIndex!, "next"),
+      },
+      query: { i: props.pokemonIndex! + 1 },
+    });
+  }
+}
+
+function getPokemonPaginationId(index: number, direction: string): number {
+  return direction === "previous"
+    ? props.pokedexIds![index - 1]
+    : props.pokedexIds![index + 1];
+}
 </script>

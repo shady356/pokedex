@@ -34,30 +34,22 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import Header from "@/components/layout/Header.vue";
 import { getTheme, setTheme, type ThemeOption } from "@/utils/theme";
 
-export default defineComponent({
-  components: { Header },
-  data() {
-    return {
-      currentTheme: getTheme(),
-      themeOptions: [
-        { value: "light" as ThemeOption, label: "Light" },
-        { value: "system" as ThemeOption, label: "System" },
-        { value: "dark" as ThemeOption, label: "Dark" },
-      ],
-    };
-  },
-  methods: {
-    selectTheme(theme: ThemeOption) {
-      this.currentTheme = theme;
-      setTheme(theme);
-    },
-  },
-});
+const currentTheme = ref<ThemeOption>(getTheme());
+const themeOptions = [
+  { value: "light" as ThemeOption, label: "Light" },
+  { value: "system" as ThemeOption, label: "System" },
+  { value: "dark" as ThemeOption, label: "Dark" },
+];
+
+function selectTheme(theme: ThemeOption) {
+  currentTheme.value = theme;
+  setTheme(theme);
+}
 </script>
 
 <style lang="scss" scoped>

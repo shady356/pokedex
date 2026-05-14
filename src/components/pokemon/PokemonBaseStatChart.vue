@@ -4,8 +4,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from "vue";
+<script setup lang="ts">
 import {
   Chart,
   RadarController,
@@ -30,18 +29,8 @@ Chart.register(
   Legend,
 );
 
-export default defineComponent({
-  name: "PokemonBaseStatChart",
-  components: { Radar },
-  props: {
-    chartData: {
-      type: Object as PropType<ChartData<"radar">>,
-      required: true,
-    },
-    options: {
-      type: Object as PropType<ChartOptions<"radar">>,
-      required: true,
-    },
-  },
-});
+defineProps<{
+  chartData: ChartData<"radar">;
+  options: ChartOptions<"radar">;
+}>();
 </script>

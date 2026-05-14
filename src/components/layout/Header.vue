@@ -1,9 +1,6 @@
 <template>
   <header class="header">
-    <router-link
-      class="header__column"
-      :to="{ name: routerBack }"
-    >
+    <router-link class="header__column" :to="{ name: routerBack }">
       <BaseButtonIcon>
         <span class="material-icons-round column__button-icon">arrow_back</span>
       </BaseButtonIcon>
@@ -17,20 +14,10 @@
   </header>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import BaseButtonIcon from "@/components/base/BaseButtonIcon.vue";
 
-export default defineComponent({
-  name: "Header",
-  components: { BaseButtonIcon },
-  props: {
-    routerBack: {
-      type: String,
-      default: "Home",
-    },
-  },
-});
+withDefaults(defineProps<{ routerBack?: string }>(), { routerBack: "Home" });
 </script>
 
 <style lang="scss" scoped>

@@ -4,18 +4,12 @@
   </button>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+const emit = defineEmits<{ click: [] }>();
 
-export default defineComponent({
-  name: "BaseButton",
-  emits: ["click"],
-  methods: {
-    clicked() {
-      this.$emit("click");
-    },
-  },
-});
+function clicked() {
+  emit("click");
+}
 </script>
 
 <style lang="scss" scoped>

@@ -14,33 +14,25 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import Header from "@/components/layout/Header.vue";
 import TypesList from "@/components/types/TypesList.vue";
 import TypeModal from "@/components/types/TypeModal.vue";
 import BaseModal from "@/components/base/BaseModal.vue";
 import type { PokemonTypeName } from "@/helpers/types";
 
-export default defineComponent({
-  name: "Types",
-  components: { Header, TypesList, TypeModal, BaseModal },
-  data() {
-    return {
-      currentTypeInModal: null as PokemonTypeName | null,
-      isTypeModalOpen: false,
-    };
-  },
-  methods: {
-    openTypeModal(type: PokemonTypeName) {
-      this.isTypeModalOpen = true;
-      this.currentTypeInModal = type;
-    },
-    closeTypeModal() {
-      this.isTypeModalOpen = false;
-    },
-  },
-});
+const currentTypeInModal = ref<PokemonTypeName | null>(null);
+const isTypeModalOpen = ref(false);
+
+function openTypeModal(type: string) {
+  isTypeModalOpen.value = true;
+  currentTypeInModal.value = type as PokemonTypeName;
+}
+
+function closeTypeModal() {
+  isTypeModalOpen.value = false;
+}
 </script>
 
 <style lang="scss" scoped>

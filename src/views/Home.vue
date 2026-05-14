@@ -1,27 +1,16 @@
 <template>
   <main class="home">
-    <div
-      class="pokeball-bg"
-      aria-hidden="true"
-    >
+    <div class="pokeball-bg" aria-hidden="true">
       <PokeballIcon />
     </div>
-    <h1 class="pokemon-logo">
-      PokéView
-    </h1>
+    <h1 class="pokemon-logo">PokéView</h1>
     <MainMenuNavigation />
   </main>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import MainMenuNavigation from "@/components/mainMenu/MainMenuNavigation.vue";
 import PokeballIcon from "@/assets/home-icons/PokeballIcon.vue";
-
-export default defineComponent({
-  name: "Home",
-  components: { MainMenuNavigation, PokeballIcon },
-});
 </script>
 
 <style lang="scss" scoped>

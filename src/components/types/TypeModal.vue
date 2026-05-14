@@ -42,8 +42,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from "vue";
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
 import {
   $getTypeInfoByName,
   $getTypeColor,
@@ -52,32 +52,21 @@ import {
 } from "@/helpers/types";
 import BaseTypeTag from "@/components/base/BaseTypeTag.vue";
 
-export default defineComponent({
-  components: { BaseTypeTag },
-  props: {
-    typeName: {
-      type: String as PropType<PokemonTypeName>,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      typeData: null as TypeInfo | null,
-    };
-  },
-  mounted() {
-    this.typeData = $getTypeInfoByName(this.typeName) ?? null;
-  },
-  methods: {
-    getIcon(name: string): string {
-      return new URL(`../../assets/icons/types/${name}.svg`, import.meta.url)
-        .href;
-    },
-    getTypeColor(name: PokemonTypeName): string {
-      return $getTypeColor(name);
-    },
-  },
+const props = defineProps<{ typeName: PokemonTypeName }>();
+
+const typeData = ref<TypeInfo | null>(null);
+
+onMounted(() => {
+  typeData.value = $getTypeInfoByName(props.typeName) ?? null;
 });
+
+function getIcon(name: string): string {
+  return new URL(`../../assets/icons/types/${name}.svg`, import.meta.url).href;
+}
+
+function getTypeColor(name: PokemonTypeName): string {
+  return $getTypeColor(name);
+}
 </script>
 
 <style lang="scss" scoped>

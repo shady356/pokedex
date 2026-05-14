@@ -17,34 +17,29 @@
   </ul>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
 import { $getAllTypes, type TypeEntry } from "@/helpers/types";
 
-export default defineComponent({
-  name: "TypesList",
-  emits: ["select-type"],
-  data() {
-    return {
-      types: null as TypeEntry[] | null,
-    };
-  },
-  mounted() {
-    this.types = $getAllTypes();
-  },
-  methods: {
-    getTypeBackground(color: string) {
-      return { "background-color": color };
-    },
-    getTypeIcon(name: string): string {
-      return new URL(`../../assets/icons/types/${name}.svg`, import.meta.url)
-        .href;
-    },
-    selectType(typeName: string) {
-      this.$emit("select-type", typeName);
-    },
-  },
+const emit = defineEmits<{ "select-type": [typeName: string] }>();
+
+const types = ref<TypeEntry[] | null>(null);
+
+onMounted(() => {
+  types.value = $getAllTypes();
 });
+
+function getTypeBackground(color: string) {
+  return { "background-color": color };
+}
+
+function getTypeIcon(name: string): string {
+  return new URL(`../../assets/icons/types/${name}.svg`, import.meta.url).href;
+}
+
+function selectType(typeName: string) {
+  emit("select-type", typeName);
+}
 </script>
 
 <style lang="scss" scoped>

@@ -34,14 +34,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import Header from "@/components/layout/Header.vue";
-
-export default defineComponent({
-  name: "About",
-  components: { Header },
-});
 </script>
 
 <style lang="scss" scoped>

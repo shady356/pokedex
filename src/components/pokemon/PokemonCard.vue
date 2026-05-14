@@ -107,8 +107,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, toRef, computed, markRaw, type PropType } from "vue";
+<script setup lang="ts">
+import { ref, computed, toRef, markRaw, onMounted, onBeforeUnmount } from "vue";
 import BaseModal from "@/components/base/BaseModal.vue";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
 import BaseButtonIcon from "@/components/base/BaseButtonIcon.vue";
@@ -128,223 +128,197 @@ const textures: Record<string, string> = import.meta.glob(
   { eager: true, import: "default" },
 );
 
-export default defineComponent({
-  name: "PokemonCard",
-  components: {
-    BaseModal,
-    BaseProgressSpinner,
-    BaseButtonIcon,
-    BaseTab,
-    CardHeader,
-    CardSprite,
-    PokemonAbout,
-    PokemonBaseStats,
-    PokemonMoves,
-    AbilityModal,
-  },
-  props: {
-    pokemonId: {
-      type: [Number, String] as PropType<number | string>,
-      required: true,
-    },
-    pokemonIndex: {
-      type: Number,
-      default: 0,
-    },
-    isFirstPokemon: {
-      type: Boolean,
-      required: true,
-    },
-    isLastPokemon: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  emits: ["paginate-pokemon"],
-  setup(props) {
-    const pokemonId = toRef(props, "pokemonId");
-    const pokemonQuery = usePokemon(pokemonId);
-    const speciesQuery = usePokemonSpecies(pokemonId);
+const props = withDefaults(
+  defineProps<{
+    pokemonId: number | string;
+    pokemonIndex?: number;
+    isFirstPokemon: boolean;
+    isLastPokemon: boolean;
+  }>(),
+  { pokemonIndex: 0 },
+);
+const emit = defineEmits<{ "paginate-pokemon": [direction: string] }>();
 
-    const pokemon = computed(() => {
-      const d = pokemonQuery.data.value;
-      if (!d) return null;
-      return {
-        id: d.id,
-        name: d.name,
-        sprite: d.sprites.front_default,
-        abilities: d.abilities,
-        stats: d.stats,
-        types: d.types,
-        weight: d.weight,
-        height: d.height,
-      };
-    });
+const pokemonId = toRef(props, "pokemonId");
+const pokemonQuery = usePokemon(pokemonId);
+const speciesQuery = usePokemonSpecies(pokemonId);
 
-    const pokemonSpecies = computed(() => {
-      const d = speciesQuery.data.value;
-      if (!d) return null;
-      const description = d.flavor_text_entries.find(
-        (e: any) => e.language.name === "en",
-      );
-      return {
-        eggGroups: d.egg_groups,
-        description,
-        captureRate: d.capture_rate,
-        baseHappiness: d.base_happiness,
-        growthRate: d.growth_rate.name,
-        hatchCounter: d.hatch_counter,
-      };
-    });
-
-    return { pokemon, pokemonSpecies, offloadSprite: pokemonQuery.isFetching };
-  },
-  data() {
-    return {
-      isPokemonZoom: false,
-      startTouch: 0,
-      toPositionPercentage: 0,
-      movingGlobal: 0,
-      slideDirection: "",
-      clientWidth: 0,
-      isDark: false,
-      isAbilityModalOpen: false,
-      currentAbilityInModal: null as string | null,
-      _resetTimer: undefined as ReturnType<typeof setTimeout> | undefined,
-      _themeObserver: null as MutationObserver | null,
-      metaItems: [
-        { name: "about", active: true },
-        { name: "moves", active: false },
-      ],
-    };
-  },
-  computed: {
-    pokemonTexture(): string {
-      return textures[`/src/assets/PK_Textures/${this.firstType}.png`];
-    },
-    isPokemonLoaded(): boolean {
-      return !!(this.pokemon && this.pokemonSpecies);
-    },
-    firstType(): string {
-      const type = this.pokemon!.types.find((t: any) => t.slot === 1);
-      return type?.type.name ?? "";
-    },
-    pokemonTypes(): string[] {
-      return this.pokemon!.types.map((t: any) => t.type.name);
-    },
-    getModalBackground(): Record<string, string> {
-      const gradient = getTypeGradients(this.isDark)[
-        this.firstType as PokemonTypeName
-      ];
-      return {
-        backgroundImage: `url(${this.pokemonTexture}), ${gradient}`,
-        backgroundBlendMode: "overlay, normal",
-        backgroundSize: "cover, cover",
-      };
-    },
-  },
-  mounted() {
-    this.clientWidth = document.documentElement.clientWidth;
-    this.isDark = this._resolveIsDark();
-    this._themeObserver = markRaw(
-      new MutationObserver(() => {
-        this.isDark = this._resolveIsDark();
-      }),
-    );
-    this._themeObserver.observe(document.documentElement, {
-      attributeFilter: ["class"],
-    });
-  },
-  beforeUnmount() {
-    this._themeObserver?.disconnect();
-  },
-  methods: {
-    _resolveIsDark(): boolean {
-      const cl = document.documentElement.classList;
-      if (cl.contains("theme-dark")) return true;
-      if (cl.contains("theme-light")) return false;
-      return window.matchMedia("(prefers-color-scheme: dark)").matches;
-    },
-    changeMetaTab(index: number) {
-      this.metaItems.forEach((tab) => {
-        tab.active = false;
-      });
-      this.metaItems[index].active = true;
-    },
-    openAbilityModal(ability: { name: string }) {
-      this.currentAbilityInModal = ability.name;
-      this.isAbilityModalOpen = true;
-    },
-    closeAbilityModal() {
-      this.isAbilityModalOpen = false;
-    },
-    swipePokemon(direction: string) {
-      if (direction === "right") this.paginatePokemon("previous");
-      if (direction === "left") this.paginatePokemon("next");
-    },
-    startHandler(e: TouchEvent) {
-      clearTimeout(this._resetTimer);
-      if (!e.changedTouches || e.changedTouches.length === 0) return;
-      this.startTouch = e.changedTouches[0].clientX;
-    },
-    movePokemon(e: TouchEvent) {
-      if (!e.changedTouches || e.changedTouches.length === 0) return;
-      const moveTouch = e.changedTouches[0].clientX;
-      const moving = Math.ceil(
-        ((moveTouch / this.clientWidth) * 100 - 50) * 2.5,
-      );
-      const startPosition = Math.ceil(
-        ((this.startTouch / this.clientWidth) * 100 - 50) * 2.5,
-      );
-      this.toPositionPercentage = this.calcMovingPercentage(
-        moving,
-        startPosition,
-      );
-      const pokemonSprite = document.getElementById("pokemon-sprite-id");
-      if (pokemonSprite)
-        pokemonSprite.style.transform = `translateX(${this.toPositionPercentage}%)`;
-    },
-    calcMovingPercentage(moving: number, startPosition: number): number {
-      const screenCenter = this.clientWidth / 2;
-      if (this.startTouch > screenCenter) return moving - startPosition;
-      if (this.startTouch < screenCenter) return (startPosition - moving) * -1;
-      return moving;
-    },
-    endHandler() {
-      const percentageThreshold = 50;
-      if (this.toPositionPercentage !== 0) {
-        if (
-          this.toPositionPercentage < -percentageThreshold &&
-          !this.isLastPokemon
-        ) {
-          this.paginatePokemon("next");
-        } else if (
-          this.toPositionPercentage > percentageThreshold &&
-          !this.isFirstPokemon
-        ) {
-          this.paginatePokemon("previous");
-        } else {
-          const spriteEl = document.getElementById("pokemon-sprite-id");
-          if (spriteEl) {
-            spriteEl.style.cssText = "transition: transform .4s ease";
-            spriteEl.style.transform = "translateX(0%)";
-            this._resetTimer = setTimeout(() => {
-              spriteEl.style.cssText = "transition: none";
-            }, 400);
-          }
-        }
-      }
-      this.toPositionPercentage = 0;
-    },
-    paginatePokemon(direction: string) {
-      this.slideDirection = direction === "next" ? "slide-h-r" : "slide-h-l";
-      this.$emit("paginate-pokemon", direction);
-    },
-    toggleZoom() {
-      this.isPokemonZoom = !this.isPokemonZoom;
-    },
-  },
+const pokemon = computed(() => {
+  const d = pokemonQuery.data.value;
+  if (!d) return null;
+  return {
+    id: d.id,
+    name: d.name,
+    sprite: d.sprites.front_default,
+    abilities: d.abilities,
+    stats: d.stats,
+    types: d.types,
+    weight: d.weight,
+    height: d.height,
+  };
 });
+
+const pokemonSpecies = computed(() => {
+  const d = speciesQuery.data.value;
+  if (!d) return null;
+  const description = d.flavor_text_entries.find(
+    (e: any) => e.language.name === "en",
+  );
+  return {
+    eggGroups: d.egg_groups,
+    description,
+    captureRate: d.capture_rate,
+    baseHappiness: d.base_happiness,
+    growthRate: d.growth_rate.name,
+    hatchCounter: d.hatch_counter,
+  };
+});
+
+const offloadSprite = pokemonQuery.isFetching;
+
+const isPokemonZoom = ref(false);
+const startTouch = ref(0);
+const toPositionPercentage = ref(0);
+const slideDirection = ref("");
+const clientWidth = ref(0);
+const isDark = ref(false);
+const isAbilityModalOpen = ref(false);
+const currentAbilityInModal = ref<string | null>(null);
+const metaItems = ref([
+  { name: "about", active: true },
+  { name: "moves", active: false },
+]);
+
+let _resetTimer: ReturnType<typeof setTimeout> | undefined;
+let _themeObserver: MutationObserver | null = null;
+
+const firstType = computed(() => {
+  const type = pokemon.value!.types.find((t: any) => t.slot === 1);
+  return type?.type.name ?? "";
+});
+
+const pokemonTexture = computed(
+  () => textures[`/src/assets/PK_Textures/${firstType.value}.png`],
+);
+
+const isPokemonLoaded = computed(
+  () => !!(pokemon.value && pokemonSpecies.value),
+);
+
+const pokemonTypes = computed(() =>
+  pokemon.value!.types.map((t: any) => t.type.name),
+);
+
+const getModalBackground = computed(() => {
+  const gradient = getTypeGradients(isDark.value)[
+    firstType.value as PokemonTypeName
+  ];
+  return {
+    backgroundImage: `url(${pokemonTexture.value}), ${gradient}`,
+    backgroundBlendMode: "overlay, normal",
+    backgroundSize: "cover, cover",
+  };
+});
+
+onMounted(() => {
+  clientWidth.value = document.documentElement.clientWidth;
+  isDark.value = resolveIsDark();
+  _themeObserver = markRaw(
+    new MutationObserver(() => {
+      isDark.value = resolveIsDark();
+    }),
+  );
+  _themeObserver.observe(document.documentElement, {
+    attributeFilter: ["class"],
+  });
+});
+
+onBeforeUnmount(() => {
+  _themeObserver?.disconnect();
+});
+
+function resolveIsDark(): boolean {
+  const cl = document.documentElement.classList;
+  if (cl.contains("theme-dark")) return true;
+  if (cl.contains("theme-light")) return false;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
+function changeMetaTab(index: number) {
+  metaItems.value.forEach((tab) => (tab.active = false));
+  metaItems.value[index].active = true;
+}
+
+function openAbilityModal(ability: { name: string }) {
+  currentAbilityInModal.value = ability.name;
+  isAbilityModalOpen.value = true;
+}
+
+function closeAbilityModal() {
+  isAbilityModalOpen.value = false;
+}
+
+function startHandler(e: TouchEvent) {
+  clearTimeout(_resetTimer);
+  if (!e.changedTouches || e.changedTouches.length === 0) return;
+  startTouch.value = e.changedTouches[0].clientX;
+}
+
+function movePokemon(e: TouchEvent) {
+  if (!e.changedTouches || e.changedTouches.length === 0) return;
+  const moveTouch = e.changedTouches[0].clientX;
+  const moving = Math.ceil(((moveTouch / clientWidth.value) * 100 - 50) * 2.5);
+  const startPosition = Math.ceil(
+    ((startTouch.value / clientWidth.value) * 100 - 50) * 2.5,
+  );
+  toPositionPercentage.value = calcMovingPercentage(moving, startPosition);
+  const pokemonSprite = document.getElementById("pokemon-sprite-id");
+  if (pokemonSprite)
+    pokemonSprite.style.transform = `translateX(${toPositionPercentage.value}%)`;
+}
+
+function calcMovingPercentage(moving: number, startPosition: number): number {
+  const screenCenter = clientWidth.value / 2;
+  if (startTouch.value > screenCenter) return moving - startPosition;
+  if (startTouch.value < screenCenter) return (startPosition - moving) * -1;
+  return moving;
+}
+
+function endHandler() {
+  const percentageThreshold = 50;
+  if (toPositionPercentage.value !== 0) {
+    if (
+      toPositionPercentage.value < -percentageThreshold &&
+      !props.isLastPokemon
+    ) {
+      paginatePokemon("next");
+    } else if (
+      toPositionPercentage.value > percentageThreshold &&
+      !props.isFirstPokemon
+    ) {
+      paginatePokemon("previous");
+    } else {
+      const spriteEl = document.getElementById("pokemon-sprite-id");
+      if (spriteEl) {
+        spriteEl.style.cssText = "transition: transform .4s ease";
+        spriteEl.style.transform = "translateX(0%)";
+        _resetTimer = setTimeout(() => {
+          spriteEl.style.cssText = "transition: none";
+        }, 400);
+      }
+    }
+  }
+  toPositionPercentage.value = 0;
+}
+
+function paginatePokemon(direction: string) {
+  slideDirection.value = direction === "next" ? "slide-h-r" : "slide-h-l";
+  emit("paginate-pokemon", direction);
+}
+
+function toggleZoom() {
+  isPokemonZoom.value = !isPokemonZoom.value;
+}
 </script>
 
 <style lang="scss" scoped>

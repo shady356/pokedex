@@ -16,46 +16,31 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, toRef, computed } from "vue";
+<script setup lang="ts">
+import { toRef, computed } from "vue";
 import { useAbility } from "@/composables/usePokeApi";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
 
-export default defineComponent({
-  name: "AbilityModal",
-  components: { BaseProgressSpinner },
-  props: {
-    abilityName: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(props) {
-    const name = toRef(props, "abilityName");
-    const query = useAbility(name);
+const props = defineProps<{ abilityName: string }>();
 
-    const abilityData = computed(() => {
-      const d = query.data.value;
-      if (!d) return null;
-      const flavorEntry = d.flavor_text_entries.find(
-        (e: any) => e.language.name === "en",
-      );
-      const effectEntry = d.effect_entries.find(
-        (e: any) => e.language.name === "en",
-      );
-      return {
-        flavorText: flavorEntry
-          ? flavorEntry.flavor_text.replace(/\n|\f/g, " ")
-          : "",
-        effect: effectEntry ? effectEntry.short_effect : "",
-      };
-    });
+const query = useAbility(toRef(props, "abilityName"));
+const isLoading = query.isLoading;
 
-    return {
-      abilityData,
-      isLoading: query.isLoading,
-    };
-  },
+const abilityData = computed(() => {
+  const d = query.data.value;
+  if (!d) return null;
+  const flavorEntry = d.flavor_text_entries.find(
+    (e: any) => e.language.name === "en",
+  );
+  const effectEntry = d.effect_entries.find(
+    (e: any) => e.language.name === "en",
+  );
+  return {
+    flavorText: flavorEntry
+      ? flavorEntry.flavor_text.replace(/\n|\f/g, " ")
+      : "",
+    effect: effectEntry ? effectEntry.short_effect : "",
+  };
 });
 </script>
 

@@ -25,8 +25,8 @@
   </nav>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { markRaw } from "vue";
 import PokeballIcon from "@/assets/home-icons/PokeballIcon.vue";
 import PokedexIcon from "@/assets/home-icons/PokedexIcon.vue";
 import SettingsIcon from "@/assets/home-icons/SettingsIcon.vue";
@@ -34,22 +34,14 @@ import SettingsIcon from "@/assets/home-icons/SettingsIcon.vue";
 interface NavigationItem {
   name: string;
   route: string;
-  component: string;
+  component: object;
 }
 
-export default defineComponent({
-  name: "MainMenuItems",
-  components: { PokeballIcon, PokedexIcon, SettingsIcon },
-  data() {
-    return {
-      navigationItems: [
-        { name: "Types", route: "Types", component: "PokeballIcon" },
-        { name: "Pokédex", route: "Pokedex", component: "PokedexIcon" },
-        { name: "Settings", route: "Settings", component: "SettingsIcon" },
-      ] as NavigationItem[],
-    };
-  },
-});
+const navigationItems: NavigationItem[] = [
+  { name: "Types", route: "Types", component: markRaw(PokeballIcon) },
+  { name: "Pokédex", route: "Pokedex", component: markRaw(PokedexIcon) },
+  { name: "Settings", route: "Settings", component: markRaw(SettingsIcon) },
+];
 </script>
 
 <style lang="scss" scoped>

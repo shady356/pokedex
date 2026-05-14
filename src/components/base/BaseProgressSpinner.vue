@@ -3,21 +3,11 @@
     :class="['progress-spinner', size]"
     src="@/assets/icons/pokeball_white.png"
     alt="loading ..."
-  >
+  />
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "BaseProgressSpinner",
-  props: {
-    size: {
-      type: String,
-      default: "medium",
-    },
-  },
-});
+<script setup lang="ts">
+withDefaults(defineProps<{ size?: string }>(), { size: "medium" });
 </script>
 
 <style lang="scss" scoped>
