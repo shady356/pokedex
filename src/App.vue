@@ -20,39 +20,5 @@ export default {
 </script>
 
 <style lang="scss">
-* {
-  margin: 0;
-  padding: 0;
-  -webkit-tap-highlight-color: transparent;
-}
-
-button, a, .modal-close-container {
-  transition: transform 50ms ease-in-out;
-
-  &:active {
-    transform: scale(1.05);
-  }
-}
-
-body {
-  -webkit-overflow-scrolling: touch;
-  background: var(--color-bg-body-gradient);
-  background-attachment: fixed;
-  color: var(--color-text);
-}
-
-.disable-scroll {
-  overflow-y: hidden;
-}
-
-img {
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-}
-
-ul li {
-  list-style: none;
-}
+@use '@/styles/normalize';
 </style>
