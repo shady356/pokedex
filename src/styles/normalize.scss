@@ -12,13 +12,6 @@ button, a, .modal-close-container {
   }
 }
 
-body {
-  -webkit-overflow-scrolling: touch;
-  background: var(--color-bg-body-gradient);
-  background-attachment: fixed;
-  color: var(--color-text);
-}
-
 .disable-scroll {
   overflow-y: hidden;
 }

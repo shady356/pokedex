@@ -1,0 +1,12 @@
+@use './spacing' as *;
+
+body {
+  -webkit-overflow-scrolling: touch;
+  background: var(--color-bg-body-gradient);
+  background-attachment: fixed;
+  color: var(--color-text);
+}
+
+.default-page-margin {
+  margin: $space-24 $space-16;
+}
