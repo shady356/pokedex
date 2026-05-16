@@ -18,12 +18,11 @@
 */
 .slide-v-enter-active,
 .slide-v-leave-active {
-  transition: all $duration-normal ease-in-out;
+  transition: transform $duration-normal cubic-bezier(0.32, 0.72, 0, 1);
 }
-.slide-v-enter, 
+.slide-v-enter-from,
 .slide-v-leave-to {
-  transform: translateY(50%) translateZ(0);
-  opacity: 0;
+  transform: translateY(100%) translateZ(0);
 }
 
 /* 
@@ -34,7 +33,7 @@
 .slide-h-l-leave-active {
   transition: all $fast ease-in-out;
 }
-.slide-h-l-enter {
+.slide-h-l-enter-from {
   transform: translateX(-50%) translateZ(0);
   opacity: 0;
 }
@@ -43,15 +42,15 @@
   opacity: 0;
 }
 
-/* 
-  Slide Horizontally Right  
-  [name="slide-h-r"] 
+/*
+  Slide Horizontally Right
+  [name="slide-h-r"]
 */
 .slide-h-r-enter-active,
 .slide-h-r-leave-active {
   transition: all $fast ease-in-out;
 }
-.slide-h-r-enter {
+.slide-h-r-enter-from {
   transform: translateX(50%) translateZ(0);
   opacity: 0;
 }
@@ -68,7 +67,7 @@
 .fade-leave-active {
   transition: opacity $very-fast ease-in-out;
 }
-.fade-enter,
+.fade-enter-from,
 .fade-leave-to {
   transform: translateZ(0);
   opacity: 0;
