@@ -123,10 +123,10 @@ import PokemonMoves from "@/components/pokemon/PokemonMoves.vue";
 import AbilityModal from "@/components/pokemon/AbilityModal.vue";
 import type { PokemonTypeName } from "@/helpers/types";
 
-const textures: Record<string, string> = import.meta.glob(
-  "/src/assets/PK_Textures/*.png",
-  { eager: true, import: "default" },
-);
+const dotGridTexture = new URL(
+  "/src/assets/textures/dot-grid-texture.png",
+  import.meta.url,
+).href;
 
 const props = withDefaults(
   defineProps<{
@@ -197,9 +197,6 @@ const firstType = computed(() => {
   return type?.type.name ?? "";
 });
 
-const pokemonTexture = computed(
-  () => textures[`/src/assets/PK_Textures/${firstType.value}.png`],
-);
 
 const isPokemonLoaded = computed(
   () => !!(pokemon.value && pokemonSpecies.value),
@@ -214,9 +211,9 @@ const getModalBackground = computed(() => {
     firstType.value as PokemonTypeName
   ];
   return {
-    backgroundImage: `url(${pokemonTexture.value}), ${gradient}`,
+    backgroundImage: `url(${dotGridTexture}), ${gradient}`,
     backgroundBlendMode: "overlay, normal",
-    backgroundSize: "cover, cover",
+    backgroundSize: "500px 500px, cover",
   };
 });
 
