@@ -1,7 +1,7 @@
 <template>
-  <div class="tag-container uppercase letter-spacing" @click="clicked()">
+  <button class="tag-container uppercase letter-spacing" @click="clicked()">
     <slot />
-  </div>
+  </button>
 </template>
 
 <script setup lang="ts">

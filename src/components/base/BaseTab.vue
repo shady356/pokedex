@@ -52,7 +52,7 @@ function changeTab(index: number) {
       cursor: pointer;
       color: var(--color-text-light);
       width: 100%;
-      padding: $space-4 0;
+      padding: $space-4 $space-16;
       border-radius: $space-16;
       font-family: "Roboto Condensed", sans-serif;
       background: transparent;

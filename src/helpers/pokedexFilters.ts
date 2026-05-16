@@ -1,4 +1,4 @@
-import { fetchGeneration, fetchType } from "@/service/pokeApi";
+import { fetchGeneration, fetchAllPokemonSpecies, fetchType } from "@/service/pokeApi";
 
 export interface GenerationDef {
   name: string
@@ -48,14 +48,23 @@ export const $filterData = async (filters: Filters): Promise<PokemonEntry[]> => 
   }
 
   if (filters.types.length > 0) {
-    const data = await fetchType(filters.types[0]);
-    return data.pokemon
-      .map((p: any) => toEntry(extractId(p.pokemon.url)))
-      .sort((a: PokemonEntry, b: PokemonEntry) => a.id - b.id);
+    const results = await Promise.all(filters.types.map((t) => fetchType(t)));
+    const seen = new Set<number>();
+    const entries: PokemonEntry[] = [];
+    for (const data of results) {
+      for (const p of data.pokemon) {
+        const id = extractId(p.pokemon.url);
+        if (!seen.has(id)) {
+          seen.add(id);
+          entries.push(toEntry(id));
+        }
+      }
+    }
+    return entries.sort((a, b) => a.id - b.id);
   }
 
-  const data = await fetchGeneration("generation-i");
-  return data.pokemon_species
+  const data = await fetchAllPokemonSpecies();
+  return data.results
     .map((s: any) => toEntry(extractId(s.url)))
     .sort((a: PokemonEntry, b: PokemonEntry) => a.id - b.id);
 };

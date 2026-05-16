@@ -126,11 +126,8 @@ function closeModal() {
     }
 
     @media (min-width: 1024px) {
-      width: 50vw;
-      height: 50vh;
-      top: 25vh;
-      left: 25vw;
-      border-radius: $space-16;
+      width: 40vw;
+      left: 30vw;
     }
 
     &.is-pokemon-card {

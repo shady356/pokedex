@@ -15,19 +15,7 @@
             <span class="material-icons-round">palette</span>
             Theme
           </span>
-          <div class="theme-toggle">
-            <button
-              v-for="option in themeOptions"
-              :key="option.value"
-              class="theme-toggle__btn"
-              :class="{
-                'theme-toggle__btn--active': currentTheme === option.value,
-              }"
-              @click="selectTheme(option.value)"
-            >
-              {{ option.label }}
-            </button>
-          </div>
+          <BaseTab :items="tabItems" @change-tab="onChangeTab" />
         </div>
       </section>
     </div>
@@ -35,8 +23,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import Header from "@/components/layout/Header.vue";
+import BaseTab from "@/components/base/BaseTab.vue";
 import { getTheme, setTheme, type ThemeOption } from "@/utils/theme";
 
 const currentTheme = ref<ThemeOption>(getTheme());
@@ -46,9 +35,16 @@ const themeOptions = [
   { value: "dark" as ThemeOption, label: "Dark" },
 ];
 
-function selectTheme(theme: ThemeOption) {
-  currentTheme.value = theme;
-  setTheme(theme);
+const tabItems = computed(() =>
+  themeOptions.map((opt) => ({
+    name: opt.label,
+    active: currentTheme.value === opt.value,
+  })),
+);
+
+function onChangeTab(index: number) {
+  currentTheme.value = themeOptions[index].value;
+  setTheme(themeOptions[index].value);
 }
 </script>
 
@@ -63,7 +59,6 @@ function selectTheme(theme: ThemeOption) {
   &__section-title {
     font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-light);
     margin-bottom: $space-12;
@@ -88,33 +83,6 @@ function selectTheme(theme: ThemeOption) {
 
     .material-icons-round {
       font-size: 1.25rem;
-    }
-  }
-}
-
-.theme-toggle {
-  display: flex;
-  background: var(--color-bg-secondary);
-  border-radius: $space-8;
-  padding: $space-2;
-  gap: $space-2;
-
-  &__btn {
-    background: none;
-    border: none;
-    border-radius: calc(#{$space-8} - 2px);
-    color: var(--color-text-light);
-    cursor: pointer;
-    font-size: 0.875rem;
-    padding: $space-4 $space-12;
-    transition:
-      background 0.15s,
-      color 0.15s;
-
-    &--active {
-      background: var(--color-bg-primary);
-      color: var(--color-text);
-      font-weight: 600;
     }
   }
 }

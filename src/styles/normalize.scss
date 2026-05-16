@@ -4,6 +4,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+button {
+  font-family: inherit;
+}
+
 button, a, .modal-close-container {
   transition: transform 50ms ease-in-out;
 
