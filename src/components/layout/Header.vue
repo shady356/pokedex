@@ -51,7 +51,7 @@ withDefaults(defineProps<{ routerBack?: string }>(), { routerBack: "Home" });
     }
 
     .column__button-icon {
-      font-size: $space-24;
+      font-size: $font-24;
     }
   }
 }

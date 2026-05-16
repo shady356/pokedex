@@ -73,7 +73,7 @@ function getTypeIcon(): string {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    font-size: $font-xs;
+    font-size: $font-12;
   }
 
   &__empty-text {

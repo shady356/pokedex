@@ -56,7 +56,7 @@ function getIndex(value: number | string): string {
     position: absolute;
     top: 15%;
     right: 3%;
-    font-size: 14px;
+    font-size: $font-14;
     font-weight: 600;
   }
 }

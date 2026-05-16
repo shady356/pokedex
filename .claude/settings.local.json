@@ -51,7 +51,9 @@
       "Bash(npx vue-tsc *)",
       "Bash(Select-String \"Types.vue\")",
       "Bash(Get-Content src/assets/home-icons/*.vue -ErrorAction SilentlyContinue)",
-      "Bash(Select-Object -First 50)"
+      "Bash(Select-Object -First 50)",
+      "Bash(grep -rn '$font-' /Users/heo/Documents/src/pokedex/src)",
+      "Bash(grep '\\\\$font')"
     ],
     "additionalDirectories": [
       "c:\\Users\\henri\\Documents\\code\\pokedex\\.claude\\skills"

@@ -171,7 +171,7 @@ function toggleTypeModal(type: string) {
 
   .section-title {
     margin: 0 0 $space-12 $space-16;
-    font-size: $font-s;
+    font-size: $font-14;
   }
 
   .stat-wrapper {
@@ -215,12 +215,12 @@ function toggleTypeModal(type: string) {
 
           .micro-label {
             padding-top: 12px;
-            font-size: $font-xxs;
+            font-size: $font-8;
           }
           .total-base-stat-number {
             color: var(--color-text-light);
-            line-height: $font-m;
-            font-size: $font-s;
+            line-height: $font-16;
+            font-size: $font-14;
           }
         }
       }

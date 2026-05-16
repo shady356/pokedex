@@ -133,13 +133,13 @@ function formatEggGroups(value: Array<{ name: string }>): string {
       margin-bottom: $space-4;
       display: flex;
       align-items: center;
-      font-size: 14px;
+      font-size: $font-14;
     }
 
     .data-row {
       display: flex;
       padding: $space-4 0;
-      font-size: $font-s;
+      font-size: $font-14;
       width: 100%;
 
       .label {
@@ -161,7 +161,7 @@ function formatEggGroups(value: Array<{ name: string }>): string {
 
       .quote {
         color: var(--color-text-light);
-        font-size: $font-xs;
+        font-size: $font-12;
         margin-top: $space-4;
         text-align: right;
       }
@@ -179,7 +179,7 @@ function formatEggGroups(value: Array<{ name: string }>): string {
 
         .icon {
           margin-left: $space-2;
-          font-size: $space-8;
+          font-size: $font-8;
           color: var(--color-accent);
         }
 
@@ -199,7 +199,7 @@ function formatEggGroups(value: Array<{ name: string }>): string {
 
         .icon {
           color: var(--color-primary);
-          font-size: $space-12;
+          font-size: $font-12;
           margin-right: $space-4;
         }
       }
@@ -208,7 +208,7 @@ function formatEggGroups(value: Array<{ name: string }>): string {
         align-items: center;
 
         .icon {
-          font-size: $space-12;
+          font-size: $font-12;
           color: var(--color-primary);
           margin-right: $space-4;
           transform: rotate(90deg);

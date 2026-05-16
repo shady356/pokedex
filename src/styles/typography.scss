@@ -1,60 +1,60 @@
-$font-xxs: 0.5rem; // 8px
-$font-xs: 0.75rem; // 12px
-$font-s: 0.875rem; // 14px
-$font-m: 1rem; // 16px
-$font-l: 1.125rem; // 18px
-$font-xl: 1.25rem; // 20px
-$font-xxl: 1.5rem; // 24px
-$font-xxxl: 1.75rem; // 28px
-$font-xxxxl: 2rem; // 32px
+$font-8: 0.5rem; // 8px
+$font-12: 0.75rem; // 12px
+$font-14: 0.875rem; // 14px
+$font-16: 1rem; // 16px
+$font-18: 1.125rem; // 18px
+$font-20: 1.25rem; // 20px
+$font-24: 1.5rem; // 24px
+$font-28: 1.75rem; // 28px
+$font-32: 2rem; // 32px
 
 body {
   color: var(--color-text);
-  font-size: $font-m;
+  font-size: $font-16;
   font-family: 'Roboto Condensed', sans-serif;
 }
 
 p {
-  line-height: $font-l;
+  line-height: $font-18;
 }
 
 h1 {
-  font-size: $font-xxxxl;
+  font-size: $font-32;
   font-weight: 700;
   line-height: 2.25rem;
 }
 h2 {
-  font-size: $font-xxxl;
+  font-size: $font-28;
   font-weight: 700;
   line-height: 2rem;
 }
 h3 {
-  font-size: $font-xxl;
+  font-size: $font-24;
   font-weight: 700;
   line-height: 1.75rem;
 }
 h4 {
-  font-size: $font-xl;
+  font-size: $font-20;
   font-weight: 700;
   line-height: 1.5rem;
 }
 h5 {
-  font-size: $font-l;
+  font-size: $font-18;
   font-weight: 700;
   line-height: 1.3rem;
 }
 h6 {
-  font-size: $font-s;
+  font-size: $font-14;
   font-weight: 700;
   line-height: 1.25rem;
 }
 
 @mixin title {
-  font-size: $font-l;
+  font-size: $font-18;
   font-weight: 700;
 }
 @mixin micro-label {
-  font-size: $font-s;
+  font-size: $font-14;
   font-weight: 700;
   color: var(--color-text-light);
 }

@@ -114,12 +114,12 @@ nav {
     height: $space-32;
     width: $space-32;
     color: var(--color-secondary-fg);
-    font-size: $space-32;
+    font-size: $font-32;
   }
 
   &__text {
     color: var(--color-text);
-    font-size: $font-s;
+    font-size: $font-14;
     font-weight: 700;
     margin-top: $space-12;
     text-align: center;
@@ -138,11 +138,11 @@ nav {
   .navigation-list-item__icon {
     width: $space-24;
     height: $space-24;
-    font-size: $space-24;
+    font-size: $font-24;
   }
 
   .navigation-list-item__text {
-    font-size: $font-xs;
+    font-size: $font-12;
     margin-top: $space-8;
   }
 }

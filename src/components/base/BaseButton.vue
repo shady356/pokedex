@@ -19,7 +19,7 @@ button {
   border: 1px solid transparent;
   color: var(--color-text);
   cursor: pointer;
-  font-size: $font-s;
+  font-size: $font-14;
   font-weight: 700;
   outline: none;
   padding: $space-16 $space-24;

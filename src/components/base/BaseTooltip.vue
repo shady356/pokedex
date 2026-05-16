@@ -11,7 +11,7 @@
   position: absolute;
   background: var(--color-black);
   color: var(--color-white);
-  font-size: 12px;
+  font-size: $font-12;
   padding: 10px;
   text-align: left;
 }

@@ -57,7 +57,7 @@ function onChangeTab(index: number) {
   }
 
   &__section-title {
-    font-size: 0.75rem;
+    font-size: $font-12;
     font-weight: 600;
     text-transform: uppercase;
     color: var(--color-text-light);
@@ -78,11 +78,11 @@ function onChangeTab(index: number) {
     display: flex;
     align-items: center;
     gap: $space-8;
-    font-size: 1rem;
+    font-size: $font-16;
     color: var(--color-text);
 
     .material-icons-round {
-      font-size: 1.25rem;
+      font-size: $font-20;
     }
   }
 }

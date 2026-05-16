@@ -109,7 +109,7 @@ function formatAccuracy(value: number | null): string {
   .text {
     color: var(--color-text-light);
     font-weight: 400;
-    font-size: $font-s;
+    font-size: $font-14;
     text-align: center;
   }
 }
@@ -129,7 +129,7 @@ table {
     th {
       padding: $space-12 0;
       text-align: left;
-      font-size: $font-xs;
+      font-size: $font-12;
 
       &:nth-child(2),
       &:nth-child(3) {
@@ -148,7 +148,7 @@ table {
       td {
         padding: $space-12 0;
         text-transform: capitalize;
-        font-size: 14px;
+        font-size: $font-14;
 
         &.name {
           &.is-same-type {
@@ -157,7 +157,7 @@ table {
           .level {
             margin-top: $space-4;
             color: var(--color-text-light);
-            font-size: $font-s;
+            font-size: $font-14;
             font-weight: normal;
           }
         }

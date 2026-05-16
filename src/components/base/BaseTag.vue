@@ -20,7 +20,7 @@ function clicked() {
   border: 1px solid var(--color-border);
   color: var(--color-text);
   display: inline-flex;
-  font-size: $font-xs;
+  font-size: $font-12;
   padding: $space-8 $space-16;
   transition: background-color $fast ease-out;
   white-space: nowrap;
