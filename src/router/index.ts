@@ -46,6 +46,7 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHashHistory(),
   scrollBehavior: (_to, _from, savedPosition) => {
+    if (_to.meta?.showModal || _from?.meta?.showModal) return false;
     if (savedPosition) return savedPosition;
     return { left: 0, top: 0 };
   },

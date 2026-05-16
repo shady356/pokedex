@@ -103,15 +103,11 @@ const pokedexIds = computed(() => pokemonList.value.map((p) => p.id));
 watch(
   route,
   (newVal, oldVal) => {
-    if (oldVal) {
-      if (oldVal.name === "Pokedex") {
-        scrollPosition.value = window.scrollY;
-      } else {
-        const scrollY = scrollPosition.value;
-        setTimeout(() => {
-          window.scroll(0, scrollY);
-        }, 10);
-      }
+    if (oldVal?.name === "Pokedex") {
+      scrollPosition.value = window.scrollY;
+    } else if (newVal?.name === "Pokedex" && oldVal) {
+      const scrollY = scrollPosition.value;
+      nextTick(() => window.scroll(0, scrollY));
     }
     isPokemonModal.value = !!newVal?.meta?.showModal;
   },
