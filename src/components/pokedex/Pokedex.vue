@@ -55,15 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ref,
-  computed,
-  watch,
-  onMounted,
-  onBeforeUnmount,
-  nextTick,
-  markRaw,
-} from "vue";
+import { ref, shallowRef, computed, watch, onMounted, nextTick } from "vue";
 import { useRoute } from "vue-router";
 import {
   $filterData,
@@ -77,23 +69,33 @@ import FilterPokemon from "@/components/pokedex/FilterPokemon.vue";
 import Header from "@/components/layout/Header.vue";
 import PokedexItem from "@/components/pokedex/PokedexItem.vue";
 import { useQueryClient, STALE } from "@/composables/usePokeApi";
+import { useInfiniteScroll } from "@/composables/useInfiniteScroll";
 import { fetchPokemonForm } from "@/service/pokeApi";
 
 const queryClient = useQueryClient();
 const route = useRoute();
 
 const pokemonList = ref<PokemonEntry[]>([]);
-const visibleCount = ref(0);
 const fetchedCount = ref(0);
-const batchSize = 24;
-const isLoadingBatch = ref(false);
 const isFilterOpen = ref(false);
 const isPokemonModal = ref(false);
 const scrollPosition = ref(0);
 const filters = ref<Filters>({ generations: [], types: [] });
 const isFilter = ref(false);
-const trigger = ref<Element | null>(null);
-let _observer: IntersectionObserver | null = null;
+const trigger = shallowRef<Element | null>(null);
+
+const { visibleCount, restart } = useInfiniteScroll(
+  trigger,
+  computed(() => pokemonList.value.length),
+  24,
+  async (start, end) => {
+    await Promise.all(
+      Array.from({ length: end - start }, (_, i) =>
+        fetchPokemon(pokemonList.value[start + i].id, start + i),
+      ),
+    );
+  },
+);
 
 const visiblePokemon = computed(() =>
   pokemonList.value.slice(0, visibleCount.value),
@@ -118,10 +120,6 @@ onMounted(() => {
   setPokedexMap(filters.value);
 });
 
-onBeforeUnmount(() => {
-  _observer?.disconnect();
-});
-
 async function fetchPokemon(id: number, index: number) {
   const data = await queryClient.fetchQuery({
     queryKey: ["pokemon-form", id],
@@ -136,46 +134,11 @@ async function fetchPokemon(id: number, index: number) {
   fetchedCount.value++;
 }
 
-async function loadNextBatch() {
-  if (isLoadingBatch.value) return;
-  const start = visibleCount.value;
-  const end = Math.min(start + batchSize, pokemonList.value.length);
-  if (start >= end) return;
-
-  isLoadingBatch.value = true;
-  visibleCount.value = end;
-
-  await Promise.all(
-    Array.from({ length: end - start }, (_, i) =>
-      fetchPokemon(pokemonList.value[start + i].id, start + i),
-    ),
-  );
-
-  isLoadingBatch.value = false;
-  await nextTick();
-  const rect = trigger.value?.getBoundingClientRect();
-  if (rect && rect.top < window.innerHeight) loadNextBatch();
-}
-
-function scrollTrigger() {
-  _observer?.disconnect();
-  _observer = markRaw(
-    new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) loadNextBatch();
-    }),
-  );
-  nextTick(() => {
-    if (trigger.value) _observer!.observe(trigger.value);
-  });
-}
-
 async function setPokedexMap(newFilters: Filters) {
   pokemonList.value = [];
-  visibleCount.value = 0;
   fetchedCount.value = 0;
-  isLoadingBatch.value = false;
   pokemonList.value = await $filterData(newFilters);
-  scrollTrigger();
+  restart();
 }
 
 function openFilter() {
