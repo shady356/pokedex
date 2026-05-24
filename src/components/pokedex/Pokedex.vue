@@ -2,7 +2,7 @@
   <div>
     <LayoutHeader>
       <template #title>
-        <h1>Pokédex</h1>
+        Pokédex
       </template>
 
       <template #options>

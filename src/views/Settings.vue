@@ -2,20 +2,25 @@
   <div>
     <LayoutHeader>
       <template #title>
-        <h1>Settings</h1>
+        Settings
       </template>
     </LayoutHeader>
 
     <div class="settings">
       <section class="settings__section">
-        <h2 class="settings__section-title">Appearance</h2>
+        <h2 class="settings__section-title">
+          Appearance
+        </h2>
 
         <div class="settings__row">
           <span class="settings__label">
             <span class="material-icons-round">palette</span>
             Theme
           </span>
-          <BaseTab :items="tabItems" @change-tab="onChangeTab" />
+          <BaseTab
+            :items="tabItems"
+            @change-tab="onChangeTab"
+          />
         </div>
       </section>
     </div>

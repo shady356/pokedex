@@ -1,19 +1,17 @@
 <template>
   <header class="header">
     <router-link
-      class="header__column"
       :to="{ name: routerBack }"
     >
       <BaseButtonIcon>
-        <span class="material-icons-round column__button-icon">arrow_back</span>
+        <span class="material-icons-round">arrow_back</span>
       </BaseButtonIcon>
     </router-link>
-    <div class="header__column">
+    <h1 class="header__title">
       <slot name="title" />
-    </div>
-    <div class="header__column">
-      <slot name="options" />
-    </div>
+    </h1>
+
+    <slot name="options" />
   </header>
 </template>
 
@@ -26,32 +24,16 @@ withDefaults(defineProps<{ routerBack?: string }>(), { routerBack: "Home" });
 <style lang="scss" scoped>
 .header {
   align-items: center;
-  display: flex;
-  padding: $space-12;
+  display: grid;
+  padding: $space-8;
   position: sticky;
   top: 0;
   background: var(--color-header);
+  grid-template-columns: #{$space-40} 1fr #{$space-40};
 
-  .header__column {
-    display: flex;
-    text-decoration: none;
-
-    &:nth-child(1) {
-      color: var(--color-text);
-    }
-
-    &:nth-child(2) {
-      width: calc(100% - (#{$space-40}* 2));
-      justify-content: center;
-    }
-
-    &:nth-child(3) {
-      justify-content: flex-end;
-    }
-
-    .column__button-icon {
-      font-size: $font-24;
-    }
+  &__title {
+    font-size: $font-24;
+    text-align: center;
   }
 }
 </style>

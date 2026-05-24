@@ -2,13 +2,16 @@
   <div>
     <LayoutHeader>
       <template #title>
-        <h1>Types</h1>
+        Types
       </template>
     </LayoutHeader>
     <div class="types-list-container">
       <TypesList @select-type="openTypeModal" />
     </div>
-    <BaseModal v-if="isTypeModalOpen" @close-modal="closeTypeModal">
+    <BaseModal
+      v-if="isTypeModalOpen"
+      @close-modal="closeTypeModal"
+    >
       <TypeModal :type-name="currentTypeInModal!" />
     </BaseModal>
   </div>

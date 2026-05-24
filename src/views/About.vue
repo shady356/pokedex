@@ -2,7 +2,7 @@
   <div>
     <LayoutHeader>
       <template #title>
-        <h1>About</h1>
+        About
       </template>
     </LayoutHeader>
     <div class="about-container">
