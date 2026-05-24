@@ -25,7 +25,7 @@ withDefaults(defineProps<{ routerBack?: string }>(), { routerBack: "Home" });
 .header {
   align-items: center;
   display: grid;
-  padding: $space-8;
+  padding: $space-12 $space-16;
   position: sticky;
   top: 0;
   background: var(--color-header);
