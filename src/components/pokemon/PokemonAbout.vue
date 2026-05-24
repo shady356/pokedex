@@ -2,7 +2,9 @@
   <div class="about-container">
     <!-- Description -->
     <section class="description-container">
-      <h3 class="title">Description</h3>
+      <h3 class="title">
+        Description
+      </h3>
       <p class="data-row">
         {{ pokemonSpecies.description.flavor_text }}
       </p>
@@ -13,7 +15,9 @@
 
     <!-- Abilities -->
     <section>
-      <h3 class="title">Abilities</h3>
+      <h3 class="title">
+        Abilities
+      </h3>
 
       <div class="abilities-container">
         <BaseTag
@@ -23,31 +27,42 @@
           @click="$emit('openAbilityModal', item.ability)"
         >
           {{ item.ability.name }}
-          <span v-if="item.is_hidden" class="material-icons icon">star</span>
+          <span
+            v-if="item.is_hidden"
+            class="material-icons icon"
+          >star</span>
         </BaseTag>
       </div>
     </section>
 
     <!-- Training -->
     <section>
-      <h3 class="title">Training</h3>
+      <h3 class="title">
+        Training
+      </h3>
 
       <div class="data-row">
-        <div class="label">Growth rate</div>
+        <div class="label">
+          Growth rate
+        </div>
         <div class="value capitalize">
           {{ pokemonSpecies.growthRate }}
         </div>
       </div>
 
       <div class="data-row">
-        <div class="label">Catch rate</div>
+        <div class="label">
+          Catch rate
+        </div>
         <div class="value">
           {{ pokemonSpecies.captureRate }}
         </div>
       </div>
 
       <div class="data-row">
-        <div class="label">Base happiness</div>
+        <div class="label">
+          Base happiness
+        </div>
         <div class="value">
           {{ pokemonSpecies.baseHappiness }}
         </div>
@@ -56,17 +71,23 @@
 
     <!-- Breeding -->
     <section>
-      <h3 class="title">Breeding</h3>
+      <h3 class="title">
+        Breeding
+      </h3>
 
       <div class="data-row">
-        <div class="label">Egg Group</div>
+        <div class="label">
+          Egg Group
+        </div>
         <div class="value capitalize">
           {{ formatEggGroups(pokemonSpecies.eggGroups) }}
         </div>
       </div>
 
       <div class="data-row">
-        <div class="label">Hatch Counter</div>
+        <div class="label">
+          Hatch Counter
+        </div>
         <div class="value">
           {{ pokemonSpecies.hatchCounter }}
         </div>
@@ -157,7 +178,7 @@ function formatEggGroups(value: Array<{ name: string }>): string {
       background: var(--color-bg-primary);
       border-radius: $space-12;
       margin-bottom: $space-12;
-      border: 1px solid var(--color-border);
+      border: 1px dashed var(--color-border);
 
       .quote {
         color: var(--color-text-light);
