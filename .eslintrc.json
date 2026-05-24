@@ -20,8 +20,6 @@
   "rules": {
     "vue/this-in-template": "error",
     "vue/eqeqeq": "error",
-    "vue/multi-word-component-names": ["error", {
-      "ignores": []
-    }]
+    "vue/multi-word-component-names": "off"
   }
 }
