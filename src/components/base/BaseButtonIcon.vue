@@ -1,5 +1,8 @@
 <template>
-  <button class="base-button-icon" @click="$emit('click')">
+  <button
+    class="base-button-icon"
+    @click="$emit('click')"
+  >
     <slot />
   </button>
 </template>
@@ -17,10 +20,10 @@ defineEmits<{ click: [] }>();
   color: var(--color-text);
   cursor: pointer;
   display: flex;
-  height: $space-48;
+  height: $space-40;
   justify-content: center;
   outline: none;
-  width: $space-48;
+  width: $space-40;
   transition: transform 50ms ease-in-out;
   -webkit-tap-highlight-color: transparent;
 
