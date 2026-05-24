@@ -111,32 +111,13 @@
 
 <script setup lang="ts">
 import BaseTag from "@/components/base/BaseTag.vue";
+import { toKilogram, toMeter } from "@/utils/measures";
 
 defineProps<{
   pokemon: Record<string, any>;
   pokemonSpecies: Record<string, any>;
 }>();
 defineEmits<{ openAbilityModal: [ability: { name: string }] }>();
-
-function toMeter(value: number): string {
-  return new Intl.NumberFormat("en-UK", {
-    style: "unit",
-    unit: "meter",
-    unitDisplay: "short",
-    minimumSignificantDigits: 2,
-    maximumSignificantDigits: 2,
-  }).format(value / 10);
-}
-
-function toKilogram(value: number): string {
-  return new Intl.NumberFormat("en-UK", {
-    style: "unit",
-    unit: "kilogram",
-    unitDisplay: "short",
-    minimumSignificantDigits: 2,
-    maximumSignificantDigits: 2,
-  }).format(value / 10);
-}
 
 function formatEggGroups(value: Array<{ name: string }>): string {
   return value.map((item) => item.name).join(", ");
