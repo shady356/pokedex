@@ -9,7 +9,11 @@
         :to="{ name: item.route }"
         custom
       >
-        <li role="link" @click="navigate" @keypress.enter="() => navigate()">
+        <li
+          role="link"
+          @click="navigate"
+          @keypress.enter="() => navigate()"
+        >
           <div class="navigation-list-item__icon-container">
             <Component
               :is="item.component"

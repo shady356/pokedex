@@ -1,10 +1,17 @@
 <template>
-  <div v-if="typeData" class="modal-type-container">
+  <div
+    v-if="typeData"
+    class="modal-type-container"
+  >
     <div
       class="type-icon-container"
       :style="'background:' + getTypeColor(typeName)"
     >
-      <img class="type-icon" :src="getIcon(typeName)" alt="type-icon" />
+      <img
+        class="type-icon"
+        :src="getIcon(typeName)"
+        alt="type-icon"
+      >
     </div>
     <h3 class="type-title uppercase">
       {{ typeName }}
@@ -16,7 +23,9 @@
     <div class="type-damage-relation-container">
       <ul>
         <li>
-          <h6 class="type-relation-title">Super effective against</h6>
+          <h6 class="type-relation-title">
+            Super effective against
+          </h6>
           <div class="tag-types-container">
             <BaseTypeTag
               v-for="(typeItem, index) in typeData.superEffectiveTo"
@@ -27,7 +36,9 @@
           </div>
         </li>
         <li>
-          <h6 class="type-relation-title">Vulnerable to</h6>
+          <h6 class="type-relation-title">
+            Vulnerable to
+          </h6>
           <div class="tag-types-container">
             <BaseTypeTag
               v-for="(typeItem, index) in typeData.vulnerableTo"

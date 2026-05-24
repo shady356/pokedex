@@ -3,7 +3,7 @@
     :class="['progress-spinner', size]"
     src="@/assets/icons/pokeball_white.png"
     alt="loading ..."
-  />
+  >
 </template>
 
 <script setup lang="ts">

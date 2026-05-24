@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- Pokemon -->
-    <BaseModal is-pokemon-card @close-modal="closePokemonCardController()">
+    <BaseModal
+      is-pokemon-card
+      @close-modal="closePokemonCardController()"
+    >
       <PokemonCard
         :pokemon-id="pokemonId"
         :is-first-pokemon="isFirstPokemon"

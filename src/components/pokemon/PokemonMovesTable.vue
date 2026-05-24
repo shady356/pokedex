@@ -16,7 +16,10 @@
         </th>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in items" :key="index">
+        <tr
+          v-for="(item, index) in items"
+          :key="index"
+        >
           <td
             :class="[
               'name',
@@ -24,7 +27,12 @@
             ]"
           >
             {{ item.name }}
-            <div v-if="isLevelUp" class="level">Level {{ item.level }}</div>
+            <div
+              v-if="isLevelUp"
+              class="level"
+            >
+              Level {{ item.level }}
+            </div>
           </td>
           <td class="type">
             <BaseTypeTag
@@ -32,12 +40,15 @@
               class="tag-item"
             />
           </td>
-          <td class="category" :title="item.category">
+          <td
+            class="category"
+            :title="item.category"
+          >
             <img
               class="category-img"
               :src="getItemCategoryImageSrc(item.category)"
               :alt="item.category"
-            />
+            >
           </td>
           <td class="power number">
             {{ formatPower(item.power) }}

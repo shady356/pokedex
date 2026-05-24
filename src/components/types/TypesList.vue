@@ -1,13 +1,26 @@
 <template>
-  <ul v-if="types" class="type-list">
-    <li v-for="type in types" :key="type.name" class="type-item">
-      <button class="type-item__button" @click="selectType(type.name)">
-        <div class="type-item__icon" :style="getTypeBackground(type.color)">
+  <ul
+    v-if="types"
+    class="type-list"
+  >
+    <li
+      v-for="type in types"
+      :key="type.name"
+      class="type-item"
+    >
+      <button
+        class="type-item__button"
+        @click="selectType(type.name)"
+      >
+        <div
+          class="type-item__icon"
+          :style="getTypeBackground(type.color)"
+        >
           <img
             class="type-item__icon-image"
             :src="getTypeIcon(type.name)"
             alt=""
-          />
+          >
         </div>
         <div class="type-item__title uppercase">
           {{ type.name }}

@@ -1,5 +1,10 @@
 <template>
-  <div v-if="visible" class="toast-container">Foobar</div>
+  <div
+    v-if="visible"
+    class="toast-container"
+  >
+    Foobar
+  </div>
 </template>
 
 <script setup lang="ts">

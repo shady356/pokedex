@@ -8,25 +8,33 @@
       :style="{ backgroundColor: getTypeColor() }"
       :src="getTypeIcon()"
       class="icon icon--skewed"
-      alt="icon"
-    />
+      alt=""
+    >
 
     <div class="type-tag-container__text">
       {{ type }}
     </div>
   </button>
 
-  <button v-else-if="type && !displayName" class="icon-button">
+  <button
+    v-else-if="type && !displayName"
+    class="icon-button"
+  >
     <img
       :style="{ backgroundColor: getTypeColor() }"
       :src="getTypeIcon()"
       class="icon icon--circle"
-      alt="icon"
-    />
+      alt=""
+    >
   </button>
 
-  <div v-else class="type-tag-container">
-    <div class="type-tag-container__empty-text">–</div>
+  <div
+    v-else
+    class="type-tag-container"
+  >
+    <div class="type-tag-container__empty-text">
+      –
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,8 @@
 <template>
-  <button class="tag-container uppercase letter-spacing" @click="clicked()">
+  <button
+    class="tag-container uppercase letter-spacing"
+    @click="clicked()"
+  >
     <slot />
   </button>
 </template>

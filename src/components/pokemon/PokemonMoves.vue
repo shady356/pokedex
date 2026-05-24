@@ -3,7 +3,11 @@
     <div v-if="isMovesLoaded">
       <div class="generation">
         <h6>Generation:</h6>
-        <BaseTab class="tab-header" :items="tabs" @change-tab="changeTab" />
+        <BaseTab
+          class="tab-header"
+          :items="tabs"
+          @change-tab="changeTab"
+        />
       </div>
       <PokemonMovesTable
         v-if="generations[selectedGeneration].levelUp.length > 0"
@@ -38,7 +42,10 @@
         title="learned by tutoring"
       />
     </div>
-    <div v-else class="loading-moves">
+    <div
+      v-else
+      class="loading-moves"
+    >
       <BaseProgressSpinner size="large" />
     </div>
   </div>

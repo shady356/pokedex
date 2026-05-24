@@ -1,16 +1,25 @@
 <template>
-  <transition name="fade" appear>
+  <transition
+    name="fade"
+    appear
+  >
     <div
       class="modal-container"
       @touchmove.passive="movingHandler"
       @touchend="endHandler"
     >
-      <transition name="slide-v" appear>
+      <transition
+        name="slide-v"
+        appear
+      >
         <div
           id="moving-box"
           :class="['modal-window', { 'is-pokemon-card': isPokemonCard }]"
         >
-          <div v-if="dragHandler" class="drag-handler" />
+          <div
+            v-if="dragHandler"
+            class="drag-handler"
+          />
           <slot />
           <div
             v-if="showCloseButton"
@@ -21,8 +30,8 @@
               <img
                 class="close-icon"
                 src="@/assets/icons/clear-24px.svg"
-                alt="clear icon"
-              />
+                alt=""
+              >
             </div>
           </div>
         </div>

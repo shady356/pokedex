@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="header">
-      <div class="header__title">Filter Pokémon</div>
+      <div class="header__title">
+        Filter Pokémon
+      </div>
     </div>
 
     <div class="filter-container">
@@ -32,7 +34,10 @@
         </li>
       </ul>
 
-      <BaseButton class="primary" @click="applyFilters()">
+      <BaseButton
+        class="primary"
+        @click="applyFilters()"
+      >
         Apply filters
       </BaseButton>
     </div>

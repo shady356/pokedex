@@ -53,7 +53,14 @@
       "Bash(Get-Content src/assets/home-icons/*.vue -ErrorAction SilentlyContinue)",
       "Bash(Select-Object -First 50)",
       "Bash(grep -rn '$font-' /Users/heo/Documents/src/pokedex/src)",
-      "Bash(grep '\\\\$font')"
+      "Bash(grep '\\\\$font')",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\" -Recurse -Force)",
+      "Bash(Select-Object -First 100)",
+      "Bash(Format-Table FullName)",
+      "PowerShell(head -50)",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\src\" -Recurse | Where-Object {$_.PSIsContainer} | Select-Object -ExpandProperty FullName | Sort-Object)",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\src\\\\components\" -Recurse | Where-Object {!$_.PSIsContainer} | Select-Object -ExpandProperty FullName)",
+      "PowerShell(tree -L 3 -d \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\src\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\henri\\Documents\\code\\pokedex\\.claude\\skills"
