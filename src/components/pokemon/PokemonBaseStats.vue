@@ -23,25 +23,14 @@
             @click="toggleTypeModal(pokemon.types[1]?.type.name)"
           />
         </div>
-        <!--
-        <div class="base-stat-addon-info">
-          <div class="base-stats-total">
-            <div class="hexagon-shape">
-              <div class="uppercase letter-spacing micro-label">
-                total
-              </div>
-              <h4 class="total-base-stat-number">
-                {{ totalBaseStatAnimated }}
-              </h4>
-            </div>
-          </div>
-        </div>
-      --></div>
-
-      <BaseModal v-if="currentType" @close-modal="toggleTypeModal('')">
-        <TypeModal :type-name="currentType as any" />
-      </BaseModal>
+      </div>
     </div>
+    <BaseModal
+      v-if="currentType"
+      @close-modal="toggleTypeModal('')"
+    >
+      <TypeModal :type-name="currentType" />
+    </BaseModal>
   </div>
 </template>
 
@@ -52,12 +41,12 @@ import TypeModal from "@/components/types/TypeModal.vue";
 import BaseModal from "@/components/base/BaseModal.vue";
 import BaseTypeTag from "../base/BaseTypeTag.vue";
 import type { ChartData } from "chart.js";
+import { PokemonTypeName } from "@/helpers/types";
 
 const props = defineProps<{ pokemon: Record<string, any> }>();
 
 const isChartGenerated = ref(false);
-const currentType = ref("");
-
+const currentType = ref<PokemonTypeName | "">("");
 const baseStatChartData = ref<ChartData<"radar">>({
   labels: [],
   datasets: [
@@ -112,15 +101,27 @@ onMounted(() => {
   setChartData();
 });
 
+type statLabel = [string, number] | [number, string];
+
+type stat = {
+  name: string;
+  positionIndex: number;
+  base_stat: number;
+  stat: {
+    name: string;
+  };
+}
+
+
 function setChartData() {
-  const labels: any[] = [];
+  const labels: statLabel[] = [];
   const datasets: number[] = [];
   let positionIndex = 0;
 
   baseStatChartData.value.labels = [];
   baseStatChartData.value.datasets[0].data = [];
 
-  props.pokemon.stats.forEach((stat: any) => {
+  props.pokemon.stats.forEach((stat: stat) => {
     let name = stat.stat.name;
     switch (name) {
       case "hp":
@@ -160,7 +161,7 @@ function setChartData() {
   isChartGenerated.value = true;
 }
 
-function toggleTypeModal(type: string) {
+function toggleTypeModal(type: PokemonTypeName | "") {
   currentType.value = type;
 }
 </script>
@@ -183,49 +184,11 @@ function toggleTypeModal(type: string) {
     .stat-chart-container {
       max-width: 180px;
     }
-
-    .base-stat-addon-info {
-      display: flex;
-      flex-direction: column;
-      margin-top: $space-24;
-      align-items: center;
-
-      .base-stats-total {
-        margin-bottom: $space-24;
-        width: $space-48;
-        height: $space-48;
-        text-align: center;
-        filter: drop-shadow(0px 1px var(--color-accent-dim))
-          drop-shadow(1px 0px var(--color-accent))
-          drop-shadow(0px -1px var(--color-accent-dim))
-          drop-shadow(-1px 0px var(--color-accent));
-
-        .hexagon-shape {
-          width: $space-48;
-          height: $space-48;
-          clip-path: polygon(
-            50% 0%,
-            95% 25%,
-            95% 75%,
-            50% 100%,
-            5% 75%,
-            5% 25%
-          );
-          background: var(--color-bg-primary);
-
-          .micro-label {
-            padding-top: 12px;
-            font-size: $font-8;
-          }
-          .total-base-stat-number {
-            color: var(--color-text-light);
-            line-height: $font-16;
-            font-size: $font-14;
-          }
-        }
-      }
-    }
   }
+}
+
+.right {
+  width: 120px;
 }
 
 .pokemon-types {

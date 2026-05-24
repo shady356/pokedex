@@ -12,9 +12,8 @@
         id="pokemon-sprite-id"
         :src="pokemon.sprite"
         :class="['pokemon-sprite', { zoom: isPokemonZoom }]"
-        alt="pokemon sprite"
+        alt=""
       >
-      <!-- Loading pokemon sprite -->
       <BaseProgressSpinner v-else />
     </div>
   </transition>
@@ -47,7 +46,6 @@ withDefaults(
 
   .pokemon-sprite {
     position: relative;
-    bottom: 10%;
     max-height: 100%;
     max-width: 100%;
     transform: translateX(0%);
@@ -58,8 +56,8 @@ withDefaults(
 
     &.zoom {
       top: 100%;
-      height: 100% !important;
-      max-height: 100% !important;
+      height: 100%;
+      max-height: 100%;
       transition:
         height 0.4s ease-in,
         top 0.4s ease-in;
