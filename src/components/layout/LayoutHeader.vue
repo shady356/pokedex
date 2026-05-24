@@ -1,6 +1,9 @@
 <template>
   <header class="header">
-    <router-link class="header__column" :to="{ name: routerBack }">
+    <router-link
+      class="header__column"
+      :to="{ name: routerBack }"
+    >
       <BaseButtonIcon>
         <span class="material-icons-round column__button-icon">arrow_back</span>
       </BaseButtonIcon>
@@ -38,12 +41,8 @@ withDefaults(defineProps<{ routerBack?: string }>(), { routerBack: "Home" });
     }
 
     &:nth-child(2) {
-      width: calc(100% - (#{$space-48}* 2));
+      width: calc(100% - (#{$space-40}* 2));
       justify-content: center;
-
-      h1 {
-        font-size: 1.8rem;
-      }
     }
 
     &:nth-child(3) {

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Header>
+    <LayoutHeader>
       <template #title>
         <h1>About</h1>
       </template>
-    </Header>
+    </LayoutHeader>
     <div class="about-container">
       <h3>About</h3>
       <p>
@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import Header from "@/components/layout/Header.vue";
+import LayoutHeader from "@/components/layout/LayoutHeader.vue";
 </script>
 
 <style lang="scss" scoped>

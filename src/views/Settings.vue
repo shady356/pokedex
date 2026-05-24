@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Header>
+    <LayoutHeader>
       <template #title>
         <h1>Settings</h1>
       </template>
-    </Header>
+    </LayoutHeader>
 
     <div class="settings">
       <section class="settings__section">
@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import Header from "@/components/layout/Header.vue";
+import LayoutHeader from "@/components/layout/LayoutHeader.vue";
 import BaseTab from "@/components/base/BaseTab.vue";
 import { getTheme, setTheme, type ThemeOption } from "@/utils/theme";
 

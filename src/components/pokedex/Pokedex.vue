@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header>
+    <LayoutHeader>
       <template #title>
         <h1>Pokédex</h1>
       </template>
@@ -9,12 +9,14 @@
         <BaseButtonIcon @click="openFilter">
           <span
             :class="['material-icons-round filter-item', { active: isFilter }]"
-            >filter_list</span
-          >
+          >filter_list</span>
         </BaseButtonIcon>
       </template>
-    </Header>
-    <div v-if="fetchedCount > 0" class="default-page-margin pokedex-container">
+    </LayoutHeader>
+    <div
+      v-if="fetchedCount > 0"
+      class="default-page-margin pokedex-container"
+    >
       <ul>
         <router-link
           v-for="pokemon in visiblePokemon"
@@ -32,10 +34,16 @@
         </router-link>
       </ul>
     </div>
-    <div v-else class="loading">
+    <div
+      v-else
+      class="loading"
+    >
       <BaseProgressSpinner size="large" />
     </div>
-    <div ref="trigger" class="trigger" />
+    <div
+      ref="trigger"
+      class="trigger"
+    />
 
     <!-- Filter -->
     <BaseModal
@@ -44,7 +52,10 @@
       drag-handler
       @close-modal="closeFilter"
     >
-      <FilterPokemon :is-filter="isFilter" @apply-filters="updateFilters" />
+      <FilterPokemon
+        :is-filter="isFilter"
+        @apply-filters="updateFilters"
+      />
     </BaseModal>
 
     <div v-if="isPokemonModal">
@@ -65,7 +76,7 @@ import BaseButtonIcon from "@/components/base/BaseButtonIcon.vue";
 import BaseModal from "@/components/base/BaseModal.vue";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
 import FilterPokemon from "@/components/pokedex/FilterPokemon.vue";
-import Header from "@/components/layout/Header.vue";
+import LayoutHeader from "@/components/layout/LayoutHeader.vue";
 import PokedexItem from "@/components/pokedex/PokedexItem.vue";
 import { useQueryClient, STALE } from "@/composables/usePokeApi";
 import { useInfiniteScroll } from "@/composables/useInfiniteScroll";

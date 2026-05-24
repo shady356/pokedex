@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Header>
+    <LayoutHeader>
       <template #title>
         <h1>Types</h1>
       </template>
-    </Header>
+    </LayoutHeader>
     <div class="types-list-container">
       <TypesList @select-type="openTypeModal" />
     </div>
@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import Header from "@/components/layout/Header.vue";
+import LayoutHeader from "@/components/layout/LayoutHeader.vue";
 import TypesList from "@/components/types/TypesList.vue";
 import TypeModal from "@/components/types/TypeModal.vue";
 import BaseModal from "@/components/base/BaseModal.vue";
