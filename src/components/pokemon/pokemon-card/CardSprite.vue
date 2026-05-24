@@ -10,7 +10,7 @@
       <img
         v-if="!offloadSprite"
         id="pokemon-sprite-id"
-        :src="pokemon.sprite"
+        :src="pokemon?.sprite"
         :class="['pokemon-sprite', { zoom: isPokemonZoom }]"
         alt=""
       >
@@ -21,17 +21,15 @@
 
 <script setup lang="ts">
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
+import { PokemonCardData } from "@/types/pokemon";
 
-withDefaults(
-  defineProps<{
-    slideDirection: string;
-    pokemonId: number | string;
-    offloadSprite: boolean;
-    pokemon?: Record<string, any>;
-    isPokemonZoom: boolean;
-  }>(),
-  { pokemon: () => ({}) },
-);
+defineProps<{
+  slideDirection: string;
+  pokemonId: number | string;
+  offloadSprite: boolean;
+  pokemon?: PokemonCardData;
+  isPokemonZoom: boolean;
+}>();
 </script>
 
 <style lang="scss" scoped>
