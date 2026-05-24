@@ -13,7 +13,7 @@
         @touchmove.passive="movePokemon"
         @touchend="endHandler"
       >
-        <CardHeader :pokemon="pokemon!" :pokemon-id="pokemonId" />
+        <CardHeader :pokemon-name="pokemon?.name" :pokemon-id="pokemonId" />
         <!-- Pagination buttons -->
         <div class="pagination-buttons">
           <BaseButtonIcon
@@ -128,15 +128,11 @@ const dotGridTexture = new URL(
   import.meta.url,
 ).href;
 
-const props = withDefaults(
-  defineProps<{
-    pokemonId: number | string;
-    pokemonIndex?: number;
-    isFirstPokemon: boolean;
-    isLastPokemon: boolean;
-  }>(),
-  { pokemonIndex: 0 },
-);
+const props = defineProps<{
+  pokemonId: number;
+  isFirstPokemon: boolean;
+  isLastPokemon: boolean;
+}>();
 const emit = defineEmits<{ "paginate-pokemon": [direction: string] }>();
 
 const pokemonId = toRef(props, "pokemonId");
@@ -196,7 +192,6 @@ const firstType = computed(() => {
   const type = pokemon.value!.types.find((t: any) => t.slot === 1);
   return type?.type.name ?? "";
 });
-
 
 const isPokemonLoaded = computed(
   () => !!(pokemon.value && pokemonSpecies.value),

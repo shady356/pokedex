@@ -4,7 +4,6 @@
     <BaseModal is-pokemon-card @close-modal="closePokemonCardController()">
       <PokemonCard
         :pokemon-id="pokemonId"
-        :pokemon-index="pokemonIndex"
         :is-first-pokemon="isFirstPokemon"
         :is-last-pokemon="isLastPokemon"
         @paginate-pokemon="paginatePokemon"
@@ -21,18 +20,18 @@ import PokemonCard from "@/components/pokemon/PokemonCard.vue";
 
 const props = withDefaults(
   defineProps<{
-    pokemonId: number | string;
-    pokemonIndex?: number;
+    pokemonId: number;
     pokedexIds?: number[];
   }>(),
-  { pokemonIndex: 0, pokedexIds: () => [] },
+  { pokedexIds: () => [] },
 );
 
 const router = useRouter();
 
-const isFirstPokemon = computed(() => props.pokemonIndex === 0);
+const pokemonIndex = computed(() => props.pokedexIds.indexOf(props.pokemonId));
+const isFirstPokemon = computed(() => pokemonIndex.value === 0);
 const isLastPokemon = computed(
-  () => props.pokemonIndex === props.pokedexIds.length - 1,
+  () => pokemonIndex.value === props.pokedexIds.length - 1,
 );
 
 function closePokemonCardController() {
@@ -49,9 +48,8 @@ function paginatePreviousPokemon() {
     router.push({
       name: "PokemonCardController",
       params: {
-        pokemonId: getPokemonPaginationId(props.pokemonIndex!, "previous"),
+        pokemonId: getPokemonPaginationId(pokemonIndex.value, "previous"),
       },
-      query: { i: props.pokemonIndex! - 1 },
     });
   }
 }
@@ -61,9 +59,8 @@ function paginateNextPokemon() {
     router.push({
       name: "PokemonCardController",
       params: {
-        pokemonId: getPokemonPaginationId(props.pokemonIndex!, "next"),
+        pokemonId: getPokemonPaginationId(pokemonIndex.value, "next"),
       },
-      query: { i: props.pokemonIndex! + 1 },
     });
   }
 }

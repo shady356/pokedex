@@ -17,14 +17,13 @@
     <div v-if="fetchedCount > 0" class="default-page-margin pokedex-container">
       <ul>
         <router-link
-          v-for="(pokemon, index) in visiblePokemon"
+          v-for="pokemon in visiblePokemon"
           :key="pokemon.id"
           v-slot="{ navigate }"
           custom
           :to="{
             name: 'PokemonCardController',
             params: { pokemonId: pokemon.id },
-            query: { i: index },
           }"
         >
           <li @click="navigate">

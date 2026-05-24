@@ -1,33 +1,38 @@
 <template>
-  <div class="white-bar">
+  <div class="top-bar">
     <div class="name-type-container">
       <h2 class="capitalize pokemon-name">
-        {{ pokemon.name }}
+        {{ pokemonName }}
       </h2>
     </div>
 
-    <div class="index-number">#{{ getIndex(pokemonId) }}</div>
+    <div class="index-number">
+      #{{ pokemonIdIndex }}
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  pokemon: Record<string, any>;
-  pokemonId: number | string;
+import { computed } from 'vue';
+
+const props = defineProps<{
+  pokemonId: number;
+  pokemonName: string;
 }>();
 
-function getIndex(value: number | string): string {
-  const n = Number(value);
-  if (n < 10) return "00" + n;
-  if (n < 100) return "0" + n;
-  return String(n);
-}
+const pokemonIdIndex = computed(() => {
+  const n = props.pokemonId;
+  if (n < 10) return "000" + n;
+  if (n < 100) return "00" + n;
+  return "0" + n;
+});
+
+
 </script>
 
 <style lang="scss" scoped>
-.white-bar {
+.top-bar {
   position: relative;
-  border-radius: $space-16 $space-16 0 0;
   background: var(--color-bg-primary);
   width: 100%;
   clip-path: polygon(100% 0, 100% 60%, 75% 60%, 60% 100%, 0 100%, 0 0);

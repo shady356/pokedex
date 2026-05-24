@@ -14,8 +14,7 @@ const routes: RouteRecordRaw[] = [
         name: "PokemonCardController",
         path: ":pokemonId",
         props: (route) => ({
-          pokemonId: route.params.pokemonId,
-          pokemonIndex: Number(route.query.i ?? 0),
+          pokemonId: Number(route.params.pokemonId),
         }),
         component: () =>
           import("../components/pokemon/PokemonCardController.vue"),
