@@ -81,6 +81,7 @@ import PokedexItem from "@/components/pokedex/PokedexItem.vue";
 import { useQueryClient, STALE } from "@/composables/usePokeApi";
 import { useInfiniteScroll } from "@/composables/useInfiniteScroll";
 import { fetchPokemonForm } from "@/service/pokeApi";
+import { getPokemonSprite } from "@/helpers/sprites";
 
 const queryClient = useQueryClient();
 const route = useRoute();
@@ -140,6 +141,7 @@ async function fetchPokemon(id: number, index: number) {
     id: data.id,
     name: data.name,
     types: data.types,
+    sprite: getPokemonSprite(data.id),
   };
   fetchedCount.value++;
 }

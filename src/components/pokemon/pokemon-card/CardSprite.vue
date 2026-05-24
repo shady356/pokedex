@@ -1,13 +1,19 @@
 <template>
-  <transition name="fade" mode="out-in">
-    <div :key="pokemonId" class="pokemon-sprite-container">
+  <transition
+    name="fade"
+    mode="out-in"
+  >
+    <div
+      :key="pokemonId"
+      class="pokemon-sprite-container"
+    >
       <img
         v-if="!offloadSprite"
         id="pokemon-sprite-id"
-        :src="pokemonSpriteImg"
+        :src="pokemon.sprite"
         :class="['pokemon-sprite', { zoom: isPokemonZoom }]"
         alt="pokemon sprite"
-      />
+      >
       <!-- Loading pokemon sprite -->
       <BaseProgressSpinner v-else />
     </div>
@@ -15,11 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { getPokemonSpriteByName } from "@/helpers/sprites";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     slideDirection: string;
     pokemonId: number | string;
@@ -28,10 +32,6 @@ const props = withDefaults(
     isPokemonZoom: boolean;
   }>(),
   { pokemon: () => ({}) },
-);
-
-const pokemonSpriteImg = computed(() =>
-  getPokemonSpriteByName(props.pokemon!.name),
 );
 </script>
 

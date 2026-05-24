@@ -1,18 +1,25 @@
 <template>
-  <div v-if="pokemon && pokemon.name" class="sprite">
-    <img class="sprite__image" :src="sprite" alt="" />
+  <div
+    v-if="pokemon && pokemon.name"
+    class="sprite"
+  >
+    <img
+      class="sprite__image"
+      :src="pokemon.sprite"
+      alt=""
+    >
   </div>
-  <div v-else class="sprite--empty" />
+  <div
+    v-else
+    class="sprite--empty"
+  />
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { getPokemonSpriteByName } from "@/helpers/sprites";
 import type { PokemonEntry } from "@/helpers/pokedexFilters";
 
-const props = defineProps<{ pokemon: PokemonEntry }>();
+defineProps<{ pokemon: PokemonEntry }>();
 
-const sprite = computed(() => getPokemonSpriteByName(props.pokemon.name));
 </script>
 
 <style lang="scss" scoped>

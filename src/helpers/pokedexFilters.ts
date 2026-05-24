@@ -9,6 +9,7 @@ export interface PokemonEntry {
   id: number
   name: string
   types: Array<{ type: { name: string } }>
+  sprite: string
 }
 
 export interface Filters {
@@ -34,6 +35,7 @@ const toEntry = (id: number): PokemonEntry => ({
   id,
   name: "",
   types: [{ type: { name: "normal" } }],
+  sprite: "",
 });
 
 export const $filterData = async (filters: Filters): Promise<PokemonEntry[]> => {

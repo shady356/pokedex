@@ -13,7 +13,10 @@
         @touchmove.passive="movePokemon"
         @touchend="endHandler"
       >
-        <CardHeader :pokemon-name="pokemon?.name" :pokemon-id="pokemonId" />
+        <CardHeader
+          :pokemon-name="pokemon?.name"
+          :pokemon-id="pokemonId"
+        />
         <!-- Pagination buttons -->
         <div class="pagination-buttons">
           <BaseButtonIcon
@@ -39,7 +42,10 @@
           :is-pokemon-zoom="isPokemonZoom"
         />
         <!-- Zoom on sprite button -->
-        <BaseButtonIcon class="zoom-pokemon-button" @click="toggleZoom()">
+        <BaseButtonIcon
+          class="zoom-pokemon-button"
+          @click="toggleZoom()"
+        >
           <span class="material-icons">{{
             isPokemonZoom ? "zoom_out" : "zoom_in"
           }}</span>
@@ -47,8 +53,14 @@
       </section>
 
       <!-- Meta card container -->
-      <transition name="slide-v" mode="out-in">
-        <section v-if="!isPokemonZoom" class="meta-container section-2">
+      <transition
+        name="slide-v"
+        mode="out-in"
+      >
+        <section
+          v-if="!isPokemonZoom"
+          class="meta-container section-2"
+        >
           <BaseTab
             class="tab-header"
             :items="metaItems"
@@ -56,7 +68,10 @@
           />
 
           <div class="tab-content">
-            <transition name="fade" mode="out-in">
+            <transition
+              name="fade"
+              mode="out-in"
+            >
               <!-- About -->
               <div
                 v-if="metaItems[0].active"
@@ -72,7 +87,11 @@
               </div>
 
               <!-- Moves -->
-              <div v-else key="tab-moves" class="moves-container">
+              <div
+                v-else
+                key="tab-moves"
+                class="moves-container"
+              >
                 <PokemonMoves
                   v-if="Number(pokemonId) <= 251"
                   :pokemon-id="pokemonId"
@@ -96,12 +115,18 @@
       </transition>
     </div>
     <!-- Loading screen -->
-    <div v-else class="loading-screen">
+    <div
+      v-else
+      class="loading-screen"
+    >
       <BaseProgressSpinner size="large" />
     </div>
 
     <!-- Ability modal -->
-    <BaseModal v-if="isAbilityModalOpen" @close-modal="closeAbilityModal">
+    <BaseModal
+      v-if="isAbilityModalOpen"
+      @close-modal="closeAbilityModal"
+    >
       <AbilityModal :ability-name="currentAbilityInModal ?? ''" />
     </BaseModal>
   </div>
@@ -145,7 +170,7 @@ const pokemon = computed(() => {
   return {
     id: d.id,
     name: d.name,
-    sprite: d.sprites.front_default,
+    sprite: d.sprites.other['official-artwork'].front_default,
     abilities: d.abilities,
     stats: d.stats,
     types: d.types,

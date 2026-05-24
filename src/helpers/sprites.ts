@@ -1,2 +1,2 @@
-export const getPokemonSpriteByName = (name: string): string =>
-  `https://img.pokemondb.net/sprites/home/normal/${name}.png`
+export const getPokemonSprite = (id: number): string =>
+  `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${id}.png`
