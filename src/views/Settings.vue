@@ -13,10 +13,14 @@
         </h2>
 
         <div class="settings__row">
-          <span class="settings__label">
-            <span class="material-icons-round">palette</span>
-            Theme
-          </span>
+          <div class="settings__left">
+            <div class="settings__icon">
+              <span class="material-icons-round">palette</span>
+            </div>
+            <div class="settings__label">
+              Theme
+            </div>
+          </div>
           <BaseTab
             :items="tabItems"
             @change-tab="onChangeTab"
@@ -36,8 +40,8 @@ import { getTheme, setTheme, type ThemeOption } from "@/utils/theme";
 const currentTheme = ref<ThemeOption>(getTheme());
 const themeOptions = [
   { value: "light" as ThemeOption, label: "Light" },
-  { value: "system" as ThemeOption, label: "System" },
   { value: "dark" as ThemeOption, label: "Dark" },
+  { value: "system" as ThemeOption, label: "System" },
 ];
 
 const tabItems = computed(() =>
@@ -65,7 +69,7 @@ function onChangeTab(index: number) {
     font-size: $font-12;
     font-weight: 600;
     text-transform: uppercase;
-    color: var(--color-text-light);
+    color: var(--color-text-secondary);
     margin-bottom: $space-12;
   }
 
@@ -79,6 +83,12 @@ function onChangeTab(index: number) {
     min-height: $space-48;
   }
 
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: $space-12;
+  }
+
   &__label {
     display: flex;
     align-items: center;
@@ -86,9 +96,21 @@ function onChangeTab(index: number) {
     font-size: $font-16;
     color: var(--color-text);
 
-    .material-icons-round {
-      font-size: $font-20;
-    }
   }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $space-40;
+    height: $space-40;
+    background: var(--color-bg-secondary);
+    border-radius: 50%;
+    color: var(--color-text);
+  }
+}
+
+.material-icons-round {
+  font-size: $font-24;
 }
 </style>
