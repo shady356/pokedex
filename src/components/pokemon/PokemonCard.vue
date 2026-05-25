@@ -66,7 +66,6 @@
             :items="metaItems"
             @change-tab="changeMetaTab"
           />
-
           <div class="tab-content">
             <transition
               name="fade"
@@ -397,7 +396,10 @@ function toggleZoom() {
     .tab-content {
       overflow-y: auto;
       overflow-x: hidden;
-      margin-right: -$space-12;
+
+      @media (min-width: 1024px) {
+        margin-right: -$space-12;
+      } 
     }
   }
 }

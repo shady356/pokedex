@@ -54,15 +54,10 @@ function changeTab(index: number) {
       width: 100%;
       padding: $space-8 $space-16;
       border-radius: $space-16;
-      font-family: "Roboto Condensed", sans-serif;
       background: transparent;
       border: none;
       text-align: center;
       -webkit-tap-highlight-color: transparent;
-
-      .text {
-        font-weight: 400;
-      }
 
       &.active {
         color: var(--color-bg-primary);
