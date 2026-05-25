@@ -80,20 +80,88 @@ const VERSION_GROUP_GEN: Record<string, number> = {
   "ultra-sun-ultra-moon": 7,
 };
 
-const METHOD_KEY: Record<string, string> = {
+interface VersionGroupDetail {
+  level_learned_at: number;
+  move_learn_method: { name: string };
+  version_group: { name: string };
+}
+
+interface PokemonMoveRef {
+  move: { name: string };
+  version_group_details: VersionGroupDetail[];
+}
+
+interface MoveDetails {
+  accuracy: number | null;
+  damage_class?: { name: string };
+  power: number | null;
+  type?: { name: string };
+}
+
+interface MoveEntry {
+  name: string;
+  accuracy: number | null;
+  category: string | undefined;
+  power: number | null;
+  type: string | undefined;
+  level: number;
+}
+
+type GenMethod = "levelUp" | "egg" | "machine" | "tutor";
+
+interface GenData {
+  name: string;
+  levelUp: MoveEntry[];
+  egg: MoveEntry[];
+  machine: MoveEntry[];
+  tutor: MoveEntry[];
+}
+
+const METHOD_KEY: Record<string, GenMethod> = {
   "level-up": "levelUp",
   egg: "egg",
   machine: "machine",
   tutor: "tutor",
 };
 
-interface GenData {
-  name: string;
-  levelUp: any[];
-  egg: any[];
-  machine: any[];
-  tutor: any[];
+const TOTAL_GENS = 7;
+const DEFAULT_GEN_INDEX = 6; // Gen 7 tab (0-based)
+
+// --- helpers (pure, no reactivity) ---
+
+function createEmptyGens(): GenData[] {
+  return Array.from({ length: TOTAL_GENS }, (_, i) => ({
+    name: `gen${i + 1}`,
+    levelUp: [],
+    egg: [],
+    machine: [],
+    tutor: [],
+  }));
 }
+
+function buildMoveEntry(
+  moveName: string,
+  details: MoveDetails,
+  level: number,
+): MoveEntry {
+  return {
+    name: moveName,
+    accuracy: details.accuracy,
+    category: details.damage_class?.name,
+    power: details.power,
+    type: details.type?.name,
+    level,
+  };
+}
+
+function sortGenMoves(gen: GenData): void {
+  gen.levelUp = sortBy(gen.levelUp, "level");
+  gen.egg = sortBy(gen.egg, "name");
+  gen.machine = sortBy(gen.machine, "name");
+  gen.tutor = sortBy(gen.tutor, "name");
+}
+
+// --- component ---
 
 const props = defineProps<{ pokemonId: number | string; types: string[] }>();
 
@@ -102,14 +170,14 @@ const { data: pokemonData } = usePokemon(pokemonId);
 
 const moveNames = computed<string[]>(() => [
   ...new Set<string>(
-    (pokemonData.value?.moves ?? []).map((m: any) => m.move.name as string),
+    (pokemonData.value?.moves ?? []).map((m: PokemonMoveRef) => m.move.name),
   ),
 ]);
 
 const moveDetailQueries = useMoveDetails(moveNames);
 
-const moveDetailsMap = computed<Record<string, any>>(() => {
-  const map: Record<string, any> = {};
+const moveDetailsMap = computed<Record<string, MoveDetails>>(() => {
+  const map: Record<string, MoveDetails> = {};
   moveDetailQueries.value.forEach((q) => {
     if (q.data) map[q.data.name] = q.data;
   });
@@ -123,76 +191,57 @@ const isMovesLoaded = computed(
     moveDetailQueries.value.every((q) => q.isSuccess),
 );
 
-const generations = computed(() => {
+const generations = computed((): GenData[] => {
   if (!isMovesLoaded.value) return [];
 
-  const gens: GenData[] = Array.from({ length: 7 }, (_, i) => ({
-    name: "gen" + (i + 1),
-    levelUp: [],
-    egg: [],
-    machine: [],
-    tutor: [],
-  }));
+  const gens = createEmptyGens();
 
-  pokemonData.value.moves.forEach(({ move, version_group_details }: any) => {
-    const details = moveDetailsMap.value[move.name];
-    if (!details) return;
+  (pokemonData.value.moves as PokemonMoveRef[]).forEach(
+    ({ move, version_group_details }) => {
+      const details = moveDetailsMap.value[move.name];
+      if (!details) return;
 
-    const seen = new Set<string>();
-    version_group_details.forEach(
-      ({ level_learned_at, move_learn_method, version_group }: any) => {
-        const gen = VERSION_GROUP_GEN[version_group.name];
-        const method = METHOD_KEY[move_learn_method.name];
-        if (!gen || !method) return;
+      const seen = new Set<string>();
+      version_group_details.forEach(
+        ({ level_learned_at, move_learn_method, version_group }) => {
+          const genIndex = VERSION_GROUP_GEN[version_group.name];
+          const method = METHOD_KEY[move_learn_method.name];
+          if (!genIndex || !method) return;
 
-        const key = `${gen}-${method}`;
-        if (seen.has(key)) return;
-        seen.add(key);
-        (gens[gen - 1] as any)[method].push({
-          name: move.name,
-          accuracy: details.accuracy,
-          category: details.damage_class?.name,
-          power: details.power,
-          type: details.type?.name,
-          level: level_learned_at,
-        });
-      },
-    );
-  });
+          const key = `${genIndex}-${method}`;
+          if (seen.has(key)) return;
+          seen.add(key);
 
-  gens.forEach((gen) => {
-    gen.levelUp = sortBy(gen.levelUp, "level");
-    gen.egg = sortBy(gen.egg, "name");
-    gen.machine = sortBy(gen.machine, "name");
-    gen.tutor = sortBy(gen.tutor, "name");
-  });
+          gens[genIndex - 1][method].push(
+            buildMoveEntry(move.name, details, level_learned_at),
+          );
+        },
+      );
+    },
+  );
 
+  gens.forEach(sortGenMoves);
   return gens;
 });
 
-const selectedGeneration = ref(6);
-const tabs = ref([
-  { name: "1", active: false },
-  { name: "2", active: false },
-  { name: "3", active: false },
-  { name: "4", active: false },
-  { name: "5", active: false },
-  { name: "6", active: false },
-  { name: "7", active: true },
-]);
+const selectedGeneration = ref(DEFAULT_GEN_INDEX);
+const tabs = ref(
+  Array.from({ length: TOTAL_GENS }, (_, i) => ({
+    name: String(i + 1),
+    active: i === DEFAULT_GEN_INDEX,
+  })),
+);
 const tableHeaders = ["move", "type", "category", "power", "acc."];
 
-watch(pokemonId, () => {
-  tabs.value.forEach((tab, i) => {
-    tab.active = i === 6;
-  });
-  selectedGeneration.value = 6;
-});
+function resetToLatestGen() {
+  tabs.value.forEach((tab, i) => (tab.active = i === DEFAULT_GEN_INDEX));
+  selectedGeneration.value = DEFAULT_GEN_INDEX;
+}
+
+watch(pokemonId, resetToLatestGen);
 
 function changeTab(index: number) {
-  tabs.value.forEach((tab) => {
-    tab.active = false;
-  });
+  tabs.value.forEach((tab) => (tab.active = false));
   tabs.value[index].active = true;
   selectedGeneration.value = index;
 }

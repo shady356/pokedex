@@ -60,7 +60,9 @@
       "PowerShell(head -50)",
       "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\src\" -Recurse | Where-Object {$_.PSIsContainer} | Select-Object -ExpandProperty FullName | Sort-Object)",
       "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\src\\\\components\" -Recurse | Where-Object {!$_.PSIsContainer} | Select-Object -ExpandProperty FullName)",
-      "PowerShell(tree -L 3 -d \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\src\")"
+      "PowerShell(tree -L 3 -d \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\src\")",
+      "Skill(refactor)",
+      "Skill(refactor:*)"
     ],
     "additionalDirectories": [
       "c:\\Users\\henri\\Documents\\code\\pokedex\\.claude\\skills"
