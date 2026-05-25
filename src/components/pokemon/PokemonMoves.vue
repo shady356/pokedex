@@ -2,11 +2,9 @@
   <div>
     <div v-if="isMovesLoaded">
       <div class="generation">
-        <h6>Generation:</h6>
-        <BaseTab
-          class="tab-header"
-          :items="tabs"
-          @change-tab="changeTab"
+        <BaseSelect
+          :options="generationOptions"
+          @change="changeGeneration"
         />
       </div>
       <PokemonMovesTable
@@ -52,25 +50,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, toRef } from "vue";
+import { ref, computed, toRef } from "vue";
 import { usePokemon, useMoveDetails } from "@/composables/usePokeApi";
 import sortBy from "lodash.sortby";
 import PokemonMovesTable from "@/components/pokemon/PokemonMovesTable.vue";
-import BaseTab from "@/components/base/BaseTab.vue";
 import BaseProgressSpinner from "@/components/base/BaseProgressSpinner.vue";
+import BaseSelect, { optionsType } from "../base/BaseSelect.vue";
 
 const VERSION_GROUP_GEN: Record<string, number> = {
   "red-blue": 1,
-  yellow: 1,
+  "yellow": 1,
   "gold-silver": 2,
-  crystal: 2,
+  "crystal": 2,
   "ruby-sapphire": 3,
-  emerald: 3,
+  "emerald": 3,
   "firered-leafgreen": 3,
-  colosseum: 3,
-  xd: 3,
+  "colosseum": 3,
+  "xd": 3,
   "diamond-pearl": 4,
-  platinum: 4,
+  "platinum": 4,
   "heartgold-soulsilver": 4,
   "black-white": 5,
   "black-2-white-2": 5,
@@ -224,26 +222,19 @@ const generations = computed((): GenData[] => {
   return gens;
 });
 
+const generationOptions = computed(() => {
+  return Object.entries(VERSION_GROUP_GEN).map(([label, value]):optionsType => ({
+    label,
+    value: String(value)
+  }));
+});
+
 const selectedGeneration = ref(DEFAULT_GEN_INDEX);
-const tabs = ref(
-  Array.from({ length: TOTAL_GENS }, (_, i) => ({
-    name: String(i + 1),
-    active: i === DEFAULT_GEN_INDEX,
-  })),
-);
+
 const tableHeaders = ["move", "type", "category", "power", "acc."];
 
-function resetToLatestGen() {
-  tabs.value.forEach((tab, i) => (tab.active = i === DEFAULT_GEN_INDEX));
-  selectedGeneration.value = DEFAULT_GEN_INDEX;
-}
-
-watch(pokemonId, resetToLatestGen);
-
-function changeTab(index: number) {
-  tabs.value.forEach((tab) => (tab.active = false));
-  tabs.value[index].active = true;
-  selectedGeneration.value = index;
+function changeGeneration(value: string) {
+  selectedGeneration.value = Number(value);
 }
 </script>
 
