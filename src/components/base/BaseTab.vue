@@ -45,14 +45,14 @@ function changeTab(index: number) {
   .tab-list {
     display: flex;
     background: var(--color-bg-secondary);
-    border-radius: $space-16;
+    border-radius: $space-24;
     padding: $space-4;
 
     .tab-item {
       cursor: pointer;
       color: var(--color-text-light);
       width: 100%;
-      padding: $space-4 $space-16;
+      padding: $space-8 $space-16;
       border-radius: $space-16;
       font-family: "Roboto Condensed", sans-serif;
       background: transparent;
@@ -65,27 +65,13 @@ function changeTab(index: number) {
       }
 
       &.active {
-        color: var(--color-tab-highlight);
-        background: var(--color-bg-primary);
-        transition: all 0.4s;
+        color: var(--color-bg-primary);
+        background: var(--color-tab-highlight);
 
         .text {
           font-weight: 700;
         }
       }
-    }
-  }
-  .border-line {
-    background: var(--color-bg-secondary);
-    height: 1px;
-    position: relative;
-    width: 100%;
-
-    .indicator {
-      background: var(--color-primary);
-      height: 1px;
-      position: absolute;
-      transition: left 0.2s ease-in-out;
     }
   }
 }

@@ -388,8 +388,8 @@ function toggleZoom() {
 
   // Section 2
   .meta-container {
-    border-radius: $space-12 $space-12 0 0;
-    padding: $space-16;
+    border-radius: $space-16 $space-16 0 0;
+    padding: $space-12;
     margin: 0 $space-8;
     display: flex;
     flex-direction: column;
@@ -397,6 +397,7 @@ function toggleZoom() {
     .tab-content {
       overflow-y: auto;
       overflow-x: hidden;
+      margin-right: -$space-12;
     }
   }
 }
