@@ -62,7 +62,8 @@
       "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\src\\\\components\" -Recurse | Where-Object {!$_.PSIsContainer} | Select-Object -ExpandProperty FullName)",
       "PowerShell(tree -L 3 -d \"c:\\\\Users\\\\henri\\\\Documents\\\\code\\\\pokedex\\\\src\")",
       "Skill(refactor)",
-      "Skill(refactor:*)"
+      "Skill(refactor:*)",
+      "Bash(git rm *)"
     ],
     "additionalDirectories": [
       "c:\\Users\\henri\\Documents\\code\\pokedex\\.claude\\skills"
